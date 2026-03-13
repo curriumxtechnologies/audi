@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audi | About Us</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-container": "#dfe3e5",
+              "on-secondary-container": "#616567",
+              "surface-container-highest": "#e2e2e2",
+              "secondary-fixed": "#dfe3e5",
+              "inverse-surface": "#2f3131",
+              "surface-dim": "#dadada",
+              error: "#ba1a1a",
+              "surface-container-high": "#e8e8e8",
+              "primary-fixed-dim": "#c6c6c6",
+              "on-surface": "#1a1c1c",
+              outline: "#7e7576",
+              "on-error": "#ffffff",
+              "on-secondary-fixed": "#181c1e",
+              "on-background": "#1a1c1c",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb3b3",
+              "error-container": "#ffdad6",
+              "on-surface-variant": "#4c4546",
+              "surface-container-lowest": "#ffffff",
+              "surface-variant": "#e2e2e2",
+              "surface-bright": "#f9f9f9",
+              "secondary-fixed-dim": "#c3c7c9",
+              surface: "#f9f9f9",
+              "on-primary-container": "#848484",
+              "inverse-primary": "#c6c6c6",
+              "surface-tint": "#5e5e5e",
+              "primary-fixed": "#e2e2e2",
+              background: "#f9f9f9",
+              "on-secondary": "#ffffff",
+              "on-primary": "#ffffff",
+              "outline-variant": "#cfc4c5",
+              "on-primary-fixed-variant": "#474747",
+              "on-tertiary-fixed-variant": "#920022",
+              "surface-container": "#eeeeee",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#400009",
+              "on-tertiary-fixed": "#400009",
+              "on-secondary-fixed-variant": "#434749",
+              secondary: "#5b5f61",
+              primary: "#000000",
+              "on-tertiary-container": "#f33d52",
+              "primary-container": "#1b1b1b",
+              "surface-container-low": "#f3f3f3",
+              "inverse-on-surface": "#f1f1f1",
+              "tertiary-fixed": "#ffdad9",
+              tertiary: "#000000",
+              "on-primary-fixed": "#1b1b1b",
+            },
+            fontFamily: {
+              headline: ["Manrope"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .glass-header {
+        background: rgba(243, 243, 243, 0.8);
+        backdrop-filter: blur(24px);
+      }
+      .timeline-dot {
+        width: 12px;
+        height: 12px;
+        background: #000;
+        border-radius: 50%;
+        position: absolute;
+        left: -6px;
+        top: 6px;
+      }
+      .hover-scale {
+        transition: transform 0.3s ease;
+      }
+      .hover-scale:hover {
+        transform: scale(1.02);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-surface text-on-surface font-body selection:bg-primary selection:text-white"
+  >
+    <!-- Top Navigation Bar -->
+    <header
+      class="glass-header sticky top-0 z-50 border-b border-outline-variant/10"
+    >
+      <nav
+        class="container mx-auto px-6 py-4 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-12">
+          <a
+            href="index.html"
+            class="font-headline text-2xl font-extrabold tracking-tighter"
+            >Audi</a
+          >
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <!-- About Hero -->
+      <section class="relative h-[60vh] kinetic-monolith">
+        <div class="absolute inset-0">
+          <img
+            class="w-full h-full object-cover"
+            src="https://images.unsplash.com/photo-1617814086906-d847a8bc6fca?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80"
+            alt="Audi Headquarters"
+          />
+          <div
+            class="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent"
+          ></div>
+        </div>
+        <div
+          class="container mx-auto px-6 relative z-10 h-full flex items-center"
+        >
+          <div class="max-w-2xl text-white">
+            <span
+              class="text-xs font-bold tracking-[0.2em] text-white/60 mb-4 block"
+              >OUR STORY</span
+            >
+            <h1
+              class="font-headline text-6xl lg:text-7xl font-extrabold tracking-tighter leading-[0.9] mb-6"
+            >
+              Vorsprung durch Technik
+            </h1>
+            <p class="text-lg text-white/80 mb-8 max-w-lg">
+              "Advancement through Technology" – Our guiding principle since
+              1909.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Heritage Section -->
+      <section class="py-24 bg-surface">
+        <div class="container mx-auto px-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+              <span
+                class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4 block"
+                >HERITAGE</span
+              >
+              <h2 class="font-headline text-4xl font-bold tracking-tight mb-6">
+                Over a Century of Innovation
+              </h2>
+              <p class="text-on-surface-variant text-lg mb-6">
+                Founded in 1909 by August Horch, Audi has been at the forefront
+                of automotive engineering for over 110 years. The name "Audi"
+                comes from the Latin translation of the founder's surname
+                "Horch" – meaning "listen" in German.
+              </p>
+              <p class="text-on-surface-variant text-lg">
+                From the revolutionary quattro all-wheel drive system to today's
+                fully electric e-tron models, we've consistently pushed the
+                boundaries of what's possible.
+              </p>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <img
+                class="w-full h-48 object-cover"
+                src="https://images.unsplash.com/photo-1605515298946-d062f2e9da53?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Vintage Audi"
+              />
+              <img
+                class="w-full h-48 object-cover mt-8"
+                src="https://images.unsplash.com/photo-1614200185124-7a642dcbb5ca?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+                alt="Modern Audi"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Timeline -->
+      <section class="py-24 bg-surface-container-low">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-16">
+            <h2 class="font-headline text-4xl font-bold tracking-tight mb-4">
+              Milestones
+            </h2>
+            <p class="text-on-surface-variant max-w-2xl mx-auto">
+              Key moments in Audi's history that shaped the automotive world.
+            </p>
+          </div>
+          <div class="max-w-3xl mx-auto">
+            <div class="space-y-12">
+              <div class="relative pl-8 border-l-2 border-primary">
+                <div class="timeline-dot"></div>
+                <div class="mb-2 text-sm font-bold text-primary">1909</div>
+                <h3 class="font-headline text-xl font-bold mb-2">
+                  Foundation of Audi
+                </h3>
+                <p class="text-on-surface-variant">
+                  August Horch establishes Audi Automobilwerke GmbH in Zwickau,
+                  Germany.
+                </p>
+              </div>
+              <div class="relative pl-8 border-l-2 border-primary">
+                <div class="timeline-dot"></div>
+                <div class="mb-2 text-sm font-bold text-primary">1932</div>
+                <h3 class="font-headline text-xl font-bold mb-2">
+                  Four Rings Born
+                </h3>
+                <p class="text-on-surface-variant">
+                  Audi, DKW, Horch, and Wanderer merge to form Auto Union AG –
+                  the four rings are born.
+                </p>
+              </div>
+              <div class="relative pl-8 border-l-2 border-primary">
+                <div class="timeline-dot"></div>
+                <div class="mb-2 text-sm font-bold text-primary">1980</div>
+                <h3 class="font-headline text-xl font-bold mb-2">
+                  quattro Revolution
+                </h3>
+                <p class="text-on-surface-variant">
+                  Audi presents the first permanent all-wheel drive sports coupe
+                  at the Geneva Motor Show.
+                </p>
+              </div>
+              <div class="relative pl-8 border-l-2 border-primary">
+                <div class="timeline-dot"></div>
+                <div class="mb-2 text-sm font-bold text-primary">1994</div>
+                <h3 class="font-headline text-xl font-bold mb-2">
+                  A8 with ASF
+                </h3>
+                <p class="text-on-surface-variant">
+                  Introduction of the Audi Space Frame (ASF) aluminum body in
+                  the A8 flagship sedan.
+                </p>
+              </div>
+              <div class="relative pl-8 border-l-2 border-primary">
+                <div class="timeline-dot"></div>
+                <div class="mb-2 text-sm font-bold text-primary">2018</div>
+                <h3 class="font-headline text-xl font-bold mb-2">
+                  Electric Era Begins
+                </h3>
+                <p class="text-on-surface-variant">
+                  Launch of the first fully electric Audi e-tron, marking the
+                  start of our electric future.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Leadership -->
+      <section class="py-24 bg-surface">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-16">
+            <span
+              class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4 block"
+              >LEADERSHIP</span
+            >
+            <h2 class="font-headline text-4xl font-bold tracking-tight mb-4">
+              Board of Management
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="text-center">
+              <div
+                class="w-40 h-40 mx-auto mb-6 rounded-full bg-surface-container-high overflow-hidden"
+              >
+                <img
+                  class="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                  alt="CEO"
+                />
+              </div>
+              <h3 class="font-headline text-xl font-bold">Markus Duesmann</h3>
+              <p class="text-sm text-on-surface-variant">
+                Chairman of the Board
+              </p>
+            </div>
+            <div class="text-center">
+              <div
+                class="w-40 h-40 mx-auto mb-6 rounded-full bg-surface-container-high overflow-hidden"
+              >
+                <img
+                  class="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                  alt="Board Member"
+                />
+              </div>
+              <h3 class="font-headline text-xl font-bold">
+                Jürgen Rittersberger
+              </h3>
+              <p class="text-sm text-on-surface-variant">Finance, Legal & IT</p>
+            </div>
+            <div class="text-center">
+              <div
+                class="w-40 h-40 mx-auto mb-6 rounded-full bg-surface-container-high overflow-hidden"
+              >
+                <img
+                  class="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                  alt="Board Member"
+                />
+              </div>
+              <h3 class="font-headline text-xl font-bold">Oliver Hoffmann</h3>
+              <p class="text-sm text-on-surface-variant">
+                Technical Development
+              </p>
+            </div>
+            <div class="text-center">
+              <div
+                class="w-40 h-40 mx-auto mb-6 rounded-full bg-surface-container-high overflow-hidden"
+              >
+                <img
+                  class="w-full h-full object-cover"
+                  src="https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+                  alt="Board Member"
+                />
+              </div>
+              <h3 class="font-headline text-xl font-bold">
+                Hildegard Wortmann
+              </h3>
+              <p class="text-sm text-on-surface-variant">Sales & Marketing</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Locations -->
+      <section class="py-24 bg-surface-container-low">
+        <div class="container mx-auto px-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div>
+              <span
+                class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4 block"
+                >GLOBAL PRESENCE</span
+              >
+              <h2 class="font-headline text-4xl font-bold tracking-tight mb-6">
+                Headquarters & Plants
+              </h2>
+              <p class="text-on-surface-variant text-lg mb-8">
+                From our headquarters in Ingolstadt to production facilities
+                around the world, we're committed to excellence everywhere.
+              </p>
+              <div class="space-y-6">
+                <div class="flex gap-4">
+                  <span class="material-symbols-outlined text-2xl text-primary"
+                    >location_on</span
+                  >
+                  <div>
+                    <h4 class="font-headline font-bold">Ingolstadt, Germany</h4>
+                    <p class="text-sm text-on-surface-variant">
+                      Global Headquarters
+                    </p>
+                  </div>
+                </div>
+                <div class="flex gap-4">
+                  <span class="material-symbols-outlined text-2xl text-primary"
+                    >location_on</span
+                  >
+                  <div>
+                    <h4 class="font-headline font-bold">Neckarsulm, Germany</h4>
+                    <p class="text-sm text-on-surface-variant">
+                      Audi Sport GmbH & A6/A7/A8 Production
+                    </p>
+                  </div>
+                </div>
+                <div class="flex gap-4">
+                  <span class="material-symbols-outlined text-2xl text-primary"
+                    >location_on</span
+                  >
+                  <div>
+                    <h4 class="font-headline font-bold">Brussels, Belgium</h4>
+                    <p class="text-sm text-on-surface-variant">
+                      e-tron Production
+                    </p>
+                  </div>
+                </div>
+                <div class="flex gap-4">
+                  <span class="material-symbols-outlined text-2xl text-primary"
+                    >location_on</span
+                  >
+                  <div>
+                    <h4 class="font-headline font-bold">
+                      San José Chiapa, Mexico
+                    </h4>
+                    <p class="text-sm text-on-surface-variant">Q5 Production</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="kinetic-monolith">
+              <img
+                class="w-full h-full object-cover"
+                src="https://images.unsplash.com/photo-1617814086906-d847a8bc6fca?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                alt="Audi Headquarters"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Values -->
+      <section class="py-24 bg-surface">
+        <div class="container mx-auto px-6">
+          <div class="text-center mb-16">
+            <h2 class="font-headline text-4xl font-bold tracking-tight mb-4">
+              Our Values
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center p-8 hover-scale">
+              <span class="material-symbols-outlined text-5xl text-primary mb-4"
+                >emoji_objects</span
+              >
+              <h3 class="font-headline text-xl font-bold mb-3">Innovation</h3>
+              <p class="text-on-surface-variant">
+                Pushing boundaries and redefining what's possible in automotive
+                technology.
+              </p>
+            </div>
+            <div class="text-center p-8 hover-scale">
+              <span class="material-symbols-outlined text-5xl text-primary mb-4"
+                >precision_manufacturing</span
+              >
+              <h3 class="font-headline text-xl font-bold mb-3">Quality</h3>
+              <p class="text-on-surface-variant">
+                Uncompromising attention to detail in every vehicle we build.
+              </p>
+            </div>
+            <div class="text-center p-8 hover-scale">
+              <span class="material-symbols-outlined text-5xl text-primary mb-4"
+                >sustainability</span
+              >
+              <h3 class="font-headline text-xl font-bold mb-3">
+                Sustainability
+              </h3>
+              <p class="text-on-surface-variant">
+                Commitment to carbon-neutral production and electric mobility.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- CTA -->
+      <section class="py-20 bg-primary text-on-primary">
+        <div class="container mx-auto px-6 text-center">
+          <h2 class="font-headline text-4xl font-bold mb-6">Visit Us Today</h2>
+          <p class="text-white/80 text-lg mb-10 max-w-2xl mx-auto">
+            Experience the Audi difference at your local dealership.
+          </p>
+          <div class="flex flex-wrap gap-4 justify-center">
+            <a href="contact.html">
+              <button
+                class="bg-white text-primary px-10 py-5 font-bold text-sm tracking-widest hover:bg-opacity-90 transition-all"
+              >
+                CONTACT US
+              </button>
+            </a>
+            <a href="models.html">
+              <button
+                class="border border-white text-white px-10 py-5 font-bold text-sm tracking-widest hover:bg-white/10 transition-all"
+              >
+                EXPLORE MODELS
+              </button>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-surface-container py-20">
+      <div class="container mx-auto px-6">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20"
+        >
+          <div class="lg:col-span-2">
+            <span
+              class="font-headline text-3xl font-extrabold tracking-tighter mb-8 block"
+              >Audi</span
+            >
+            <p
+              class="text-on-surface-variant max-w-sm font-light leading-relaxed"
+            >
+              Experience the pinnacle of German automotive engineering. Join our
+              newsletter for exclusive previews and performance updates.
+            </p>
+          </div>
+          <div>
+            <h5 class="font-bold text-xs tracking-widest uppercase mb-8">
+              Navigation
+            </h5>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="index.html"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="models.html"
+                  >Models</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="electric.html"
+                  >Electric</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="suvs.html"
+                  >SUVs</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="sedans.html"
+                  >Sedans</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-bold text-xs tracking-widest uppercase mb-8">
+              Stay Connected
+            </h5>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="about.html"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="contact.html"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-outline-variant/30 gap-6"
+        >
+          <p class="text-xs text-on-surface-variant font-medium">
+            © 2024 Audi. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
