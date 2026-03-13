@@ -1,23 +1,19 @@
 <!doctype html>
-
 <html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audi | All Models</title>
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
+    <script>
       tailwind.config = {
         darkMode: "class",
         theme: {
@@ -95,9 +91,6 @@
         position: relative;
         overflow: hidden;
       }
-      .spec-number {
-        letter-spacing: -0.05em;
-      }
       .image-zoom:hover img {
         transform: scale(1.05);
       }
@@ -118,6 +111,9 @@
       .tertiary-underline:hover::after {
         width: 100%;
       }
+      .model-filter-active {
+        border-bottom: 2px solid black;
+      }
     </style>
   </head>
   <body
@@ -131,114 +127,102 @@
         class="container mx-auto px-6 py-4 flex items-center justify-between"
       >
         <div class="flex items-center gap-12">
-          <span class="font-headline text-2xl font-extrabold tracking-tighter"
-            >Audi</span
+          <a
+            href="index.html"
+            class="font-headline text-2xl font-extrabold tracking-tighter"
+            >Audi</a
           >
           <div class="hidden lg:flex items-center gap-8">
             <a
               class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors"
-              href="#"
+              href="index.html"
               >Home</a
             >
             <a
-              class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors"
+              class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors model-filter-active"
               href="models.html"
               >Models</a
             >
           </div>
         </div>
-        <div class="flex items-center gap-6">
-          <a
-            class="text-sm font-semibold hover:opacity-70 transition-opacity"
-            href="#"
-            >Login/Register</a
-          >
-          <button class="flex items-center">
-            <span class="material-symbols-outlined text-[20px]"
-              >shopping_cart</span
-            >
-          </button>
-        </div>
       </nav>
     </header>
+
     <main>
-      <!-- Hero Section -->
-      <section class="relative h-[90vh] flex items-center kinetic-monolith">
-        <div class="absolute inset-0 z-0">
-          <video
-            class="w-full h-full object-cover"
-            autoplay
-            muted
-            loop
-            playsinline
-            playbackRate="0.8"
-          >
-            <source src="videos/audi-hero.mp4" type="video/mp4" />
-          </video>
-          <div
-            class="absolute inset-0 bg-gradient-to-r from-surface via-surface/40 to-transparent"
-          ></div>
-        </div>
-        <div class="container mx-auto px-6 relative z-10">
-          <div class="max-w-2xl">
+      <!-- Models Hero -->
+      <section class="py-20 bg-surface-container-low">
+        <div class="container mx-auto px-6">
+          <div class="max-w-3xl mx-auto text-center">
+            <span
+              class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4 block"
+              >THE AUDI LINEUP</span
+            >
             <h1
-              class="font-headline text-6xl lg:text-8xl font-extrabold tracking-tighter leading-[0.9] mb-8"
+              class="font-headline text-5xl lg:text-7xl font-extrabold tracking-tight mb-6"
             >
-              Discover the <br />Future of Driving
+              All Models
             </h1>
-            <p
-              class="text-lg lg:text-xl text-on-surface font-medium mb-12 max-w-lg leading-relaxed drop-shadow-sm"
-            >
-              Explore the latest Audi models with real prices and
-              specifications. Engineered for the next era of mobility.
+            <p class="text-lg text-on-surface-variant leading-relaxed">
+              Discover the complete range of Audi vehicles. From luxury sedans
+              to high-performance electric vehicles.
             </p>
-            <div class="flex flex-wrap gap-4">
-              <button
-                class="bg-primary text-on-primary px-10 py-5 font-semibold text-sm tracking-widest hover:bg-primary-container transition-all flex items-center gap-3"
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Bar -->
+      <section class="py-8 border-y border-outline-variant/20">
+        <div class="container mx-auto px-6">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap gap-6">
+              <a
+                href="models.html"
+                class="text-sm font-bold pb-2 border-b-2 border-primary"
+                >All Models</a
               >
-                BROWSE CARS
-                <span class="material-symbols-outlined text-[18px]"
-                  >arrow_forward</span
-                >
-              </button>
-              <button
-                class="bg-surface-container-highest text-primary px-10 py-5 font-semibold text-sm tracking-widest hover:bg-surface-variant transition-all"
+              <a
+                href="sedans.html"
+                class="text-sm font-medium text-on-surface-variant hover:text-primary pb-2"
+                >Sedans</a
               >
-                VIEW DEALS
-              </button>
+              <a
+                href="suvs.html"
+                class="text-sm font-medium text-on-surface-variant hover:text-primary pb-2"
+                >SUVs</a
+              >
+              <a
+                href="electric.html"
+                class="text-sm font-medium text-on-surface-variant hover:text-primary pb-2"
+                >Electric</a
+              >
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-sm text-on-surface-variant">Sort by:</span>
+              <select
+                class="text-sm font-medium bg-transparent border-none focus:ring-0"
+              >
+                <option>Recommended</option>
+                <option>Price: Low to High</option>
+                <option>Price: High to Low</option>
+                <option>Newest</option>
+              </select>
             </div>
           </div>
         </div>
       </section>
-      <!-- Featured Models -->
-      <section class="py-24 bg-surface">
+
+      <!-- Models Grid -->
+      <section class="py-20 bg-surface">
         <div class="container mx-auto px-6">
-          <div
-            class="flex flex-col lg:flex-row justify-between items-end mb-16 gap-6"
-          >
-            <div>
-              <span
-                class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4 block"
-                >PORTFOLIO</span
-              >
-              <h2 class="font-headline text-5xl font-bold tracking-tight">
-                Featured Audi Models
-              </h2>
-            </div>
-            <a class="text-sm font-bold tertiary-underline pb-1" href="#"
-              >VIEW ALL MODELS</a
-            >
-          </div>
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            <!-- Model Card 1 -->
+            <!-- A3 -->
             <div class="group cursor-pointer">
               <div
                 class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
               >
                 <img
-                  alt=""
+                  alt="Audi A3"
                   class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi A3 front profile in urban setting"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7iIdpncjRk59TOKf3x5CJbP0q1m0tHC8tCtQLWLT66Z1IrFKYhkiqXgxCeRcxbnceAW_52aHwajBlKNwosFjgDyEj4Bc6yCu7bRs6lYKawLxOB8g-2BwCJvQr8xIz7YTwSHezVBhFtvLkOfWBDpzWnx_NMrRkpi_M9RXCSCH5Ldm-zhcGv-wCmFvQiEoQEVKkf2nK70t11IY4VvtBy7ubwfOb0b-eW-RPHAGGRv5eaiNJluMrzAlX8GOVcCjsZU7gpOz3r4XezYdl"
                 />
               </div>
@@ -253,6 +237,14 @@
                   4.8
                 </div>
               </div>
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Sedan</span
+                >
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Gasoline</span
+                >
+              </div>
               <p class="text-on-surface-variant text-sm font-medium mb-6">
                 Starting at $35,400
               </p>
@@ -265,15 +257,15 @@
                 >
               </button>
             </div>
-            <!-- Model Card 2 -->
+
+            <!-- A4 -->
             <div class="group cursor-pointer">
               <div
                 class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
               >
                 <img
-                  alt=""
+                  alt="Audi A4"
                   class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi A4 sedan side view in garage"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuEVqX4lQHny6C-OJ_bcRmPQYr7d6YMVcRBuO8CpXWc575vFNqJD1Rn3euXmHzARTo-yF8sQJyw49uHEbtqmDf2ztS7R75UUo3KIjKEN1NyIEERY-EFOSLzaJHqLBHEr7jMxTR7q6ReLouBfS7S7G4dyedPpWXTo903O3Olk1OdmMQnKWdbECV3mVlpGC1zy76jHxZmhDSJX3Ajx_n-3TTcQnGeC0amRQIkFVFl4B51OEnhhlz1oop0O_3qDjyOkPcA8mWxCYz0txG"
                 />
               </div>
@@ -288,6 +280,17 @@
                   4.7
                 </div>
               </div>
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Sedan</span
+                >
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Gasoline</span
+                >
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Quattro</span
+                >
+              </div>
               <p class="text-on-surface-variant text-sm font-medium mb-6">
                 Starting at $42,000
               </p>
@@ -300,15 +303,187 @@
                 >
               </button>
             </div>
-            <!-- Model Card 3 -->
+
+            <!-- A5 -->
             <div class="group cursor-pointer">
               <div
                 class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
               >
                 <img
-                  alt=""
+                  alt="Audi A5"
                   class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi Q5 luxury SUV on scenic road"
+                  src="https://images.unsplash.com/photo-1606664514173-2c09b6d7f5a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                />
+              </div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-headline text-2xl font-bold">A5</h3>
+                <div class="flex items-center gap-1 text-sm font-bold">
+                  <span
+                    class="material-symbols-outlined text-[16px] text-on-tertiary-container"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >star</span
+                  >
+                  4.8
+                </div>
+              </div>
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Coupe</span
+                >
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Convertible</span
+                >
+              </div>
+              <p class="text-on-surface-variant text-sm font-medium mb-6">
+                Starting at $46,500
+              </p>
+              <button
+                class="w-full py-4 border-b border-outline-variant hover:border-primary transition-colors text-left font-bold text-xs tracking-widest flex justify-between items-center"
+              >
+                VIEW DETAILS
+                <span class="material-symbols-outlined text-[18px]"
+                  >arrow_right_alt</span
+                >
+              </button>
+            </div>
+
+            <!-- A6 -->
+            <div class="group cursor-pointer">
+              <div
+                class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
+              >
+                <img
+                  alt="Audi A6"
+                  class="w-full h-full object-cover transition-transform duration-700"
+                  src="https://images.unsplash.com/photo-1556185781-4775f7b2f9e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                />
+              </div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-headline text-2xl font-bold">A6</h3>
+                <div class="flex items-center gap-1 text-sm font-bold">
+                  <span
+                    class="material-symbols-outlined text-[16px] text-on-tertiary-container"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >star</span
+                  >
+                  4.9
+                </div>
+              </div>
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Sedan</span
+                >
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Luxury</span
+                >
+              </div>
+              <p class="text-on-surface-variant text-sm font-medium mb-6">
+                Starting at $55,900
+              </p>
+              <button
+                class="w-full py-4 border-b border-outline-variant hover:border-primary transition-colors text-left font-bold text-xs tracking-widest flex justify-between items-center"
+              >
+                VIEW DETAILS
+                <span class="material-symbols-outlined text-[18px]"
+                  >arrow_right_alt</span
+                >
+              </button>
+            </div>
+
+            <!-- A7 -->
+            <div class="group cursor-pointer">
+              <div
+                class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
+              >
+                <img
+                  alt="Audi A7"
+                  class="w-full h-full object-cover transition-transform duration-700"
+                  src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                />
+              </div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-headline text-2xl font-bold">A7</h3>
+                <div class="flex items-center gap-1 text-sm font-bold">
+                  <span
+                    class="material-symbols-outlined text-[16px] text-on-tertiary-container"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >star</span
+                  >
+                  4.9
+                </div>
+              </div>
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Sportback</span
+                >
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Luxury</span
+                >
+              </div>
+              <p class="text-on-surface-variant text-sm font-medium mb-6">
+                Starting at $69,500
+              </p>
+              <button
+                class="w-full py-4 border-b border-outline-variant hover:border-primary transition-colors text-left font-bold text-xs tracking-widest flex justify-between items-center"
+              >
+                VIEW DETAILS
+                <span class="material-symbols-outlined text-[18px]"
+                  >arrow_right_alt</span
+                >
+              </button>
+            </div>
+
+            <!-- A8 -->
+            <div class="group cursor-pointer">
+              <div
+                class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
+              >
+                <img
+                  alt="Audi A8"
+                  class="w-full h-full object-cover transition-transform duration-700"
+                  src="https://images.unsplash.com/photo-1626663011617-2b1777a2539b?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
+                />
+              </div>
+              <div class="flex justify-between items-start mb-2">
+                <h3 class="font-headline text-2xl font-bold">A8</h3>
+                <div class="flex items-center gap-1 text-sm font-bold">
+                  <span
+                    class="material-symbols-outlined text-[16px] text-on-tertiary-container"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    >star</span
+                  >
+                  5.0
+                </div>
+              </div>
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Sedan</span
+                >
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Flagship</span
+                >
+              </div>
+              <p class="text-on-surface-variant text-sm font-medium mb-6">
+                Starting at $86,500
+              </p>
+              <button
+                class="w-full py-4 border-b border-outline-variant hover:border-primary transition-colors text-left font-bold text-xs tracking-widest flex justify-between items-center"
+              >
+                VIEW DETAILS
+                <span class="material-symbols-outlined text-[18px]"
+                  >arrow_right_alt</span
+                >
+              </button>
+            </div>
+
+            <!-- Q5 -->
+            <div class="group cursor-pointer">
+              <div
+                class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
+              >
+                <img
+                  alt="Audi Q5"
+                  class="w-full h-full object-cover transition-transform duration-700"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4Z9NWssdr2zMvRxAGMOBT3lM4lgu55On0ZMz-YDUykPYIFVUkZN16ddBLXZCZflluNZ26cVZGsN6x9EtA9Y13z1QP4udAJ2XWG_UGyoUB9-JifKnQD45tRIVUSkxk2PGpmMzohLw756NbxweIRQMyg8DE02cmxN-dbDrd07dQ2K7-ysn7nU1bKvXoxHGVEykD5hp3U_oJFdBTo9yCwo5Ld6CIzUjlxRsWku1PMHRLBqVr6JiJfS-EHBzDW_kPA-7V46qVMoHlg1hI"
                 />
               </div>
@@ -323,6 +498,12 @@
                   4.9
                 </div>
               </div>
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs bg-surface-container px-2 py-1">SUV</span>
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Hybrid</span
+                >
+              </div>
               <p class="text-on-surface-variant text-sm font-medium mb-6">
                 Starting at $45,000
               </p>
@@ -335,15 +516,15 @@
                 >
               </button>
             </div>
-            <!-- Model Card 4 -->
+
+            <!-- Q7 -->
             <div class="group cursor-pointer">
               <div
                 class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
               >
                 <img
-                  alt=""
+                  alt="Audi Q7"
                   class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi Q7 in snowy landscape"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuCV2qKLz_if-oa44EW0GLg-rehZLb15mTg51pvljXDjDznplhkvUBhZPruomLYPCIV_eJ5FP_NLjhqBIo0C1ruBuuQH2nxJAVopyPsWNDXwi_ZoxnfRf2JVS2DMiOCpraCaONKC3xmfR1FckITOQp4eSRg9W0-0Xs3E-sFjjizMmxJ8zye2V5LjDKeK8bCBneAJy6zkkscOprqtFvSmF_98-2_jivsDmr5Bx-iRiYV-2bm1jnoo1Qrkje4pkewL1Ut0icPgbIRdgXpM"
                 />
               </div>
@@ -358,6 +539,12 @@
                   4.8
                 </div>
               </div>
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs bg-surface-container px-2 py-1">SUV</span>
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >3-Row</span
+                >
+              </div>
               <p class="text-on-surface-variant text-sm font-medium mb-6">
                 Starting at $60,000
               </p>
@@ -370,50 +557,15 @@
                 >
               </button>
             </div>
-            <!-- Model Card 5 -->
+
+            <!-- Q8 -->
             <div class="group cursor-pointer">
               <div
                 class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
               >
                 <img
-                  alt=""
+                  alt="Audi Q8"
                   class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi e-tron GT electric sports car"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCfgZEDSWZI5I5cgpLQXD5rI6esUG-vIkPZTy5KrOOEqlSzv9L_w-mOWLhKMHh_Ikem7hWvKS4IUK8faXLCOBWXADwb7L4IjJLK1x1EnzGF9SYjim1C3lWFuFcjzqB3bXYGtjBKQCsSLSADlm9-5npJXE6hB1kNqbju0HcrDzF-5ZXlmHC4ifvHaYApB8tdPJdhrXBZFdQzVjhXOPNuvFriLDhBj8xJlyLpkczx0ZxwYx1JbS87GYe5vbsvrmPDm8Szaztc8EbK_Ph"
-                />
-              </div>
-              <div class="flex justify-between items-start mb-2">
-                <h3 class="font-headline text-2xl font-bold">e-tron GT</h3>
-                <div class="flex items-center gap-1 text-sm font-bold">
-                  <span
-                    class="material-symbols-outlined text-[16px] text-on-tertiary-container"
-                    style="font-variation-settings: &quot;FILL&quot; 1"
-                    >star</span
-                  >
-                  5.0
-                </div>
-              </div>
-              <p class="text-on-surface-variant text-sm font-medium mb-6">
-                Starting at $106,500
-              </p>
-              <button
-                class="w-full py-4 border-b border-outline-variant hover:border-primary transition-colors text-left font-bold text-xs tracking-widest flex justify-between items-center"
-              >
-                VIEW DETAILS
-                <span class="material-symbols-outlined text-[18px]"
-                  >arrow_right_alt</span
-                >
-              </button>
-            </div>
-            <!-- Model Card 6 -->
-            <div class="group cursor-pointer">
-              <div
-                class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
-              >
-                <img
-                  alt=""
-                  class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi Q8 front view at night"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzpCZ2-oJ9zUAHJ8CjUE2Rpk6FYZDQ-ZjayOMKovl-EQJnwDj7KxiAWZN0lIpQHg5Ehs02qGRIFua_f2eldX6AB1iRnyWWxL7JteGV4d6mffx3JekqXod9QYmou_pcxhE_5u2qw0O9O7nzC9d2gvENtml-h9ALHvI4OM8oJ5XhRMcC1jSnliAMnmbHrHBFwD5FrgWsY7v4uBEwK38QE2MUmt2saeWmtmb5RSXOzfbyFW9vs29tVVvzfwxJlsa6AnaPdsgs8gFqt-Hh"
                 />
               </div>
@@ -428,6 +580,12 @@
                   4.9
                 </div>
               </div>
+              <div class="flex gap-2 mb-3">
+                <span class="text-xs bg-surface-container px-2 py-1">SUV</span>
+                <span class="text-xs bg-surface-container px-2 py-1"
+                  >Coupe SUV</span
+                >
+              </div>
               <p class="text-on-surface-variant text-sm font-medium mb-6">
                 Starting at $73,000
               </p>
@@ -441,173 +599,64 @@
               </button>
             </div>
           </div>
-        </div>
-      </section>
-      <!-- Electric Future Bento Grid -->
-      <section class="py-24 bg-surface-container-low">
-        <div class="container mx-auto px-6">
-          <div class="mb-16">
-            <span
-              class="text-xs font-bold tracking-[0.2em] text-on-tertiary-container mb-4 block"
-              >INNOVATION</span
+
+          <!-- Pagination -->
+          <div class="flex justify-center mt-20 gap-2">
+            <button
+              class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:border-primary transition-colors"
             >
-            <h2 class="font-headline text-5xl font-bold tracking-tight">
-              Electric Future
-            </h2>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 h-[700px]">
-            <div
-              class="md:col-span-2 relative kinetic-monolith group cursor-pointer"
+              1
+            </button>
+            <button
+              class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:border-primary transition-colors"
             >
-              <img
-                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                data-alt="RS e-tron GT driving on coastal highway"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAehTXm1jS2gJE79ZGNHosyStFgBhEhqQBVSVE63YO3xNWZI9KdT_itrrDVRxJ5GfyYBPjw98aqoWw0mJlvHlZshCAYTl43DscaVd3AiS3Df0CMtBQcnCYLLISTYQnpE9f-qa8-v57nfs7J0IwOfYuPHCe1r6073AxhcmCoBHOvdUKd9u-fgLMd-YSoYrPxgEEOwJfVZleuBP3x3AhV5xl2KViFbw4fEBgUbZcqf9QBLQr2wziE6J2pHYJ8XqQBku9pXHAd1-_cbLLv"
-              />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
-              ></div>
-              <div class="absolute bottom-10 left-10 text-white">
-                <h3 class="font-headline text-4xl font-bold mb-2">
-                  RS e-tron GT
-                </h3>
-                <p class="text-white/70 mb-6 max-w-sm">
-                  Uncompromising performance. Pure electric soul. 0-60 mph in
-                  3.1 seconds.
-                </p>
-                <button
-                  class="bg-white text-black px-8 py-3 font-bold text-xs tracking-widest hover:bg-opacity-90"
-                >
-                  CONFIGURE
-                </button>
-              </div>
-            </div>
-            <div class="flex flex-col gap-8">
-              <div
-                class="relative flex-1 kinetic-monolith group cursor-pointer"
-              >
-                <img
-                  class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  data-alt="Audi Q4 e-tron SUV in modern city"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaEpUC6g5IptF3FQ7MD6vyjS8Bphck1rF6xWWtQErDJNzmKIaCdh6hxT5nvV5a3GrXG7IQ4OshfzFXzQnp3S9a8U6y-ml1PE0a-lM6T1uOErl9f6HVM0j47NRQxstOuvUiOHpzSCHXij9aqN204liP5xabEXcjT5Sv_OKEQhzxiTuUwS_mo2wtqiA1Yva13nTsveNgKPfgHMvwLmaYpoiQ63wGEh8aXy242GXhzVuHwHkYspE1sLDFN_y_9t62FdurtNbBdbGP-eTW"
-                />
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
-                ></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                  <h3 class="font-headline text-2xl font-bold mb-1">
-                    Q4 e-tron
-                  </h3>
-                  <button
-                    class="text-xs font-bold tracking-widest border-b border-white pb-1"
-                  >
-                    LEARN MORE
-                  </button>
-                </div>
-              </div>
-              <div
-                class="relative flex-1 kinetic-monolith group cursor-pointer"
-              >
-                <img
-                  class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  data-alt="Audi e-tron SUV charging at station"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBHUwUi33_nkpACNW8B1EqNNGLjQBCGIPYCTaCWaG487N9qYu_9bvgM3ChNzOqRGxIzBVbmkzbIWGG0hTnYP0u6x4W9NPFh5JeF91F2Q5n9SOTjETVyG3x8bb5N9uce1qzB5E_MQjV6PPO7L48L-Oz6NDLAkK_ziFvbN4qbnAxcAqm7l0WPmn1Uw7ECaMOjhGReduXbeAZZK6bhvOP5TcyUhEWNfD4qjTvF1vEScMj47WGh5pmMT0tmXO3OGWLTSw4pvvkqKEbZhX3"
-                />
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
-                ></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                  <h3 class="font-headline text-2xl font-bold mb-1">
-                    e-tron SUV
-                  </h3>
-                  <button
-                    class="text-xs font-bold tracking-widest border-b border-white pb-1"
-                  >
-                    LEARN MORE
-                  </button>
-                </div>
-              </div>
-            </div>
+              2
+            </button>
+            <button
+              class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:border-primary transition-colors"
+            >
+              3
+            </button>
+            <button
+              class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:border-primary transition-colors"
+            >
+              4
+            </button>
+            <span class="w-10 h-10 flex items-center justify-center">...</span>
+            <button
+              class="w-10 h-10 flex items-center justify-center border border-outline-variant hover:border-primary transition-colors"
+            >
+              12
+            </button>
           </div>
         </div>
       </section>
-      <!-- Why Choose Audi -->
-      <section class="py-24 bg-surface-container-lowest">
+
+      <!-- Compare Banner -->
+      <section class="py-16 bg-primary text-on-primary">
         <div class="container mx-auto px-6">
-          <div class="text-center mb-20">
-            <span
-              class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4 block"
-              >THE AUDI ADVANTAGE</span
+          <div
+            class="flex flex-col md:flex-row items-center justify-between gap-8"
+          >
+            <div>
+              <h2 class="font-headline text-3xl font-bold mb-2">
+                Can't decide between models?
+              </h2>
+              <p class="text-white/80">
+                Use our comparison tool to find the perfect Audi for your needs.
+              </p>
+            </div>
+            <a
+              href="#compare"
+              class="bg-white text-primary px-8 py-4 font-bold text-sm tracking-widest hover:bg-opacity-90 transition-all"
             >
-            <h2 class="font-headline text-5xl font-bold tracking-tight">
-              The Precision Atelier
-            </h2>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto mb-8 bg-surface-container flex items-center justify-center"
-              >
-                <span class="material-symbols-outlined text-[32px]"
-                  >engineering</span
-                >
-              </div>
-              <h4 class="font-headline text-xl font-bold mb-4">
-                Luxury engineering
-              </h4>
-              <p class="text-sm text-on-surface-variant leading-relaxed">
-                Every component machined to tolerances thinner than a human
-                hair.
-              </p>
-            </div>
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto mb-8 bg-surface-container flex items-center justify-center"
-              >
-                <span class="material-symbols-outlined text-[32px]"
-                  >all_inclusive</span
-                >
-              </div>
-              <h4 class="font-headline text-xl font-bold mb-4">Quattro</h4>
-              <p class="text-sm text-on-surface-variant leading-relaxed">
-                Legendary all-wheel drive for superior traction in every
-                condition.
-              </p>
-            </div>
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto mb-8 bg-surface-container flex items-center justify-center"
-              >
-                <span class="material-symbols-outlined text-[32px]"
-                  >memory</span
-                >
-              </div>
-              <h4 class="font-headline text-xl font-bold mb-4">
-                Advanced technology
-              </h4>
-              <p class="text-sm text-on-surface-variant leading-relaxed">
-                Intuitive Virtual Cockpit and MMI Touch response interfaces.
-              </p>
-            </div>
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto mb-8 bg-surface-container flex items-center justify-center"
-              >
-                <span class="material-symbols-outlined text-[32px]"
-                  >verified_user</span
-                >
-              </div>
-              <h4 class="font-headline text-xl font-bold mb-4">
-                Safety innovations
-              </h4>
-              <p class="text-sm text-on-surface-variant leading-relaxed">
-                Audi pre sense® systems for 360-degree driver protection.
-              </p>
-            </div>
+              COMPARE MODELS
+            </a>
           </div>
         </div>
       </section>
     </main>
+
     <!-- Footer -->
     <footer class="bg-surface-container py-20">
       <div class="container mx-auto px-6">
@@ -629,6 +678,48 @@
           <div>
             <h5 class="font-bold text-xs tracking-widest uppercase mb-8">
               Navigation
+            </h5>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="index.html"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="models.html"
+                  >Models</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="electric.html"
+                  >Electric</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="suvs.html"
+                  >SUVs</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="sedans.html"
+                  >Sedans</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-bold text-xs tracking-widest uppercase mb-8">
+              Stay Connected
             </h5>
             <ul class="space-y-4">
               <li>
@@ -657,34 +748,6 @@
                   class="text-sm text-on-surface-variant hover:text-primary transition-colors"
                   href="#"
                   >Audi news</a
-                >
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h5 class="font-bold text-xs tracking-widest uppercase mb-8">
-              Stay Connected
-            </h5>
-            <ul class="space-y-4">
-              <li>
-                <a
-                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
-                  href="#"
-                  >Social media</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
-                  href="#"
-                  >Audi Magazine</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
-                  href="#"
-                  >Events</a
                 >
               </li>
             </ul>
