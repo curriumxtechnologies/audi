@@ -1,695 +1,693 @@
 <!doctype html>
-
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Audi | Welcome</title>
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@200;300;400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
+
+    <script>
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
             colors: {
-              "secondary-container": "#dfe3e5",
-              "on-secondary-container": "#616567",
-              "surface-container-highest": "#e2e2e2",
-              "secondary-fixed": "#dfe3e5",
-              "inverse-surface": "#2f3131",
-              "surface-dim": "#dadada",
-              error: "#ba1a1a",
-              "surface-container-high": "#e8e8e8",
-              "primary-fixed-dim": "#c6c6c6",
-              "on-surface": "#1a1c1c",
-              outline: "#7e7576",
-              "on-error": "#ffffff",
-              "on-secondary-fixed": "#181c1e",
-              "on-background": "#1a1c1c",
-              "on-tertiary": "#ffffff",
-              "tertiary-fixed-dim": "#ffb3b3",
-              "error-container": "#ffdad6",
-              "on-surface-variant": "#4c4546",
-              "surface-container-lowest": "#ffffff",
-              "surface-variant": "#e2e2e2",
-              "surface-bright": "#f9f9f9",
-              "secondary-fixed-dim": "#c3c7c9",
-              surface: "#f9f9f9",
-              "on-primary-container": "#848484",
-              "inverse-primary": "#c6c6c6",
-              "surface-tint": "#5e5e5e",
-              "primary-fixed": "#e2e2e2",
-              background: "#f9f9f9",
-              "on-secondary": "#ffffff",
-              "on-primary": "#ffffff",
-              "outline-variant": "#cfc4c5",
-              "on-primary-fixed-variant": "#474747",
-              "on-tertiary-fixed-variant": "#920022",
-              "surface-container": "#eeeeee",
-              "on-error-container": "#93000a",
-              "tertiary-container": "#400009",
-              "on-tertiary-fixed": "#400009",
-              "on-secondary-fixed-variant": "#434749",
-              secondary: "#5b5f61",
               primary: "#000000",
-              "on-tertiary-container": "#f33d52",
-              "primary-container": "#1b1b1b",
-              "surface-container-low": "#f3f3f3",
-              "inverse-on-surface": "#f1f1f1",
-              "tertiary-fixed": "#ffdad9",
-              tertiary: "#000000",
-              "on-primary-fixed": "#1b1b1b",
+              secondary: "#5b5f61",
+              background: "#f7f7f7",
+              surface: "#ffffff",
+              "surface-soft": "#f1f1f1",
+              "surface-deep": "#111111",
+              "surface-muted": "#ececec",
+              "outline-soft": "#d8d8d8",
+              "text-main": "#111111",
+              "text-muted": "#666666",
+              "text-soft": "#8a8a8a",
+              accent: "#d70000",
             },
             fontFamily: {
-              headline: ["Manrope"],
-              body: ["Inter"],
-              label: ["Inter"],
+              headline: ["Manrope", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+            },
+            boxShadow: {
+              soft: "0 10px 30px rgba(0,0,0,0.06)",
+              card: "0 20px 60px rgba(0,0,0,0.08)",
             },
             borderRadius: {
-              DEFAULT: "0.125rem",
-              lg: "0.25rem",
-              xl: "0.5rem",
-              full: "0.75rem",
+              xl2: "1.25rem",
             },
           },
         },
       };
     </script>
+
     <style>
-      .glass-header {
-        background: rgba(243, 243, 243, 0.8);
-        backdrop-filter: blur(24px);
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f7f7f7;
+        color: #111111;
       }
-      .kinetic-monolith {
+
+      .glass-nav {
+        background: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(18px);
+      }
+
+      .hero-overlay {
+        background: linear-gradient(
+          90deg,
+          rgba(0, 0, 0, 0.78) 0%,
+          rgba(0, 0, 0, 0.52) 38%,
+          rgba(0, 0, 0, 0.18) 68%,
+          rgba(0, 0, 0, 0.02) 100%
+        );
+      }
+
+      .hover-lift {
+        transition:
+          transform 0.35s ease,
+          box-shadow 0.35s ease,
+          border-color 0.35s ease;
+      }
+
+      .hover-lift:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 22px 60px rgba(0, 0, 0, 0.09);
+      }
+
+      .line-link {
         position: relative;
-        overflow: hidden;
       }
-      .spec-number {
-        letter-spacing: -0.05em;
-      }
-      .image-zoom:hover img {
-        transform: scale(1.05);
-      }
-      .tertiary-underline {
-        position: relative;
-      }
-      .tertiary-underline::after {
+
+      .line-link::after {
         content: "";
         position: absolute;
-        bottom: -2px;
-        left: 50%;
+        left: 0;
+        bottom: -4px;
         width: 0;
-        height: 2px;
+        height: 1.5px;
         background: currentColor;
-        transition: all 0.3s ease;
-        transform: translateX(-50%);
+        transition: width 0.3s ease;
       }
-      .tertiary-underline:hover::after {
+
+      .line-link:hover::after {
         width: 100%;
+      }
+
+      .hero-card-blur {
+        background: rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(12px);
       }
     </style>
   </head>
+
   <body
-    class="bg-surface text-on-surface font-body selection:bg-primary selection:text-white"
+    class="bg-background text-text-main selection:bg-black selection:text-white"
   >
-    <!-- Top Navigation Bar -->
-    <header
-      class="glass-header sticky top-0 z-50 border-b border-outline-variant/10"
-    >
+    <!-- Header -->
+    <header class="glass-nav sticky top-0 z-50 border-b border-black/5">
       <nav
         class="container mx-auto px-6 py-4 flex items-center justify-between"
       >
-        <div class="flex items-center gap-12">
-          <span class="font-headline text-2xl font-extrabold tracking-tighter"
-            >Audi</span
-          >
-        </div>
-        <div class="flex items-center gap-6">
+        <a
+          href="index.html"
+          class="font-headline text-2xl md:text-3xl font-extrabold tracking-tight"
+        >
+          Audi
+        </a>
+
+        <div class="hidden md:flex items-center gap-8">
           <a
-            class="text-sm font-semibold hover:opacity-70 transition-opacity"
-            href="login.html"
-            >Login/Register</a
+            href="#featured"
+            class="text-sm font-medium text-text-muted hover:text-black transition-colors"
           >
+            Featured
+          </a>
+          <a
+            href="#experience"
+            class="text-sm font-medium text-text-muted hover:text-black transition-colors"
+          >
+            Experience
+          </a>
+          <a
+            href="#electric"
+            class="text-sm font-medium text-text-muted hover:text-black transition-colors"
+          >
+            Electric
+          </a>
+          <a
+            href="#why-audi"
+            class="text-sm font-medium text-text-muted hover:text-black transition-colors"
+          >
+            Why Audi
+          </a>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <a
+            href="login.html"
+            class="hidden sm:inline-flex px-5 py-3 text-sm font-semibold border border-black/10 bg-white hover:bg-surface-soft transition-colors"
+          >
+            Login
+          </a>
+          <a
+            href="register.html"
+            class="inline-flex px-5 py-3 text-sm font-semibold bg-black text-white hover:bg-neutral-800 transition-colors"
+          >
+            Register
+          </a>
         </div>
       </nav>
     </header>
+
     <main>
-      <!-- Hero Section -->
-      <section class="relative h-[90vh] flex items-center kinetic-monolith">
-        <div class="absolute inset-0 z-0">
-          <video
+      <!-- Hero -->
+      <section class="relative min-h-[92vh] flex items-center overflow-hidden">
+        <div class="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1800&q=80"
+            alt="Audi performance car on open road"
             class="w-full h-full object-cover"
-            autoplay
-            muted
-            loop
-            playsinline
-            playbackRate="0.8"
-          >
-            <source src="videos/audi-hero.mp4" type="video/mp4" />
-          </video>
-          <div
-            class="absolute inset-0 bg-gradient-to-r from-surface via-surface/40 to-transparent"
-          ></div>
+          />
+          <div class="hero-overlay absolute inset-0"></div>
         </div>
+
         <div class="container mx-auto px-6 relative z-10">
-          <div class="max-w-2xl">
-            <h1
-              class="font-headline text-6xl lg:text-8xl font-extrabold tracking-tighter leading-[0.9] mb-8"
-            >
-              Discover the <br />Future of Driving
-            </h1>
-            <p
-              class="text-lg lg:text-xl text-on-surface font-medium mb-12 max-w-lg leading-relaxed drop-shadow-sm"
-            >
-              Explore the latest Audi models with real prices and
-              specifications. Engineered for the next era of mobility.
-            </p>
-            <div class="flex flex-wrap gap-4">
-              <a
-                href="models.html"
-                class="bg-primary text-on-primary px-10 py-5 font-semibold text-sm tracking-widest hover:bg-primary-container transition-all flex items-center gap-3"
+          <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <div class="max-w-2xl text-white">
+              <p
+                class="text-xs md:text-sm uppercase tracking-[0.35em] font-semibold text-white/70 mb-6"
               >
-                BROWSE CARS
-                <span class="material-symbols-outlined text-[18px]">
-                  arrow_forward
-                </span>
-              </a>
+                Welcome to the Audi Experience
+              </p>
+
+              <h1
+                class="font-headline text-5xl sm:text-6xl lg:text-8xl font-extrabold leading-[0.9] tracking-tight mb-6"
+              >
+                Precision.
+                <br />
+                Performance.
+                <br />
+                Progress.
+              </h1>
+
+              <p
+                class="max-w-xl text-base md:text-lg text-white/85 leading-8 mb-10"
+              >
+                Discover luxury engineering, advanced technology, and a curated
+                lineup of Audi models. Create your account to explore vehicles,
+                compare specs, and step into the future of driving.
+              </p>
+
+              <div class="flex flex-wrap gap-4">
+                <a
+                  href="register.html"
+                  class="inline-flex items-center gap-2 bg-white text-black px-7 py-4 text-sm font-bold tracking-[0.14em] hover:bg-neutral-200 transition-colors"
+                >
+                  CREATE ACCOUNT
+                  <span class="material-symbols-outlined text-[18px]"
+                    >arrow_forward</span
+                  >
+                </a>
+
+                <a
+                  href="login.html"
+                  class="inline-flex items-center gap-2 border border-white/30 text-white px-7 py-4 text-sm font-bold tracking-[0.14em] hover:bg-white/10 transition-colors"
+                >
+                  LOGIN
+                  <span class="material-symbols-outlined text-[18px]"
+                    >login</span
+                  >
+                </a>
+              </div>
+            </div>
+
+            <div class="hidden lg:flex justify-end">
+              <div
+                class="w-full max-w-md hero-card-blur border border-white/10 rounded-[1.5rem] p-8 text-white shadow-card"
+              >
+                <div class="flex items-center justify-between mb-8">
+                  <span
+                    class="text-sm font-semibold tracking-[0.2em] text-white/70"
+                    >QUICK ACCESS</span
+                  >
+                  <span class="material-symbols-outlined text-white/70"
+                    >dashboard</span
+                  >
+                </div>
+
+                <div class="space-y-5">
+                  <div
+                    class="flex items-start gap-4 border-b border-white/10 pb-5"
+                  >
+                    <span class="material-symbols-outlined text-[28px]"
+                      >directions_car</span
+                    >
+                    <div>
+                      <h3 class="font-headline text-xl font-bold mb-1">
+                        Explore Models
+                      </h3>
+                      <p class="text-sm text-white/75 leading-6">
+                        Browse sedans, SUVs, and electric cars with detailed
+                        pricing and specs.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div
+                    class="flex items-start gap-4 border-b border-white/10 pb-5"
+                  >
+                    <span class="material-symbols-outlined text-[28px]"
+                      >bolt</span
+                    >
+                    <div>
+                      <h3 class="font-headline text-xl font-bold mb-1">
+                        Discover Electric
+                      </h3>
+                      <p class="text-sm text-white/75 leading-6">
+                        Experience Audi e-tron innovation built for the next era
+                        of mobility.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="flex items-start gap-4">
+                    <span class="material-symbols-outlined text-[28px]"
+                      >verified_user</span
+                    >
+                    <div>
+                      <h3 class="font-headline text-xl font-bold mb-1">
+                        Your Personalized Garage
+                      </h3>
+                      <p class="text-sm text-white/75 leading-6">
+                        Register to unlock a smoother browsing experience and
+                        save your preferences.
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                <a
+                  href="register.html"
+                  class="mt-8 inline-flex w-full items-center justify-center gap-2 bg-white text-black px-6 py-4 text-sm font-bold tracking-[0.12em] hover:bg-neutral-200 transition-colors"
+                >
+                  START NOW
+                  <span class="material-symbols-outlined text-[18px]"
+                    >north_east</span
+                  >
+                </a>
+              </div>
             </div>
           </div>
         </div>
       </section>
-      <!-- Featured Models -->
-      <section class="py-24 bg-surface">
+
+      <!-- Brand Stats -->
+      <section class="py-10 bg-white border-y border-black/5">
+        <div class="container mx-auto px-6">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div>
+              <p
+                class="text-3xl md:text-5xl font-headline font-extrabold tracking-tight mb-2"
+              >
+                100+
+              </p>
+              <p class="text-sm text-text-muted font-medium">
+                Years of automotive heritage
+              </p>
+            </div>
+            <div>
+              <p
+                class="text-3xl md:text-5xl font-headline font-extrabold tracking-tight mb-2"
+              >
+                4.9
+              </p>
+              <p class="text-sm text-text-muted font-medium">
+                Average customer rating
+              </p>
+            </div>
+            <div>
+              <p
+                class="text-3xl md:text-5xl font-headline font-extrabold tracking-tight mb-2"
+              >
+                24/7
+              </p>
+              <p class="text-sm text-text-muted font-medium">
+                Digital access to Audi models
+              </p>
+            </div>
+            <div>
+              <p
+                class="text-3xl md:text-5xl font-headline font-extrabold tracking-tight mb-2"
+              >
+                EV
+              </p>
+              <p class="text-sm text-text-muted font-medium">
+                A bold move toward electric mobility
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Featured -->
+      <section id="featured" class="py-24">
         <div class="container mx-auto px-6">
           <div
-            class="flex flex-col lg:flex-row justify-between items-end mb-16 gap-6"
+            class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-14"
           >
             <div>
-              <span
-                class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4 block"
-                >PORTFOLIO</span
+              <p
+                class="text-xs uppercase tracking-[0.25em] font-bold text-text-soft mb-4"
               >
-              <h2 class="font-headline text-5xl font-bold tracking-tight">
-                Featured Audi Models
+                Featured Selection
+              </p>
+              <h2
+                class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight"
+              >
+                Signature Audi Models
               </h2>
             </div>
+
             <a
-              class="text-sm font-bold tertiary-underline pb-1"
-              href="models.html"
-              >VIEW ALL MODELS</a
+              href="login.html"
+              class="line-link text-sm font-bold tracking-wide"
             >
+              LOGIN TO VIEW FULL CATALOG
+            </a>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
-            <!-- Model Card 1 -->
-            <div class="group cursor-pointer">
-              <div
-                class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
-              >
-                <img
-                  alt=""
-                  class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi A3 front profile in urban setting"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7iIdpncjRk59TOKf3x5CJbP0q1m0tHC8tCtQLWLT66Z1IrFKYhkiqXgxCeRcxbnceAW_52aHwajBlKNwosFjgDyEj4Bc6yCu7bRs6lYKawLxOB8g-2BwCJvQr8xIz7YTwSHezVBhFtvLkOfWBDpzWnx_NMrRkpi_M9RXCSCH5Ldm-zhcGv-wCmFvQiEoQEVKkf2nK70t11IY4VvtBy7ubwfOb0b-eW-RPHAGGRv5eaiNJluMrzAlX8GOVcCjsZU7gpOz3r4XezYdl"
-                />
-              </div>
-              <div class="flex justify-between items-start mb-2">
-                <h3 class="font-headline text-2xl font-bold">A3</h3>
-                <div class="flex items-center gap-1 text-sm font-bold">
-                  <span
-                    class="material-symbols-outlined text-[16px] text-on-tertiary-container"
-                    style="font-variation-settings: &quot;FILL&quot; 1"
-                    >star</span
-                  >
-                  4.8
-                </div>
-              </div>
-              <p class="text-on-surface-variant text-sm font-medium mb-6">
-                Starting at $35,400
-              </p>
-              <a
-                href="car-details.html"
-                class="w-full py-4 border-b border-outline-variant hover:border-primary transition-colors text-left font-bold text-xs tracking-widest flex justify-between items-center"
-              >
-                VIEW DETAILS
-                <span class="material-symbols-outlined text-[18px]"
-                  >arrow_right_alt</span
-                >
-              </a>
-            </div>
-            <!-- Model Card 2 -->
-            <div class="group cursor-pointer">
-              <div
-                class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
-              >
-                <img
-                  alt=""
-                  class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi A4 sedan side view in garage"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuEVqX4lQHny6C-OJ_bcRmPQYr7d6YMVcRBuO8CpXWc575vFNqJD1Rn3euXmHzARTo-yF8sQJyw49uHEbtqmDf2ztS7R75UUo3KIjKEN1NyIEERY-EFOSLzaJHqLBHEr7jMxTR7q6ReLouBfS7S7G4dyedPpWXTo903O3Olk1OdmMQnKWdbECV3mVlpGC1zy76jHxZmhDSJX3Ajx_n-3TTcQnGeC0amRQIkFVFl4B51OEnhhlz1oop0O_3qDjyOkPcA8mWxCYz0txG"
-                />
-              </div>
-              <div class="flex justify-between items-start mb-2">
-                <h3 class="font-headline text-2xl font-bold">A4</h3>
-                <div class="flex items-center gap-1 text-sm font-bold">
-                  <span
-                    class="material-symbols-outlined text-[16px] text-on-tertiary-container"
-                    style="font-variation-settings: &quot;FILL&quot; 1"
-                    >star</span
-                  >
-                  4.7
-                </div>
-              </div>
-              <p class="text-on-surface-variant text-sm font-medium mb-6">
-                Starting at $42,000
-              </p>
-              <button
-                class="w-full py-4 border-b border-outline-variant hover:border-primary transition-colors text-left font-bold text-xs tracking-widest flex justify-between items-center"
-              >
-                VIEW DETAILS
-                <span class="material-symbols-outlined text-[18px]"
-                  >arrow_right_alt</span
-                >
-              </button>
-            </div>
-            <!-- Model Card 3 -->
-            <div class="group cursor-pointer">
-              <div
-                class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
-              >
-                <img
-                  alt=""
-                  class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi Q5 luxury SUV on scenic road"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4Z9NWssdr2zMvRxAGMOBT3lM4lgu55On0ZMz-YDUykPYIFVUkZN16ddBLXZCZflluNZ26cVZGsN6x9EtA9Y13z1QP4udAJ2XWG_UGyoUB9-JifKnQD45tRIVUSkxk2PGpmMzohLw756NbxweIRQMyg8DE02cmxN-dbDrd07dQ2K7-ysn7nU1bKvXoxHGVEykD5hp3U_oJFdBTo9yCwo5Ld6CIzUjlxRsWku1PMHRLBqVr6JiJfS-EHBzDW_kPA-7V46qVMoHlg1hI"
-                />
-              </div>
-              <div class="flex justify-between items-start mb-2">
-                <h3 class="font-headline text-2xl font-bold">Q5</h3>
-                <div class="flex items-center gap-1 text-sm font-bold">
-                  <span
-                    class="material-symbols-outlined text-[16px] text-on-tertiary-container"
-                    style="font-variation-settings: &quot;FILL&quot; 1"
-                    >star</span
-                  >
-                  4.9
-                </div>
-              </div>
-              <p class="text-on-surface-variant text-sm font-medium mb-6">
-                Starting at $45,000
-              </p>
-              <button
-                class="w-full py-4 border-b border-outline-variant hover:border-primary transition-colors text-left font-bold text-xs tracking-widest flex justify-between items-center"
-              >
-                VIEW DETAILS
-                <span class="material-symbols-outlined text-[18px]"
-                  >arrow_right_alt</span
-                >
-              </button>
-            </div>
-            <!-- Model Card 4 -->
-            <div class="group cursor-pointer">
-              <div
-                class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
-              >
-                <img
-                  alt=""
-                  class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi Q7 in snowy landscape"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCV2qKLz_if-oa44EW0GLg-rehZLb15mTg51pvljXDjDznplhkvUBhZPruomLYPCIV_eJ5FP_NLjhqBIo0C1ruBuuQH2nxJAVopyPsWNDXwi_ZoxnfRf2JVS2DMiOCpraCaONKC3xmfR1FckITOQp4eSRg9W0-0Xs3E-sFjjizMmxJ8zye2V5LjDKeK8bCBneAJy6zkkscOprqtFvSmF_98-2_jivsDmr5Bx-iRiYV-2bm1jnoo1Qrkje4pkewL1Ut0icPgbIRdgXpM"
-                />
-              </div>
-              <div class="flex justify-between items-start mb-2">
-                <h3 class="font-headline text-2xl font-bold">Q7</h3>
-                <div class="flex items-center gap-1 text-sm font-bold">
-                  <span
-                    class="material-symbols-outlined text-[16px] text-on-tertiary-container"
-                    style="font-variation-settings: &quot;FILL&quot; 1"
-                    >star</span
-                  >
-                  4.8
-                </div>
-              </div>
-              <p class="text-on-surface-variant text-sm font-medium mb-6">
-                Starting at $60,000
-              </p>
-              <button
-                class="w-full py-4 border-b border-outline-variant hover:border-primary transition-colors text-left font-bold text-xs tracking-widest flex justify-between items-center"
-              >
-                VIEW DETAILS
-                <span class="material-symbols-outlined text-[18px]"
-                  >arrow_right_alt</span
-                >
-              </button>
-            </div>
-            <!-- Model Card 5 -->
-            <div class="group cursor-pointer">
-              <div
-                class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
-              >
-                <img
-                  alt=""
-                  class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi e-tron GT electric sports car"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCCfgZEDSWZI5I5cgpLQXD5rI6esUG-vIkPZTy5KrOOEqlSzv9L_w-mOWLhKMHh_Ikem7hWvKS4IUK8faXLCOBWXADwb7L4IjJLK1x1EnzGF9SYjim1C3lWFuFcjzqB3bXYGtjBKQCsSLSADlm9-5npJXE6hB1kNqbju0HcrDzF-5ZXlmHC4ifvHaYApB8tdPJdhrXBZFdQzVjhXOPNuvFriLDhBj8xJlyLpkczx0ZxwYx1JbS87GYe5vbsvrmPDm8Szaztc8EbK_Ph"
-                />
-              </div>
-              <div class="flex justify-between items-start mb-2">
-                <h3 class="font-headline text-2xl font-bold">e-tron GT</h3>
-                <div class="flex items-center gap-1 text-sm font-bold">
-                  <span
-                    class="material-symbols-outlined text-[16px] text-on-tertiary-container"
-                    style="font-variation-settings: &quot;FILL&quot; 1"
-                    >star</span
-                  >
-                  5.0
-                </div>
-              </div>
-              <p class="text-on-surface-variant text-sm font-medium mb-6">
-                Starting at $106,500
-              </p>
-              <button
-                class="w-full py-4 border-b border-outline-variant hover:border-primary transition-colors text-left font-bold text-xs tracking-widest flex justify-between items-center"
-              >
-                VIEW DETAILS
-                <span class="material-symbols-outlined text-[18px]"
-                  >arrow_right_alt</span
-                >
-              </button>
-            </div>
-            <!-- Model Card 6 -->
-            <div class="group cursor-pointer">
-              <div
-                class="overflow-hidden mb-6 aspect-[16/9] bg-surface-container-low image-zoom"
-              >
-                <img
-                  alt=""
-                  class="w-full h-full object-cover transition-transform duration-700"
-                  data-alt="Audi Q8 front view at night"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzpCZ2-oJ9zUAHJ8CjUE2Rpk6FYZDQ-ZjayOMKovl-EQJnwDj7KxiAWZN0lIpQHg5Ehs02qGRIFua_f2eldX6AB1iRnyWWxL7JteGV4d6mffx3JekqXod9QYmou_pcxhE_5u2qw0O9O7nzC9d2gvENtml-h9ALHvI4OM8oJ5XhRMcC1jSnliAMnmbHrHBFwD5FrgWsY7v4uBEwK38QE2MUmt2saeWmtmb5RSXOzfbyFW9vs29tVVvzfwxJlsa6AnaPdsgs8gFqt-Hh"
-                />
-              </div>
-              <div class="flex justify-between items-start mb-2">
-                <h3 class="font-headline text-2xl font-bold">Q8</h3>
-                <div class="flex items-center gap-1 text-sm font-bold">
-                  <span
-                    class="material-symbols-outlined text-[16px] text-on-tertiary-container"
-                    style="font-variation-settings: &quot;FILL&quot; 1"
-                    >star</span
-                  >
-                  4.9
-                </div>
-              </div>
-              <p class="text-on-surface-variant text-sm font-medium mb-6">
-                Starting at $73,000
-              </p>
-              <button
-                class="w-full py-4 border-b border-outline-variant hover:border-primary transition-colors text-left font-bold text-xs tracking-widest flex justify-between items-center"
-              >
-                VIEW DETAILS
-                <span class="material-symbols-outlined text-[18px]"
-                  >arrow_right_alt</span
-                >
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-      <!-- Electric Future Bento Grid -->
-      <section class="py-24 bg-surface-container-low">
-        <div class="container mx-auto px-6">
-          <div class="mb-16">
-            <span
-              class="text-xs font-bold tracking-[0.2em] text-on-tertiary-container mb-4 block"
-              >INNOVATION</span
+
+          <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8">
+            <article
+              class="bg-white border border-black/6 rounded-[1.25rem] overflow-hidden hover-lift"
             >
-            <h2 class="font-headline text-5xl font-bold tracking-tight">
-              Electric Future
-            </h2>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8 h-[700px]">
-            <div
-              class="md:col-span-2 relative kinetic-monolith group cursor-pointer"
-            >
-              <img
-                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                data-alt="RS e-tron GT driving on coastal highway"
-                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAehTXm1jS2gJE79ZGNHosyStFgBhEhqQBVSVE63YO3xNWZI9KdT_itrrDVRxJ5GfyYBPjw98aqoWw0mJlvHlZshCAYTl43DscaVd3AiS3Df0CMtBQcnCYLLISTYQnpE9f-qa8-v57nfs7J0IwOfYuPHCe1r6073AxhcmCoBHOvdUKd9u-fgLMd-YSoYrPxgEEOwJfVZleuBP3x3AhV5xl2KViFbw4fEBgUbZcqf9QBLQr2wziE6J2pHYJ8XqQBku9pXHAd1-_cbLLv"
-              />
-              <div
-                class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
-              ></div>
-              <div class="absolute bottom-10 left-10 text-white">
-                <h3 class="font-headline text-4xl font-bold mb-2">
-                  RS e-tron GT
-                </h3>
-                <p class="text-white/70 mb-6 max-w-sm">
-                  Uncompromising performance. Pure electric soul. 0-60 mph in
-                  3.1 seconds.
+              <div class="aspect-[4/3] overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=1200&q=80"
+                  alt="Audi sedan front view"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-3">
+                  <h3 class="font-headline text-2xl font-bold">Audi A4</h3>
+                  <span
+                    class="text-xs font-semibold px-3 py-1 bg-surface-soft rounded-full"
+                    >Sedan</span
+                  >
+                </div>
+                <p class="text-text-muted text-sm leading-6 mb-6">
+                  Sophisticated design, everyday comfort, and unmistakable Audi
+                  presence.
                 </p>
               </div>
-            </div>
-            <div class="flex flex-col gap-8">
-              <div
-                class="relative flex-1 kinetic-monolith group cursor-pointer"
-              >
+            </article>
+
+            <article
+              class="bg-white border border-black/6 rounded-[1.25rem] overflow-hidden hover-lift"
+            >
+              <div class="aspect-[4/3] overflow-hidden">
                 <img
-                  class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  data-alt="Audi Q4 e-tron SUV in modern city"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaEpUC6g5IptF3FQ7MD6vyjS8Bphck1rF6xWWtQErDJNzmKIaCdh6hxT5nvV5a3GrXG7IQ4OshfzFXzQnp3S9a8U6y-ml1PE0a-lM6T1uOErl9f6HVM0j47NRQxstOuvUiOHpzSCHXij9aqN204liP5xabEXcjT5Sv_OKEQhzxiTuUwS_mo2wtqiA1Yva13nTsveNgKPfgHMvwLmaYpoiQ63wGEh8aXy242GXhzVuHwHkYspE1sLDFN_y_9t62FdurtNbBdbGP-eTW"
+                  src="https://images.unsplash.com/photo-1494905998402-395d579af36f?auto=format&fit=crop&w=1200&q=80"
+                  alt="Audi SUV side profile"
+                  class="w-full h-full object-cover"
                 />
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
-                ></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                  <h3 class="font-headline text-2xl font-bold mb-1">
-                    Q4 e-tron
-                  </h3>
-                  <button
-                    class="text-xs font-bold tracking-widest border-b border-white pb-1"
-                  >
-                    LEARN MORE
-                  </button>
-                </div>
               </div>
-              <div
-                class="relative flex-1 kinetic-monolith group cursor-pointer"
-              >
-                <img
-                  class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
-                  data-alt="Audi e-tron SUV charging at station"
-                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBHUwUi33_nkpACNW8B1EqNNGLjQBCGIPYCTaCWaG487N9qYu_9bvgM3ChNzOqRGxIzBVbmkzbIWGG0hTnYP0u6x4W9NPFh5JeF91F2Q5n9SOTjETVyG3x8bb5N9uce1qzB5E_MQjV6PPO7L48L-Oz6NDLAkK_ziFvbN4qbnAxcAqm7l0WPmn1Uw7ECaMOjhGReduXbeAZZK6bhvOP5TcyUhEWNfD4qjTvF1vEScMj47WGh5pmMT0tmXO3OGWLTSw4pvvkqKEbZhX3"
-                />
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"
-                ></div>
-                <div class="absolute bottom-6 left-6 text-white">
-                  <h3 class="font-headline text-2xl font-bold mb-1">
-                    e-tron SUV
-                  </h3>
-                  <button
-                    class="text-xs font-bold tracking-widest border-b border-white pb-1"
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-3">
+                  <h3 class="font-headline text-2xl font-bold">Audi Q5</h3>
+                  <span
+                    class="text-xs font-semibold px-3 py-1 bg-surface-soft rounded-full"
+                    >SUV</span
                   >
-                    LEARN MORE
-                  </button>
                 </div>
+                <p class="text-text-muted text-sm leading-6 mb-6">
+                  Premium versatility with refined space, power, and confidence.
+                </p>
+              </div>
+            </article>
+
+            <article
+              class="bg-white border border-black/6 rounded-[1.25rem] overflow-hidden hover-lift"
+            >
+              <div class="aspect-[4/3] overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=1200&q=80"
+                  alt="Audi electric sports car"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-3">
+                  <h3 class="font-headline text-2xl font-bold">e-tron GT</h3>
+                  <span
+                    class="text-xs font-semibold px-3 py-1 bg-surface-soft rounded-full"
+                    >Electric</span
+                  >
+                </div>
+                <p class="text-text-muted text-sm leading-6 mb-6">
+                  Performance reimagined with instant electric power and sharp
+                  elegance.
+                </p>
+              </div>
+            </article>
+
+            <article
+              class="bg-white border border-black/6 rounded-[1.25rem] overflow-hidden hover-lift"
+            >
+              <div class="aspect-[4/3] overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80"
+                  alt="Audi luxury SUV in motion"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="p-6">
+                <div class="flex items-start justify-between mb-3">
+                  <h3 class="font-headline text-2xl font-bold">Audi Q8</h3>
+                  <span
+                    class="text-xs font-semibold px-3 py-1 bg-surface-soft rounded-full"
+                    >Flagship SUV</span
+                  >
+                </div>
+                <p class="text-text-muted text-sm leading-6 mb-6">
+                  Bold luxury and commanding road presence in one dynamic
+                  package.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Electric -->
+      <section id="electric" class="py-24">
+        <div class="container mx-auto px-6">
+          <div class="mb-14">
+            <p
+              class="text-xs uppercase tracking-[0.25em] font-bold text-text-soft mb-4"
+            >
+              Electric Vision
+            </p>
+            <h2
+              class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight"
+            >
+              A glimpse into Audi electric mobility
+            </h2>
+          </div>
+
+          <div class="grid lg:grid-cols-3 gap-8">
+            <div
+              class="lg:col-span-2 relative rounded-[1.5rem] overflow-hidden min-h-[520px] hover-lift"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1489824904134-891ab64532f1?auto=format&fit=crop&w=1600&q=80"
+                alt="Audi electric vehicle on highway"
+                class="w-full h-full object-cover absolute inset-0"
+              />
+              <div
+                class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent"
+              ></div>
+              <div class="absolute left-8 bottom-8 text-white max-w-lg">
+                <h3 class="font-headline text-3xl md:text-4xl font-bold mb-3">
+                  Future-ready design
+                </h3>
+                <p class="text-white/80 leading-7 mb-6">
+                  From progressive styling to refined electric performance, Audi
+                  is shaping what comes next.
+                </p>
+                <a
+                  href="register.html"
+                  class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 text-sm font-bold tracking-wide hover:bg-neutral-200 transition-colors"
+                >
+                  JOIN TO EXPLORE
+                  <span class="material-symbols-outlined text-[18px]"
+                    >arrow_forward</span
+                  >
+                </a>
+              </div>
+            </div>
+
+            <div class="space-y-8">
+              <div
+                class="bg-white border border-black/6 rounded-[1.4rem] p-7 hover-lift"
+              >
+                <span class="material-symbols-outlined text-[34px] mb-4"
+                  >bolt</span
+                >
+                <h3 class="font-headline text-2xl font-bold mb-3">
+                  Electric lineup
+                </h3>
+                <p class="text-sm text-text-muted leading-7">
+                  Discover the e-tron family with premium comfort and modern
+                  electric capability.
+                </p>
+              </div>
+
+              <div
+                class="bg-white border border-black/6 rounded-[1.4rem] p-7 hover-lift"
+              >
+                <span class="material-symbols-outlined text-[34px] mb-4"
+                  >settings_suggest</span
+                >
+                <h3 class="font-headline text-2xl font-bold mb-3">
+                  Advanced technology
+                </h3>
+                <p class="text-sm text-text-muted leading-7">
+                  Enjoy intelligent systems, seamless displays, and
+                  driver-focused innovation.
+                </p>
+              </div>
+
+              <div class="bg-black text-white rounded-[1.4rem] p-7 hover-lift">
+                <span class="material-symbols-outlined text-[34px] mb-4"
+                  >account_circle</span
+                >
+                <h3 class="font-headline text-2xl font-bold mb-3">
+                  Create an account
+                </h3>
+                <p class="text-sm text-white/75 leading-7 mb-6">
+                  Register now and continue to the full Audi home page after
+                  sign-up.
+                </p>
+                <a
+                  href="register.html"
+                  class="line-link text-sm font-bold tracking-wide"
+                >
+                  REGISTER NOW
+                </a>
               </div>
             </div>
           </div>
         </div>
       </section>
-      <!-- Why Choose Audi -->
-      <section class="py-24 bg-surface-container-lowest">
+
+      <!-- Why Audi -->
+      <section id="why-audi" class="py-24 bg-white">
         <div class="container mx-auto px-6">
-          <div class="text-center mb-20">
-            <span
-              class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4 block"
-              >THE AUDI ADVANTAGE</span
+          <div class="text-center max-w-3xl mx-auto mb-16">
+            <p
+              class="text-xs uppercase tracking-[0.25em] font-bold text-text-soft mb-4"
             >
-            <h2 class="font-headline text-5xl font-bold tracking-tight">
-              The Precision Atelier
+              Why Audi
+            </p>
+            <h2
+              class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight mb-6"
+            >
+              Built around performance and detail
             </h2>
+            <p class="text-text-muted leading-8">
+              Every Audi experience blends precision engineering, advanced
+              design, and everyday luxury into one refined destination.
+            </p>
           </div>
-          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto mb-8 bg-surface-container flex items-center justify-center"
+
+          <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-8">
+            <div class="bg-surface-soft rounded-[1.25rem] p-8">
+              <span class="material-symbols-outlined text-[34px] mb-5"
+                >engineering</span
               >
-                <span class="material-symbols-outlined text-[32px]"
-                  >engineering</span
-                >
-              </div>
-              <h4 class="font-headline text-xl font-bold mb-4">
-                Luxury engineering
-              </h4>
-              <p class="text-sm text-on-surface-variant leading-relaxed">
-                Every component machined to tolerances thinner than a human
-                hair.
+              <h3 class="font-headline text-xl font-bold mb-3">
+                German engineering
+              </h3>
+              <p class="text-sm text-text-muted leading-7">
+                Precision-built vehicles shaped by innovation and craftsmanship.
               </p>
             </div>
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto mb-8 bg-surface-container flex items-center justify-center"
+
+            <div class="bg-surface-soft rounded-[1.25rem] p-8">
+              <span class="material-symbols-outlined text-[34px] mb-5"
+                >all_inclusive</span
               >
-                <span class="material-symbols-outlined text-[32px]"
-                  >all_inclusive</span
-                >
-              </div>
-              <h4 class="font-headline text-xl font-bold mb-4">Quattro</h4>
-              <p class="text-sm text-on-surface-variant leading-relaxed">
-                Legendary all-wheel drive for superior traction in every
-                condition.
+              <h3 class="font-headline text-xl font-bold mb-3">
+                quattro confidence
+              </h3>
+              <p class="text-sm text-text-muted leading-7">
+                Legendary all-wheel drive capability for stability and control.
               </p>
             </div>
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto mb-8 bg-surface-container flex items-center justify-center"
+
+            <div class="bg-surface-soft rounded-[1.25rem] p-8">
+              <span class="material-symbols-outlined text-[34px] mb-5"
+                >memory</span
               >
-                <span class="material-symbols-outlined text-[32px]"
-                  >memory</span
-                >
-              </div>
-              <h4 class="font-headline text-xl font-bold mb-4">
-                Advanced technology
-              </h4>
-              <p class="text-sm text-on-surface-variant leading-relaxed">
-                Intuitive Virtual Cockpit and MMI Touch response interfaces.
+              <h3 class="font-headline text-xl font-bold mb-3">
+                Digital innovation
+              </h3>
+              <p class="text-sm text-text-muted leading-7">
+                Smart interfaces and immersive cockpit technology improve every
+                drive.
               </p>
             </div>
-            <div class="text-center">
-              <div
-                class="w-16 h-16 mx-auto mb-8 bg-surface-container flex items-center justify-center"
+
+            <div class="bg-surface-soft rounded-[1.25rem] p-8">
+              <span class="material-symbols-outlined text-[34px] mb-5"
+                >verified_user</span
               >
-                <span class="material-symbols-outlined text-[32px]"
-                  >verified_user</span
-                >
-              </div>
-              <h4 class="font-headline text-xl font-bold mb-4">
-                Safety innovations
-              </h4>
-              <p class="text-sm text-on-surface-variant leading-relaxed">
-                Audi pre sense® systems for 360-degree driver protection.
+              <h3 class="font-headline text-xl font-bold mb-3">
+                Driver-focused safety
+              </h3>
+              <p class="text-sm text-text-muted leading-7">
+                Intelligent protection systems designed around awareness and
+                control.
               </p>
             </div>
           </div>
         </div>
       </section>
     </main>
-    <footer class="bg-surface-container py-20">
-      <div class="container mx-auto px-6">
-        <!-- Top Footer Content -->
-        <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"
-        >
-          <!-- Brand -->
-          <div class="lg:col-span-2">
-            <span
-              class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block"
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-black/6">
+      <div class="container mx-auto px-6 py-12">
+        <div class="grid md:grid-cols-3 gap-10 mb-10">
+          <div>
+            <a
+              href="index.html"
+              class="font-headline text-3xl font-extrabold tracking-tight mb-4 inline-block"
             >
               Audi
-            </span>
-
-            <p
-              class="text-on-surface-variant max-w-sm font-light leading-relaxed"
-            >
-              Experience the pinnacle of German automotive engineering. Join our
-              newsletter for exclusive previews, innovations, and performance
-              updates.
+            </a>
+            <p class="text-sm text-text-muted leading-7 max-w-sm">
+              Premium automotive design, performance, and innovation in one
+              digital experience.
             </p>
-          </div>
-
-          <!-- Navigation -->
-          <div>
-            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">
-              Navigation
-            </h5>
-
-            <ul class="space-y-3">
-              <li>
-                <a
-                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
-                  href="index.html"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
-                  href="models.html"
-                >
-                  Models
-                </a>
-              </li>
-              <li>
-                <a
-                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
-                  href="electric.html"
-                >
-                  Electric
-                </a>
-              </li>
-              <li>
-                <a
-                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
-                  href="suvs.html"
-                >
-                  SUVs
-                </a>
-              </li>
-              <li>
-                <a
-                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
-                  href="sedans.html"
-                >
-                  Sedans
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <!-- Contact -->
-          <div>
-            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">
-              Stay Connected
-            </h5>
-
-            <ul class="space-y-3">
-              <li>
-                <a
-                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
-                  href="about.html"
-                >
-                  About
-                </a>
-              </li>
-              <li>
-                <a
-                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
-                  href="contact.html"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
           </div>
         </div>
 
-        <!-- Bottom Footer -->
-        <div class="border-t border-outline-variant/30 pt-8 text-center">
-          <p class="text-xs text-on-surface-variant font-medium tracking-wide">
-            © 2004 Audi. All rights reserved.
-          </p>
+        <div
+          class="container mx-auto px-6 text-center text-xs text-on-surface-variant"
+        >
+          © 2000 Audi. All rights reserved.
         </div>
       </div>
     </footer>
