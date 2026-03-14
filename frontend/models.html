@@ -165,20 +165,32 @@
     </header>
 
     <main>
-      <!-- Models Hero -->
-      <section class="py-20 bg-surface-container-low">
-        <div class="container mx-auto px-6">
-          <div class="max-w-3xl mx-auto text-center">
+      <!-- Models Hero with Image Background -->
+      <section class="relative py-20 bg-surface-container-low overflow-hidden">
+        <!-- Image Background -->
+        <div class="absolute inset-0 z-0">
+          <img
+            src="images/models.avif"
+            alt="Audi models lineup"
+            class="w-full h-full object-cover"
+          />
+        </div>
+
+        <!-- Content with background box -->
+        <div class="container mx-auto px-6 relative z-10">
+          <div
+            class="max-w-3xl mx-auto text-center bg-surface/60 backdrop-blur-sm p-8 rounded-lg"
+          >
             <span
-              class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4 block"
+              class="text-xs font-bold tracking-[0.2em] text-black/80 mb-4 block"
               >THE AUDI LINEUP</span
             >
             <h1
-              class="font-headline text-5xl lg:text-7xl font-extrabold tracking-tight mb-6"
+              class="font-headline text-5xl lg:text-7xl font-extrabold tracking-tight mb-6 text-black"
             >
               All Models
             </h1>
-            <p class="text-lg text-on-surface-variant leading-relaxed">
+            <p class="text-lg text-black/90 leading-relaxed">
               Discover the complete range of Audi vehicles. From luxury sedans
               to high-performance electric vehicles.
             </p>
