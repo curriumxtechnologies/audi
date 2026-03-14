@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Audi | Admin - All Cars</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              secondary: "#5b5f61",
+              background: "#f7f7f7",
+              surface: "#ffffff",
+              "surface-soft": "#f1f1f1",
+              "surface-deep": "#111111",
+              "surface-muted": "#ececec",
+              "outline-soft": "#d8d8d8",
+              "text-main": "#111111",
+              "text-muted": "#666666",
+              "text-soft": "#8a8a8a",
+              accent: "#d70000",
+            },
+            fontFamily: {
+              headline: ["Manrope", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f7f7f7;
+      }
+      .admin-sidebar {
+        background: white;
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .admin-nav-item {
+        transition: all 0.2s ease;
+      }
+      .admin-nav-item:hover {
+        background: #f1f1f1;
+      }
+      .admin-nav-item.active {
+        background: #000000;
+        color: white;
+      }
+      .admin-nav-item.active .material-symbols-outlined {
+        color: white;
+      }
+      .status-badge {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+      .status-published {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .status-draft {
+        background: #fef9c3;
+        color: #854d0e;
+      }
+      .status-outofstock {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+    </style>
+  </head>
+  <body class="bg-background text-text-main">
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar -->
+      <aside
+        class="admin-sidebar w-64 flex-shrink-0 hidden md:block overflow-y-auto"
+      >
+        <div class="p-6">
+          <span
+            class="font-headline text-2xl font-extrabold tracking-tighter block mb-8"
+            >Audi Admin</span
+          >
+
+          <nav class="space-y-1">
+            <a
+              href="admin-dashboard.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">dashboard</span>
+              Dashboard
+            </a>
+            <a
+              href="users.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">people</span>
+              Users
+              <span
+                class="ml-auto bg-surface-soft px-2 py-0.5 rounded-full text-xs"
+                >24</span
+              >
+            </a>
+            <a
+              href="admin-cars.html"
+              class="admin-nav-item active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
+            >
+              <span class="material-symbols-outlined">directions_car</span>
+              All Cars
+              <span class="ml-auto bg-white/20 px-2 py-0.5 rounded-full text-xs"
+                >18</span
+              >
+            </a>
+            <div class="border-t border-outline-soft my-4"></div>
+            <a
+              href="upload-car.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">upload</span>
+              Upload Car
+            </a>
+            <a
+              href="admin-payments.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">payments</span>
+              Payments
+              <span
+                class="ml-auto bg-accent text-white px-2 py-0.5 rounded-full text-xs"
+                >3</span
+              >
+            </a>
+          </nav>
+        </div>
+
+        <div class="absolute bottom-0 w-64 p-6 border-t border-outline-soft">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
+            >
+              <span class="material-symbols-outlined"
+                >admin_panel_settings</span
+              >
+            </div>
+            <div>
+              <p class="text-sm font-medium">Admin User</p>
+              <p class="text-xs text-text-muted">admin@audi.com</p>
+            </div>
+            <button class="ml-auto text-text-muted hover:text-primary">
+              <span class="material-symbols-outlined">logout</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto">
+        <!-- Header -->
+        <header class="bg-white border-b border-outline-soft sticky top-0 z-10">
+          <div class="flex items-center justify-between px-6 py-4">
+            <h1 class="font-headline text-2xl font-bold">All Cars (18)</h1>
+
+            <div class="flex items-center gap-4">
+              <a
+                href="admin-upload.html"
+                class="bg-primary text-white px-5 py-2 text-sm font-semibold hover:bg-neutral-800 transition-colors flex items-center gap-2"
+              >
+                <span class="material-symbols-outlined text-[18px]">add</span>
+                ADD NEW CAR
+              </a>
+            </div>
+          </div>
+        </header>
+
+        <!-- Content -->
+        <div class="p-6">
+          <!-- Filters and Search -->
+          <div
+            class="bg-white p-4 border border-outline-soft mb-6 flex flex-wrap gap-4 items-center justify-between"
+          >
+            <div class="flex gap-2">
+              <input
+                type="text"
+                placeholder="Search cars..."
+                class="border border-outline-soft px-4 py-2 text-sm w-64 focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+              />
+              <button
+                class="bg-primary text-white px-4 py-2 text-sm font-semibold hover:bg-neutral-800 transition-colors"
+              >
+                SEARCH
+              </button>
+            </div>
+          </div>
+
+          <!-- Cars Grid View -->
+          <div class="mb-6 flex items-center justify-between">
+            <p class="text-sm text-text-muted">Showing 1-12 of 18 cars</p>
+            <div class="flex gap-2">
+              <button
+                class="p-2 bg-white border border-outline-soft hover:bg-surface-soft"
+              >
+                <span class="material-symbols-outlined text-[18px]"
+                  >grid_view</span
+                >
+              </button>
+              <button
+                class="p-2 bg-white border border-outline-soft hover:bg-surface-soft"
+              >
+                <span class="material-symbols-outlined text-[18px]"
+                  >view_list</span
+                >
+              </button>
+            </div>
+          </div>
+
+          <!-- Cars Grid -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+          >
+            <!-- Car Card 1 - A3 -->
+            <div
+              class="bg-white border border-outline-soft overflow-hidden group hover:shadow-lg transition-shadow"
+            >
+              <div
+                class="aspect-[16/9] bg-surface-soft overflow-hidden relative"
+              >
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7iIdpncjRk59TOKf3x5CJbP0q1m0tHC8tCtQLWLT66Z1IrFKYhkiqXgxCeRcxbnceAW_52aHwajBlKNwosFjgDyEj4Bc6yCu7bRs6lYKawLxOB8g-2BwCJvQr8xIz7YTwSHezVBhFtvLkOfWBDpzWnx_NMrRkpi_M9RXCSCH5Ldm-zhcGv-wCmFvQiEoQEVKkf2nK70t11IY4VvtBy7ubwfOb0b-eW-RPHAGGRv5eaiNJluMrzAlX8GOVcCjsZU7gpOz3r4XezYdl"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <span
+                  class="absolute top-2 right-2 bg-black text-white text-xs px-2 py-1 font-semibold"
+                  >NEW</span
+                >
+              </div>
+              <div class="p-4">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 class="font-headline font-bold">Audi A3</h3>
+                    <p class="text-xs text-text-muted">2025 • Sedan</p>
+                  </div>
+                  <span class="status-badge status-published">Published</span>
+                </div>
+                <p class="font-headline font-bold text-lg mb-2">$35,400</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <span
+                    class="text-xs bg-surface-soft px-2 py-1 flex items-center gap-1"
+                  >
+                    <span
+                      class="material-symbols-outlined text-[14px] text-yellow-500"
+                      >star</span
+                    >
+                    4.8
+                  </span>
+                  <span class="text-xs bg-surface-soft px-2 py-1">12 sold</span>
+                </div>
+                <div
+                  class="flex justify-between items-center pt-2 border-t border-outline-soft"
+                >
+                  <div class="flex gap-1">
+                    <button
+                      class="p-1.5 hover:bg-surface-soft rounded"
+                      title="Edit"
+                    >
+                      <span class="material-symbols-outlined text-[18px]"
+                        >edit</span
+                      >
+                    </button>
+                    <button
+                      class="p-1.5 hover:bg-surface-soft rounded"
+                      title="View on site"
+                    >
+                      <span class="material-symbols-outlined text-[18px]"
+                        >visibility</span
+                      >
+                    </button>
+                    <button
+                      class="p-1.5 hover:bg-surface-soft rounded"
+                      title="Duplicate"
+                    >
+                      <span class="material-symbols-outlined text-[18px]"
+                        >content_copy</span
+                      >
+                    </button>
+                    <button
+                      class="p-1.5 hover:bg-surface-soft rounded"
+                      title="Analytics"
+                    >
+                      <span class="material-symbols-outlined text-[18px]"
+                        >analytics</span
+                      >
+                    </button>
+                  </div>
+                  <button
+                    class="p-1.5 hover:bg-surface-soft rounded text-accent"
+                    title="Delete"
+                  >
+                    <span class="material-symbols-outlined text-[18px]"
+                      >delete</span
+                    >
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car Card 2 - Q5 -->
+            <div
+              class="bg-white border border-outline-soft overflow-hidden group hover:shadow-lg transition-shadow"
+            >
+              <div class="aspect-[16/9] bg-surface-soft overflow-hidden">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4Z9NWssdr2zMvRxAGMOBT3lM4lgu55On0ZMz-YDUykPYIFVUkZN16ddBLXZCZflluNZ26cVZGsN6x9EtA9Y13z1QP4udAJ2XWG_UGyoUB9-JifKnQD45tRIVUSkxk2PGpmMzohLw756NbxweIRQMyg8DE02cmxN-dbDrd07dQ2K7-ysn7nU1bKvXoxHGVEykD5hp3U_oJFdBTo9yCwo5Ld6CIzUjlxRsWku1PMHRLBqVr6JiJfS-EHBzDW_kPA-7V46qVMoHlg1hI"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+              <div class="p-4">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 class="font-headline font-bold">Audi Q5</h3>
+                    <p class="text-xs text-text-muted">2025 • SUV</p>
+                  </div>
+                  <span class="status-badge status-published">Published</span>
+                </div>
+                <p class="font-headline font-bold text-lg mb-2">$45,000</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <span
+                    class="text-xs bg-surface-soft px-2 py-1 flex items-center gap-1"
+                  >
+                    <span
+                      class="material-symbols-outlined text-[14px] text-yellow-500"
+                      >star</span
+                    >
+                    4.9
+                  </span>
+                  <span class="text-xs bg-surface-soft px-2 py-1">8 sold</span>
+                </div>
+                <div
+                  class="flex justify-between items-center pt-2 border-t border-outline-soft"
+                >
+                  <div class="flex gap-1">
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      ✎
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      👁️
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      📋
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      📊
+                    </button>
+                  </div>
+                  <button
+                    class="p-1.5 hover:bg-surface-soft rounded text-accent"
+                  >
+                    🗑️
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car Card 3 - e-tron GT -->
+            <div
+              class="bg-white border border-outline-soft overflow-hidden group hover:shadow-lg transition-shadow"
+            >
+              <div class="aspect-[16/9] bg-surface-soft overflow-hidden">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuAehTXm1jS2gJE79ZGNHosyStFgBhEhqQBVSVE63YO3xNWZI9KdT_itrrDVRxJ5GfyYBPjw98aqoWw0mJlvHlZshCAYTl43DscaVd3AiS3Df0CMtBQcnCYLLISTYQnpE9f-qa8-v57nfs7J0IwOfYuPHCe1r6073AxhcmCoBHOvdUKd9u-fgLMd-YSoYrPxgEEOwJfVZleuBP3x3AhV5xl2KViFbw4fEBgUbZcqf9QBLQr2wziE6J2pHYJ8XqQBku9pXHAd1-_cbLLv"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <span
+                  class="absolute top-2 right-2 bg-accent text-white text-xs px-2 py-1 font-semibold"
+                  >ELECTRIC</span
+                >
+              </div>
+              <div class="p-4">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 class="font-headline font-bold">RS e-tron GT</h3>
+                    <p class="text-xs text-text-muted">2025 • Electric</p>
+                  </div>
+                  <span class="status-badge status-published">Published</span>
+                </div>
+                <p class="font-headline font-bold text-lg mb-2">$106,500</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <span
+                    class="text-xs bg-surface-soft px-2 py-1 flex items-center gap-1"
+                  >
+                    <span
+                      class="material-symbols-outlined text-[14px] text-yellow-500"
+                      >star</span
+                    >
+                    5.0
+                  </span>
+                  <span class="text-xs bg-surface-soft px-2 py-1">3 sold</span>
+                </div>
+                <div
+                  class="flex justify-between items-center pt-2 border-t border-outline-soft"
+                >
+                  <div class="flex gap-1">
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      ✎
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      👁️
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      📋
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      📊
+                    </button>
+                  </div>
+                  <button
+                    class="p-1.5 hover:bg-surface-soft rounded text-accent"
+                  >
+                    🗑️
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car Card 4 - Q7 -->
+            <div
+              class="bg-white border border-outline-soft overflow-hidden group hover:shadow-lg transition-shadow"
+            >
+              <div class="aspect-[16/9] bg-surface-soft overflow-hidden">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCV2qKLz_if-oa44EW0GLg-rehZLb15mTg51pvljXDjDznplhkvUBhZPruomLYPCIV_eJ5FP_NLjhqBIo0C1ruBuuQH2nxJAVopyPsWNDXwi_ZoxnfRf2JVS2DMiOCpraCaONKC3xmfR1FckITOQp4eSRg9W0-0Xs3E-sFjjizMmxJ8zye2V5LjDKeK8bCBneAJy6zkkscOprqtFvSmF_98-2_jivsDmr5Bx-iRiYV-2bm1jnoo1Qrkje4pkewL1Ut0icPgbIRdgXpM"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+              <div class="p-4">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 class="font-headline font-bold">Audi Q7</h3>
+                    <p class="text-xs text-text-muted">2025 • SUV</p>
+                  </div>
+                  <span class="status-badge status-published">Published</span>
+                </div>
+                <p class="font-headline font-bold text-lg mb-2">$60,000</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <span
+                    class="text-xs bg-surface-soft px-2 py-1 flex items-center gap-1"
+                    >4.8 ★</span
+                  >
+                  <span class="text-xs bg-surface-soft px-2 py-1">6 sold</span>
+                </div>
+                <div
+                  class="flex justify-between items-center pt-2 border-t border-outline-soft"
+                >
+                  <div class="flex gap-1">
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      ✎
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      👁️
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      📋
+                    </button>
+                  </div>
+                  <button
+                    class="p-1.5 hover:bg-surface-soft rounded text-accent"
+                  >
+                    🗑️
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car Card 5 - Q8 -->
+            <div
+              class="bg-white border border-outline-soft overflow-hidden group hover:shadow-lg transition-shadow"
+            >
+              <div class="aspect-[16/9] bg-surface-soft overflow-hidden">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzpCZ2-oJ9zUAHJ8CjUE2Rpk6FYZDQ-ZjayOMKovl-EQJnwDj7KxiAWZN0lIpQHg5Ehs02qGRIFua_f2eldX6AB1iRnyWWxL7JteGV4d6mffx3JekqXod9QYmou_pcxhE_5u2qw0O9O7nzC9d2gvENtml-h9ALHvI4OM8oJ5XhRMcC1jSnliAMnmbHrHBFwD5FrgWsY7v4uBEwK38QE2MUmt2saeWmtmb5RSXOzfbyFW9vs29tVVvzfwxJlsa6AnaPdsgs8gFqt-Hh"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+              <div class="p-4">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 class="font-headline font-bold">Audi Q8</h3>
+                    <p class="text-xs text-text-muted">2025 • SUV</p>
+                  </div>
+                  <span class="status-badge status-published">Published</span>
+                </div>
+                <p class="font-headline font-bold text-lg mb-2">$73,000</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-xs bg-surface-soft px-2 py-1">4.9 ★</span>
+                  <span class="text-xs bg-surface-soft px-2 py-1">4 sold</span>
+                </div>
+                <div
+                  class="flex justify-between items-center pt-2 border-t border-outline-soft"
+                >
+                  <div class="flex gap-1">
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      ✎
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      👁️
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      📋
+                    </button>
+                  </div>
+                  <button
+                    class="p-1.5 hover:bg-surface-soft rounded text-accent"
+                  >
+                    🗑️
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car Card 6 - A4 -->
+            <div
+              class="bg-white border border-outline-soft overflow-hidden group hover:shadow-lg transition-shadow"
+            >
+              <div class="aspect-[16/9] bg-surface-soft overflow-hidden">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuEVqX4lQHny6C-OJ_bcRmPQYr7d6YMVcRBuO8CpXWc575vFNqJD1Rn3euXmHzARTo-yF8sQJyw49uHEbtqmDf2ztS7R75UUo3KIjKEN1NyIEERY-EFOSLzaJHqLBHEr7jMxTR7q6ReLouBfS7S7G4dyedPpWXTo903O3Olk1OdmMQnKWdbECV3mVlpGC1zy76jHxZmhDSJX3Ajx_n-3TTcQnGeC0amRQIkFVFl4B51OEnhhlz1oop0O_3qDjyOkPcA8mWxCYz0txG"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+              <div class="p-4">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 class="font-headline font-bold">Audi A4</h3>
+                    <p class="text-xs text-text-muted">2025 • Sedan</p>
+                  </div>
+                  <span class="status-badge status-published">Published</span>
+                </div>
+                <p class="font-headline font-bold text-lg mb-2">$42,000</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-xs bg-surface-soft px-2 py-1">4.7 ★</span>
+                  <span class="text-xs bg-surface-soft px-2 py-1">9 sold</span>
+                </div>
+                <div
+                  class="flex justify-between items-center pt-2 border-t border-outline-soft"
+                >
+                  <div class="flex gap-1">
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      ✎
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      👁️
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      📋
+                    </button>
+                  </div>
+                  <button
+                    class="p-1.5 hover:bg-surface-soft rounded text-accent"
+                  >
+                    🗑️
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car Card 7 - Draft S3 -->
+            <div
+              class="bg-white border border-outline-soft overflow-hidden group hover:shadow-lg transition-shadow opacity-90"
+            >
+              <div class="aspect-[16/9] bg-surface-soft overflow-hidden">
+                <img
+                  src="https://images.unsplash.com/photo-1556189250-72ba954cfc2b?w=500"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+              <div class="p-4">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 class="font-headline font-bold">Audi S3</h3>
+                    <p class="text-xs text-text-muted">2025 • Sedan</p>
+                  </div>
+                  <span class="status-badge status-draft">Draft</span>
+                </div>
+                <p class="font-headline font-bold text-lg mb-2">$48,900</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-xs bg-surface-soft px-2 py-1">4.8 ★</span>
+                  <span class="text-xs bg-surface-soft px-2 py-1"
+                    >Pre-order</span
+                  >
+                </div>
+                <div
+                  class="flex justify-between items-center pt-2 border-t border-outline-soft"
+                >
+                  <div class="flex gap-1">
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      ✎
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      👁️
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      📋
+                    </button>
+                  </div>
+                  <button
+                    class="p-1.5 hover:bg-surface-soft rounded text-accent"
+                  >
+                    🗑️
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Car Card 8 - Q4 e-tron -->
+            <div
+              class="bg-white border border-outline-soft overflow-hidden group hover:shadow-lg transition-shadow"
+            >
+              <div class="aspect-[16/9] bg-surface-soft overflow-hidden">
+                <img
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDaEpUC6g5IptF3FQ7MD6vyjS8Bphck1rF6xWWtQErDJNzmKIaCdh6hxT5nvV5a3GrXG7IQ4OshfzFXzQnp3S9a8U6y-ml1PE0a-lM6T1uOErl9f6HVM0j47NRQxstOuvUiOHpzSCHXij9aqN204liP5xabEXcjT5Sv_OKEQhzxiTuUwS_mo2wtqiA1Yva13nTsveNgKPfgHMvwLmaYpoiQ63wGEh8aXy242GXhzVuHwHkYspE1sLDFN_y_9t62FdurtNbBdbGP-eTW"
+                  class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+                <span
+                  class="absolute top-2 right-2 bg-accent text-white text-xs px-2 py-1 font-semibold"
+                  >ELECTRIC</span
+                >
+              </div>
+              <div class="p-4">
+                <div class="flex justify-between items-start mb-2">
+                  <div>
+                    <h3 class="font-headline font-bold">Q4 e-tron</h3>
+                    <p class="text-xs text-text-muted">2025 • Electric</p>
+                  </div>
+                  <span class="status-badge status-published">Published</span>
+                </div>
+                <p class="font-headline font-bold text-lg mb-2">$52,000</p>
+                <div class="flex items-center gap-2 mb-3">
+                  <span class="text-xs bg-surface-soft px-2 py-1">4.7 ★</span>
+                  <span class="text-xs bg-surface-soft px-2 py-1">5 sold</span>
+                </div>
+                <div
+                  class="flex justify-between items-center pt-2 border-t border-outline-soft"
+                >
+                  <div class="flex gap-1">
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      ✎
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      👁️
+                    </button>
+                    <button class="p-1.5 hover:bg-surface-soft rounded">
+                      📋
+                    </button>
+                  </div>
+                  <button
+                    class="p-1.5 hover:bg-surface-soft rounded text-accent"
+                  >
+                    🗑️
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pagination -->
+          <div class="flex justify-between items-center mt-8">
+            <p class="text-sm text-text-muted">Showing 1-9 of 18 cars</p>
+            <div class="flex gap-2">
+              <button
+                class="px-4 py-2 border border-outline-soft bg-white hover:bg-surface-soft disabled:opacity-50"
+                disabled
+              >
+                Previous
+              </button>
+              <button
+                class="px-4 py-2 border border-outline-soft bg-primary text-white"
+              >
+                1
+              </button>
+              <button
+                class="px-4 py-2 border border-outline-soft bg-white hover:bg-surface-soft"
+              >
+                2
+              </button>
+              <button
+                class="px-4 py-2 border border-outline-soft bg-white hover:bg-surface-soft"
+              >
+                Next
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
