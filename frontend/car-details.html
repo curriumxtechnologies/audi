@@ -1,0 +1,925 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <!-- Fonts & Icons (same as homepage) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-container": "#dfe3e5",
+              "on-secondary-container": "#616567",
+              "surface-container-highest": "#e2e2e2",
+              "secondary-fixed": "#dfe3e5",
+              "inverse-surface": "#2f3131",
+              "surface-dim": "#dadada",
+              error: "#ba1a1a",
+              "surface-container-high": "#e8e8e8",
+              "primary-fixed-dim": "#c6c6c6",
+              "on-surface": "#1a1c1c",
+              outline: "#7e7576",
+              "on-error": "#ffffff",
+              "on-secondary-fixed": "#181c1e",
+              "on-background": "#1a1c1c",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb3b3",
+              "error-container": "#ffdad6",
+              "on-surface-variant": "#4c4546",
+              "surface-container-lowest": "#ffffff",
+              "surface-variant": "#e2e2e2",
+              "surface-bright": "#f9f9f9",
+              "secondary-fixed-dim": "#c3c7c9",
+              surface: "#f9f9f9",
+              "on-primary-container": "#848484",
+              "inverse-primary": "#c6c6c6",
+              "surface-tint": "#5e5e5e",
+              "primary-fixed": "#e2e2e2",
+              background: "#f9f9f9",
+              "on-secondary": "#ffffff",
+              "on-primary": "#ffffff",
+              "outline-variant": "#cfc4c5",
+              "on-primary-fixed-variant": "#474747",
+              "on-tertiary-fixed-variant": "#920022",
+              "surface-container": "#eeeeee",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#400009",
+              "on-tertiary-fixed": "#400009",
+              "on-secondary-fixed-variant": "#434749",
+              secondary: "#5b5f61",
+              primary: "#000000",
+              "on-tertiary-container": "#f33d52",
+              "primary-container": "#1b1b1b",
+              "surface-container-low": "#f3f3f3",
+              "inverse-on-surface": "#f1f1f1",
+              "tertiary-fixed": "#ffdad9",
+              tertiary: "#000000",
+              "on-primary-fixed": "#1b1b1b",
+            },
+            fontFamily: {
+              headline: ["Manrope"],
+              body: ["Inter"],
+              label: ["Inter"],
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .glass-header {
+        background: rgba(243, 243, 243, 0.8);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+      }
+      .kinetic-monolith {
+        position: relative;
+        overflow: hidden;
+      }
+      .image-zoom:hover img {
+        transform: scale(1.05);
+      }
+      .spec-number {
+        letter-spacing: -0.05em;
+      }
+      .tertiary-underline {
+        position: relative;
+      }
+      .tertiary-underline::after {
+        content: "";
+        position: absolute;
+        bottom: -2px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: currentColor;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+      }
+      .tertiary-underline:hover::after {
+        width: 100%;
+      }
+      /* subtle hover for spec cards */
+      .spec-card-hover {
+        transition: all 0.2s ease;
+      }
+      .spec-card-hover:hover {
+        background-color: #e8e8e8; /* surface-container-high */
+      }
+    </style>
+  </head>
+  <body
+    class="bg-surface text-on-surface font-body selection:bg-primary selection:text-white antialiased"
+  >
+    <!-- STICKY HEADER (exact same as homepage) -->
+    <header
+      class="glass-header sticky top-0 z-50 border-b border-outline-variant/10"
+    >
+      <nav
+        class="container mx-auto px-6 py-4 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-12">
+          <span class="font-headline text-2xl font-extrabold tracking-tighter"
+            >Audi</span
+          >
+        </div>
+      </nav>
+    </header>
+
+    <main class="bg-surface">
+      <!-- BREADCRUMB refined -->
+      <div class="container mx-auto px-6 pt-8 pb-2">
+        <div
+          class="flex items-center text-xs font-medium text-on-surface-variant tracking-wide"
+        >
+          <a href="index.html" class="hover:text-primary transition-colors"
+            >Home</a
+          >
+          <span class="mx-2 select-none">/</span>
+          <a href="models.html" class="hover:text-primary transition-colors"
+            >Models</a
+          >
+          <span class="mx-2 select-none">/</span>
+          <span class="text-on-surface font-semibold">Audi A3</span>
+        </div>
+      </div>
+
+      <!-- HERO PRODUCT SECTION (above fold) with gallery + info -->
+      <section class="container mx-auto px-6 py-6 lg:py-10">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          <!-- left: large main image + thumbnails (premium gallery) -->
+          <div>
+            <div
+              class="aspect-[4/3] bg-surface-container-high mb-4 overflow-hidden kinetic-monolith"
+            >
+              <img
+                src="https://images.unsplash.com/photo-1609529669231-f5e6e8e1b5e6?q=80&w=2070&auto=format&fit=crop"
+                alt="Audi A3 front three quarter"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="grid grid-cols-5 gap-3">
+              <div
+                class="aspect-square bg-surface-container-high overflow-hidden cursor-pointer opacity-80 hover:opacity-100 transition border-2 border-transparent hover:border-primary/20"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1609529669231-f5e6e8e1b5e6?q=80&w=2070&auto=format&fit=crop"
+                  alt="A3 exterior front"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div
+                class="aspect-square bg-surface-container-high overflow-hidden cursor-pointer opacity-80 hover:opacity-100 transition"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1580273916550-e323be2ae537?q=80&w=1964&auto=format&fit=crop"
+                  alt="A3 rear angle"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div
+                class="aspect-square bg-surface-container-high overflow-hidden cursor-pointer opacity-80 hover:opacity-100 transition"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1606152421802-db97b9c7a11b?q=80&w=2070&auto=format&fit=crop"
+                  alt="A3 side profile"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div
+                class="aspect-square bg-surface-container-high overflow-hidden cursor-pointer opacity-80 hover:opacity-100 transition"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1605515298946-d6649c0b6c3e?q=80&w=1982&auto=format&fit=crop"
+                  alt="A3 interior cockpit"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div
+                class="aspect-square bg-surface-container-high overflow-hidden cursor-pointer opacity-80 hover:opacity-100 transition"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1612825173281-9a193378527e?q=80&w=1999&auto=format&fit=crop"
+                  alt="A3 seats detail"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+
+          <!-- right: car info, pricing, CTAs -->
+          <div class="flex flex-col">
+            <!-- trim / badge -->
+            <div class="flex items-center gap-3 mb-3">
+              <span
+                class="bg-surface-container-high text-on-surface-variant text-xs font-bold px-3 py-1 tracking-wider"
+                >2025 MODEL</span
+              >
+              <span
+                class="bg-primary text-on-primary text-xs font-bold px-3 py-1 tracking-wider"
+                >S line</span
+              >
+            </div>
+            <!-- name + rating -->
+            <div class="flex justify-between items-start">
+              <h1
+                class="font-headline text-5xl lg:text-6xl font-extrabold tracking-tight"
+              >
+                Audi A3
+              </h1>
+              <div class="flex items-center gap-1 text-sm font-bold">
+                <span
+                  class="material-symbols-outlined text-[20px] text-on-tertiary-container"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >star</span
+                >
+                <span>4.8</span>
+                <span class="text-on-surface-variant font-normal ml-1"
+                  >(127 reviews)</span
+                >
+              </div>
+            </div>
+            <p class="text-on-surface-variant text-base mt-2 max-w-md">
+              Compact luxury sedan · precision · quattro available
+            </p>
+
+            <!-- price block -->
+            <div class="mt-8 border-y border-outline-variant/30 py-6">
+              <div class="flex items-baseline gap-3">
+                <span class="text-4xl font-headline font-bold spec-number"
+                  >$40,100</span
+                >
+                <span class="text-on-surface-variant">Starting MSRP</span>
+              </div>
+              <p
+                class="text-sm text-on-surface-variant mt-2 flex items-center gap-2"
+              >
+                <span class="material-symbols-outlined text-[16px]">sell</span>
+                Est. lease from $499/mo for 36 mo.
+              </p>
+              <p class="text-xs text-on-surface-variant mt-1">
+                Includes $1,095 destination · excludes taxes & fees
+              </p>
+            </div>
+
+            <!-- availability / stock -->
+            <div class="flex items-center gap-6 mt-6">
+              <div class="flex items-center gap-2">
+                <span class="relative flex h-3 w-3">
+                  <span
+                    class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
+                  ></span>
+                  <span
+                    class="relative inline-flex rounded-full h-3 w-3 bg-green-500"
+                  ></span>
+                </span>
+                <span class="text-sm font-medium"
+                  >In stock · ready for delivery</span
+                >
+              </div>
+              <div
+                class="text-sm font-medium text-on-surface-variant flex items-center gap-1"
+              >
+                <span class="material-symbols-outlined text-[18px]"
+                  >local_offer</span
+                >
+                Special APR available
+              </div>
+            </div>
+
+            <!-- CTAs -->
+            <div class="flex flex-wrap gap-4 mt-8">
+              <button
+                class="bg-primary text-on-primary px-8 py-5 font-semibold text-sm tracking-widest hover:bg-primary-container transition-all flex items-center gap-3 flex-1 basis-40 justify-center"
+              >
+                BUY NOW
+                <span class="material-symbols-outlined text-[18px]"
+                  >arrow_forward</span
+                >
+              </button>
+              <a
+                href="https://wa.me/2348123456789?text=Hello%20I%20am%20interested%20in%20the%20Audi%20A3"
+                target="_blank"
+                class="border border-outline-variant hover:border-primary text-on-surface px-8 py-5 font-semibold text-sm tracking-widest transition-all flex items-center gap-3 flex-1 basis-40 justify-center bg-surface/50"
+              >
+                <span class="material-symbols-outlined text-[18px]">chat</span>
+                SPEAK TO AN AGENT
+              </a>
+            </div>
+            <p
+              class="text-xs text-on-surface-variant mt-3 flex items-center gap-1"
+            >
+              <span class="material-symbols-outlined text-[14px]"
+                >verified</span
+              >
+              WhatsApp chat with our Audi specialists
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- QUICK SPECS ROW (elegant cards) -->
+      <section
+        class="container mx-auto px-6 py-12 border-y border-outline-variant/20"
+      >
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
+          <div
+            class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+          >
+            <span class="text-xs text-on-surface-variant font-medium"
+              >Engine</span
+            >
+            <p class="font-headline font-bold text-lg">2.0 TFSI</p>
+          </div>
+          <div
+            class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+          >
+            <span class="text-xs text-on-surface-variant font-medium"
+              >Horsepower</span
+            >
+            <p class="font-headline font-bold text-lg">201 hp</p>
+          </div>
+          <div
+            class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+          >
+            <span class="text-xs text-on-surface-variant font-medium"
+              >Transmission</span
+            >
+            <p class="font-headline font-bold text-lg">7-spd S tronic</p>
+          </div>
+          <div
+            class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+          >
+            <span class="text-xs text-on-surface-variant font-medium"
+              >0–60 mph</span
+            >
+            <p class="font-headline font-bold text-lg">6.3 sec</p>
+          </div>
+          <div
+            class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+          >
+            <span class="text-xs text-on-surface-variant font-medium"
+              >Top speed</span
+            >
+            <p class="font-headline font-bold text-lg">130 mph</p>
+          </div>
+          <div
+            class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+          >
+            <span class="text-xs text-on-surface-variant font-medium"
+              >Fuel combined</span
+            >
+            <p class="font-headline font-bold text-lg">29 mpg</p>
+          </div>
+          <div
+            class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+          >
+            <span class="text-xs text-on-surface-variant font-medium"
+              >Seating</span
+            >
+            <p class="font-headline font-bold text-lg">5</p>
+          </div>
+          <div
+            class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+          >
+            <span class="text-xs text-on-surface-variant font-medium"
+              >Drive</span
+            >
+            <p class="font-headline font-bold text-lg">FWD / quattro</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT THE AUDI A3 (premium editorial) -->
+      <section class="container mx-auto px-6 py-20">
+        <div class="max-w-3xl mx-auto text-center">
+          <span
+            class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4 block"
+            >THE ESSENCE OF PROGRESS</span
+          >
+          <h2
+            class="font-headline text-4xl md:text-5xl font-bold tracking-tight mb-8"
+          >
+            About the A3
+          </h2>
+          <p class="text-lg text-on-surface-variant leading-relaxed">
+            The Audi A3 seamlessly fuses dynamic design with everyday
+            functionality. Designed for the discerning driver who refuses to
+            compromise, it offers a cockpit focused on the driver, turbocharged
+            efficiency, and the option of legendary quattro all‑wheel drive.
+            Compact on the outside, expansive on the inside—the A3 is the new
+            benchmark for premium compact sedans.
+          </p>
+        </div>
+      </section>
+
+      <!-- FEATURES HIGHLIGHTS (icon grid) -->
+      <section class="bg-surface-container-low py-20">
+        <div class="container mx-auto px-6">
+          <h2
+            class="font-headline text-3xl md:text-4xl font-bold tracking-tight mb-12 text-center"
+          >
+            Atelier of technology
+          </h2>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="flex flex-col items-center text-center">
+              <span
+                class="material-symbols-outlined text-4xl mb-4 text-on-surface-variant"
+                >speed</span
+              >
+              <h4 class="font-headline font-bold text-lg mb-2">
+                Virtual Cockpit
+              </h4>
+              <p class="text-sm text-on-surface-variant">
+                12.3‑inch fully digital instrument cluster
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <span
+                class="material-symbols-outlined text-4xl mb-4 text-on-surface-variant"
+                >auto_awesome</span
+              >
+              <h4 class="font-headline font-bold text-lg mb-2">
+                LED Matrix headlights
+              </h4>
+              <p class="text-sm text-on-surface-variant">
+                Intelligent light with dynamic range
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <span
+                class="material-symbols-outlined text-4xl mb-4 text-on-surface-variant"
+                >sound_sampler</span
+              >
+              <h4 class="font-headline font-bold text-lg mb-2">
+                Bang & Olufsen 3D
+              </h4>
+              <p class="text-sm text-on-surface-variant">
+                Premium 15‑speaker sound system
+              </p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+              <span
+                class="material-symbols-outlined text-4xl mb-4 text-on-surface-variant"
+                >pallet</span
+              >
+              <h4 class="font-headline font-bold text-lg mb-2">
+                S line interior
+              </h4>
+              <p class="text-sm text-on-surface-variant">
+                Sport seats, leather/microfiber mix
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FULL SPECIFICATIONS SECTION (clean table style) -->
+      <section class="container mx-auto px-6 py-20">
+        <h2
+          class="font-headline text-3xl md:text-4xl font-bold tracking-tight mb-10"
+        >
+          Technical specifications
+        </h2>
+        <div class="grid md:grid-cols-2 gap-x-16 gap-y-8">
+          <div>
+            <h5
+              class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4"
+            >
+              Performance & engine
+            </h5>
+            <dl class="space-y-2">
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Engine type</dt>
+                <dd class="font-medium">2.0L TFSI 4‑cylinder turbo</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Horsepower</dt>
+                <dd class="font-medium">201 hp @ 4,200 rpm</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Torque</dt>
+                <dd class="font-medium">236 lb‑ft</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Transmission</dt>
+                <dd class="font-medium">7‑speed dual clutch S tronic</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Drivetrain</dt>
+                <dd class="font-medium">
+                  Front‑wheel drive (quattro optional)
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div>
+            <h5
+              class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4"
+            >
+              Dimensions & capacity
+            </h5>
+            <dl class="space-y-2">
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Length / width / height</dt>
+                <dd class="font-medium">178.0 / 70.8 / 55.7 in</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Wheelbase</dt>
+                <dd class="font-medium">103.5 in</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Cargo volume</dt>
+                <dd class="font-medium">12.3 cu ft</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Curb weight</dt>
+                <dd class="font-medium">3,285 lbs</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Fuel tank capacity</dt>
+                <dd class="font-medium">13.7 gal</dd>
+              </div>
+            </dl>
+          </div>
+          <div>
+            <h5
+              class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4"
+            >
+              Technology & safety
+            </h5>
+            <dl class="space-y-2">
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Infotainment</dt>
+                <dd class="font-medium">
+                  10.1" MMI touch, wireless Apple/Android
+                </dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Driver assistance</dt>
+                <dd class="font-medium">
+                  Audi pre sense® front, lane departure
+                </dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Sound system</dt>
+                <dd class="font-medium">180W, 8 speakers (upgrade to B&O)</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Instrument cluster</dt>
+                <dd class="font-medium">
+                  Audi virtual cockpit plus (optional)
+                </dd>
+              </div>
+            </dl>
+          </div>
+          <div>
+            <h5
+              class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4"
+            >
+              Fuel economy
+            </h5>
+            <dl class="space-y-2">
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">City</dt>
+                <dd class="font-medium">24 mpg</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Highway</dt>
+                <dd class="font-medium">34 mpg</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">Combined</dt>
+                <dd class="font-medium">29 mpg</dd>
+              </div>
+              <div class="flex justify-between py-1">
+                <dt class="text-on-surface-variant">CO₂ emissions</dt>
+                <dd class="font-medium">151 g/km</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <!-- PRICING / PURCHASE PANEL (conversion module) -->
+      <section class="bg-surface-container-low py-16">
+        <div class="container mx-auto px-6">
+          <div
+            class="max-w-4xl mx-auto bg-surface p-10 border border-outline-variant/20"
+          >
+            <div class="grid md:grid-cols-2 gap-10 items-center">
+              <div>
+                <h3
+                  class="font-headline text-3xl font-bold tracking-tight mb-2"
+                >
+                  Own the A3 today
+                </h3>
+                <p class="text-on-surface-variant mb-4">
+                  Starting MSRP $40,100<br />Estimated monthly payment as low as
+                  $499/mo for 36 months.
+                </p>
+                <div class="flex items-center gap-3 text-sm mb-6">
+                  <span class="bg-primary-fixed-dim px-3 py-1 font-medium"
+                    >$2,500 deposit</span
+                  >
+                  <span class="text-on-surface-variant"
+                    >excludes taxes & fees</span
+                  >
+                </div>
+                <div class="flex flex-col sm:flex-row gap-3">
+                  <button
+                    class="bg-primary text-on-primary px-6 py-4 font-semibold text-sm tracking-widest hover:bg-primary-container transition flex-1"
+                  >
+                    BUY NOW
+                  </button>
+                  <a
+                    href="https://wa.me/2348123456789?text=Hello%20I%20am%20interested%20in%20the%20Audi%20A3"
+                    target="_blank"
+                    class="border border-outline-variant hover:border-primary px-6 py-4 font-semibold text-sm tracking-widest transition flex items-center justify-center gap-2 bg-surface/50"
+                  >
+                    <span class="material-symbols-outlined text-[18px]"
+                      >chat</span
+                    >
+                    AGENT
+                  </a>
+                </div>
+              </div>
+              <div class="bg-surface-container-high p-6 text-center">
+                <span
+                  class="material-symbols-outlined text-4xl text-primary mb-2"
+                  >local_offer</span
+                >
+                <p class="font-headline font-bold text-xl mb-1">
+                  Special APR offers
+                </p>
+                <p class="text-sm text-on-surface-variant mb-3">
+                  As low as 2.9% for 60 months for qualified buyers.
+                </p>
+                <p class="text-xs text-on-surface-variant">
+                  Available for a limited time. Terms apply.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- WHY BUY THIS CAR SECTION (trust / icon strip) -->
+      <section class="container mx-auto px-6 py-20">
+        <div class="text-center mb-14">
+          <h2 class="font-headline text-4xl font-bold tracking-tight mb-4">
+            Why choose the Audi A3
+          </h2>
+          <p class="text-on-surface-variant max-w-xl mx-auto">
+            Every detail engineered for those who expect more.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+          <div class="text-center">
+            <span
+              class="material-symbols-outlined text-4xl text-on-surface-variant mb-3"
+              >precision_manufacturing</span
+            >
+            <h5 class="font-headline font-bold">Luxury craftsmanship</h5>
+          </div>
+          <div class="text-center">
+            <span
+              class="material-symbols-outlined text-4xl text-on-surface-variant mb-3"
+              >quick_reference</span
+            >
+            <h5 class="font-headline font-bold">Advanced tech</h5>
+          </div>
+          <div class="text-center">
+            <span
+              class="material-symbols-outlined text-4xl text-on-surface-variant mb-3"
+              >event_seat</span
+            >
+            <h5 class="font-headline font-bold">Everyday usability</h5>
+          </div>
+          <div class="text-center">
+            <span
+              class="material-symbols-outlined text-4xl text-on-surface-variant mb-3"
+              >verified</span
+            >
+            <h5 class="font-headline font-bold">Dealer support</h5>
+          </div>
+        </div>
+      </section>
+
+      <!-- RELATED MODELS (cards matching homepage) -->
+      <section
+        class="bg-surface-container-lowest py-20 border-t border-outline-variant/20"
+      >
+        <div class="container mx-auto px-6">
+          <div class="flex justify-between items-end mb-12">
+            <h2
+              class="font-headline text-3xl md:text-4xl font-bold tracking-tight"
+            >
+              Related models
+            </h2>
+            <a href="#" class="text-sm font-bold tertiary-underline pb-1"
+              >VIEW ALL</a
+            >
+          </div>
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <!-- A4 card -->
+            <div class="group cursor-pointer">
+              <div
+                class="overflow-hidden mb-4 aspect-[16/9] bg-surface-container-low image-zoom"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b?q=80&w=1976&auto=format&fit=crop"
+                  class="w-full h-full object-cover transition-transform duration-700"
+                  alt="Audi A4"
+                />
+              </div>
+              <h3 class="font-headline text-xl font-bold">A4</h3>
+              <p class="text-on-surface-variant text-sm">Starting $42,000</p>
+              <button
+                class="mt-3 text-xs font-bold tracking-widest border-b border-outline-variant pb-1 flex items-center gap-1 group-hover:border-primary transition"
+              >
+                VIEW DETAILS
+                <span class="material-symbols-outlined text-[16px]"
+                  >arrow_right_alt</span
+                >
+              </button>
+            </div>
+            <!-- Q3 card -->
+            <div class="group cursor-pointer">
+              <div
+                class="overflow-hidden mb-4 aspect-[16/9] bg-surface-container-low image-zoom"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1614200184524-0e8a4a5c6f0a?q=80&w=1964&auto=format&fit=crop"
+                  class="w-full h-full object-cover transition-transform duration-700"
+                  alt="Audi Q3"
+                />
+              </div>
+              <h3 class="font-headline text-xl font-bold">Q3</h3>
+              <p class="text-on-surface-variant text-sm">Starting $37,400</p>
+              <button
+                class="mt-3 text-xs font-bold tracking-widest border-b border-outline-variant pb-1 flex items-center gap-1 group-hover:border-primary transition"
+              >
+                VIEW DETAILS
+                <span class="material-symbols-outlined text-[16px]"
+                  >arrow_right_alt</span
+                >
+              </button>
+            </div>
+            <!-- Q5 card -->
+            <div class="group cursor-pointer">
+              <div
+                class="overflow-hidden mb-4 aspect-[16/9] bg-surface-container-low image-zoom"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1614200179396-2bdb77ebf81b?q=80&w=1976&auto=format&fit=crop"
+                  class="w-full h-full object-cover transition-transform duration-700"
+                  alt="Audi Q5"
+                />
+              </div>
+              <h3 class="font-headline text-xl font-bold">Q5</h3>
+              <p class="text-on-surface-variant text-sm">Starting $45,000</p>
+              <button
+                class="mt-3 text-xs font-bold tracking-widest border-b border-outline-variant pb-1 flex items-center gap-1 group-hover:border-primary transition"
+              >
+                VIEW DETAILS
+                <span class="material-symbols-outlined text-[16px]"
+                  >arrow_right_alt</span
+                >
+              </button>
+            </div>
+            <!-- S3 card (hot) -->
+            <div class="group cursor-pointer">
+              <div
+                class="overflow-hidden mb-4 aspect-[16/9] bg-surface-container-low image-zoom"
+              >
+                <img
+                  src="https://images.unsplash.com/photo-1556189250-72ba954cfc2b?q=80&w=2070&auto=format&fit=crop"
+                  class="w-full h-full object-cover transition-transform duration-700"
+                  alt="Audi S3"
+                />
+              </div>
+              <h3 class="font-headline text-xl font-bold">S3</h3>
+              <p class="text-on-surface-variant text-sm">Starting $48,900</p>
+              <button
+                class="mt-3 text-xs font-bold tracking-widest border-b border-outline-variant pb-1 flex items-center gap-1 group-hover:border-primary transition"
+              >
+                VIEW DETAILS
+                <span class="material-symbols-outlined text-[16px]"
+                  >arrow_right_alt</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER (same as homepage) -->
+    <footer class="bg-surface-container py-20">
+      <div class="container mx-auto px-6">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"
+        >
+          <div class="lg:col-span-2">
+            <span
+              class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block"
+              >Audi</span
+            >
+            <p
+              class="text-on-surface-variant max-w-sm font-light leading-relaxed"
+            >
+              Experience the pinnacle of German automotive engineering. Join our
+              newsletter for exclusive previews, innovations, and performance
+              updates.
+            </p>
+          </div>
+          <div>
+            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">
+              Navigation
+            </h5>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  >Models</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  >Electric</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  >SUVs</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  >Sedans</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">
+              Stay Connected
+            </h5>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  >Contact</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="border-t border-outline-variant/30 pt-8 text-center">
+          <p class="text-xs text-on-surface-variant font-medium tracking-wide">
+            © 2000 Audi. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
