@@ -120,42 +120,102 @@
     <header
       class="glass-header sticky top-0 z-50 border-b border-outline-variant/10"
     >
-      <nav
-        class="container mx-auto px-6 py-4 flex items-center justify-between"
-      >
-        <div class="flex items-center gap-12">
-          <a
-            href="index.html"
-            class="font-headline text-2xl font-extrabold tracking-tighter"
-            >Audi</a
-          >
-          <div class="hidden lg:flex items-center gap-8">
+      <nav class="container mx-auto px-6 py-4">
+        <div class="flex items-center justify-between">
+          <!-- Logo -->
+          <div class="flex items-center gap-12">
             <a
-              class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors"
               href="index.html"
-              >Home</a
+              class="font-headline text-2xl font-extrabold tracking-tighter"
             >
+              Audi
+            </a>
+
+            <!-- Desktop Nav -->
+            <div class="hidden lg:flex items-center gap-8">
+              <a
+                class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors"
+                href="index.html"
+              >
+                Home
+              </a>
+              <a
+                class="text-sm font-semibold tracking-tight text-primary border-b-2 border-primary pb-1"
+                href="models.html"
+              >
+                Models
+              </a>
+              <a
+                class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors"
+                href="sedans.html"
+              >
+                Sedans
+              </a>
+              <a
+                class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors"
+                href="suvs.html"
+              >
+                SUVs
+              </a>
+              <a
+                class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors"
+                href="electric.html"
+              >
+                Electric
+              </a>
+            </div>
+          </div>
+
+          <!-- Mobile Menu Button -->
+          <button
+            id="mobileMenuBtn"
+            class="lg:hidden w-11 h-11 flex items-center justify-center border border-outline-variant/40 rounded-md hover:border-primary transition-colors"
+            aria-label="Toggle menu"
+            aria-expanded="false"
+            aria-controls="mobileMenu"
+          >
+            <span class="material-symbols-outlined text-[26px]">menu</span>
+          </button>
+        </div>
+
+        <!-- Mobile Nav -->
+        <div
+          id="mobileMenu"
+          class="lg:hidden overflow-hidden max-h-0 opacity-0 -translate-y-2 pointer-events-none transition-all duration-300 ease-out"
+        >
+          <div
+            class="mt-4 pt-4 border-t border-outline-variant/20 flex flex-col gap-1"
+          >
             <a
-              class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors"
+              class="px-2 py-3 text-sm font-medium rounded-md hover:bg-surface-container-low transition-colors"
+              href="index.html"
+            >
+              Home
+            </a>
+            <a
+              class="px-2 py-3 text-sm font-semibold rounded-md bg-surface-container-low text-primary"
               href="models.html"
-              >Models</a
             >
+              Models
+            </a>
             <a
-              class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors"
+              class="px-2 py-3 text-sm font-medium rounded-md hover:bg-surface-container-low transition-colors"
               href="sedans.html"
             >
               Sedans
             </a>
             <a
-              class="text-sm font-semibold tracking-tight text-primary border-b-2 border-primary pb-1"
+              class="px-2 py-3 text-sm font-semibold rounded-md bg-primary text-on-primary shadow-sm"
               href="suvs.html"
-              >SUVs</a
             >
+              SUVs
+            </a>
             <a
-              class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors"
+              class="px-2 py-3 text-sm font-medium rounded-md hover:bg-surface-container-low transition-colors"
               href="electric.html"
-              >Electric</a
             >
+              Electric
+            </a>
           </div>
         </div>
       </nav>
@@ -584,5 +644,6 @@
         </div>
       </div>
     </footer>
+    <script src="js/mobile-menu.js"></script>
   </body>
 </html>
