@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Audi | Admin Login</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              secondary: "#5b5f61",
+              background: "#f7f7f7",
+              surface: "#ffffff",
+              "surface-soft": "#f1f1f1",
+              "surface-deep": "#111111",
+              "surface-muted": "#ececec",
+              "outline-soft": "#d8d8d8",
+              "text-main": "#111111",
+              "text-muted": "#666666",
+              "text-soft": "#8a8a8a",
+              accent: "#d70000",
+            },
+            fontFamily: {
+              headline: ["Manrope", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f7f7f7;
+      }
+      .glass-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+    </style>
+  </head>
+  <body class="bg-background text-text-main">
+    <div class="min-h-screen flex items-center justify-center p-6">
+      <div class="glass-card max-w-md w-full p-8 md:p-10">
+        <div class="text-center mb-8">
+          <span class="font-headline text-3xl font-extrabold tracking-tighter"
+            >Audi</span
+          >
+          <p class="text-text-muted text-sm mt-2">Admin Portal</p>
+        </div>
+
+        <form class="space-y-6">
+          <div>
+            <label class="block text-sm font-medium text-text-muted mb-2"
+              >Email</label
+            >
+            <input
+              type="email"
+              class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
+              placeholder="admin@audi.com"
+            />
+          </div>
+
+          <div>
+            <label class="block text-sm font-medium text-text-muted mb-2"
+              >Password</label
+            >
+            <input
+              type="password"
+              class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none transition"
+              placeholder="••••••••"
+            />
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-primary text-white py-4 font-semibold text-sm tracking-widest hover:bg-neutral-800 transition-colors flex items-center justify-center gap-2"
+          >
+            ACCESS DASHBOARD
+            <span class="material-symbols-outlined text-[18px]"
+              >admin_panel_settings</span
+            >
+          </button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

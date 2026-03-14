@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Audi | Admin - Sedans</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              secondary: "#5b5f61",
+              background: "#f7f7f7",
+              surface: "#ffffff",
+              "surface-soft": "#f1f1f1",
+              "outline-soft": "#d8d8d8",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-background">
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar (same as before, but with Sedans active) -->
+      <aside
+        class="admin-sidebar w-64 flex-shrink-0 hidden md:block overflow-y-auto"
+      >
+        <div class="p-6">
+          <span
+            class="font-headline text-2xl font-extrabold tracking-tighter block mb-8"
+            >Audi Admin</span
+          >
+          <nav class="space-y-1">
+            <a
+              href="admin-dashboard.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+            <a
+              href="admin-cars.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">directions_car</span> All
+              Cars
+            </a>
+            <a
+              href="admin-sedans.html"
+              class="admin-nav-item active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
+            >
+              <span class="material-symbols-outlined">car_crash</span> Sedans
+              <span class="ml-auto bg-white/20 px-2 py-0.5 rounded-full text-xs"
+                >6</span
+              >
+            </a>
+            <a
+              href="admin-suvs.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">airport_shuttle</span>
+              SUVs
+            </a>
+            <a
+              href="admin-electric.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">bolt</span> Electric
+            </a>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto">
+        <header class="bg-white border-b border-outline-soft sticky top-0 z-10">
+          <div class="flex items-center justify-between px-6 py-4">
+            <h1 class="font-headline text-2xl font-bold">Sedans (6)</h1>
+            <a
+              href="admin-upload.html?category=sedan"
+              class="bg-primary text-white px-5 py-2 text-sm font-semibold hover:bg-neutral-800 transition-colors flex items-center gap-2"
+            >
+              <span class="material-symbols-outlined text-[18px]">add</span>
+              ADD SEDAN
+            </a>
+          </div>
+        </header>
+
+        <div class="p-6">
+          <!-- Sedans Table -->
+          <div class="bg-white border border-outline-soft overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-surface-soft border-b border-outline-soft">
+                <tr>
+                  <th class="text-left px-6 py-4 font-semibold">Car</th>
+                  <th class="text-left px-6 py-4 font-semibold">Year</th>
+                  <th class="text-left px-6 py-4 font-semibold">Price</th>
+                  <th class="text-left px-6 py-4 font-semibold">Status</th>
+                  <th class="text-left px-6 py-4 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-outline-soft">
+                <tr>
+                  <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-16 h-12 bg-surface-soft rounded overflow-hidden"
+                      >
+                        <img
+                          src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7iIdpncjRk59TOKf3x5CJbP0q1m0tHC8tCtQLWLT66Z1IrFKYhkiqXgxCeRcxbnceAW_52aHwajBlKNwosFjgDyEj4Bc6yCu7bRs6lYKawLxOB8g-2BwCJvQr8xIz7YTwSHezVBhFtvLkOfWBDpzWnx_NMrRkpi_M9RXCSCH5Ldm-zhcGv-wCmFvQiEoQEVKkf2nK70t11IY4VvtBy7ubwfOb0b-eW-RPHAGGRv5eaiNJluMrzAlX8GOVcCjsZU7gpOz3r4XezYdl"
+                          class="w-full h-full object-cover"
+                        />
+                      </div>
+                      <span class="font-medium">Audi A3</span>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">2025</td>
+                  <td class="px-6 py-4">$35,400</td>
+                  <td class="px-6 py-4">
+                    <span
+                      class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs"
+                      >Published</span
+                    >
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="flex gap-2">
+                      <button class="p-1 hover:bg-surface-soft rounded">
+                        ✎
+                      </button>
+                      <button class="p-1 hover:bg-surface-soft rounded">
+                        👁️
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-16 h-12 bg-surface-soft rounded overflow-hidden"
+                      >
+                        <img
+                          src="https://images.unsplash.com/photo-1606664514173-2c09b6d7f5a1?w=500"
+                          class="w-full h-full object-cover"
+                        />
+                      </div>
+                      <span class="font-medium">Audi A4</span>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">2025</td>
+                  <td class="px-6 py-4">$42,000</td>
+                  <td class="px-6 py-4">
+                    <span
+                      class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs"
+                      >Published</span
+                    >
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="flex gap-2">
+                      <button class="p-1 hover:bg-surface-soft rounded">
+                        ✎
+                      </button>
+                      <button class="p-1 hover:bg-surface-soft rounded">
+                        👁️
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">
+                    <div class="flex items-center gap-3">
+                      <div
+                        class="w-16 h-12 bg-surface-soft rounded overflow-hidden"
+                      >
+                        <img
+                          src="https://images.unsplash.com/photo-1617814076367-b759c7d7e738?w=500"
+                          class="w-full h-full object-cover"
+                        />
+                      </div>
+                      <span class="font-medium">Audi A7 Sportback</span>
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">2025</td>
+                  <td class="px-6 py-4">$69,500</td>
+                  <td class="px-6 py-4">
+                    <span
+                      class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs"
+                      >Published</span
+                    >
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="flex gap-2">
+                      <button class="p-1 hover:bg-surface-soft rounded">
+                        ✎
+                      </button>
+                      <button class="p-1 hover:bg-surface-soft rounded">
+                        👁️
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

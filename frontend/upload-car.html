@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Audi | Admin - Upload Car</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              secondary: "#5b5f61",
+              background: "#f7f7f7",
+              surface: "#ffffff",
+              "surface-soft": "#f1f1f1",
+              "surface-deep": "#111111",
+              "surface-muted": "#ececec",
+              "outline-soft": "#d8d8d8",
+              "text-main": "#111111",
+              "text-muted": "#666666",
+              "text-soft": "#8a8a8a",
+              accent: "#d70000",
+            },
+            fontFamily: {
+              headline: ["Manrope", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f7f7f7;
+      }
+      .admin-sidebar {
+        background: white;
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .admin-nav-item {
+        transition: all 0.2s ease;
+      }
+      .admin-nav-item:hover {
+        background: #f1f1f1;
+      }
+      .admin-nav-item.active {
+        background: #000000;
+        color: white;
+      }
+      .upload-area {
+        border: 2px dashed #d8d8d8;
+        transition: all 0.2s ease;
+      }
+      .upload-area:hover {
+        border-color: #000000;
+        background: #f1f1f1;
+      }
+    </style>
+  </head>
+  <body class="bg-background text-text-main">
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar (same as dashboard) -->
+      <aside
+        class="admin-sidebar w-64 flex-shrink-0 hidden md:block overflow-y-auto"
+      >
+        <div class="p-6">
+          <span
+            class="font-headline text-2xl font-extrabold tracking-tighter block mb-8"
+            >Audi Admin</span
+          >
+
+          <nav class="space-y-1">
+            <a
+              href="admin-dashboard.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">dashboard</span>
+              Dashboard
+            </a>
+            <a
+              href="admin-users.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">people</span>
+              Users
+            </a>
+            <a
+              href="admin-cars.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">directions_car</span>
+              All Cars
+            </a>
+            <a
+              href="admin-sedans.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">car_crash</span>
+              Sedans
+            </a>
+            <a
+              href="admin-suvs.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">offroad_ready</span>
+              SUVs
+            </a>
+            <a
+              href="admin-electric.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">bolt</span>
+              Electric
+            </a>
+            <div class="border-t border-outline-soft my-4"></div>
+            <a
+              href="admin-upload.html"
+              class="admin-nav-item active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
+            >
+              <span class="material-symbols-outlined">upload</span>
+              Upload Car
+            </a>
+            <a
+              href="admin-payments.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">payments</span>
+              Payments
+            </a>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto">
+        <header class="bg-white border-b border-outline-soft sticky top-0 z-10">
+          <div class="flex items-center justify-between px-6 py-4">
+            <h1 class="font-headline text-2xl font-bold">Upload New Car</h1>
+            <button
+              class="bg-primary text-white px-5 py-2 text-sm font-semibold hover:bg-neutral-800 transition-colors"
+            >
+              SAVE CAR
+            </button>
+          </div>
+        </header>
+
+        <div class="p-6">
+          <form class="space-y-8">
+            <!-- Basic Info -->
+            <div class="bg-white p-6 border border-outline-soft">
+              <h3 class="font-headline font-bold text-lg mb-4">
+                Basic Information
+              </h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Model Name</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                    placeholder="e.g., A3, Q5, e-tron GT"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Year</label
+                  >
+                  <select
+                    class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                  >
+                    <option>2025</option>
+                    <option>2024</option>
+                    <option>2023</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Category</label
+                  >
+                  <select
+                    class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                    id="categorySelect"
+                  >
+                    <option value="sedan">Sedan</option>
+                    <option value="suv">SUV</option>
+                    <option value="electric">Electric</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Trim</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                    placeholder="e.g., Premium, S line, RS"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Starting Price ($)</label
+                  >
+                  <input
+                    type="number"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                    placeholder="35,400"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Rating (0-5)</label
+                  >
+                  <input
+                    type="number"
+                    step="0.1"
+                    min="0"
+                    max="5"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                    placeholder="4.8"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Specifications -->
+            <div class="bg-white p-6 border border-outline-soft">
+              <h3 class="font-headline font-bold text-lg mb-4">
+                Specifications
+              </h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Engine</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 2.0 TFSI"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Horsepower</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 201 hp"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Transmission</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 7-speed S tronic"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >0-60 mph</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 6.3 sec"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Top Speed</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 130 mph"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Fuel Economy</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 29 mpg combined"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Drivetrain</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., FWD / quattro"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Seating</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 5"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Dimensions & Capacity -->
+            <div class="bg-white p-6 border border-outline-soft">
+              <h3 class="font-headline font-bold text-lg mb-4">
+                Dimensions & Capacity
+              </h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Length</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 178.0 in"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Width</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 70.8 in"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Height</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 55.7 in"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Wheelbase</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 103.5 in"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Cargo Volume</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 12.3 cu ft"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Curb Weight</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 3,285 lbs"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Fuel Tank Capacity</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 13.7 gal"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Technology & Safety -->
+            <div class="bg-white p-6 border border-outline-soft">
+              <h3 class="font-headline font-bold text-lg mb-4">
+                Technology & Safety
+              </h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Infotainment</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 10.1"
+                    MMI
+                    touch
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Sound System</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., Bang & Olufsen 3D"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Driver Assistance</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., Audi pre sense®"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Instrument Cluster</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., Virtual Cockpit"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Features -->
+            <div class="bg-white p-6 border border-outline-soft">
+              <h3 class="font-headline font-bold text-lg mb-4">
+                Features (Comma separated)
+              </h3>
+
+              <div>
+                <textarea
+                  rows="3"
+                  class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                  placeholder="LED Matrix headlights, Panoramic sunroof, Heated seats, ..."
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Description -->
+            <div class="bg-white p-6 border border-outline-soft">
+              <h3 class="font-headline font-bold text-lg mb-4">Description</h3>
+
+              <div>
+                <textarea
+                  rows="4"
+                  class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
+                  placeholder="Write a compelling description of the vehicle..."
+                ></textarea>
+              </div>
+            </div>
+
+            <!-- Images -->
+            <div class="bg-white p-6 border border-outline-soft">
+              <h3 class="font-headline font-bold text-lg mb-4">Images</h3>
+
+              <div class="upload-area p-8 text-center cursor-pointer mb-6">
+                <span
+                  class="material-symbols-outlined text-4xl text-text-muted mb-2"
+                  >cloud_upload</span
+                >
+                <p class="text-sm font-medium">
+                  Drag & drop main image here or click to browse
+                </p>
+                <p class="text-xs text-text-muted mt-1">
+                  Recommended: 16:9 aspect ratio, at least 1200px wide
+                </p>
+              </div>
+
+              <h4 class="font-headline font-semibold mb-3">
+                Gallery Images (up to 5)
+              </h4>
+              <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <div class="upload-area p-4 text-center cursor-pointer">
+                  <span class="material-symbols-outlined text-2xl"
+                    >add_photo_alternate</span
+                  >
+                </div>
+                <div class="upload-area p-4 text-center cursor-pointer">
+                  <span class="material-symbols-outlined text-2xl"
+                    >add_photo_alternate</span
+                  >
+                </div>
+                <div class="upload-area p-4 text-center cursor-pointer">
+                  <span class="material-symbols-outlined text-2xl"
+                    >add_photo_alternate</span
+                  >
+                </div>
+                <div class="upload-area p-4 text-center cursor-pointer">
+                  <span class="material-symbols-outlined text-2xl"
+                    >add_photo_alternate</span
+                  >
+                </div>
+                <div class="upload-area p-4 text-center cursor-pointer">
+                  <span class="material-symbols-outlined text-2xl"
+                    >add_photo_alternate</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Payment Info -->
+            <div class="bg-white p-6 border border-outline-soft">
+              <h3 class="font-headline font-bold text-lg mb-4">
+                Payment Information
+              </h3>
+
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Deposit Required ($)</label
+                  >
+                  <input
+                    type="number"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="2,500"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Monthly Payment (est.)</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., $499/mo for 36 mo"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Destination Fee ($)</label
+                  >
+                  <input
+                    type="number"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="1,095"
+                  />
+                </div>
+                <div>
+                  <label class="block text-sm font-medium text-text-muted mb-2"
+                    >Special APR</label
+                  >
+                  <input
+                    type="text"
+                    class="w-full px-4 py-3 border border-outline-soft bg-white"
+                    placeholder="e.g., 2.9% for 60 months"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- WhatsApp Agent Info -->
+            <div class="bg-white p-6 border border-outline-soft">
+              <h3 class="font-headline font-bold text-lg mb-4">
+                Sales Agent WhatsApp
+              </h3>
+
+              <div>
+                <label class="block text-sm font-medium text-text-muted mb-2"
+                  >WhatsApp Number (with country code)</label
+                >
+                <input
+                  type="text"
+                  class="w-full px-4 py-3 border border-outline-soft bg-white"
+                  placeholder="+2348123456789"
+                />
+              </div>
+            </div>
+
+            <!-- Status -->
+            <div class="bg-white p-6 border border-outline-soft">
+              <h3 class="font-headline font-bold text-lg mb-4">Status</h3>
+
+              <div class="flex items-center gap-6">
+                <label class="flex items-center gap-2">
+                  <input
+                    type="radio"
+                    name="status"
+                    class="text-primary"
+                    checked
+                  />
+                  <span>Published</span>
+                </label>
+                <label class="flex items-center gap-2">
+                  <input type="radio" name="status" class="text-primary" />
+                  <span>Draft</span>
+                </label>
+                <label class="flex items-center gap-2">
+                  <input type="radio" name="status" class="text-primary" />
+                  <span>Out of Stock</span>
+                </label>
+              </div>
+            </div>
+
+            <!-- Submit Buttons -->
+            <div class="flex justify-end gap-4">
+              <button
+                type="button"
+                class="px-6 py-3 border border-outline-soft bg-white hover:bg-surface-soft text-sm font-semibold"
+              >
+                PREVIEW
+              </button>
+              <button
+                type="submit"
+                class="px-6 py-3 bg-primary text-white hover:bg-neutral-800 text-sm font-semibold flex items-center gap-2"
+              >
+                <span class="material-symbols-outlined text-[18px]">save</span>
+                SAVE CAR
+              </button>
+            </div>
+          </form>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Update car detail page preview based on category selection
+      document
+        .getElementById("categorySelect")
+        .addEventListener("change", function (e) {
+          const category = e.target.value;
+          // This would update the preview logic in a real implementation
+          console.log("Selected category:", category);
+        });
+    </script>
+  </body>
+</html>

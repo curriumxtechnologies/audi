@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Audi | Admin - Payments</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              secondary: "#5b5f61",
+              background: "#f7f7f7",
+              surface: "#ffffff",
+              accent: "#d70000",
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-background">
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar -->
+      <aside
+        class="admin-sidebar w-64 flex-shrink-0 hidden md:block overflow-y-auto"
+      >
+        <div class="p-6">
+          <span
+            class="font-headline text-2xl font-extrabold tracking-tighter block mb-8"
+            >Audi Admin</span
+          >
+          <nav class="space-y-1">
+            <a
+              href="admin-dashboard.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+            <a
+              href="admin-payments.html"
+              class="admin-nav-item active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
+            >
+              <span class="material-symbols-outlined">payments</span> Payments
+              <span class="ml-auto bg-white/20 px-2 py-0.5 rounded-full text-xs"
+                >7</span
+              >
+            </a>
+          </nav>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto">
+        <header class="bg-white border-b border-outline-soft sticky top-0 z-10">
+          <div class="flex items-center justify-between px-6 py-4">
+            <h1 class="font-headline text-2xl font-bold">
+              Payment Verifications
+            </h1>
+          </div>
+        </header>
+
+        <div class="p-6">
+          <!-- Stats -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white p-6 border border-outline-soft">
+              <p class="text-sm text-text-muted">Pending</p>
+              <p class="font-headline text-3xl font-bold">7</p>
+            </div>
+            <div class="bg-white p-6 border border-outline-soft">
+              <p class="text-sm text-text-muted">Verified Today</p>
+              <p class="font-headline text-3xl font-bold">12</p>
+            </div>
+            <div class="bg-white p-6 border border-outline-soft">
+              <p class="text-sm text-text-muted">Total Volume</p>
+              <p class="font-headline text-3xl font-bold">$187.5K</p>
+            </div>
+          </div>
+
+          <!-- Payments Table -->
+          <div class="bg-white border border-outline-soft overflow-x-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-surface-soft border-b border-outline-soft">
+                <tr>
+                  <th class="text-left px-6 py-4 font-semibold">User</th>
+                  <th class="text-left px-6 py-4 font-semibold">Car</th>
+                  <th class="text-left px-6 py-4 font-semibold">Amount</th>
+                  <th class="text-left px-6 py-4 font-semibold">Coin</th>
+                  <th class="text-left px-6 py-4 font-semibold">Status</th>
+                  <th class="text-left px-6 py-4 font-semibold">Actions</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-outline-soft">
+                <tr>
+                  <td class="px-6 py-4">John Smith</td>
+                  <td class="px-6 py-4">Audi A3</td>
+                  <td class="px-6 py-4">$2,500</td>
+                  <td class="px-6 py-4">USDT</td>
+                  <td class="px-6 py-4">
+                    <span
+                      class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs"
+                      >Pending</span
+                    >
+                  </td>
+                  <td class="px-6 py-4">
+                    <button
+                      class="bg-primary text-white px-3 py-1 text-xs font-semibold mr-2"
+                    >
+                      Verify
+                    </button>
+                    <button
+                      class="border border-outline-soft px-3 py-1 text-xs font-semibold"
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Sarah Johnson</td>
+                  <td class="px-6 py-4">Audi Q5</td>
+                  <td class="px-6 py-4">$2,500</td>
+                  <td class="px-6 py-4">BTC</td>
+                  <td class="px-6 py-4">
+                    <span
+                      class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs"
+                      >Pending</span
+                    >
+                  </td>
+                  <td class="px-6 py-4">
+                    <button
+                      class="bg-primary text-white px-3 py-1 text-xs font-semibold mr-2"
+                    >
+                      Verify
+                    </button>
+                    <button
+                      class="border border-outline-soft px-3 py-1 text-xs font-semibold"
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4">Michael Chen</td>
+                  <td class="px-6 py-4">RS e-tron GT</td>
+                  <td class="px-6 py-4">$5,000</td>
+                  <td class="px-6 py-4">ETH</td>
+                  <td class="px-6 py-4">
+                    <span
+                      class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs"
+                      >Verified</span
+                    >
+                  </td>
+                  <td class="px-6 py-4">
+                    <button
+                      class="bg-primary text-white px-3 py-1 text-xs font-semibold mr-2"
+                      disabled
+                    >
+                      Verified
+                    </button>
+                    <button
+                      class="border border-outline-soft px-3 py-1 text-xs font-semibold"
+                    >
+                      View
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>

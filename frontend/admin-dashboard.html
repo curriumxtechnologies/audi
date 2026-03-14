@@ -1,0 +1,510 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Audi | Admin Dashboard</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              secondary: "#5b5f61",
+              background: "#f7f7f7",
+              surface: "#ffffff",
+              "surface-soft": "#f1f1f1",
+              "surface-deep": "#111111",
+              "surface-muted": "#ececec",
+              "outline-soft": "#d8d8d8",
+              "text-main": "#111111",
+              "text-muted": "#666666",
+              "text-soft": "#8a8a8a",
+              accent: "#d70000",
+            },
+            fontFamily: {
+              headline: ["Manrope", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f7f7f7;
+      }
+      .admin-sidebar {
+        background: white;
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      .admin-nav-item {
+        transition: all 0.2s ease;
+      }
+      .admin-nav-item:hover {
+        background: #f1f1f1;
+      }
+      .admin-nav-item.active {
+        background: #000000;
+        color: white;
+      }
+      .admin-nav-item.active .material-symbols-outlined {
+        color: white;
+      }
+      .stat-card {
+        transition: transform 0.2s ease;
+      }
+      .stat-card:hover {
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body class="bg-background text-text-main">
+    <div class="flex h-screen overflow-hidden">
+      <!-- Sidebar -->
+      <aside
+        class="admin-sidebar w-64 flex-shrink-0 hidden md:block overflow-y-auto"
+      >
+        <div class="p-6">
+          <span
+            class="font-headline text-2xl font-extrabold tracking-tighter block mb-8"
+            >Audi Admin</span
+          >
+
+          <nav class="space-y-1">
+            <a
+              href="admin-dashboard.html"
+              class="admin-nav-item active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
+            >
+              <span class="material-symbols-outlined">dashboard</span>
+              Dashboard
+            </a>
+            <a
+              href="users.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">people</span>
+              Users
+              <span
+                class="ml-auto bg-surface-soft px-2 py-0.5 rounded-full text-xs"
+                >24</span
+              >
+            </a>
+            <a
+              href="admin-cars.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">directions_car</span>
+              All Cars
+              <span
+                class="ml-auto bg-surface-soft px-2 py-0.5 rounded-full text-xs"
+                >18</span
+              >
+            </a>
+            <a
+              href="admin-sedans.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">car_crash</span>
+              Sedans
+              <span
+                class="ml-auto bg-surface-soft px-2 py-0.5 rounded-full text-xs"
+                >6</span
+              >
+            </a>
+            <a
+              href="admin-suvs.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">airport_shuttle</span>
+              SUVs
+            </a>
+            <a
+              href="admin-electric.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">bolt</span>
+              Electric
+              <span
+                class="ml-auto bg-surface-soft px-2 py-0.5 rounded-full text-xs"
+                >4</span
+              >
+            </a>
+            <div class="border-t border-outline-soft my-4"></div>
+            <a
+              href="upload-car.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">upload</span>
+              Upload Car
+            </a>
+            <a
+              href="admin-payments.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">payments</span>
+              Payments
+              <span
+                class="ml-auto bg-accent text-white px-2 py-0.5 rounded-full text-xs"
+                >3</span
+              >
+            </a>
+          </nav>
+        </div>
+
+        <div class="absolute bottom-0 w-64 p-6 border-t border-outline-soft">
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
+            >
+              <span class="material-symbols-outlined"
+                >admin_panel_settings</span
+              >
+            </div>
+            <div>
+              <p class="text-sm font-medium">Admin User</p>
+              <p class="text-xs text-text-muted">admin@audi.com</p>
+            </div>
+            <button class="ml-auto text-text-muted hover:text-primary">
+              <span class="material-symbols-outlined">logout</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto">
+        <!-- Header -->
+        <header class="bg-white border-b border-outline-soft sticky top-0 z-10">
+          <div class="flex items-center justify-between px-6 py-4">
+            <h1 class="font-headline text-2xl font-bold">Dashboard</h1>
+
+            <div class="flex items-center gap-4">
+              <button class="relative p-2 hover:bg-surface-soft rounded-full">
+                <span class="material-symbols-outlined">notifications</span>
+                <span
+                  class="absolute top-1 right-1 w-2 h-2 bg-accent rounded-full"
+                ></span>
+              </button>
+              <div class="flex items-center gap-3">
+                <span class="text-sm text-text-muted"
+                  >Last updated: Mar 14, 2026</span
+                >
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <!-- Dashboard Content -->
+        <div class="p-6">
+          <!-- Stats Grid -->
+          <div
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8"
+          >
+            <div class="stat-card bg-white p-6 border border-outline-soft">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-text-muted text-sm">Total Users</span>
+                <span class="material-symbols-outlined text-text-muted"
+                  >people</span
+                >
+              </div>
+              <p class="font-headline text-3xl font-bold">1,247</p>
+              <p class="text-xs text-green-600 mt-2">+12% from last month</p>
+            </div>
+
+            <div class="stat-card bg-white p-6 border border-outline-soft">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-text-muted text-sm">Total Cars</span>
+                <span class="material-symbols-outlined text-text-muted"
+                  >directions_car</span
+                >
+              </div>
+              <p class="font-headline text-3xl font-bold">18</p>
+              <p class="text-xs text-green-600 mt-2">+3 new this month</p>
+            </div>
+
+            <div class="stat-card bg-white p-6 border border-outline-soft">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-text-muted text-sm">Pending Payments</span>
+                <span class="material-symbols-outlined text-text-muted"
+                  >hourglass_empty</span
+                >
+              </div>
+              <p class="font-headline text-3xl font-bold">7</p>
+              <p class="text-xs text-accent mt-2">3 require attention</p>
+            </div>
+
+            <div class="stat-card bg-white p-6 border border-outline-soft">
+              <div class="flex items-center justify-between mb-3">
+                <span class="text-text-muted text-sm">Monthly Revenue</span>
+                <span class="material-symbols-outlined text-text-muted"
+                  >trending_up</span
+                >
+              </div>
+              <p class="font-headline text-3xl font-bold">$847K</p>
+              <p class="text-xs text-green-600 mt-2">+8.2% vs last month</p>
+            </div>
+          </div>
+
+          <!-- Recent Users & Cars -->
+          <div class="grid lg:grid-cols-2 gap-6">
+            <!-- Recent Users -->
+            <div class="bg-white border border-outline-soft">
+              <div
+                class="p-6 border-b border-outline-soft flex justify-between items-center"
+              >
+                <h3 class="font-headline font-bold">Recent Users</h3>
+                <a
+                  href="users.html"
+                  class="text-sm text-primary hover:underline"
+                  >View all</a
+                >
+              </div>
+              <div class="divide-y divide-outline-soft">
+                <div class="p-4 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >person</span
+                      >
+                    </div>
+                    <div>
+                      <p class="font-medium">John Smith</p>
+                      <p class="text-xs text-text-muted">
+                        john.smith@email.com
+                      </p>
+                    </div>
+                  </div>
+                  <span
+                    class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full"
+                    >Active</span
+                  >
+                </div>
+                <div class="p-4 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >person</span
+                      >
+                    </div>
+                    <div>
+                      <p class="font-medium">Sarah Johnson</p>
+                      <p class="text-xs text-text-muted">sarah.j@email.com</p>
+                    </div>
+                  </div>
+                  <span
+                    class="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full"
+                    >Active</span
+                  >
+                </div>
+                <div class="p-4 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
+                    >
+                      <span class="material-symbols-outlined text-sm"
+                        >person</span
+                      >
+                    </div>
+                    <div>
+                      <p class="font-medium">Michael Chen</p>
+                      <p class="text-xs text-text-muted">m.chen@email.com</p>
+                    </div>
+                  </div>
+                  <span
+                    class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full"
+                    >Pending</span
+                  >
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Cars -->
+            <div class="bg-white border border-outline-soft">
+              <div
+                class="p-6 border-b border-outline-soft flex justify-between items-center"
+              >
+                <h3 class="font-headline font-bold">Recently Added Cars</h3>
+                <a
+                  href="admin-cars.html"
+                  class="text-sm text-primary hover:underline"
+                  >View all</a
+                >
+              </div>
+              <div class="divide-y divide-outline-soft">
+                <div class="p-4 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-16 h-12 bg-surface-soft rounded overflow-hidden"
+                    >
+                      <img
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7iIdpncjRk59TOKf3x5CJbP0q1m0tHC8tCtQLWLT66Z1IrFKYhkiqXgxCeRcxbnceAW_52aHwajBlKNwosFjgDyEj4Bc6yCu7bRs6lYKawLxOB8g-2BwCJvQr8xIz7YTwSHezVBhFtvLkOfWBDpzWnx_NMrRkpi_M9RXCSCH5Ldm-zhcGv-wCmFvQiEoQEVKkf2nK70t11IY4VvtBy7ubwfOb0b-eW-RPHAGGRv5eaiNJluMrzAlX8GOVcCjsZU7gpOz3r4XezYdl"
+                        class="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p class="font-medium">Audi A3 2025</p>
+                      <p class="text-xs text-text-muted">Sedan • $35,400</p>
+                    </div>
+                  </div>
+                  <span
+                    class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full"
+                    >New</span
+                  >
+                </div>
+                <div class="p-4 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-16 h-12 bg-surface-soft rounded overflow-hidden"
+                    >
+                      <img
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuB4Z9NWssdr2zMvRxAGMOBT3lM4lgu55On0ZMz-YDUykPYIFVUkZN16ddBLXZCZflluNZ26cVZGsN6x9EtA9Y13z1QP4udAJ2XWG_UGyoUB9-JifKnQD45tRIVUSkxk2PGpmMzohLw756NbxweIRQMyg8DE02cmxN-dbDrd07dQ2K7-ysn7nU1bKvXoxHGVEykD5hp3U_oJFdBTo9yCwo5Ld6CIzUjlxRsWku1PMHRLBqVr6JiJfS-EHBzDW_kPA-7V46qVMoHlg1hI"
+                        class="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p class="font-medium">Audi Q5 2025</p>
+                      <p class="text-xs text-text-muted">SUV • $45,000</p>
+                    </div>
+                  </div>
+                  <span
+                    class="text-xs bg-blue-100 text-blue-800 px-2 py-1 rounded-full"
+                    >New</span
+                  >
+                </div>
+                <div class="p-4 flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-16 h-12 bg-surface-soft rounded overflow-hidden"
+                    >
+                      <img
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuAehTXm1jS2gJE79ZGNHosyStFgBhEhqQBVSVE63YO3xNWZI9KdT_itrrDVRxJ5GfyYBPjw98aqoWw0mJlvHlZshCAYTl43DscaVd3AiS3Df0CMtBQcnCYLLISTYQnpE9f-qa8-v57nfs7J0IwOfYuPHCe1r6073AxhcmCoBHOvdUKd9u-fgLMd-YSoYrPxgEEOwJfVZleuBP3x3AhV5xl2KViFbw4fEBgUbZcqf9QBLQr2wziE6J2pHYJ8XqQBku9pXHAd1-_cbLLv"
+                        class="w-full h-full object-cover"
+                      />
+                    </div>
+                    <div>
+                      <p class="font-medium">RS e-tron GT</p>
+                      <p class="text-xs text-text-muted">Electric • $106,500</p>
+                    </div>
+                  </div>
+                  <span
+                    class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded-full"
+                    >Electric</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
+            <a
+              href="upload-car.html"
+              class="bg-white p-6 border border-outline-soft hover:shadow-md transition flex items-center gap-4"
+            >
+              <span class="material-symbols-outlined text-3xl">add_circle</span>
+              <div>
+                <h4 class="font-headline font-bold">Add New Car</h4>
+                <p class="text-sm text-text-muted">
+                  Upload a new model to inventory
+                </p>
+              </div>
+            </a>
+            <a
+              href="admin-payments.html"
+              class="bg-white p-6 border border-outline-soft hover:shadow-md transition flex items-center gap-4"
+            >
+              <span class="material-symbols-outlined text-3xl">payments</span>
+              <div>
+                <h4 class="font-headline font-bold">Verify Payments</h4>
+                <p class="text-sm text-text-muted">3 pending verifications</p>
+              </div>
+            </a>
+            <a
+              href="users.html"
+              class="bg-white p-6 border border-outline-soft hover:shadow-md transition flex items-center gap-4"
+            >
+              <span class="material-symbols-outlined text-3xl">group_add</span>
+              <div>
+                <h4 class="font-headline font-bold">Manage Users</h4>
+                <p class="text-sm text-text-muted">
+                  View and edit user accounts
+                </p>
+              </div>
+            </a>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      // Category Chart
+      const ctx1 = document.getElementById("categoryChart").getContext("2d");
+      new Chart(ctx1, {
+        type: "doughnut",
+        data: {
+          labels: ["Sedans", "SUVs", "Electric"],
+          datasets: [
+            {
+              data: [6, 5, 4],
+              backgroundColor: ["#000000", "#5b5f61", "#d70000"],
+              borderWidth: 0,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              position: "bottom",
+            },
+          },
+        },
+      });
+
+      // User Growth Chart
+      const ctx2 = document.getElementById("userChart").getContext("2d");
+      new Chart(ctx2, {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "New Users",
+              data: [65, 78, 90, 115, 132, 148],
+              borderColor: "#000000",
+              backgroundColor: "rgba(0,0,0,0.05)",
+              tension: 0.4,
+              fill: true,
+            },
+          ],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
