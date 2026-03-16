@@ -438,7 +438,10 @@
     </footer>
 
     <script>
-      const BASE_URL = "http://localhost:8000";
+      const BASE_URL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:8000"
+          : "https://audi-t4lu.onrender.com";
 
       const state = {
         cars: [],
@@ -510,7 +513,9 @@
 
       function filterSUVs(cars) {
         return cars.filter((car) => {
-          const category = String(car.category || "").toLowerCase().trim();
+          const category = String(car.category || "")
+            .toLowerCase()
+            .trim();
           return category === "suv" || category === "suvs";
         });
       }
@@ -614,7 +619,7 @@
         }
 
         const totalPages = Math.ceil(
-          state.filteredCars.length / state.itemsPerPage
+          state.filteredCars.length / state.itemsPerPage,
         );
         const startIndex = (state.currentPage - 1) * state.itemsPerPage;
         const endIndex = startIndex + state.itemsPerPage;
@@ -622,7 +627,7 @@
 
         resultsText.textContent = `Showing ${startIndex + 1}-${Math.min(
           endIndex,
-          state.filteredCars.length
+          state.filteredCars.length,
         )} of ${state.filteredCars.length} SUVs`;
 
         carsToShow.forEach((car) => {
@@ -661,7 +666,7 @@
             <div class="flex gap-2 mb-3 flex-wrap">
               <span class="text-xs bg-surface-container px-2 py-1">SUV</span>
               <span class="text-xs bg-surface-container px-2 py-1">${getFuelLabel(
-                car
+                car,
               )}</span>
               ${
                 car.featured

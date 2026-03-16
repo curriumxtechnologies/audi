@@ -468,8 +468,10 @@
     </footer>
 
     <script>
-      const BASE_URL = "http://localhost:8000";
-
+      const BACKEND_URL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:8000"
+          : "https://audi-t4lu.onrender.com";
       const state = {
         cars: [],
         filteredCars: [],
@@ -534,14 +536,20 @@
       }
 
       function getElectricBadge(car) {
-        const fuelType = String(car?.specifications?.fuelType || "").toLowerCase();
+        const fuelType = String(
+          car?.specifications?.fuelType || "",
+        ).toLowerCase();
         if (fuelType === "electric") return "Electric";
         return "e-tron";
       }
 
       function isElectricCar(car) {
-        const category = String(car.category || "").toLowerCase().trim();
-        const fuelType = String(car?.specifications?.fuelType || "").toLowerCase().trim();
+        const category = String(car.category || "")
+          .toLowerCase()
+          .trim();
+        const fuelType = String(car?.specifications?.fuelType || "")
+          .toLowerCase()
+          .trim();
 
         return category === "electric" || fuelType === "electric";
       }
@@ -645,7 +653,7 @@
         }
 
         const totalPages = Math.ceil(
-          state.filteredCars.length / state.itemsPerPage
+          state.filteredCars.length / state.itemsPerPage,
         );
         const startIndex = (state.currentPage - 1) * state.itemsPerPage;
         const endIndex = startIndex + state.itemsPerPage;
@@ -653,7 +661,7 @@
 
         resultsText.textContent = `Showing ${startIndex + 1}-${Math.min(
           endIndex,
-          state.filteredCars.length
+          state.filteredCars.length,
         )} of ${state.filteredCars.length} electric cars`;
 
         carsToShow.forEach((car) => {

@@ -130,10 +130,17 @@
   <body
     class="bg-surface text-on-surface font-body selection:bg-primary selection:text-white antialiased"
   >
-    <header class="glass-header sticky top-0 z-50 border-b border-outline-variant/10">
-      <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+    <header
+      class="glass-header sticky top-0 z-50 border-b border-outline-variant/10"
+    >
+      <nav
+        class="container mx-auto px-6 py-4 flex items-center justify-between"
+      >
         <div class="flex items-center gap-12">
-          <a href="home.html" class="font-headline text-2xl font-extrabold tracking-tighter">
+          <a
+            href="home.html"
+            class="font-headline text-2xl font-extrabold tracking-tighter"
+          >
             Audi
           </a>
         </div>
@@ -149,13 +156,19 @@
 
       <div id="errorState" class="container mx-auto px-6 py-16 hidden">
         <div class="bg-red-50 border border-red-200 p-8 text-center">
-          <p class="text-lg font-semibold text-red-700 mb-2">Unable to load this car</p>
-          <p id="errorMessage" class="text-sm text-red-600 mb-4">Something went wrong.</p>
+          <p class="text-lg font-semibold text-red-700 mb-2">
+            Unable to load this car
+          </p>
+          <p id="errorMessage" class="text-sm text-red-600 mb-4">
+            Something went wrong.
+          </p>
           <a
             href="home.html"
             class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 text-sm font-semibold"
           >
-            <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+            <span class="material-symbols-outlined text-[18px]"
+              >arrow_back</span
+            >
             Go Home
           </a>
         </div>
@@ -163,19 +176,29 @@
 
       <div id="pageContent" class="hidden">
         <div class="container mx-auto px-6 pt-8 pb-2">
-          <div class="flex items-center text-xs font-medium text-on-surface-variant tracking-wide">
-            <a href="home.html" class="hover:text-primary transition-colors">Home</a>
+          <div
+            class="flex items-center text-xs font-medium text-on-surface-variant tracking-wide"
+          >
+            <a href="home.html" class="hover:text-primary transition-colors"
+              >Home</a
+            >
             <span class="mx-2 select-none">/</span>
-            <a href="models.html" class="hover:text-primary transition-colors">Models</a>
+            <a href="models.html" class="hover:text-primary transition-colors"
+              >Models</a
+            >
             <span class="mx-2 select-none">/</span>
-            <span id="breadcrumbName" class="text-on-surface font-semibold">Car</span>
+            <span id="breadcrumbName" class="text-on-surface font-semibold"
+              >Car</span
+            >
           </div>
         </div>
 
         <section class="container mx-auto px-6 py-6 lg:py-10">
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
             <div>
-              <div class="aspect-[4/3] bg-surface-container-high mb-4 overflow-hidden kinetic-monolith">
+              <div
+                class="aspect-[4/3] bg-surface-container-high mb-4 overflow-hidden kinetic-monolith"
+              >
                 <img
                   id="mainImage"
                   src=""
@@ -220,29 +243,43 @@
                 <div class="flex items-center gap-1 text-sm font-bold">
                   <span
                     class="material-symbols-outlined text-[20px] text-on-tertiary-container"
-                    style="font-variation-settings: 'FILL' 1"
+                    style="font-variation-settings: &quot;FILL&quot; 1"
                   >
                     star
                   </span>
                   <span id="carRating">4.8</span>
-                  <span id="reviewsText" class="text-on-surface-variant font-normal ml-1">
+                  <span
+                    id="reviewsText"
+                    class="text-on-surface-variant font-normal ml-1"
+                  >
                     (127 reviews)
                   </span>
                 </div>
               </div>
 
-              <p id="carTagline" class="text-on-surface-variant text-base mt-2 max-w-md">
+              <p
+                id="carTagline"
+                class="text-on-surface-variant text-base mt-2 max-w-md"
+              >
                 Compact luxury sedan · precision · quattro available
               </p>
 
               <div class="mt-8 border-y border-outline-variant/30 py-6">
                 <div class="flex items-baseline gap-3">
-                  <span id="carPrice" class="text-4xl font-headline font-bold spec-number">$40,100</span>
+                  <span
+                    id="carPrice"
+                    class="text-4xl font-headline font-bold spec-number"
+                    >$40,100</span
+                  >
                   <span>Starting MSRP</span>
                 </div>
 
-                <p class="text-sm text-on-surface-variant mt-2 flex items-center gap-2">
-                  <span class="material-symbols-outlined text-[16px]">sell</span>
+                <p
+                  class="text-sm text-on-surface-variant mt-2 flex items-center gap-2"
+                >
+                  <span class="material-symbols-outlined text-[16px]"
+                    >sell</span
+                  >
                   <span id="leaseText">Flexible payment available</span>
                 </p>
 
@@ -257,13 +294,21 @@
                     <span
                       class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"
                     ></span>
-                    <span class="relative inline-flex rounded-full h-3 w-3 bg-green-500"></span>
+                    <span
+                      class="relative inline-flex rounded-full h-3 w-3 bg-green-500"
+                    ></span>
                   </span>
-                  <span id="stockText" class="text-sm font-medium">In stock · ready for delivery</span>
+                  <span id="stockText" class="text-sm font-medium"
+                    >In stock · ready for delivery</span
+                  >
                 </div>
 
-                <div class="text-sm font-medium text-on-surface-variant flex items-center gap-1">
-                  <span class="material-symbols-outlined text-[18px]">local_offer</span>
+                <div
+                  class="text-sm font-medium text-on-surface-variant flex items-center gap-1"
+                >
+                  <span class="material-symbols-outlined text-[18px]"
+                    >local_offer</span
+                  >
                   <span id="offerText">Special offer available</span>
                 </div>
               </div>
@@ -275,7 +320,9 @@
                   class="bg-primary text-on-primary px-8 py-5 font-semibold text-sm tracking-widest hover:bg-primary-container transition-all flex items-center gap-3 flex-1 basis-40 justify-center"
                 >
                   BUY NOW
-                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                  <span class="material-symbols-outlined text-[18px]"
+                    >arrow_forward</span
+                  >
                 </a>
 
                 <a
@@ -284,51 +331,101 @@
                   target="_blank"
                   class="border border-outline-variant hover:border-primary text-on-surface px-8 py-5 font-semibold text-sm tracking-widest transition-all flex items-center gap-3 flex-1 basis-40 justify-center bg-surface/50"
                 >
-                  <span class="material-symbols-outlined text-[18px]">chat</span>
+                  <span class="material-symbols-outlined text-[18px]"
+                    >chat</span
+                  >
                   SPEAK TO AN AGENT
                 </a>
               </div>
 
-              <p class="text-xs text-on-surface-variant mt-3 flex items-center gap-1">
-                <span class="material-symbols-outlined text-[14px]">verified</span>
+              <p
+                class="text-xs text-on-surface-variant mt-3 flex items-center gap-1"
+              >
+                <span class="material-symbols-outlined text-[14px]"
+                  >verified</span
+                >
                 WhatsApp chat with our Audi specialists
               </p>
             </div>
           </div>
         </section>
 
-        <section class="container mx-auto px-6 py-12 border-y border-outline-variant/20">
+        <section
+          class="container mx-auto px-6 py-12 border-y border-outline-variant/20"
+        >
           <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-4">
-            <div class="bg-surface-container-low p-4 text-center spec-card-hover transition">
-              <span class="text-xs text-on-surface-variant font-medium">Engine</span>
+            <div
+              class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+            >
+              <span class="text-xs text-on-surface-variant font-medium"
+                >Engine</span
+              >
               <p id="specEngine" class="font-headline font-bold text-lg">N/A</p>
             </div>
-            <div class="bg-surface-container-low p-4 text-center spec-card-hover transition">
-              <span class="text-xs text-on-surface-variant font-medium">Horsepower</span>
-              <p id="specHorsepower" class="font-headline font-bold text-lg">N/A</p>
+            <div
+              class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+            >
+              <span class="text-xs text-on-surface-variant font-medium"
+                >Horsepower</span
+              >
+              <p id="specHorsepower" class="font-headline font-bold text-lg">
+                N/A
+              </p>
             </div>
-            <div class="bg-surface-container-low p-4 text-center spec-card-hover transition">
-              <span class="text-xs text-on-surface-variant font-medium">Transmission</span>
-              <p id="specTransmission" class="font-headline font-bold text-lg">N/A</p>
+            <div
+              class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+            >
+              <span class="text-xs text-on-surface-variant font-medium"
+                >Transmission</span
+              >
+              <p id="specTransmission" class="font-headline font-bold text-lg">
+                N/A
+              </p>
             </div>
-            <div class="bg-surface-container-low p-4 text-center spec-card-hover transition">
-              <span class="text-xs text-on-surface-variant font-medium">0–60</span>
-              <p id="specAcceleration" class="font-headline font-bold text-lg">N/A</p>
+            <div
+              class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+            >
+              <span class="text-xs text-on-surface-variant font-medium"
+                >0–60</span
+              >
+              <p id="specAcceleration" class="font-headline font-bold text-lg">
+                N/A
+              </p>
             </div>
-            <div class="bg-surface-container-low p-4 text-center spec-card-hover transition">
-              <span class="text-xs text-on-surface-variant font-medium">Top speed</span>
-              <p id="specTopSpeed" class="font-headline font-bold text-lg">N/A</p>
+            <div
+              class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+            >
+              <span class="text-xs text-on-surface-variant font-medium"
+                >Top speed</span
+              >
+              <p id="specTopSpeed" class="font-headline font-bold text-lg">
+                N/A
+              </p>
             </div>
-            <div class="bg-surface-container-low p-4 text-center spec-card-hover transition">
-              <span class="text-xs text-on-surface-variant font-medium">Fuel</span>
+            <div
+              class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+            >
+              <span class="text-xs text-on-surface-variant font-medium"
+                >Fuel</span
+              >
               <p id="specFuel" class="font-headline font-bold text-lg">N/A</p>
             </div>
-            <div class="bg-surface-container-low p-4 text-center spec-card-hover transition">
-              <span class="text-xs text-on-surface-variant font-medium">Seating</span>
-              <p id="specSeating" class="font-headline font-bold text-lg">N/A</p>
+            <div
+              class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+            >
+              <span class="text-xs text-on-surface-variant font-medium"
+                >Seating</span
+              >
+              <p id="specSeating" class="font-headline font-bold text-lg">
+                N/A
+              </p>
             </div>
-            <div class="bg-surface-container-low p-4 text-center spec-card-hover transition">
-              <span class="text-xs text-on-surface-variant font-medium">Drive</span>
+            <div
+              class="bg-surface-container-low p-4 text-center spec-card-hover transition"
+            >
+              <span class="text-xs text-on-surface-variant font-medium"
+                >Drive</span
+              >
               <p id="specDrive" class="font-headline font-bold text-lg">N/A</p>
             </div>
           </div>
@@ -341,10 +438,15 @@
             >
               THE ESSENCE OF PROGRESS
             </span>
-            <h2 class="font-headline text-4xl md:text-5xl font-bold tracking-tight mb-8">
+            <h2
+              class="font-headline text-4xl md:text-5xl font-bold tracking-tight mb-8"
+            >
               About this car
             </h2>
-            <p id="aboutText" class="text-lg text-on-surface-variant leading-relaxed">
+            <p
+              id="aboutText"
+              class="text-lg text-on-surface-variant leading-relaxed"
+            >
               No description available.
             </p>
           </div>
@@ -352,21 +454,30 @@
 
         <section class="bg-surface-container-low py-20">
           <div class="container mx-auto px-6">
-            <h2 class="font-headline text-3xl md:text-4xl font-bold tracking-tight mb-12 text-center">
+            <h2
+              class="font-headline text-3xl md:text-4xl font-bold tracking-tight mb-12 text-center"
+            >
               Key highlights
             </h2>
-            <div id="featuresGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+            <div
+              id="featuresGrid"
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            ></div>
           </div>
         </section>
 
         <section class="container mx-auto px-6 py-20">
-          <h2 class="font-headline text-3xl md:text-4xl font-bold tracking-tight mb-10">
+          <h2
+            class="font-headline text-3xl md:text-4xl font-bold tracking-tight mb-10"
+          >
             Technical specifications
           </h2>
 
           <div class="grid md:grid-cols-2 gap-x-16 gap-y-8">
             <div>
-              <h5 class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4">
+              <h5
+                class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4"
+              >
                 Performance & engine
               </h5>
               <dl class="space-y-2">
@@ -376,7 +487,9 @@
                 </div>
                 <div class="flex justify-between py-1 gap-4">
                   <dt class="text-on-surface-variant">Horsepower</dt>
-                  <dd id="detailHorsepower" class="font-medium text-right">N/A</dd>
+                  <dd id="detailHorsepower" class="font-medium text-right">
+                    N/A
+                  </dd>
                 </div>
                 <div class="flex justify-between py-1 gap-4">
                   <dt class="text-on-surface-variant">Torque</dt>
@@ -384,7 +497,9 @@
                 </div>
                 <div class="flex justify-between py-1 gap-4">
                   <dt class="text-on-surface-variant">Transmission</dt>
-                  <dd id="detailTransmission" class="font-medium text-right">N/A</dd>
+                  <dd id="detailTransmission" class="font-medium text-right">
+                    N/A
+                  </dd>
                 </div>
                 <div class="flex justify-between py-1 gap-4">
                   <dt class="text-on-surface-variant">Drivetrain</dt>
@@ -394,17 +509,25 @@
             </div>
 
             <div>
-              <h5 class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4">
+              <h5
+                class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4"
+              >
                 Dimensions & capacity
               </h5>
               <dl class="space-y-2">
                 <div class="flex justify-between py-1 gap-4">
-                  <dt class="text-on-surface-variant">Length / width / height</dt>
-                  <dd id="detailDimensions" class="font-medium text-right">N/A</dd>
+                  <dt class="text-on-surface-variant">
+                    Length / width / height
+                  </dt>
+                  <dd id="detailDimensions" class="font-medium text-right">
+                    N/A
+                  </dd>
                 </div>
                 <div class="flex justify-between py-1 gap-4">
                   <dt class="text-on-surface-variant">Wheelbase</dt>
-                  <dd id="detailWheelbase" class="font-medium text-right">N/A</dd>
+                  <dd id="detailWheelbase" class="font-medium text-right">
+                    N/A
+                  </dd>
                 </div>
                 <div class="flex justify-between py-1 gap-4">
                   <dt class="text-on-surface-variant">Cargo volume</dt>
@@ -422,7 +545,9 @@
             </div>
 
             <div>
-              <h5 class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4">
+              <h5
+                class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4"
+              >
                 Technology & safety
               </h5>
               <dl class="space-y-2">
@@ -436,17 +561,23 @@
                 </div>
                 <div class="flex justify-between py-1 gap-4">
                   <dt class="text-on-surface-variant">Warranty</dt>
-                  <dd id="detailWarranty" class="font-medium text-right">N/A</dd>
+                  <dd id="detailWarranty" class="font-medium text-right">
+                    N/A
+                  </dd>
                 </div>
                 <div class="flex justify-between py-1 gap-4">
                   <dt class="text-on-surface-variant">Published</dt>
-                  <dd id="detailPublished" class="font-medium text-right">N/A</dd>
+                  <dd id="detailPublished" class="font-medium text-right">
+                    N/A
+                  </dd>
                 </div>
               </dl>
             </div>
 
             <div>
-              <h5 class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4">
+              <h5
+                class="font-headline font-bold text-xl border-b border-outline-variant/30 pb-2 mb-4"
+              >
                 Fuel economy
               </h5>
               <dl class="space-y-2">
@@ -456,11 +587,15 @@
                 </div>
                 <div class="flex justify-between py-1 gap-4">
                   <dt class="text-on-surface-variant">Fuel type</dt>
-                  <dd id="detailFuelType" class="font-medium text-right">N/A</dd>
+                  <dd id="detailFuelType" class="font-medium text-right">
+                    N/A
+                  </dd>
                 </div>
                 <div class="flex justify-between py-1 gap-4">
                   <dt class="text-on-surface-variant">Battery range</dt>
-                  <dd id="detailBatteryRange" class="font-medium text-right">N/A</dd>
+                  <dd id="detailBatteryRange" class="font-medium text-right">
+                    N/A
+                  </dd>
                 </div>
                 <div class="flex justify-between py-1 gap-4">
                   <dt class="text-on-surface-variant">Doors</dt>
@@ -473,10 +608,14 @@
 
         <section class="bg-surface-container-low py-16">
           <div class="container mx-auto px-6">
-            <div class="max-w-4xl mx-auto bg-surface p-10 border border-outline-variant/20">
+            <div
+              class="max-w-4xl mx-auto bg-surface p-10 border border-outline-variant/20"
+            >
               <div class="grid md:grid-cols-2 gap-10 items-center">
                 <div>
-                  <h3 class="font-headline text-3xl font-bold tracking-tight mb-2">
+                  <h3
+                    class="font-headline text-3xl font-bold tracking-tight mb-2"
+                  >
                     Own this car today
                   </h3>
                   <p id="pricingText" class="text-on-surface-variant mb-4">
@@ -484,10 +623,15 @@
                   </p>
 
                   <div class="flex items-center gap-3 text-sm mb-6 flex-wrap">
-                    <span id="depositBadge" class="bg-primary-fixed-dim px-3 py-1 font-medium">
+                    <span
+                      id="depositBadge"
+                      class="bg-primary-fixed-dim px-3 py-1 font-medium"
+                    >
                       Flexible deposit
                     </span>
-                    <span class="text-on-surface-variant">excludes taxes & fees</span>
+                    <span class="text-on-surface-variant"
+                      >excludes taxes & fees</span
+                    >
                   </div>
 
                   <div class="flex flex-col sm:flex-row gap-3">
@@ -505,19 +649,31 @@
                       target="_blank"
                       class="border border-outline-variant hover:border-primary px-6 py-4 font-semibold text-sm tracking-widest transition flex items-center justify-center gap-2 bg-surface/50"
                     >
-                      <span class="material-symbols-outlined text-[18px]">chat</span>
+                      <span class="material-symbols-outlined text-[18px]"
+                        >chat</span
+                      >
                       AGENT
                     </a>
                   </div>
                 </div>
 
                 <div class="bg-surface-container-high p-6 text-center">
-                  <span class="material-symbols-outlined text-4xl text-primary mb-2">local_offer</span>
-                  <p class="font-headline font-bold text-xl mb-1">Special offers</p>
-                  <p id="specialOfferText" class="text-sm text-on-surface-variant mb-3">
+                  <span
+                    class="material-symbols-outlined text-4xl text-primary mb-2"
+                    >local_offer</span
+                  >
+                  <p class="font-headline font-bold text-xl mb-1">
+                    Special offers
+                  </p>
+                  <p
+                    id="specialOfferText"
+                    class="text-sm text-on-surface-variant mb-3"
+                  >
                     Great offers may be available for this car.
                   </p>
-                  <p class="text-xs text-on-surface-variant">Available for a limited time. Terms apply.</p>
+                  <p class="text-xs text-on-surface-variant">
+                    Available for a limited time. Terms apply.
+                  </p>
                 </div>
               </div>
             </div>
@@ -536,25 +692,33 @@
 
           <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
             <div class="text-center">
-              <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-3">
+              <span
+                class="material-symbols-outlined text-4xl text-on-surface-variant mb-3"
+              >
                 precision_manufacturing
               </span>
               <h5 class="font-headline font-bold">Luxury craftsmanship</h5>
             </div>
             <div class="text-center">
-              <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-3">
+              <span
+                class="material-symbols-outlined text-4xl text-on-surface-variant mb-3"
+              >
                 quick_reference
               </span>
               <h5 class="font-headline font-bold">Advanced tech</h5>
             </div>
             <div class="text-center">
-              <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-3">
+              <span
+                class="material-symbols-outlined text-4xl text-on-surface-variant mb-3"
+              >
                 event_seat
               </span>
               <h5 class="font-headline font-bold">Everyday usability</h5>
             </div>
             <div class="text-center">
-              <span class="material-symbols-outlined text-4xl text-on-surface-variant mb-3">
+              <span
+                class="material-symbols-outlined text-4xl text-on-surface-variant mb-3"
+              >
                 verified
               </span>
               <h5 class="font-headline font-bold">Dealer support</h5>
@@ -562,18 +726,28 @@
           </div>
         </section>
 
-        <section class="bg-surface-container-lowest py-20 border-t border-outline-variant/20">
+        <section
+          class="bg-surface-container-lowest py-20 border-t border-outline-variant/20"
+        >
           <div class="container mx-auto px-6">
             <div class="flex justify-between items-end mb-12">
-              <h2 class="font-headline text-3xl md:text-4xl font-bold tracking-tight">
+              <h2
+                class="font-headline text-3xl md:text-4xl font-bold tracking-tight"
+              >
                 Related models
               </h2>
-              <a href="models.html" class="text-sm font-bold tertiary-underline pb-1">
+              <a
+                href="models.html"
+                class="text-sm font-bold tertiary-underline pb-1"
+              >
                 VIEW ALL
               </a>
             </div>
 
-            <div id="relatedCarsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+            <div
+              id="relatedCarsGrid"
+              class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
+            ></div>
           </div>
         </section>
       </div>
@@ -581,12 +755,18 @@
 
     <footer class="bg-surface-container py-20">
       <div class="container mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"
+        >
           <div class="lg:col-span-2">
-            <span class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block">
+            <span
+              class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block"
+            >
               Audi
             </span>
-            <p class="text-on-surface-variant max-w-sm font-light leading-relaxed">
+            <p
+              class="text-on-surface-variant max-w-sm font-light leading-relaxed"
+            >
               Experience the pinnacle of German automotive engineering. Join our
               newsletter for exclusive previews, innovations, and performance
               updates.
@@ -594,21 +774,67 @@
           </div>
 
           <div>
-            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">Navigation</h5>
+            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">
+              Navigation
+            </h5>
             <ul class="space-y-3">
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="home.html">Home</a></li>
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="models.html">Models</a></li>
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="electric.html">Electric</a></li>
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="suvs.html">SUVs</a></li>
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="sedans.html">Sedans</a></li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="home.html"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="models.html"
+                  >Models</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="electric.html"
+                  >Electric</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="suvs.html"
+                  >SUVs</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="sedans.html"
+                  >Sedans</a
+                >
+              </li>
             </ul>
           </div>
 
           <div>
-            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">Stay Connected</h5>
+            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">
+              Stay Connected
+            </h5>
             <ul class="space-y-3">
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="about.html">About</a></li>
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="contact.html">Contact</a></li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="about.html"
+                  >About</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="contact.html"
+                  >Contact</a
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -620,125 +846,131 @@
         </div>
       </div>
     </footer>
-<script>
-  const BASE_URL = "http://localhost:8000";
-  const params = new URLSearchParams(window.location.search);
-  const carId = params.get("id");
+    <script>
+      const BASE_URL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:8000"
+          : "https://audi-t4lu.onrender.com";
+      const params = new URLSearchParams(window.location.search);
+      const carId = params.get("id");
 
-  const loadingState = document.getElementById("loadingState");
-  const errorState = document.getElementById("errorState");
-  const errorMessage = document.getElementById("errorMessage");
-  const pageContent = document.getElementById("pageContent");
+      const loadingState = document.getElementById("loadingState");
+      const errorState = document.getElementById("errorState");
+      const errorMessage = document.getElementById("errorMessage");
+      const pageContent = document.getElementById("pageContent");
 
-  function showError(message) {
-    loadingState.classList.add("hidden");
-    pageContent.classList.add("hidden");
-    errorState.classList.remove("hidden");
-    errorMessage.textContent = message;
-  }
+      function showError(message) {
+        loadingState.classList.add("hidden");
+        pageContent.classList.add("hidden");
+        errorState.classList.remove("hidden");
+        errorMessage.textContent = message;
+      }
 
-  function showPage() {
-    loadingState.classList.add("hidden");
-    errorState.classList.add("hidden");
-    pageContent.classList.remove("hidden");
-  }
+      function showPage() {
+        loadingState.classList.add("hidden");
+        errorState.classList.add("hidden");
+        pageContent.classList.remove("hidden");
+      }
 
-  function formatPrice(price, currency = "USD") {
-    if (price === undefined || price === null || price === "") {
-      return "Price on request";
-    }
+      function formatPrice(price, currency = "USD") {
+        if (price === undefined || price === null || price === "") {
+          return "Price on request";
+        }
 
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: currency || "USD",
-      maximumFractionDigits: 0,
-    }).format(Number(price));
-  }
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: currency || "USD",
+          maximumFractionDigits: 0,
+        }).format(Number(price));
+      }
 
-  function capitalizeWords(value) {
-    if (!value) return "";
-    return String(value)
-      .replace(/-/g, " ")
-      .replace(/\b\w/g, (char) => char.toUpperCase());
-  }
+      function capitalizeWords(value) {
+        if (!value) return "";
+        return String(value)
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, (char) => char.toUpperCase());
+      }
 
-  function resolveImageUrl(path) {
-    if (!path) return "https://via.placeholder.com/1200x800?text=No+Image";
+      function resolveImageUrl(path) {
+        if (!path) return "https://via.placeholder.com/1200x800?text=No+Image";
 
-    const cleanPath = String(path).replace(/\\/g, "/");
+        const cleanPath = String(path).replace(/\\/g, "/");
 
-    if (cleanPath.startsWith("http://") || cleanPath.startsWith("https://")) {
-      return cleanPath;
-    }
+        if (
+          cleanPath.startsWith("http://") ||
+          cleanPath.startsWith("https://")
+        ) {
+          return cleanPath;
+        }
 
-    if (cleanPath.startsWith("/")) {
-      return `${BASE_URL}${cleanPath}`;
-    }
+        if (cleanPath.startsWith("/")) {
+          return `${BASE_URL}${cleanPath}`;
+        }
 
-    return `${BASE_URL}/${cleanPath}`;
-  }
+        return `${BASE_URL}/${cleanPath}`;
+      }
 
-  function getImages(car) {
-    if (Array.isArray(car.pictures) && car.pictures.length > 0) {
-      return car.pictures.map(resolveImageUrl);
-    }
+      function getImages(car) {
+        if (Array.isArray(car.pictures) && car.pictures.length > 0) {
+          return car.pictures.map(resolveImageUrl);
+        }
 
-    return ["https://via.placeholder.com/1200x800?text=No+Image"];
-  }
+        return ["https://via.placeholder.com/1200x800?text=No+Image"];
+      }
 
-  function textOrFallback(value, fallback = "N/A") {
-    if (value === undefined || value === null || value === "") {
-      return fallback;
-    }
-    return value;
-  }
+      function textOrFallback(value, fallback = "N/A") {
+        if (value === undefined || value === null || value === "") {
+          return fallback;
+        }
+        return value;
+      }
 
-  function setText(id, value, fallback = "N/A") {
-    const element = document.getElementById(id);
-    if (element) {
-      element.textContent = textOrFallback(value, fallback);
-    }
-  }
+      function setText(id, value, fallback = "N/A") {
+        const element = document.getElementById(id);
+        if (element) {
+          element.textContent = textOrFallback(value, fallback);
+        }
+      }
 
-  function setHref(id, value) {
-    const element = document.getElementById(id);
-    if (element) {
-      element.href = value;
-    }
-  }
+      function setHref(id, value) {
+        const element = document.getElementById(id);
+        if (element) {
+          element.href = value;
+        }
+      }
 
-  function joinList(list, fallback = "N/A") {
-    if (!Array.isArray(list) || list.length === 0) return fallback;
-    return list.join(", ");
-  }
+      function joinList(list, fallback = "N/A") {
+        if (!Array.isArray(list) || list.length === 0) return fallback;
+        return list.join(", ");
+      }
 
-  function buildWhatsAppLink(car) {
-    const phone = "2348123456789";
-    const carName = car.name || "this car";
-    const message = `Hello I am interested in the ${carName}`;
-    return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
-  }
+      function buildWhatsAppLink(car) {
+        const phone = "2348123456789";
+        const carName = car.name || "this car";
+        const message = `Hello I am interested in the ${carName}`;
+        return `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+      }
 
-  function buildThumbnailGallery(images) {
-    const mainImage = document.getElementById("mainImage");
-    const thumbnailGrid = document.getElementById("thumbnailGrid");
+      function buildThumbnailGallery(images) {
+        const mainImage = document.getElementById("mainImage");
+        const thumbnailGrid = document.getElementById("thumbnailGrid");
 
-    thumbnailGrid.innerHTML = "";
+        thumbnailGrid.innerHTML = "";
 
-    mainImage.src = images[0];
-    mainImage.onerror = function () {
-      this.src = "https://via.placeholder.com/1200x800?text=No+Image";
-    };
+        mainImage.src = images[0];
+        mainImage.onerror = function () {
+          this.src = "https://via.placeholder.com/1200x800?text=No+Image";
+        };
 
-    images.slice(0, 5).forEach((image, index) => {
-      const wrapper = document.createElement("div");
-      wrapper.className =
-        "aspect-square bg-surface-container-high overflow-hidden cursor-pointer opacity-80 hover:opacity-100 transition border-2 " +
-        (index === 0
-          ? "border-primary/30"
-          : "border-transparent hover:border-primary/20");
+        images.slice(0, 5).forEach((image, index) => {
+          const wrapper = document.createElement("div");
+          wrapper.className =
+            "aspect-square bg-surface-container-high overflow-hidden cursor-pointer opacity-80 hover:opacity-100 transition border-2 " +
+            (index === 0
+              ? "border-primary/30"
+              : "border-transparent hover:border-primary/20");
 
-      wrapper.innerHTML = `
+          wrapper.innerHTML = `
         <img
           src="${image}"
           alt="Car image ${index + 1}"
@@ -747,49 +979,51 @@
         />
       `;
 
-      wrapper.addEventListener("click", () => {
-        mainImage.src = image;
+          wrapper.addEventListener("click", () => {
+            mainImage.src = image;
 
-        [...thumbnailGrid.children].forEach((child) => {
-          child.classList.remove("border-primary/30");
-          child.classList.add("border-transparent");
+            [...thumbnailGrid.children].forEach((child) => {
+              child.classList.remove("border-primary/30");
+              child.classList.add("border-transparent");
+            });
+
+            wrapper.classList.remove("border-transparent");
+            wrapper.classList.add("border-primary/30");
+          });
+
+          thumbnailGrid.appendChild(wrapper);
         });
+      }
 
-        wrapper.classList.remove("border-transparent");
-        wrapper.classList.add("border-primary/30");
-      });
+      function renderFeatures(car) {
+        const featuresGrid = document.getElementById("featuresGrid");
+        featuresGrid.innerHTML = "";
 
-      thumbnailGrid.appendChild(wrapper);
-    });
-  }
+        const mergedFeatures = [
+          ...(Array.isArray(car.features) ? car.features : []),
+          ...(Array.isArray(car.technologyFeatures)
+            ? car.technologyFeatures
+            : []),
+          ...(Array.isArray(car.safetyFeatures) ? car.safetyFeatures : []),
+        ];
 
-  function renderFeatures(car) {
-    const featuresGrid = document.getElementById("featuresGrid");
-    featuresGrid.innerHTML = "";
+        const fallbackFeatures = [
+          "Premium interior",
+          "Advanced technology",
+          "Smooth performance",
+          "Reliable safety",
+        ];
 
-    const mergedFeatures = [
-      ...(Array.isArray(car.features) ? car.features : []),
-      ...(Array.isArray(car.technologyFeatures) ? car.technologyFeatures : []),
-      ...(Array.isArray(car.safetyFeatures) ? car.safetyFeatures : []),
-    ];
+        const finalFeatures = mergedFeatures.length
+          ? mergedFeatures.slice(0, 4)
+          : fallbackFeatures;
 
-    const fallbackFeatures = [
-      "Premium interior",
-      "Advanced technology",
-      "Smooth performance",
-      "Reliable safety",
-    ];
+        const icons = ["speed", "memory", "security", "verified"];
 
-    const finalFeatures = mergedFeatures.length
-      ? mergedFeatures.slice(0, 4)
-      : fallbackFeatures;
-
-    const icons = ["speed", "memory", "security", "verified"];
-
-    finalFeatures.forEach((feature, index) => {
-      const item = document.createElement("div");
-      item.className = "flex flex-col items-center text-center";
-      item.innerHTML = `
+        finalFeatures.forEach((feature, index) => {
+          const item = document.createElement("div");
+          item.className = "flex flex-col items-center text-center";
+          item.innerHTML = `
         <span class="material-symbols-outlined text-4xl mb-4 text-on-surface-variant">
           ${icons[index] || "star"}
         </span>
@@ -798,43 +1032,46 @@
           Crafted to improve comfort, safety and daily driving experience.
         </p>
       `;
-      featuresGrid.appendChild(item);
-    });
-  }
+          featuresGrid.appendChild(item);
+        });
+      }
 
-  function renderRelatedCars(currentCarId, currentCategory, cars) {
-    const relatedCarsGrid = document.getElementById("relatedCarsGrid");
-    relatedCarsGrid.innerHTML = "";
+      function renderRelatedCars(currentCarId, currentCategory, cars) {
+        const relatedCarsGrid = document.getElementById("relatedCarsGrid");
+        relatedCarsGrid.innerHTML = "";
 
-    let relatedCars = cars
-      .filter(
-        (car) => car._id !== currentCarId && car.category === currentCategory
-      )
-      .slice(0, 4);
+        let relatedCars = cars
+          .filter(
+            (car) =>
+              car._id !== currentCarId && car.category === currentCategory,
+          )
+          .slice(0, 4);
 
-    if (!relatedCars.length) {
-      relatedCars = cars.filter((car) => car._id !== currentCarId).slice(0, 4);
-    }
+        if (!relatedCars.length) {
+          relatedCars = cars
+            .filter((car) => car._id !== currentCarId)
+            .slice(0, 4);
+        }
 
-    if (!relatedCars.length) {
-      relatedCarsGrid.innerHTML = `
+        if (!relatedCars.length) {
+          relatedCarsGrid.innerHTML = `
         <div class="col-span-full bg-surface-container-low p-8 text-center">
           <p class="text-on-surface-variant">No related cars available right now.</p>
         </div>
       `;
-      return;
-    }
+          return;
+        }
 
-    relatedCars.forEach((car) => {
-      const image = getImages(car)[0];
-      const name = car.name || "Car";
-      const price = formatPrice(car.price, car.currency);
+        relatedCars.forEach((car) => {
+          const image = getImages(car)[0];
+          const name = car.name || "Car";
+          const price = formatPrice(car.price, car.currency);
 
-      const card = document.createElement("a");
-      card.href = `car-details.html?id=${car._id}`;
-      card.className = "group cursor-pointer block";
+          const card = document.createElement("a");
+          card.href = `car-details.html?id=${car._id}`;
+          card.className = "group cursor-pointer block";
 
-      card.innerHTML = `
+          card.innerHTML = `
         <div class="overflow-hidden mb-4 aspect-[16/9] bg-surface-container-low image-zoom">
           <img
             src="${image}"
@@ -853,152 +1090,158 @@
         </button>
       `;
 
-      relatedCarsGrid.appendChild(card);
-    });
-  }
-
-  function populateCar(car) {
-    const specs = car.specifications || {};
-    const dims = car.dimensions || {};
-
-    const name = car.name || "Audi Car";
-    const type = capitalizeWords(car.category || "car");
-    const condition = capitalizeWords(car.condition || "new");
-    const availability = capitalizeWords(car.availability || "available");
-    const price = formatPrice(car.price, car.currency);
-    const rating = car.rating ?? 0;
-    const reviews = car.reviewCount ?? 0;
-    const description = car.description || "No description available for this car.";
-    const shortDescription = car.shortDescription || description;
-    const stock = car.stock ?? 0;
-
-    document.title = `Audi | ${name}`;
-
-    setText("breadcrumbName", name);
-    setText("carName", name);
-    setText("yearBadge", `${car.year} MODEL`, "MODEL");
-    setText("typeBadge", type, "Car");
-    setText("conditionBadge", condition, "Condition");
-
-    setText("carRating", rating);
-    setText("reviewsText", `(${reviews} reviews)`, "(0 reviews)");
-
-    setText(
-      "carTagline",
-      `${shortDescription}`
-    );
-
-    setText("carPrice", price, "Price on request");
-    setText("leaseText", `${name} available with flexible payment options`);
-    setText(
-      "stockText",
-      stock > 0 ? `${availability} · ${stock} unit(s) available` : availability,
-      availability
-    );
-    setText(
-      "offerText",
-      car.featured ? "Featured deal available" : "Special offer available"
-    );
-    setText("aboutText", description, "No description available.");
-
-    setText(
-      "pricingText",
-      `${name} starts from ${price}. Condition: ${condition}. Availability: ${availability}.`
-    );
-
-    setText("depositBadge", car.warranty || "Flexible deposit");
-
-    setText(
-      "specialOfferText",
-      car.featured
-        ? "This is a featured car in our collection."
-        : "Great offers may be available for this car."
-    );
-
-    setHref("buyNowBtn", `payment.html?id=${car._id}`);
-    setHref("buyNowBtnBottom", `payment.html?id=${car._id}`);
-
-    const whatsappLink = buildWhatsAppLink(car);
-    setHref("whatsappBtn", whatsappLink);
-    setHref("agentBtnBottom", whatsappLink);
-
-    buildThumbnailGallery(getImages(car));
-    renderFeatures(car);
-
-    setText("specEngine", specs.engine);
-    setText("specHorsepower", specs.horsepower ? `${specs.horsepower} hp` : null);
-    setText("specTransmission", specs.transmission);
-    setText("specAcceleration", specs.acceleration);
-    setText("specTopSpeed", specs.topSpeed);
-    setText("specFuel", specs.mpg || capitalizeWords(specs.fuelType));
-    setText("specSeating", specs.seatingCapacity);
-    setText("specDrive", specs.drivetrain);
-
-    setText("detailEngine", specs.engine);
-    setText("detailHorsepower", specs.horsepower ? `${specs.horsepower} hp` : null);
-    setText("detailTorque", specs.torque);
-    setText("detailTransmission", specs.transmission);
-    setText("detailDrive", specs.drivetrain);
-
-    const fullDimensions =
-      dims.length || dims.width || dims.height
-        ? `${textOrFallback(dims.length, "-")} / ${textOrFallback(dims.width, "-")} / ${textOrFallback(dims.height, "-")}`
-        : "N/A";
-
-    setText("detailDimensions", fullDimensions);
-    setText("detailWheelbase", dims.wheelbase);
-    setText("detailCargo", dims.cargoSpace);
-    setText("detailWeight", dims.curbWeight);
-    setText("detailTank", "N/A");
-
-    setText("detailTech", joinList(car.technologyFeatures));
-    setText("detailSafety", joinList(car.safetyFeatures));
-    setText("detailWarranty", car.warranty);
-    setText("detailPublished", car.isPublished ? "Yes" : "No");
-
-    setText("detailMpg", specs.mpg);
-    setText("detailFuelType", capitalizeWords(specs.fuelType));
-    setText("detailBatteryRange", specs.batteryRange);
-    setText("detailDoors", specs.doors);
-  }
-
-  async function fetchRelatedCars(currentCar) {
-    try {
-      const response = await fetch(`${BASE_URL}/api/cars`);
-      const data = await response.json();
-
-      if (!response.ok) return;
-
-      const cars = Array.isArray(data) ? data : [];
-      renderRelatedCars(currentCar._id, currentCar.category, cars);
-    } catch (error) {
-      console.log("Failed to load related cars");
-    }
-  }
-
-  async function fetchCarDetails() {
-    if (!carId) {
-      showError("No car id was provided in the URL.");
-      return;
-    }
-
-    try {
-      const response = await fetch(`${BASE_URL}/api/cars/${carId}`);
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || "Failed to fetch car details.");
+          relatedCarsGrid.appendChild(card);
+        });
       }
 
-      populateCar(data);
-      showPage();
-      fetchRelatedCars(data);
-    } catch (error) {
-      showError(error.message || "Unable to load car details.");
-    }
-  }
+      function populateCar(car) {
+        const specs = car.specifications || {};
+        const dims = car.dimensions || {};
 
-  fetchCarDetails();
-</script>
+        const name = car.name || "Audi Car";
+        const type = capitalizeWords(car.category || "car");
+        const condition = capitalizeWords(car.condition || "new");
+        const availability = capitalizeWords(car.availability || "available");
+        const price = formatPrice(car.price, car.currency);
+        const rating = car.rating ?? 0;
+        const reviews = car.reviewCount ?? 0;
+        const description =
+          car.description || "No description available for this car.";
+        const shortDescription = car.shortDescription || description;
+        const stock = car.stock ?? 0;
+
+        document.title = `Audi | ${name}`;
+
+        setText("breadcrumbName", name);
+        setText("carName", name);
+        setText("yearBadge", `${car.year} MODEL`, "MODEL");
+        setText("typeBadge", type, "Car");
+        setText("conditionBadge", condition, "Condition");
+
+        setText("carRating", rating);
+        setText("reviewsText", `(${reviews} reviews)`, "(0 reviews)");
+
+        setText("carTagline", `${shortDescription}`);
+
+        setText("carPrice", price, "Price on request");
+        setText("leaseText", `${name} available with flexible payment options`);
+        setText(
+          "stockText",
+          stock > 0
+            ? `${availability} · ${stock} unit(s) available`
+            : availability,
+          availability,
+        );
+        setText(
+          "offerText",
+          car.featured ? "Featured deal available" : "Special offer available",
+        );
+        setText("aboutText", description, "No description available.");
+
+        setText(
+          "pricingText",
+          `${name} starts from ${price}. Condition: ${condition}. Availability: ${availability}.`,
+        );
+
+        setText("depositBadge", car.warranty || "Flexible deposit");
+
+        setText(
+          "specialOfferText",
+          car.featured
+            ? "This is a featured car in our collection."
+            : "Great offers may be available for this car.",
+        );
+
+        setHref("buyNowBtn", `payment.html?id=${car._id}`);
+        setHref("buyNowBtnBottom", `payment.html?id=${car._id}`);
+
+        const whatsappLink = buildWhatsAppLink(car);
+        setHref("whatsappBtn", whatsappLink);
+        setHref("agentBtnBottom", whatsappLink);
+
+        buildThumbnailGallery(getImages(car));
+        renderFeatures(car);
+
+        setText("specEngine", specs.engine);
+        setText(
+          "specHorsepower",
+          specs.horsepower ? `${specs.horsepower} hp` : null,
+        );
+        setText("specTransmission", specs.transmission);
+        setText("specAcceleration", specs.acceleration);
+        setText("specTopSpeed", specs.topSpeed);
+        setText("specFuel", specs.mpg || capitalizeWords(specs.fuelType));
+        setText("specSeating", specs.seatingCapacity);
+        setText("specDrive", specs.drivetrain);
+
+        setText("detailEngine", specs.engine);
+        setText(
+          "detailHorsepower",
+          specs.horsepower ? `${specs.horsepower} hp` : null,
+        );
+        setText("detailTorque", specs.torque);
+        setText("detailTransmission", specs.transmission);
+        setText("detailDrive", specs.drivetrain);
+
+        const fullDimensions =
+          dims.length || dims.width || dims.height
+            ? `${textOrFallback(dims.length, "-")} / ${textOrFallback(dims.width, "-")} / ${textOrFallback(dims.height, "-")}`
+            : "N/A";
+
+        setText("detailDimensions", fullDimensions);
+        setText("detailWheelbase", dims.wheelbase);
+        setText("detailCargo", dims.cargoSpace);
+        setText("detailWeight", dims.curbWeight);
+        setText("detailTank", "N/A");
+
+        setText("detailTech", joinList(car.technologyFeatures));
+        setText("detailSafety", joinList(car.safetyFeatures));
+        setText("detailWarranty", car.warranty);
+        setText("detailPublished", car.isPublished ? "Yes" : "No");
+
+        setText("detailMpg", specs.mpg);
+        setText("detailFuelType", capitalizeWords(specs.fuelType));
+        setText("detailBatteryRange", specs.batteryRange);
+        setText("detailDoors", specs.doors);
+      }
+
+      async function fetchRelatedCars(currentCar) {
+        try {
+          const response = await fetch(`${BASE_URL}/api/cars`);
+          const data = await response.json();
+
+          if (!response.ok) return;
+
+          const cars = Array.isArray(data) ? data : [];
+          renderRelatedCars(currentCar._id, currentCar.category, cars);
+        } catch (error) {
+          console.log("Failed to load related cars");
+        }
+      }
+
+      async function fetchCarDetails() {
+        if (!carId) {
+          showError("No car id was provided in the URL.");
+          return;
+        }
+
+        try {
+          const response = await fetch(`${BASE_URL}/api/cars/${carId}`);
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Failed to fetch car details.");
+          }
+
+          populateCar(data);
+          showPage();
+          fetchRelatedCars(data);
+        } catch (error) {
+          showError(error.message || "Unable to load car details.");
+        }
+      }
+
+      fetchCarDetails();
+    </script>
   </body>
 </html>

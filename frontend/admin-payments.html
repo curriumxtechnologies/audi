@@ -137,17 +137,26 @@
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div class="bg-white p-6 border border-outline-soft">
               <p class="text-sm text-text-muted">Pending</p>
-              <p id="pendingCount" class="font-headline text-3xl font-bold">0</p>
+              <p id="pendingCount" class="font-headline text-3xl font-bold">
+                0
+              </p>
             </div>
 
             <div class="bg-white p-6 border border-outline-soft">
               <p class="text-sm text-text-muted">Verified Today</p>
-              <p id="verifiedTodayCount" class="font-headline text-3xl font-bold">0</p>
+              <p
+                id="verifiedTodayCount"
+                class="font-headline text-3xl font-bold"
+              >
+                0
+              </p>
             </div>
 
             <div class="bg-white p-6 border border-outline-soft">
               <p class="text-sm text-text-muted">Total Volume</p>
-              <p id="totalVolume" class="font-headline text-3xl font-bold">$0</p>
+              <p id="totalVolume" class="font-headline text-3xl font-bold">
+                $0
+              </p>
             </div>
           </div>
 
@@ -167,13 +176,18 @@
                   <th class="text-left px-6 py-4 font-semibold">Car</th>
                   <th class="text-left px-6 py-4 font-semibold">Amount</th>
                   <th class="text-left px-6 py-4 font-semibold">Coin</th>
-                  <th class="text-left px-6 py-4 font-semibold">Transaction ID</th>
+                  <th class="text-left px-6 py-4 font-semibold">
+                    Transaction ID
+                  </th>
                   <th class="text-left px-6 py-4 font-semibold">Status</th>
                   <th class="text-left px-6 py-4 font-semibold">Date</th>
                   <th class="text-left px-6 py-4 font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody id="paymentsTableBody" class="divide-y divide-outline-soft"></tbody>
+              <tbody
+                id="paymentsTableBody"
+                class="divide-y divide-outline-soft"
+              ></tbody>
             </table>
           </div>
         </div>
@@ -181,7 +195,10 @@
     </div>
 
     <script>
-      const BASE_URL = "http://localhost:8000";
+      const BASE_URL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:8000"
+          : "https://audi-t4lu.onrender.com";
       const token = adminInfo?.token;
 
       const loadingState = document.getElementById("loadingState");
@@ -202,7 +219,7 @@
           "hidden",
           "text-red-600",
           "text-green-600",
-          "text-text-main"
+          "text-text-main",
         );
 
         pageMessage.textContent = message;
@@ -274,9 +291,13 @@
       }
 
       function updateStats(payments) {
-        const pending = payments.filter((payment) => payment.status === "pending").length;
+        const pending = payments.filter(
+          (payment) => payment.status === "pending",
+        ).length;
         const verifiedToday = payments.filter(
-          (payment) => payment.status === "confirmed" && isToday(payment.updatedAt || payment.createdAt)
+          (payment) =>
+            payment.status === "confirmed" &&
+            isToday(payment.updatedAt || payment.createdAt),
         ).length;
 
         const total = payments.reduce((sum, payment) => {
@@ -345,7 +366,10 @@
           const userName = getUserName(payment);
           const userEmail = getUserEmail(payment);
           const carName = getCarName(payment);
-          const amount = formatCurrency(payment.amountPaid || 0, payment.currency || "USD");
+          const amount = formatCurrency(
+            payment.amountPaid || 0,
+            payment.currency || "USD",
+          );
           const coin = payment.currency || "USD";
           const statusBadge = getStatusBadge(payment.status);
           const createdAt = formatDate(payment.createdAt);
@@ -474,15 +498,18 @@
         button.textContent = "Verifying...";
 
         try {
-          const response = await fetch(`${BASE_URL}/api/payments/${paymentId}/verify`, {
-            method: "PUT",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
+          const response = await fetch(
+            `${BASE_URL}/api/payments/${paymentId}/verify`,
+            {
+              method: "PUT",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+              credentials: "include",
+              body: JSON.stringify({}),
             },
-            credentials: "include",
-            body: JSON.stringify({}),
-          });
+          );
 
           const data = await response.json();
 

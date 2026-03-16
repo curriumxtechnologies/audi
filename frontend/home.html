@@ -241,7 +241,9 @@
             id="carsGrid"
             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"
           >
-            <div class="col-span-full text-center py-16 text-on-surface-variant">
+            <div
+              class="col-span-full text-center py-16 text-on-surface-variant"
+            >
               Loading cars...
             </div>
           </div>
@@ -534,7 +536,10 @@
     </footer>
 
     <script>
-      const BACKEND_URL = "http://localhost:8000";
+      const BACKEND_URL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:8000"
+          : "https://audi-t4lu.onrender.com";
       const welcomeUser = document.getElementById("welcomeUser");
       const logoutBtn = document.getElementById("logoutBtn");
       const carsGrid = document.getElementById("carsGrid");

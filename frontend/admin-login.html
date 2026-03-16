@@ -130,7 +130,10 @@
     </div>
 
     <script>
-      const BACKEND_URL = "http://localhost:8000";
+      const BACKEND_URL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:8000"
+          : "https://audi-t4lu.onrender.com";
 
       const adminLoginForm = document.getElementById("adminLoginForm");
       const emailInput = document.getElementById("email");
@@ -197,7 +200,7 @@
         } catch (error) {
           setStatus(
             "Cannot reach backend. Make sure server is running on localhost:8000",
-            true
+            true,
           );
         }
       });

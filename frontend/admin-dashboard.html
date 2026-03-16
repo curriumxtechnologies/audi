@@ -183,10 +183,7 @@
             </div>
 
             <div class="min-w-0">
-              <p
-                id="sidebarAdminName"
-                class="text-sm font-medium truncate"
-              >
+              <p id="sidebarAdminName" class="text-sm font-medium truncate">
                 Admin User
               </p>
               <p
@@ -213,10 +210,7 @@
           <div class="flex items-center justify-between px-6 py-4">
             <div>
               <h1 class="font-headline text-2xl font-bold">Dashboard</h1>
-              <p
-                id="topWelcomeText"
-                class="text-sm text-text-muted mt-1"
-              >
+              <p id="topWelcomeText" class="text-sm text-text-muted mt-1">
                 Welcome back
               </p>
             </div>
@@ -239,10 +233,7 @@
         </header>
 
         <div class="p-6">
-          <p
-            id="statusMessage"
-            class="text-sm text-text-muted mb-6"
-          >
+          <p id="statusMessage" class="text-sm text-text-muted mb-6">
             Loading dashboard...
           </p>
 
@@ -314,7 +305,10 @@
                 class="p-6 border-b border-outline-soft flex justify-between items-center"
               >
                 <h3 class="font-headline font-bold">Recent Users</h3>
-                <a href="users.html" class="text-sm text-primary hover:underline">
+                <a
+                  href="users.html"
+                  class="text-sm text-primary hover:underline"
+                >
                   View all
                 </a>
               </div>
@@ -391,7 +385,10 @@
     </div>
 
     <script>
-      const BACKEND_URL = "http://localhost:8000";
+      const BACKEND_URL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:8000"
+          : "https://audi-t4lu.onrender.com";
 
       const sidebarAdminName = document.getElementById("sidebarAdminName");
       const sidebarAdminEmail = document.getElementById("sidebarAdminEmail");
@@ -401,16 +398,24 @@
 
       const sidebarUsersCount = document.getElementById("sidebarUsersCount");
       const sidebarCarsCount = document.getElementById("sidebarCarsCount");
-      const sidebarPendingPayments = document.getElementById("sidebarPendingPayments");
+      const sidebarPendingPayments = document.getElementById(
+        "sidebarPendingPayments",
+      );
 
       const totalUsersStat = document.getElementById("totalUsersStat");
       const totalCarsStat = document.getElementById("totalCarsStat");
-      const pendingPaymentsStat = document.getElementById("pendingPaymentsStat");
-      const confirmedPaymentsStat = document.getElementById("confirmedPaymentsStat");
+      const pendingPaymentsStat = document.getElementById(
+        "pendingPaymentsStat",
+      );
+      const confirmedPaymentsStat = document.getElementById(
+        "confirmedPaymentsStat",
+      );
 
       const recentUsersList = document.getElementById("recentUsersList");
       const recentCarsList = document.getElementById("recentCarsList");
-      const quickPendingPaymentsText = document.getElementById("quickPendingPaymentsText");
+      const quickPendingPaymentsText = document.getElementById(
+        "quickPendingPaymentsText",
+      );
       const logoutBtn = document.getElementById("logoutBtn");
 
       function setStatus(message, isError = false) {
@@ -532,7 +537,7 @@
                   Active
                 </span>
               </div>
-            `
+            `,
           )
           .join("");
       }
@@ -560,8 +565,9 @@
               car.category === "electric"
                 ? "Electric"
                 : car.condition
-                ? car.condition.charAt(0).toUpperCase() + car.condition.slice(1)
-                : "Car";
+                  ? car.condition.charAt(0).toUpperCase() +
+                    car.condition.slice(1)
+                  : "Car";
 
             const badgeClass =
               car.category === "electric"
@@ -596,11 +602,11 @@
 
       function renderPayments(payments) {
         const pendingPayments = payments.filter(
-          (payment) => payment.status === "pending"
+          (payment) => payment.status === "pending",
         ).length;
 
         const confirmedPayments = payments.filter(
-          (payment) => payment.status === "confirmed"
+          (payment) => payment.status === "confirmed",
         ).length;
 
         sidebarPendingPayments.textContent = pendingPayments;
