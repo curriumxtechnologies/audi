@@ -1,0 +1,788 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+    <title>Audi | Profile</title>
+
+    <script>
+      let userInfo = null;
+
+      try {
+        const storedUser = localStorage.getItem("userInfo");
+        if (!storedUser) {
+          window.location.replace("index.html");
+        } else {
+          userInfo = JSON.parse(storedUser);
+        }
+      } catch (error) {
+        window.location.replace("index.html");
+      }
+    </script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-container": "#dfe3e5",
+              "on-secondary-container": "#616567",
+              "surface-container-highest": "#e2e2e2",
+              "secondary-fixed": "#dfe3e5",
+              "inverse-surface": "#2f3131",
+              "surface-dim": "#dadada",
+              error: "#ba1a1a",
+              "surface-container-high": "#e8e8e8",
+              "primary-fixed-dim": "#c6c6c6",
+              "on-surface": "#1a1c1c",
+              outline: "#7e7576",
+              "on-error": "#ffffff",
+              "on-secondary-fixed": "#181c1e",
+              "on-background": "#1a1c1c",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#ffb3b3",
+              "error-container": "#ffdad6",
+              "on-surface-variant": "#4c4546",
+              "surface-container-lowest": "#ffffff",
+              "surface-variant": "#e2e2e2",
+              "surface-bright": "#f9f9f9",
+              "secondary-fixed-dim": "#c3c7c9",
+              surface: "#f9f9f9",
+              "on-primary-container": "#848484",
+              "inverse-primary": "#c6c6c6",
+              "surface-tint": "#5e5e5e",
+              "primary-fixed": "#e2e2e2",
+              background: "#f9f9f9",
+              "on-secondary": "#ffffff",
+              "on-primary": "#ffffff",
+              "outline-variant": "#cfc4c5",
+              "on-primary-fixed-variant": "#474747",
+              "on-tertiary-fixed-variant": "#920022",
+              "surface-container": "#eeeeee",
+              "on-error-container": "#93000a",
+              "tertiary-container": "#400009",
+              "on-tertiary-fixed": "#400009",
+              "on-secondary-fixed-variant": "#434749",
+              secondary: "#5b5f61",
+              primary: "#000000",
+              "on-tertiary-container": "#f33d52",
+              "primary-container": "#1b1b1b",
+              "surface-container-low": "#f3f3f3",
+              "inverse-on-surface": "#f1f1f1",
+              "tertiary-fixed": "#ffdad9",
+              tertiary: "#000000",
+              "on-primary-fixed": "#1b1b1b",
+            },
+            fontFamily: {
+              headline: ["Manrope", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+              label: ["Inter", "sans-serif"],
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            boxShadow: {
+              soft: "0 12px 30px rgba(0,0,0,0.05)",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      .glass-header {
+        background: rgba(243, 243, 243, 0.8);
+        backdrop-filter: blur(24px);
+      }
+
+      .detail-card {
+        transition:
+          transform 0.3s ease,
+          box-shadow 0.3s ease,
+          border-color 0.3s ease;
+      }
+
+      .detail-card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 35px rgba(0, 0, 0, 0.05);
+      }
+
+      .line-link {
+        position: relative;
+      }
+
+      .line-link::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 1.5px;
+        background: currentColor;
+        transition: width 0.3s ease;
+      }
+
+      .line-link:hover::after {
+        width: 100%;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-surface text-on-surface font-body selection:bg-primary selection:text-white"
+  >
+    <header
+      class="glass-header sticky top-0 z-50 border-b border-outline-variant/10"
+    >
+      <nav
+        class="container mx-auto px-6 py-4 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-10">
+          <a
+            href="home.html"
+            class="font-headline text-2xl font-extrabold tracking-tighter"
+          >
+            Audi
+          </a>
+
+          <div class="hidden md:flex items-center gap-8">
+            <a
+              href="home.html"
+              class="text-sm font-medium hover:text-primary transition-colors"
+            >
+              Home
+            </a>
+            <a
+              href="models.html"
+              class="text-sm font-medium hover:text-primary transition-colors"
+            >
+              Models
+            </a>
+            <a
+              href="profile.html"
+              class="text-sm font-semibold text-primary border-b-2 border-primary pb-1"
+            >
+              Profile
+            </a>
+            <a
+              href="orders.html"
+              class="text-sm font-medium hover:text-primary transition-colors"
+            >
+              Orders
+            </a>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3">
+          <span
+            id="headerUserName"
+            class="hidden sm:inline-block text-sm font-semibold text-on-surface-variant"
+          >
+            Welcome
+          </span>
+
+          <button
+            id="logoutBtn"
+            type="button"
+            class="bg-primary text-on-primary px-5 py-3 font-semibold text-sm tracking-wide hover:bg-primary-container transition-all"
+          >
+            Logout
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="py-16 md:py-20 bg-surface-container-low">
+        <div class="container mx-auto px-6">
+          <div class="max-w-4xl">
+            <p
+              class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4"
+            >
+              ACCOUNT
+            </p>
+            <h1 class="font-headline text-4xl md:text-6xl font-extrabold mb-5">
+              My Profile
+            </h1>
+            <p class="text-on-surface-variant text-base md:text-lg max-w-2xl">
+              View your account details, manage your password, and access your
+              purchased cars and payment history.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="py-12 md:py-16">
+        <div class="container mx-auto px-6">
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+            <div class="xl:col-span-2 space-y-8">
+              <div
+                class="bg-surface-container-lowest border border-outline-variant/20 p-8 md:p-10 detail-card"
+              >
+                <div
+                  class="flex flex-col md:flex-row md:items-center md:justify-between gap-6 mb-8"
+                >
+                  <div>
+                    <p
+                      class="text-xs font-bold tracking-[0.18em] text-on-surface-variant mb-3"
+                    >
+                      CLIENT DETAILS
+                    </p>
+                    <h2 class="font-headline text-3xl font-bold tracking-tight">
+                      Personal Information
+                    </h2>
+                  </div>
+
+                  <div
+                    class="w-16 h-16 bg-surface-container flex items-center justify-center shrink-0"
+                  >
+                    <span class="material-symbols-outlined text-[34px]">
+                      person
+                    </span>
+                  </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div class="bg-surface-container-low p-5">
+                    <p
+                      class="text-xs uppercase tracking-widest text-on-surface-variant mb-2"
+                    >
+                      Full Name
+                    </p>
+                    <p id="profileName" class="font-semibold text-lg">
+                      Not available
+                    </p>
+                  </div>
+
+                  <div class="bg-surface-container-low p-5">
+                    <p
+                      class="text-xs uppercase tracking-widest text-on-surface-variant mb-2"
+                    >
+                      Username
+                    </p>
+                    <p id="profileUsername" class="font-semibold text-lg">
+                      Not available
+                    </p>
+                  </div>
+
+                  <div class="bg-surface-container-low p-5">
+                    <p
+                      class="text-xs uppercase tracking-widest text-on-surface-variant mb-2"
+                    >
+                      Email Address
+                    </p>
+                    <p
+                      id="profileEmail"
+                      class="font-semibold text-lg break-all"
+                    >
+                      Not available
+                    </p>
+                  </div>
+
+                  <div class="bg-surface-container-low p-5">
+                    <p
+                      class="text-xs uppercase tracking-widest text-on-surface-variant mb-2"
+                    >
+                      Phone Number
+                    </p>
+                    <p id="profilePhone" class="font-semibold text-lg">
+                      Not available
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bg-surface-container-lowest border border-outline-variant/20 p-8 md:p-10 detail-card"
+              >
+                <div class="flex items-center justify-between mb-6">
+                  <div>
+                    <p
+                      class="text-xs font-bold tracking-[0.18em] text-on-surface-variant mb-2"
+                    >
+                      SECURITY
+                    </p>
+
+                    <h2 class="font-headline text-2xl font-bold tracking-tight">
+                      Change Password
+                    </h2>
+                  </div>
+
+                  <button
+                    id="editPasswordBtn"
+                    class="w-12 h-12 flex items-center justify-center border border-outline-variant/30 hover:border-primary transition-colors"
+                  >
+                    <span class="material-symbols-outlined">edit</span>
+                  </button>
+                </div>
+
+                <!-- Hidden Password Form -->
+                <form id="changePasswordForm" class="hidden space-y-5 mt-6">
+                  <div>
+                    <label class="block text-sm font-semibold mb-2">
+                      Current Password
+                    </label>
+                    <input
+                      type="password"
+                      id="currentPassword"
+                      class="w-full border border-outline-variant/40 bg-surface-container-low px-4 py-4 focus:border-primary focus:ring-0"
+                      required
+                    />
+                  </div>
+
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div>
+                      <label class="block text-sm font-semibold mb-2">
+                        New Password
+                      </label>
+                      <input
+                        type="password"
+                        id="newPassword"
+                        class="w-full border border-outline-variant/40 bg-surface-container-low px-4 py-4 focus:border-primary focus:ring-0"
+                        required
+                      />
+                    </div>
+
+                    <div>
+                      <label class="block text-sm font-semibold mb-2">
+                        Confirm Password
+                      </label>
+                      <input
+                        type="password"
+                        id="confirmPassword"
+                        class="w-full border border-outline-variant/40 bg-surface-container-low px-4 py-4 focus:border-primary focus:ring-0"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div class="flex gap-4 items-center">
+                    <button
+                      type="submit"
+                      class="bg-primary text-on-primary px-6 py-3 font-semibold text-sm tracking-widest hover:bg-primary-container transition-all"
+                    >
+                      UPDATE PASSWORD
+                    </button>
+
+                    <button
+                      type="button"
+                      id="cancelPasswordBtn"
+                      class="text-sm font-semibold text-on-surface-variant hover:text-primary"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+
+                  <p id="passwordMessage" class="text-sm font-medium"></p>
+                </form>
+              </div>
+            </div>
+
+            <div class="space-y-8">
+              <div
+                class="bg-primary text-on-primary p-8 md:p-10 border border-primary detail-card"
+              >
+                <p
+                  class="text-xs font-bold tracking-[0.18em] text-white/70 mb-3"
+                >
+                  QUICK ACTION
+                </p>
+                <h2 class="font-headline text-3xl font-bold mb-4">My Orders</h2>
+                <p class="text-white/75 leading-7 mb-8 text-sm">
+                  View the car(s) you have purchased, total amount paid, and
+                  your payment progress on each order.
+                </p>
+
+                <a
+                  href="orders.html"
+                  class="inline-flex items-center gap-2 bg-white text-black px-6 py-4 text-sm font-bold tracking-[0.12em] hover:bg-neutral-200 transition-colors"
+                >
+                  VIEW ORDERS
+                  <span class="material-symbols-outlined text-[18px]">
+                    arrow_forward
+                  </span>
+                </a>
+              </div>
+
+              <div
+                class="bg-surface-container-lowest border border-outline-variant/20 p-8 detail-card"
+              >
+                <p
+                  class="text-xs font-bold tracking-[0.18em] text-on-surface-variant mb-3"
+                >
+                  ACCOUNT SUMMARY
+                </p>
+                <h3 class="font-headline text-2xl font-bold mb-6">Overview</h3>
+
+                <div class="space-y-5">
+                  <div
+                    class="flex items-center justify-between border-b border-outline-variant/20 pb-4"
+                  >
+                    <span class="text-sm text-on-surface-variant">
+                      Profile Status
+                    </span>
+                    <span class="text-sm font-semibold">Active</span>
+                  </div>
+
+                  <div
+                    class="flex items-center justify-between border-b border-outline-variant/20 pb-4"
+                  >
+                    <span class="text-sm text-on-surface-variant">
+                      Orders Page
+                    </span>
+                    <a
+                      href="orders.html"
+                      class="text-sm font-semibold line-link"
+                    >
+                      Open
+                    </a>
+                  </div>
+
+                  <div class="flex items-center justify-between">
+                    <span class="text-sm text-on-surface-variant">
+                      Logout
+                    </span>
+                    <button
+                      id="sideLogoutBtn"
+                      type="button"
+                      class="text-sm font-semibold line-link"
+                    >
+                      Sign out
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="bg-surface-container-lowest border border-outline-variant/20 p-8 detail-card"
+              >
+                <p
+                  class="text-xs font-bold tracking-[0.18em] text-on-surface-variant mb-3"
+                >
+                  SUPPORT
+                </p>
+                <h3 class="font-headline text-2xl font-bold mb-4">
+                  Need Help?
+                </h3>
+                <p class="text-sm text-on-surface-variant leading-7">
+                  Contact support if you need help with payments, delivery, or
+                  order verification.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="bg-surface-container py-20">
+      <div class="container mx-auto px-6">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"
+        >
+          <div class="lg:col-span-2">
+            <span
+              class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block"
+            >
+              Audi
+            </span>
+
+            <p
+              class="text-on-surface-variant max-w-sm font-light leading-relaxed"
+            >
+              Experience the pinnacle of German automotive engineering. Manage
+              your profile, purchases, and account details in one place.
+            </p>
+          </div>
+
+          <div>
+            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">
+              Navigation
+            </h5>
+
+            <ul class="space-y-3">
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="home.html"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="models.html"
+                >
+                  Models
+                </a>
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="profile.html"
+                >
+                  Profile
+                </a>
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="orders.html"
+                >
+                  Orders
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">
+              Stay Connected
+            </h5>
+
+            <ul class="space-y-3">
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="about.html"
+                >
+                  About
+                </a>
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="contact.html"
+                >
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="border-t border-outline-variant/30 pt-8 text-center">
+          <p class="text-xs text-on-surface-variant font-medium tracking-wide">
+            © 2004 Audi. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+    <script>
+      const BACKEND_URL =
+        window.location.hostname === "localhost"
+          ? "http://localhost:8000"
+          : "https://audi-t4lu.onrender.com";
+
+      const headerUserName = document.getElementById("headerUserName");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const sideLogoutBtn = document.getElementById("sideLogoutBtn");
+
+      const profileName = document.getElementById("profileName");
+      const profileUsername = document.getElementById("profileUsername");
+      const profileEmail = document.getElementById("profileEmail");
+      const profilePhone = document.getElementById("profilePhone");
+      const profileCountry = document.getElementById("profileCountry");
+      const profileId = document.getElementById("profileId");
+      const profileAddress = document.getElementById("profileAddress");
+
+      const editPasswordBtn = document.getElementById("editPasswordBtn");
+      const cancelPasswordBtn = document.getElementById("cancelPasswordBtn");
+      const changePasswordForm = document.getElementById("changePasswordForm");
+      const passwordMessage = document.getElementById("passwordMessage");
+
+      function logoutUser() {
+        localStorage.removeItem("userInfo");
+        window.location.replace("index.html");
+      }
+
+      function getUserValue(...values) {
+        for (const value of values) {
+          if (
+            value !== undefined &&
+            value !== null &&
+            String(value).trim() !== ""
+          ) {
+            return value;
+          }
+        }
+        return "Not available";
+      }
+
+      function getDisplayName(user) {
+        return (
+          user?.name ||
+          user?.fullName ||
+          user?.username ||
+          user?.email ||
+          "User"
+        );
+      }
+
+      function setText(element, value) {
+        if (element) {
+          element.textContent = value;
+        }
+      }
+
+      function renderProfile(user) {
+        setText(headerUserName, `Welcome, ${getDisplayName(user)}`);
+        setText(profileName, getUserValue(user?.name, user?.fullName));
+        setText(profileUsername, getUserValue(user?.username));
+        setText(profileEmail, getUserValue(user?.email));
+        setText(
+          profilePhone,
+          getUserValue(user?.phone, user?.phoneNumber, user?.mobile),
+        );
+        setText(profileCountry, getUserValue(user?.country));
+        setText(profileId, getUserValue(user?._id, user?.id));
+        setText(
+          profileAddress,
+          getUserValue(user?.address, user?.homeAddress, user?.location),
+        );
+      }
+
+      function openPasswordForm() {
+        if (changePasswordForm) {
+          changePasswordForm.classList.remove("hidden");
+        }
+      }
+
+      function closePasswordForm() {
+        if (changePasswordForm) {
+          changePasswordForm.classList.add("hidden");
+          changePasswordForm.reset();
+        }
+
+        if (passwordMessage) {
+          passwordMessage.textContent = "";
+          passwordMessage.className = "text-sm font-medium";
+        }
+      }
+
+      renderProfile(userInfo);
+
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", logoutUser);
+      }
+
+      if (sideLogoutBtn) {
+        sideLogoutBtn.addEventListener("click", logoutUser);
+      }
+
+      if (editPasswordBtn) {
+        editPasswordBtn.addEventListener("click", openPasswordForm);
+      }
+
+      if (cancelPasswordBtn) {
+        cancelPasswordBtn.addEventListener("click", closePasswordForm);
+      }
+
+      if (changePasswordForm) {
+        changePasswordForm.addEventListener("submit", async function (event) {
+          event.preventDefault();
+
+          const currentPassword = document
+            .getElementById("currentPassword")
+            ?.value.trim();
+          const newPassword = document
+            .getElementById("newPassword")
+            ?.value.trim();
+          const confirmPassword = document
+            .getElementById("confirmPassword")
+            ?.value.trim();
+
+          if (passwordMessage) {
+            passwordMessage.className =
+              "text-sm font-medium text-on-surface-variant";
+          }
+
+          if (!currentPassword || !newPassword || !confirmPassword) {
+            if (passwordMessage) {
+              passwordMessage.textContent =
+                "Please fill in all password fields.";
+            }
+            return;
+          }
+
+          if (newPassword.length < 6) {
+            if (passwordMessage) {
+              passwordMessage.textContent =
+                "New password must be at least 6 characters.";
+            }
+            return;
+          }
+
+          if (newPassword !== confirmPassword) {
+            if (passwordMessage) {
+              passwordMessage.textContent = "New passwords do not match.";
+            }
+            return;
+          }
+
+          try {
+            if (passwordMessage) {
+              passwordMessage.textContent = "Updating password...";
+            }
+
+            const token =
+              userInfo?.token || userInfo?.accessToken || userInfo?.authToken;
+
+            const response = await fetch(
+              `${BACKEND_URL}/api/users/change-password`,
+              {
+                method: "PUT",
+                headers: {
+                  "Content-Type": "application/json",
+                  ...(token ? { Authorization: `Bearer ${token}` } : {}),
+                },
+                body: JSON.stringify({
+                  currentPassword,
+                  newPassword,
+                }),
+              },
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+              throw new Error(data.message || "Failed to update password");
+            }
+
+            if (passwordMessage) {
+              passwordMessage.className = "text-sm font-medium text-green-600";
+              passwordMessage.textContent = "Password updated successfully.";
+            }
+
+            setTimeout(() => {
+              closePasswordForm();
+            }, 1200);
+          } catch (error) {
+            if (passwordMessage) {
+              passwordMessage.className = "text-sm font-medium text-red-600";
+              passwordMessage.textContent =
+                error.message ||
+                "Something went wrong while updating password.";
+            }
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

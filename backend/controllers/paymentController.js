@@ -4,6 +4,30 @@ import PaymentModel from "../models/paymentModel.js";
 // @desc    Create payment record
 // @route   POST /api/payments
 // @access  Private
+const getMyOrders = asyncHandler(async (req, res) => {
+  try {
+    console.log("==== MY ORDERS DEBUG START ====");
+    console.log("req.user:", req.user);
+
+    if (!req.user || !req.user._id) {
+      res.status(401);
+      throw new Error("Not authorized, user not found");
+    }
+
+    const payments = await PaymentModel.find({ userId: req.user._id })
+      .sort({ createdAt: -1 });
+
+    console.log("payments without populate:", payments);
+    console.log("==== MY ORDERS DEBUG END ====");
+
+    res.status(200).json(payments);
+  } catch (error) {
+    console.error("getMyOrders error:", error);
+    res.status(500);
+    throw new Error(error.message || "Failed to fetch user orders");
+  }
+});
+
 const makePayment = asyncHandler(async (req, res) => {
   const {
     carId,
@@ -92,4 +116,4 @@ const verifyPayment = asyncHandler(async (req, res) => {
   res.status(200).json(updatedPayment);
 });
 
-export { makePayment, getPayments, verifyPayment };
+export { makePayment, getPayments, verifyPayment, getMyOrders };

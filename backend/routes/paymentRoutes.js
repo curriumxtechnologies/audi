@@ -3,6 +3,7 @@ import {
   makePayment,
   getPayments,
   verifyPayment,
+  getMyOrders,
 } from "../controllers/paymentController.js";
 import { protect, adminProtect } from "../middleware/authMiddleware.js";
 
@@ -40,6 +41,7 @@ cloudinary.api
 
 
 router.post("/", protect, upload.single('receipt'), makePayment);
+router.get("/my-orders", protect, getMyOrders);
 router.get("/", adminProtect, getPayments);
 router.put("/:id/verify", adminProtect, verifyPayment);
 
