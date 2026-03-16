@@ -93,7 +93,9 @@
       }
       .upload-dashed {
         border: 1px dashed #cfc4c5;
-        transition: border-color 0.2s ease;
+        transition:
+          border-color 0.2s ease,
+          background-color 0.2s ease;
       }
       .upload-dashed:hover {
         border-color: #000000;
@@ -117,6 +119,14 @@
       .reservation-ref {
         font-family: "Manrope", monospace;
         letter-spacing: 0.1em;
+      }
+      .payment-option.active {
+        background: #1b1b1b;
+        color: #ffffff;
+        border-color: #1b1b1b;
+      }
+      .payment-option {
+        border: 1px solid rgba(0, 0, 0, 0.12);
       }
     </style>
   </head>
@@ -239,7 +249,12 @@
                     <span id="depositAmount" class="font-medium">$0</span>
 
                     <span class="text-on-surface-variant">Payment method</span>
-                    <span class="font-medium text-xs">Crypto (USDT/BTC)</span>
+                    <span
+                      id="selectedPaymentSummary"
+                      class="font-medium text-xs"
+                    >
+                      Crypto (USDT)
+                    </span>
                   </div>
 
                   <div class="flex items-center mt-2">
@@ -277,17 +292,24 @@
                 Crypto payment details
               </h3>
 
-              <div class="flex gap-3 mb-5">
-                <span
-                  class="bg-primary-container text-on-primary-fixed px-3 py-1 text-xs font-medium"
+              <div class="grid grid-cols-2 gap-3 mb-5">
+                <button
+                  type="button"
+                  class="payment-option active px-3 py-3 text-xs font-medium text-left transition"
+                  data-payment-key="usdt"
                 >
-                  USDT (TRC20)
-                </span>
-                <span
-                  class="bg-surface-container-high text-on-surface-variant px-3 py-1 text-xs"
+                  <div class="font-semibold">USDT</div>
+                  <div class="text-[11px] opacity-80 mt-1">TRC20 network</div>
+                </button>
+
+                <button
+                  type="button"
+                  class="payment-option px-3 py-3 text-xs font-medium text-left transition bg-surface-container-high text-on-surface-variant"
+                  data-payment-key="btc"
                 >
-                  BTC
-                </span>
+                  <div class="font-semibold">Bitcoin (BTC)</div>
+                  <div class="text-[11px] opacity-80 mt-1">BTC network</div>
+                </button>
               </div>
 
               <div
@@ -315,6 +337,7 @@
                 <div class="flex justify-between items-center text-sm">
                   <span class="text-on-surface-variant">Network</span>
                   <span
+                    id="networkBadge"
                     class="font-medium bg-surface-container-high px-2 py-0.5 text-xs"
                   >
                     TRC20
@@ -323,13 +346,13 @@
 
                 <div class="flex justify-between items-center text-sm">
                   <span class="text-on-surface-variant">Coin</span>
-                  <span class="font-medium">USDT (TRC20)</span>
+                  <span id="coinText" class="font-medium">USDT</span>
                 </div>
 
                 <div>
                   <div class="flex justify-between text-sm mb-1">
                     <span class="text-on-surface-variant">Wallet address</span>
-                    <span class="text-xs text-on-surface-variant"
+                    <span id="walletHint" class="text-xs text-on-surface-variant"
                       >TRC20 only</span
                     >
                   </div>
@@ -358,6 +381,7 @@
                 </div>
 
                 <div
+                  id="networkWarning"
                   class="text-xs bg-error-container/20 text-on-error-container p-3 flex items-start gap-2"
                 >
                   <span class="material-symbols-outlined text-[16px]"
@@ -393,35 +417,35 @@
                     class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold"
                     >1</span
                   >
-                  <span>Copy the wallet address</span>
+                  <span>Choose your preferred crypto payment option</span>
                 </div>
                 <div class="flex items-center gap-3">
                   <span
                     class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold"
                     >2</span
                   >
-                  <span>Send the exact amount from your crypto wallet</span>
+                  <span>Copy the wallet address for that exact network</span>
                 </div>
                 <div class="flex items-center gap-3">
                   <span
                     class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold"
                     >3</span
                   >
-                  <span>Take a screenshot of the completed transaction</span>
+                  <span>Send the exact amount from your crypto wallet</span>
                 </div>
                 <div class="flex items-center gap-3">
                   <span
                     class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold"
                     >4</span
                   >
-                  <span>Upload the screenshot on this page</span>
+                  <span>Take a screenshot of the completed transaction</span>
                 </div>
                 <div class="flex items-center gap-3">
                   <span
                     class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold"
                     >5</span
                   >
-                  <span>Submit for verification</span>
+                  <span>Upload the screenshot and submit for verification</span>
                 </div>
               </div>
             </div>
@@ -545,7 +569,7 @@
                     id="amountPaid"
                     name="amountPaid"
                     type="number"
-                    step="0.01"
+                    step="0.00000001"
                     placeholder="Amount paid"
                     class="input-premium w-full px-4 py-3 text-sm"
                   />
@@ -554,9 +578,28 @@
                     id="currency"
                     name="currency"
                     type="text"
-                    placeholder="Currency e.g. USD or USDT"
-                    value="USD"
+                    placeholder="Currency e.g. USDT or BTC"
+                    value="USDT"
                     class="input-premium w-full px-4 py-3 text-sm"
+                    readonly
+                  />
+
+                  <input
+                    id="paymentMethod"
+                    name="paymentMethod"
+                    type="text"
+                    value="USDT"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                    readonly
+                  />
+
+                  <input
+                    id="paymentNetwork"
+                    name="paymentNetwork"
+                    type="text"
+                    value="TRC20"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                    readonly
                   />
 
                   <input
@@ -569,6 +612,7 @@
 
                   <textarea
                     id="optionalNote"
+                    name="optionalNote"
                     placeholder="Optional note to sales team"
                     rows="2"
                     class="input-premium w-full px-4 py-3 text-sm resize-none"
@@ -707,7 +751,7 @@
               Which crypto coins are accepted?
             </p>
             <p class="text-sm text-on-surface-variant">
-              USDT (TRC20), and BTC. Default is USDT on TRC20 network.
+              USDT on TRC20 and Bitcoin on BTC network.
             </p>
           </div>
 
@@ -761,14 +805,40 @@
         window.location.hostname === "localhost"
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
-      const DEFAULT_WALLET_ADDRESS = "TX7x9qLmN8pQr2vW3yX4zB5c6dE7fG8hJ9kL";
+
       const DEPOSIT_PERCENTAGE = 0.1;
+
+      const PAYMENT_OPTIONS = {
+        usdt: {
+          key: "usdt",
+          label: "USDT",
+          displayName: "USDT",
+          network: "TRC20",
+          walletAddress: "TX7x9qLmN8pQr2vW3yX4zB5c6dE7fG8hJ9kL",
+          amountSuffix: "USDT",
+          warning: "Send only USDT on the TRC20 network to this address.",
+          hint: "TRC20 only",
+          summary: "Crypto (USDT)",
+        },
+        btc: {
+          key: "btc",
+          label: "Bitcoin (BTC)",
+          displayName: "BTC",
+          network: "BTC",
+          walletAddress: "bc1q8x7y6z5a4b3c2d1e9f8g7h6j5k4l3m2n1p0qrs",
+          amountSuffix: "BTC",
+          warning: "Send only BTC on the Bitcoin network to this address.",
+          hint: "BTC network only",
+          summary: "Crypto (BTC)",
+        },
+      };
 
       const params = new URLSearchParams(window.location.search);
       const carId = params.get("id");
 
       let currentCar = null;
       let userInfo = null;
+      let activePaymentKey = "usdt";
 
       function getUserInfo() {
         try {
@@ -842,7 +912,7 @@
           "hidden",
           "text-red-600",
           "text-green-600",
-          "text-on-surface",
+          "text-on-surface"
         );
         formMessage.textContent = message;
 
@@ -874,14 +944,62 @@
         }
       }
 
+      function getSelectedPayment() {
+        return PAYMENT_OPTIONS[activePaymentKey];
+      }
+
+      function updatePaymentUI() {
+        const payment = getSelectedPayment();
+        const price = Number(currentCar?.price || 0);
+        const deposit = price > 0 ? Math.round(price * DEPOSIT_PERCENTAGE) : 0;
+        const amountBase = deposit || price || 0;
+
+        document.getElementById("networkBadge").textContent = payment.network;
+        document.getElementById("coinText").textContent =
+          payment.network === "BTC" ? "Bitcoin (BTC)" : `${payment.displayName} (${payment.network})`;
+        document.getElementById("walletAddressText").textContent =
+          payment.walletAddress;
+        document.getElementById("walletAddress").value = payment.walletAddress;
+        document.getElementById("walletHint").textContent = payment.hint;
+        document.getElementById("networkWarning").innerHTML = `
+          <span class="material-symbols-outlined text-[16px]">warning</span>
+          <span>${payment.warning}</span>
+        `;
+        document.getElementById("selectedPaymentSummary").textContent =
+          payment.summary;
+        document.getElementById("currency").value = payment.displayName;
+        document.getElementById("paymentMethod").value = payment.displayName;
+        document.getElementById("paymentNetwork").value = payment.network;
+        document.getElementById("amountHint").textContent =
+          amountBase > 0
+            ? `≈ ${amountBase.toLocaleString()} ${payment.amountSuffix}`
+            : `≈ 0 ${payment.amountSuffix}`;
+
+        document.querySelectorAll(".payment-option").forEach((button) => {
+          const isActive = button.dataset.paymentKey === activePaymentKey;
+          button.classList.toggle("active", isActive);
+
+          if (isActive) {
+            button.classList.remove(
+              "bg-surface-container-high",
+              "text-on-surface-variant"
+            );
+          } else {
+            button.classList.add(
+              "bg-surface-container-high",
+              "text-on-surface-variant"
+            );
+          }
+        });
+      }
+
       function prefillUserDetails() {
         userInfo = getUserInfo();
 
-        document.getElementById("walletAddress").value = DEFAULT_WALLET_ADDRESS;
-        document.getElementById("walletAddressText").textContent =
-          DEFAULT_WALLET_ADDRESS;
-
-        if (!userInfo) return;
+        if (!userInfo) {
+          updatePaymentUI();
+          return;
+        }
 
         document.getElementById("fullName").value =
           userInfo.name || userInfo.fullName || "";
@@ -896,6 +1014,8 @@
           userInfo.phoneNumber ||
           userInfo.phone ||
           "";
+
+        updatePaymentUI();
       }
 
       function populateCar(car) {
@@ -916,7 +1036,7 @@
           `${car.year || ""} ${car.category || ""}`.trim() || "Model";
         document.getElementById("carPrice").textContent = formatPrice(
           price,
-          currency,
+          currency
         );
         document.getElementById("depositAmount").textContent = deposit
           ? formatPrice(deposit, currency)
@@ -924,9 +1044,6 @@
         document.getElementById("amountToPayText").textContent = deposit
           ? formatPrice(deposit, currency)
           : formatPrice(price, currency);
-        document.getElementById("amountHint").textContent = deposit
-          ? `≈ ${deposit.toLocaleString()} USDT`
-          : `≈ ${price.toLocaleString()} USDT`;
 
         document.getElementById("carImage").src = images[0];
         document.getElementById("carImage").onerror = function () {
@@ -946,7 +1063,8 @@
           `https://wa.me/2348123456789?text=${encodeURIComponent(agentMessage)}`;
 
         document.getElementById("amountPaid").value = deposit || price || "";
-        document.getElementById("currency").value = currency || "USD";
+
+        updatePaymentUI();
       }
 
       async function fetchCar() {
@@ -1044,6 +1162,15 @@
           .value.trim();
         const amountPaid = document.getElementById("amountPaid").value.trim();
         const currency = document.getElementById("currency").value.trim();
+        const paymentMethod = document
+          .getElementById("paymentMethod")
+          .value.trim();
+        const paymentNetwork = document
+          .getElementById("paymentNetwork")
+          .value.trim();
+        const optionalNote = document
+          .getElementById("optionalNote")
+          .value.trim();
 
         const formData = new FormData();
         formData.append("carId", carId);
@@ -1055,6 +1182,9 @@
         formData.append("walletAddress", walletAddress);
         formData.append("amountPaid", amountPaid);
         formData.append("currency", currency);
+        formData.append("paymentMethod", paymentMethod);
+        formData.append("paymentNetwork", paymentNetwork);
+        formData.append("optionalNote", optionalNote);
         formData.append("receipt", receipt);
 
         try {
@@ -1078,7 +1208,7 @@
 
           showMessage(
             "Payment proof submitted successfully. Awaiting admin verification.",
-            "success",
+            "success"
           );
           document.getElementById("paymentForm").reset();
           document.getElementById("selectedFileName").textContent =
@@ -1092,13 +1222,13 @@
               price > 0 ? Math.round(price * DEPOSIT_PERCENTAGE) : 0;
             document.getElementById("amountPaid").value =
               deposit || price || "";
-            document.getElementById("currency").value =
-              currentCar.currency || "USD";
           }
+
+          updatePaymentUI();
         } catch (error) {
           showMessage(
             error.message || "Something went wrong while submitting payment.",
-            "error",
+            "error"
           );
         } finally {
           setLoading(false);
@@ -1133,9 +1263,23 @@
         });
       }
 
+      function setupPaymentOptions() {
+        document.querySelectorAll(".payment-option").forEach((button) => {
+          button.addEventListener("click", () => {
+            activePaymentKey = button.dataset.paymentKey;
+            updatePaymentUI();
+            showMessage(
+              `${getSelectedPayment().label} selected for payment.`,
+              "info"
+            );
+          });
+        });
+      }
+
       document
         .getElementById("copyWalletBtn")
         .addEventListener("click", copyWalletAddress);
+
       document
         .getElementById("paymentForm")
         .addEventListener("submit", submitPayment);
@@ -1143,6 +1287,7 @@
       prefillUserDetails();
       fetchCar();
       setupFileInput();
+      setupPaymentOptions();
       startCountdown(30);
     </script>
   </body>
