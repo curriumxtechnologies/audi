@@ -573,12 +573,6 @@
           .join("");
       }
 
-      console.log("userInfo from localStorage:", userInfo);
-      console.log(
-        "token being sent:",
-        userInfo?.token || userInfo?.accessToken || userInfo?.authToken,
-      );
-
       async function fetchOrders() {
         try {
           const token =
