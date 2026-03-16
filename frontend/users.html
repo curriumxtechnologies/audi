@@ -4,6 +4,22 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Audi | Admin - Users</title>
+
+    <script>
+      let adminInfo = null;
+
+      try {
+        const storedAdmin = localStorage.getItem("adminInfo");
+        if (!storedAdmin) {
+          window.location.replace("admin-login.html");
+        } else {
+          adminInfo = JSON.parse(storedAdmin);
+        }
+      } catch (error) {
+        window.location.replace("admin-login.html");
+      }
+    </script>
+
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
       rel="stylesheet"
@@ -13,6 +29,7 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
     <script>
       tailwind.config = {
         theme: {
@@ -39,41 +56,48 @@
         },
       };
     </script>
+
     <style>
       body {
         font-family: "Inter", sans-serif;
         background: #f7f7f7;
       }
+
       .admin-sidebar {
         background: white;
         border-right: 1px solid rgba(0, 0, 0, 0.05);
       }
+
       .admin-nav-item {
         transition: all 0.2s ease;
       }
+
       .admin-nav-item:hover {
         background: #f1f1f1;
       }
+
       .admin-nav-item.active {
         background: #000000;
         color: white;
       }
+
       .admin-nav-item.active .material-symbols-outlined {
         color: white;
       }
     </style>
   </head>
+
   <body class="bg-background text-text-main">
     <div class="flex h-screen overflow-hidden">
-      <!-- Sidebar (same as dashboard) -->
       <aside
-        class="admin-sidebar w-64 flex-shrink-0 hidden md:block overflow-y-auto"
+        class="admin-sidebar w-64 flex-shrink-0 hidden md:block overflow-y-auto relative"
       >
-        <div class="p-6">
+        <div class="p-6 pb-28">
           <span
             class="font-headline text-2xl font-extrabold tracking-tighter block mb-8"
-            >Audi Admin</span
           >
+            Audi Admin
+          </span>
 
           <nav class="space-y-1">
             <a
@@ -83,16 +107,21 @@
               <span class="material-symbols-outlined">dashboard</span>
               Dashboard
             </a>
+
             <a
               href="admin-users.html"
               class="admin-nav-item active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
             >
               <span class="material-symbols-outlined">people</span>
               Users
-              <span class="ml-auto bg-white/20 px-2 py-0.5 rounded-full text-xs"
-                >24</span
+              <span
+                id="sidebarUsersCount"
+                class="ml-auto bg-white/20 px-2 py-0.5 rounded-full text-xs"
               >
+                0
+              </span>
             </a>
+
             <a
               href="admin-cars.html"
               class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
@@ -100,7 +129,9 @@
               <span class="material-symbols-outlined">directions_car</span>
               All Cars
             </a>
+
             <div class="border-t border-outline-soft my-4"></div>
+
             <a
               href="admin-upload.html"
               class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
@@ -108,6 +139,7 @@
               <span class="material-symbols-outlined">upload</span>
               Upload Car
             </a>
+
             <a
               href="admin-payments.html"
               class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
@@ -117,14 +149,54 @@
             </a>
           </nav>
         </div>
+
+        <div
+          class="absolute bottom-0 left-0 w-full p-6 border-t border-outline-soft bg-white"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
+            >
+              <span class="material-symbols-outlined">
+                admin_panel_settings
+              </span>
+            </div>
+
+            <div class="min-w-0">
+              <p id="sidebarAdminName" class="text-sm font-medium truncate">
+                Admin User
+              </p>
+              <p
+                id="sidebarAdminEmail"
+                class="text-xs text-text-muted truncate"
+              >
+                admin@audi.com
+              </p>
+            </div>
+
+            <button
+              id="logoutBtn"
+              class="ml-auto text-text-muted hover:text-primary"
+              type="button"
+            >
+              <span class="material-symbols-outlined">logout</span>
+            </button>
+          </div>
+        </div>
       </aside>
 
-      <!-- Main Content -->
       <main class="flex-1 overflow-y-auto">
         <header class="bg-white border-b border-outline-soft sticky top-0 z-10">
           <div class="flex items-center justify-between px-6 py-4">
-            <h1 class="font-headline text-2xl font-bold">User Management</h1>
+            <div>
+              <h1 class="font-headline text-2xl font-bold">User Management</h1>
+              <p id="topWelcomeText" class="text-sm text-text-muted mt-1">
+                Welcome back
+              </p>
+            </div>
+
             <button
+              type="button"
               class="bg-primary text-white px-5 py-2 text-sm font-semibold hover:bg-neutral-800 transition-colors flex items-center gap-2"
             >
               <span class="material-symbols-outlined text-[18px]">add</span>
@@ -134,25 +206,30 @@
         </header>
 
         <div class="p-6">
-          <!-- Filters -->
+          <p id="statusMessage" class="text-sm text-text-muted mb-6">
+            Loading users...
+          </p>
+
           <div
             class="bg-white p-4 border border-outline-soft mb-6 flex flex-wrap gap-4 items-center justify-between"
           >
-            <div class="flex gap-2">
+            <div class="flex gap-2 w-full md:w-auto">
               <input
+                id="searchInput"
                 type="text"
                 placeholder="Search users..."
-                class="border border-outline-soft px-4 py-2 text-sm w-64"
+                class="border border-outline-soft px-4 py-2 text-sm w-full md:w-64"
               />
               <button
+                id="searchBtn"
                 class="bg-primary text-white px-4 py-2 text-sm font-semibold"
+                type="button"
               >
                 SEARCH
               </button>
             </div>
           </div>
 
-          <!-- Users Table -->
           <div class="bg-white border border-outline-soft overflow-x-auto">
             <table class="w-full text-sm">
               <thead class="bg-surface-soft border-b border-outline-soft">
@@ -165,173 +242,20 @@
                   <th class="text-left px-6 py-4 font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-outline-soft">
+              <tbody id="usersTableBody" class="divide-y divide-outline-soft">
                 <tr>
-                  <td class="px-6 py-4">
-                    <div class="flex items-center gap-3">
-                      <div
-                        class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
-                      >
-                        <span class="material-symbols-outlined">person</span>
-                      </div>
-                      <span class="font-medium">John Smith</span>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4">john.smith@email.com</td>
-                  <td class="px-6 py-4">Customer</td>
-                  <td class="px-6 py-4">
-                    <span
-                      class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs"
-                      >Active</span
-                    >
-                  </td>
-                  <td class="px-6 py-4">Mar 10, 2026</td>
-                  <td class="px-6 py-4">
-                    <div class="flex gap-2">
-                      <button
-                        class="p-1 hover:bg-surface-soft rounded"
-                        title="Edit"
-                      >
-                        <span class="material-symbols-outlined text-[18px]"
-                          >edit</span
-                        >
-                      </button>
-                      <button
-                        class="p-1 hover:bg-surface-soft rounded"
-                        title="View"
-                      >
-                        <span class="material-symbols-outlined text-[18px]"
-                          >visibility</span
-                        >
-                      </button>
-                      <button
-                        class="p-1 hover:bg-surface-soft rounded text-accent"
-                        title="Suspend"
-                      >
-                        <span class="material-symbols-outlined text-[18px]"
-                          >block</span
-                        >
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4">
-                    <div class="flex items-center gap-3">
-                      <div
-                        class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
-                      >
-                        <span class="material-symbols-outlined">person</span>
-                      </div>
-                      <span class="font-medium">Sarah Johnson</span>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4">sarah.j@email.com</td>
-                  <td class="px-6 py-4">Customer</td>
-                  <td class="px-6 py-4">
-                    <span
-                      class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs"
-                      >Active</span
-                    >
-                  </td>
-                  <td class="px-6 py-4">Mar 8, 2026</td>
-                  <td class="px-6 py-4">
-                    <div class="flex gap-2">
-                      <button class="p-1 hover:bg-surface-soft rounded">
-                        ✎
-                      </button>
-                      <button class="p-1 hover:bg-surface-soft rounded">
-                        👁️
-                      </button>
-                      <button
-                        class="p-1 hover:bg-surface-soft rounded text-accent"
-                      >
-                        🚫
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4">
-                    <div class="flex items-center gap-3">
-                      <div
-                        class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
-                      >
-                        <span class="material-symbols-outlined"
-                          >admin_panel_settings</span
-                        >
-                      </div>
-                      <span class="font-medium">Michael Chen</span>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4">m.chen@email.com</td>
-                  <td class="px-6 py-4">Admin</td>
-                  <td class="px-6 py-4">
-                    <span
-                      class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs"
-                      >Active</span
-                    >
-                  </td>
-                  <td class="px-6 py-4">Feb 15, 2026</td>
-                  <td class="px-6 py-4">
-                    <div class="flex gap-2">
-                      <button class="p-1 hover:bg-surface-soft rounded">
-                        ✎
-                      </button>
-                      <button class="p-1 hover:bg-surface-soft rounded">
-                        👁️
-                      </button>
-                      <button
-                        class="p-1 hover:bg-surface-soft rounded text-accent"
-                      >
-                        🚫
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4">
-                    <div class="flex items-center gap-3">
-                      <div
-                        class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
-                      >
-                        <span class="material-symbols-outlined">person</span>
-                      </div>
-                      <span class="font-medium">Emma Wilson</span>
-                    </div>
-                  </td>
-                  <td class="px-6 py-4">emma.w@email.com</td>
-                  <td class="px-6 py-4">Customer</td>
-                  <td class="px-6 py-4">
-                    <span
-                      class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs"
-                      >Pending</span
-                    >
-                  </td>
-                  <td class="px-6 py-4">Mar 12, 2026</td>
-                  <td class="px-6 py-4">
-                    <div class="flex gap-2">
-                      <button class="p-1 hover:bg-surface-soft rounded">
-                        ✎
-                      </button>
-                      <button class="p-1 hover:bg-surface-soft rounded">
-                        👁️
-                      </button>
-                      <button
-                        class="p-1 hover:bg-surface-soft rounded text-accent"
-                      >
-                        🚫
-                      </button>
-                    </div>
+                  <td colspan="6" class="px-6 py-8 text-center text-text-muted">
+                    Loading users...
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
 
-          <!-- Pagination -->
           <div class="flex justify-between items-center mt-6">
-            <p class="text-sm text-text-muted">Showing 1-4 of 24 users</p>
+            <p id="paginationText" class="text-sm text-text-muted">
+              Showing 0 of 0 users
+            </p>
             <div class="flex gap-2">
               <button
                 class="px-4 py-2 border border-outline-soft bg-white hover:bg-surface-soft disabled:opacity-50"
@@ -345,17 +269,8 @@
                 1
               </button>
               <button
-                class="px-4 py-2 border border-outline-soft bg-white hover:bg-surface-soft"
-              >
-                2
-              </button>
-              <button
-                class="px-4 py-2 border border-outline-soft bg-white hover:bg-surface-soft"
-              >
-                3
-              </button>
-              <button
-                class="px-4 py-2 border border-outline-soft bg-white hover:bg-surface-soft"
+                class="px-4 py-2 border border-outline-soft bg-white hover:bg-surface-soft disabled:opacity-50"
+                disabled
               >
                 Next
               </button>
@@ -364,5 +279,193 @@
         </div>
       </main>
     </div>
+
+    <script>
+      const BACKEND_URL = "http://localhost:8000";
+
+      const sidebarAdminName = document.getElementById("sidebarAdminName");
+      const sidebarAdminEmail = document.getElementById("sidebarAdminEmail");
+      const topWelcomeText = document.getElementById("topWelcomeText");
+      const sidebarUsersCount = document.getElementById("sidebarUsersCount");
+      const logoutBtn = document.getElementById("logoutBtn");
+      const statusMessage = document.getElementById("statusMessage");
+      const usersTableBody = document.getElementById("usersTableBody");
+      const paginationText = document.getElementById("paginationText");
+      const searchInput = document.getElementById("searchInput");
+      const searchBtn = document.getElementById("searchBtn");
+
+      let allUsers = [];
+      let filteredUsers = [];
+
+      function getAdminDisplayName() {
+        return adminInfo?.name || adminInfo?.email || "Admin";
+      }
+
+      function getAuthHeaders() {
+        return {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminInfo?.token || ""}`,
+        };
+      }
+
+      function setStatus(message, isError = false) {
+        statusMessage.textContent = message;
+        statusMessage.className = isError
+          ? "text-sm text-red-600 mb-6"
+          : "text-sm text-text-muted mb-6";
+      }
+
+      function formatDate(dateValue) {
+        if (!dateValue) return "--";
+        const date = new Date(dateValue);
+        if (Number.isNaN(date.getTime())) return "--";
+        return date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+      }
+
+      async function fetchUsers() {
+        const response = await fetch(`${BACKEND_URL}/api/admin/users`, {
+          method: "GET",
+          credentials: "include",
+          headers: getAuthHeaders(),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to fetch users");
+        }
+
+        return data;
+      }
+
+      async function logoutAdmin() {
+        try {
+          await fetch(`${BACKEND_URL}/api/admin/logout`, {
+            method: "POST",
+            credentials: "include",
+            headers: getAuthHeaders(),
+          });
+        } catch (error) {}
+
+        localStorage.removeItem("adminInfo");
+        window.location.replace("admin-login.html");
+      }
+
+      function renderUsers(users) {
+        sidebarUsersCount.textContent = users.length;
+        paginationText.textContent = `Showing ${users.length} of ${allUsers.length} users`;
+
+        if (!users.length) {
+          usersTableBody.innerHTML = `
+            <tr>
+              <td colspan="6" class="px-6 py-8 text-center text-text-muted">
+                No users found.
+              </td>
+            </tr>
+          `;
+          return;
+        }
+
+        usersTableBody.innerHTML = users
+          .map((user) => {
+            const name = user.name || "No Name";
+            const email = user.email || "--";
+            const role = "User";
+            const status = "Active";
+            const joined = formatDate(user.createdAt);
+
+            return `
+              <tr>
+                <td class="px-6 py-4">
+                  <div class="flex items-center gap-3">
+                    <div
+                      class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
+                    >
+                      <span class="material-symbols-outlined">person</span>
+                    </div>
+                    <span class="font-medium">${name}</span>
+                  </div>
+                </td>
+                <td class="px-6 py-4">${email}</td>
+                <td class="px-6 py-4">${role}</td>
+                <td class="px-6 py-4">
+                  <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
+                    ${status}
+                  </span>
+                </td>
+                <td class="px-6 py-4">${joined}</td>
+                <td class="px-6 py-4">
+                  <div class="flex gap-2">
+                    <button class="p-1 hover:bg-surface-soft rounded" title="Edit" type="button">
+                      <span class="material-symbols-outlined text-[18px]">edit</span>
+                    </button>
+                    <button class="p-1 hover:bg-surface-soft rounded" title="View" type="button">
+                      <span class="material-symbols-outlined text-[18px]">visibility</span>
+                    </button>
+                    <button class="p-1 hover:bg-surface-soft rounded text-accent" title="Suspend" type="button">
+                      <span class="material-symbols-outlined text-[18px]">block</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            `;
+          })
+          .join("");
+      }
+
+      function applySearch() {
+        const query = searchInput.value.trim().toLowerCase();
+
+        if (!query) {
+          filteredUsers = [...allUsers];
+        } else {
+          filteredUsers = allUsers.filter((user) => {
+            const name = (user.name || "").toLowerCase();
+            const email = (user.email || "").toLowerCase();
+            return name.includes(query) || email.includes(query);
+          });
+        }
+
+        renderUsers(filteredUsers);
+      }
+
+      async function loadUsers() {
+        try {
+          setStatus("Loading users...");
+
+          allUsers = await fetchUsers();
+          filteredUsers = [...allUsers];
+
+          renderUsers(filteredUsers);
+          setStatus("Users loaded successfully.");
+        } catch (error) {
+          console.error("Users load error:", error);
+          setStatus(error.message || "Failed to load users.", true);
+
+          if (
+            error.message.toLowerCase().includes("unauthorized") ||
+            error.message.toLowerCase().includes("not authorized") ||
+            error.message.toLowerCase().includes("token")
+          ) {
+            localStorage.removeItem("adminInfo");
+            window.location.replace("admin-login.html");
+          }
+        }
+      }
+
+      sidebarAdminName.textContent = getAdminDisplayName();
+      sidebarAdminEmail.textContent = adminInfo?.email || "No email";
+      topWelcomeText.textContent = `Welcome, ${getAdminDisplayName()}`;
+
+      logoutBtn.addEventListener("click", logoutAdmin);
+      searchBtn.addEventListener("click", applySearch);
+      searchInput.addEventListener("input", applySearch);
+
+      loadUsers();
+    </script>
   </body>
 </html>

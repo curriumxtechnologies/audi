@@ -5,6 +5,15 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Audi | Welcome</title>
 
+    <script>
+      try {
+        const userInfo = localStorage.getItem("userInfo");
+        if (userInfo) {
+          window.location.replace("home.html");
+        }
+      } catch (error) {}
+    </script>
+
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
       rel="stylesheet"
@@ -113,7 +122,6 @@
   <body
     class="bg-background text-text-main selection:bg-black selection:text-white"
   >
-    <!-- Header -->
     <header class="glass-nav sticky top-0 z-50 border-b border-black/5">
       <nav
         class="container mx-auto px-6 py-4 flex items-center justify-between"
@@ -131,12 +139,6 @@
             class="text-sm font-medium text-text-muted hover:text-black transition-colors"
           >
             Featured
-          </a>
-          <a
-            href="#experience"
-            class="text-sm font-medium text-text-muted hover:text-black transition-colors"
-          >
-            Experience
           </a>
           <a
             href="#electric"
@@ -170,7 +172,6 @@
     </header>
 
     <main>
-      <!-- Hero -->
       <section class="relative min-h-[92vh] flex items-center overflow-hidden">
         <div class="absolute inset-0">
           <img
@@ -311,7 +312,6 @@
         </div>
       </section>
 
-      <!-- Brand Stats -->
       <section class="py-10 bg-white border-y border-black/5">
         <div class="container mx-auto px-6">
           <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
@@ -359,7 +359,6 @@
         </div>
       </section>
 
-      <!-- Featured -->
       <section id="featured" class="py-24">
         <div class="container mx-auto px-6">
           <div
@@ -489,7 +488,6 @@
         </div>
       </section>
 
-      <!-- Electric -->
       <section id="electric" class="py-24">
         <div class="container mx-auto px-6">
           <div class="mb-14">
@@ -591,7 +589,6 @@
         </div>
       </section>
 
-      <!-- Why Audi -->
       <section id="why-audi" class="py-24 bg-white">
         <div class="container mx-auto px-6">
           <div class="text-center max-w-3xl mx-auto mb-16">
@@ -666,7 +663,6 @@
       </section>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-white border-t border-black/6">
       <div class="container mx-auto px-6 py-12">
         <div class="grid md:grid-cols-3 gap-10 mb-10">
@@ -684,12 +680,18 @@
           </div>
         </div>
 
-        <div
-          class="container mx-auto px-6 text-center text-xs text-on-surface-variant"
-        >
+        <div class="container mx-auto px-6 text-center text-xs text-text-muted">
           © 2000 Audi. All rights reserved.
         </div>
       </div>
     </footer>
+    <script>
+  try {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      window.location.replace("home.html");
+    }
+  } catch (error) {}
+</script>
   </body>
 </html>

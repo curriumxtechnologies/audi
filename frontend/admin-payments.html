@@ -4,6 +4,22 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Audi | Admin - Payments</title>
+
+    <script>
+      let adminInfo = null;
+
+      try {
+        const storedAdmin = localStorage.getItem("adminInfo");
+        if (!storedAdmin) {
+          window.location.replace("admin-login.html");
+        } else {
+          adminInfo = JSON.parse(storedAdmin);
+        }
+      } catch (error) {
+        window.location.replace("admin-login.html");
+      }
+    </script>
+
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
       rel="stylesheet"
@@ -13,6 +29,7 @@
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
     <script>
       tailwind.config = {
         theme: {
@@ -22,12 +39,21 @@
               secondary: "#5b5f61",
               background: "#f7f7f7",
               surface: "#ffffff",
+              "surface-soft": "#f1f1f1",
               accent: "#d70000",
+              "text-main": "#111111",
+              "text-muted": "#6b7280",
+              "outline-soft": "rgba(0,0,0,0.08)",
+            },
+            fontFamily: {
+              headline: ["Manrope", "sans-serif"],
+              body: ["Inter", "sans-serif"],
             },
           },
         },
       };
     </script>
+
     <style>
       body {
         font-family: "Inter", sans-serif;
@@ -47,27 +73,20 @@
         background: #000000;
         color: white;
       }
-      .upload-area {
-        border: 2px dashed #d8d8d8;
-        transition: all 0.2s ease;
-      }
-      .upload-area:hover {
-        border-color: #000000;
-        background: #f1f1f1;
-      }
     </style>
   </head>
+
   <body class="bg-background text-text-main">
     <div class="flex h-screen overflow-hidden">
-      <!-- Sidebar (same as dashboard) -->
       <aside
         class="admin-sidebar w-64 flex-shrink-0 hidden md:block overflow-y-auto"
       >
         <div class="p-6">
           <span
             class="font-headline text-2xl font-extrabold tracking-tighter block mb-8"
-            >Audi Admin</span
           >
+            Audi Admin
+          </span>
 
           <nav class="space-y-1">
             <a
@@ -77,7 +96,9 @@
               <span class="material-symbols-outlined">dashboard</span>
               Dashboard
             </a>
+
             <div class="border-t border-outline-soft my-4"></div>
+
             <a
               href="admin-payments.html"
               class="admin-nav-item active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
@@ -89,125 +110,398 @@
         </div>
       </aside>
 
-      <!-- Main Content -->
       <main class="flex-1 overflow-y-auto">
         <header class="bg-white border-b border-outline-soft sticky top-0 z-10">
           <div class="flex items-center justify-between px-6 py-4">
-            <h1 class="font-headline text-2xl font-bold">
-              Payment Verifications
-            </h1>
+            <div>
+              <h1 class="font-headline text-2xl font-bold">
+                Payment Verifications
+              </h1>
+              <p class="text-sm text-text-muted mt-1">
+                Review submitted payment receipts and confirm verified payments
+              </p>
+            </div>
+
+            <button
+              id="refreshBtn"
+              class="border border-outline-soft px-4 py-2 text-sm font-semibold hover:bg-surface-soft transition"
+            >
+              Refresh
+            </button>
           </div>
         </header>
 
         <div class="p-6">
-          <!-- Stats -->
+          <div id="pageMessage" class="hidden mb-4 text-sm"></div>
+
           <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
             <div class="bg-white p-6 border border-outline-soft">
               <p class="text-sm text-text-muted">Pending</p>
-              <p class="font-headline text-3xl font-bold">7</p>
+              <p id="pendingCount" class="font-headline text-3xl font-bold">0</p>
             </div>
+
             <div class="bg-white p-6 border border-outline-soft">
               <p class="text-sm text-text-muted">Verified Today</p>
-              <p class="font-headline text-3xl font-bold">12</p>
+              <p id="verifiedTodayCount" class="font-headline text-3xl font-bold">0</p>
             </div>
+
             <div class="bg-white p-6 border border-outline-soft">
               <p class="text-sm text-text-muted">Total Volume</p>
-              <p class="font-headline text-3xl font-bold">$187.5K</p>
+              <p id="totalVolume" class="font-headline text-3xl font-bold">$0</p>
             </div>
           </div>
 
-          <!-- Payments Table -->
           <div class="bg-white border border-outline-soft overflow-x-auto">
-            <table class="w-full text-sm">
+            <div id="loadingState" class="p-8 text-center text-text-muted">
+              Loading payments...
+            </div>
+
+            <div id="emptyState" class="hidden p-8 text-center text-text-muted">
+              No payments found.
+            </div>
+
+            <table id="paymentsTable" class="w-full text-sm hidden">
               <thead class="bg-surface-soft border-b border-outline-soft">
                 <tr>
                   <th class="text-left px-6 py-4 font-semibold">User</th>
                   <th class="text-left px-6 py-4 font-semibold">Car</th>
                   <th class="text-left px-6 py-4 font-semibold">Amount</th>
                   <th class="text-left px-6 py-4 font-semibold">Coin</th>
+                  <th class="text-left px-6 py-4 font-semibold">Transaction ID</th>
                   <th class="text-left px-6 py-4 font-semibold">Status</th>
+                  <th class="text-left px-6 py-4 font-semibold">Date</th>
                   <th class="text-left px-6 py-4 font-semibold">Actions</th>
                 </tr>
               </thead>
-              <tbody class="divide-y divide-outline-soft">
-                <tr>
-                  <td class="px-6 py-4">John Smith</td>
-                  <td class="px-6 py-4">Audi A3</td>
-                  <td class="px-6 py-4">$2,500</td>
-                  <td class="px-6 py-4">USDT</td>
-                  <td class="px-6 py-4">
-                    <span
-                      class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs"
-                      >Pending</span
-                    >
-                  </td>
-                  <td class="px-6 py-4">
-                    <button
-                      class="bg-primary text-white px-3 py-1 text-xs font-semibold mr-2"
-                    >
-                      Verify
-                    </button>
-                    <button
-                      class="border border-outline-soft px-3 py-1 text-xs font-semibold"
-                    >
-                      View
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4">Sarah Johnson</td>
-                  <td class="px-6 py-4">Audi Q5</td>
-                  <td class="px-6 py-4">$2,500</td>
-                  <td class="px-6 py-4">BTC</td>
-                  <td class="px-6 py-4">
-                    <span
-                      class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs"
-                      >Pending</span
-                    >
-                  </td>
-                  <td class="px-6 py-4">
-                    <button
-                      class="bg-primary text-white px-3 py-1 text-xs font-semibold mr-2"
-                    >
-                      Verify
-                    </button>
-                    <button
-                      class="border border-outline-soft px-3 py-1 text-xs font-semibold"
-                    >
-                      View
-                    </button>
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4">Michael Chen</td>
-                  <td class="px-6 py-4">RS e-tron GT</td>
-                  <td class="px-6 py-4">$5,000</td>
-                  <td class="px-6 py-4">ETH</td>
-                  <td class="px-6 py-4">
-                    <span
-                      class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs"
-                      >Verified</span
-                    >
-                  </td>
-                  <td class="px-6 py-4">
-                    <button
-                      class="bg-primary text-white px-3 py-1 text-xs font-semibold mr-2"
-                      disabled
-                    >
-                      Verified
-                    </button>
-                    <button
-                      class="border border-outline-soft px-3 py-1 text-xs font-semibold"
-                    >
-                      View
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
+              <tbody id="paymentsTableBody" class="divide-y divide-outline-soft"></tbody>
             </table>
           </div>
         </div>
       </main>
     </div>
+
+    <script>
+      const BASE_URL = "http://localhost:8000";
+      const token = adminInfo?.token;
+
+      const loadingState = document.getElementById("loadingState");
+      const emptyState = document.getElementById("emptyState");
+      const paymentsTable = document.getElementById("paymentsTable");
+      const paymentsTableBody = document.getElementById("paymentsTableBody");
+      const pageMessage = document.getElementById("pageMessage");
+
+      const pendingCount = document.getElementById("pendingCount");
+      const verifiedTodayCount = document.getElementById("verifiedTodayCount");
+      const totalVolume = document.getElementById("totalVolume");
+      const refreshBtn = document.getElementById("refreshBtn");
+
+      let paymentsCache = [];
+
+      function showMessage(message, type = "info") {
+        pageMessage.classList.remove(
+          "hidden",
+          "text-red-600",
+          "text-green-600",
+          "text-text-main"
+        );
+
+        pageMessage.textContent = message;
+
+        if (type === "error") {
+          pageMessage.classList.add("text-red-600");
+        } else if (type === "success") {
+          pageMessage.classList.add("text-green-600");
+        } else {
+          pageMessage.classList.add("text-text-main");
+        }
+      }
+
+      function clearMessage() {
+        pageMessage.classList.add("hidden");
+        pageMessage.textContent = "";
+      }
+
+      function formatCurrency(amount, currency = "USD") {
+        const value = Number(amount || 0);
+
+        try {
+          return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: currency || "USD",
+            maximumFractionDigits: 0,
+          }).format(value);
+        } catch (error) {
+          return `$${value.toLocaleString()}`;
+        }
+      }
+
+      function formatDate(dateString) {
+        if (!dateString) return "N/A";
+
+        const date = new Date(dateString);
+        if (Number.isNaN(date.getTime())) return "N/A";
+
+        return date.toLocaleString();
+      }
+
+      function isToday(dateString) {
+        if (!dateString) return false;
+
+        const date = new Date(dateString);
+        const now = new Date();
+
+        return (
+          date.getFullYear() === now.getFullYear() &&
+          date.getMonth() === now.getMonth() &&
+          date.getDate() === now.getDate()
+        );
+      }
+
+      function getStatusBadge(status) {
+        if (status === "confirmed") {
+          return `
+            <span class="bg-green-100 text-green-800 px-2 py-1 rounded-full text-xs">
+              Verified
+            </span>
+          `;
+        }
+
+        return `
+          <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full text-xs">
+            Pending
+          </span>
+        `;
+      }
+
+      function updateStats(payments) {
+        const pending = payments.filter((payment) => payment.status === "pending").length;
+        const verifiedToday = payments.filter(
+          (payment) => payment.status === "confirmed" && isToday(payment.updatedAt || payment.createdAt)
+        ).length;
+
+        const total = payments.reduce((sum, payment) => {
+          return sum + Number(payment.amountPaid || 0);
+        }, 0);
+
+        pendingCount.textContent = pending;
+        verifiedTodayCount.textContent = verifiedToday;
+        totalVolume.textContent = formatCurrency(total, "USD");
+      }
+
+      function showLoading() {
+        loadingState.classList.remove("hidden");
+        emptyState.classList.add("hidden");
+        paymentsTable.classList.add("hidden");
+      }
+
+      function showEmpty() {
+        loadingState.classList.add("hidden");
+        emptyState.classList.remove("hidden");
+        paymentsTable.classList.add("hidden");
+      }
+
+      function showTable() {
+        loadingState.classList.add("hidden");
+        emptyState.classList.add("hidden");
+        paymentsTable.classList.remove("hidden");
+      }
+
+      function getUserName(payment) {
+        return (
+          payment.fullName ||
+          payment.userId?.name ||
+          payment.userId?.fullName ||
+          payment.userId?.username ||
+          "Unknown User"
+        );
+      }
+
+      function getUserEmail(payment) {
+        return payment.email || payment.userId?.email || "";
+      }
+
+      function getCarName(payment) {
+        return payment.carId?.name || "Unknown Car";
+      }
+
+      function truncateText(value, max = 12) {
+        if (!value) return "N/A";
+        const str = String(value);
+        if (str.length <= max) return str;
+        return `${str.slice(0, max)}...`;
+      }
+
+      function renderPayments(payments) {
+        paymentsTableBody.innerHTML = "";
+
+        if (!payments.length) {
+          showEmpty();
+          return;
+        }
+
+        payments.forEach((payment) => {
+          const tr = document.createElement("tr");
+
+          const userName = getUserName(payment);
+          const userEmail = getUserEmail(payment);
+          const carName = getCarName(payment);
+          const amount = formatCurrency(payment.amountPaid || 0, payment.currency || "USD");
+          const coin = payment.currency || "USD";
+          const statusBadge = getStatusBadge(payment.status);
+          const createdAt = formatDate(payment.createdAt);
+          const receiptUrl = payment.paymentReceiptUrl || "#";
+
+          tr.innerHTML = `
+            <td class="px-6 py-4">
+              <div class="font-medium">${userName}</div>
+              <div class="text-xs text-text-muted">${userEmail || "No email"}</div>
+            </td>
+
+            <td class="px-6 py-4">${carName}</td>
+
+            <td class="px-6 py-4">${amount}</td>
+
+            <td class="px-6 py-4">${coin}</td>
+
+            <td class="px-6 py-4">
+              <span title="${payment.transactionId || ""}">
+                ${truncateText(payment.transactionId, 16)}
+              </span>
+            </td>
+
+            <td class="px-6 py-4">${statusBadge}</td>
+
+            <td class="px-6 py-4">${createdAt}</td>
+
+            <td class="px-6 py-4">
+              <div class="flex flex-wrap gap-2">
+                ${
+                  payment.status === "pending"
+                    ? `
+                      <button
+                        class="verify-btn bg-primary text-white px-3 py-1 text-xs font-semibold"
+                        data-id="${payment._id}"
+                      >
+                        Verify
+                      </button>
+                    `
+                    : `
+                      <button
+                        class="bg-gray-300 text-gray-600 px-3 py-1 text-xs font-semibold cursor-not-allowed"
+                        disabled
+                      >
+                        Verified
+                      </button>
+                    `
+                }
+
+                <button
+                  class="view-btn border border-outline-soft px-3 py-1 text-xs font-semibold"
+                  data-url="${receiptUrl}"
+                >
+                  View Receipt
+                </button>
+              </div>
+            </td>
+          `;
+
+          paymentsTableBody.appendChild(tr);
+        });
+
+        showTable();
+        attachRowEvents();
+      }
+
+      function attachRowEvents() {
+        document.querySelectorAll(".verify-btn").forEach((button) => {
+          button.addEventListener("click", async () => {
+            const paymentId = button.dataset.id;
+            await verifyPayment(paymentId, button);
+          });
+        });
+
+        document.querySelectorAll(".view-btn").forEach((button) => {
+          button.addEventListener("click", () => {
+            const url = button.dataset.url;
+            if (url && url !== "#") {
+              window.open(url, "_blank");
+            } else {
+              showMessage("No receipt found for this payment.", "error");
+            }
+          });
+        });
+      }
+
+      async function fetchPayments() {
+        if (!token) {
+          showMessage("Admin token not found. Please login again.", "error");
+          return;
+        }
+
+        clearMessage();
+        showLoading();
+
+        try {
+          const response = await fetch(`${BASE_URL}/api/payments`, {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: "include",
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Failed to fetch payments");
+          }
+
+          paymentsCache = Array.isArray(data) ? data : [];
+          updateStats(paymentsCache);
+          renderPayments(paymentsCache);
+        } catch (error) {
+          showEmpty();
+          showMessage(error.message || "Unable to load payments.", "error");
+        }
+      }
+
+      async function verifyPayment(paymentId, button) {
+        if (!paymentId) return;
+
+        const originalText = button.textContent;
+        button.disabled = true;
+        button.textContent = "Verifying...";
+
+        try {
+          const response = await fetch(`${BASE_URL}/api/payments/${paymentId}/verify`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: "include",
+            body: JSON.stringify({}),
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Failed to verify payment");
+          }
+
+          showMessage("Payment verified successfully.", "success");
+          await fetchPayments();
+        } catch (error) {
+          button.disabled = false;
+          button.textContent = originalText;
+          showMessage(error.message || "Unable to verify payment.", "error");
+        }
+      }
+
+      refreshBtn.addEventListener("click", fetchPayments);
+
+      fetchPayments();
+    </script>
   </body>
 </html>

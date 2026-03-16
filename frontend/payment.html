@@ -3,15 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Audi | Payment</title>
+
     <link
-      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@300;400;500;600&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
     <script>
       tailwind.config = {
         darkMode: "class",
@@ -81,6 +84,7 @@
         },
       };
     </script>
+
     <style>
       .glass-header {
         background: rgba(243, 243, 243, 0.8);
@@ -95,7 +99,7 @@
         border-color: #000000;
       }
       .input-premium {
-        background-color: #f3f3f3; /* surface-container-low */
+        background-color: #f3f3f3;
         border: 1px solid transparent;
         transition: all 0.2s;
       }
@@ -104,14 +108,6 @@
         background-color: #ffffff;
         outline: none;
         box-shadow: none;
-      }
-      .badge-elegant {
-        background-color: #e8e8e8;
-        color: #4c4546;
-        font-weight: 500;
-        padding: 0.25rem 0.75rem;
-        font-size: 0.75rem;
-        letter-spacing: 0.03em;
       }
       .countdown-timer {
         background: #f3f3f3;
@@ -124,10 +120,10 @@
       }
     </style>
   </head>
+
   <body
     class="bg-surface text-on-surface font-body selection:bg-primary selection:text-white antialiased"
   >
-    <!-- STICKY HEADER (matching Audi A3 page) -->
     <header
       class="glass-header sticky top-0 z-50 border-b border-outline-variant/10"
     >
@@ -135,25 +131,19 @@
         class="container mx-auto px-6 py-4 flex items-center justify-between"
       >
         <div class="flex items-center gap-12">
-          <span class="font-headline text-2xl font-extrabold tracking-tighter"
-            >Audi</span
-          >
+          <a href="home.html" class="font-headline text-2xl font-extrabold tracking-tighter">
+            Audi
+          </a>
         </div>
-        <!-- subtle breadcrumb integrated into header -->
+
         <div
           class="hidden md:flex items-center text-xs font-medium text-on-surface-variant tracking-wide"
         >
-          <a href="home.html" class="hover:text-primary transition-colors"
-            >Home</a
-          >
+          <a href="home.html" class="hover:text-primary transition-colors">Home</a>
           <span class="mx-2 select-none">/</span>
-          <a href="models.html" class="hover:text-primary transition-colors"
-            >Models</a
-          >
+          <a href="models.html" class="hover:text-primary transition-colors">Models</a>
           <span class="mx-2 select-none">/</span>
-          <a href="car-detail.html" class="hover:text-primary transition-colors"
-            >Audi A3</a
-          >
+          <a id="breadcrumbCarLink" href="#" class="hover:text-primary transition-colors">Car</a>
           <span class="mx-2 select-none">/</span>
           <span class="text-on-surface font-semibold">Payment</span>
         </div>
@@ -161,92 +151,101 @@
     </header>
 
     <main class="bg-surface pb-20">
-      <!-- PAGE HERO / INTRO (refined) -->
       <section class="container mx-auto px-6 pt-10 pb-6 md:pb-8">
         <div class="max-w-3xl">
           <h1
             class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight mb-3"
           >
-            Secure your Audi A3 reservation
+            Secure your <span id="heroCarName">car</span> reservation
           </h1>
           <p class="text-lg text-on-surface-variant max-w-2xl">
             Pay with crypto using the wallet details below and upload proof of
             payment for verification by our team.
           </p>
+
           <div class="flex items-center gap-2 mt-3">
             <span
               class="material-symbols-outlined text-[18px] text-on-surface-variant"
-              >verified</span
             >
-            <span class="text-sm text-on-surface-variant"
-              >All submissions are manually reviewed by our sales team.</span
-            >
+              verified
+            </span>
+            <span class="text-sm text-on-surface-variant">
+              All submissions are manually reviewed by our sales team.
+            </span>
           </div>
-          <!-- reservation reference subtle -->
+
           <div
             class="inline-flex items-center gap-2 mt-4 text-xs border border-outline-variant/30 px-3 py-1.5"
           >
             <span class="text-on-surface-variant">reservation code</span>
-            <span class="font-mono font-medium reservation-ref">R-A3-9X7K</span>
+            <span id="reservationCode" class="font-mono font-medium reservation-ref">
+              R-AUDI-0000
+            </span>
           </div>
         </div>
       </section>
 
-      <!-- TWO-COLUMN MAIN CHECKOUT SECTION -->
       <section class="container mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
-          <!-- LEFT COLUMN: order summary + crypto details + instructions -->
           <div class="space-y-6">
-            <!-- ORDER SUMMARY CARD -->
             <div class="border border-outline-variant/20 p-6 bg-surface">
               <div class="flex gap-4 items-start">
-                <!-- thumbnail -->
                 <div
                   class="w-24 h-24 bg-surface-container-high flex-shrink-0 overflow-hidden"
                 >
                   <img
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDuEVqX4lQHny6C-OJ_bcRmPQYr7d6YMVcRBuO8CpXWc575vFNqJD1Rn3euXmHzARTo-yF8sQJyw49uHEbtqmDf2ztS7R75UUo3KIjKEN1NyIEERY-EFOSLzaJHqLBHEr7jMxTR7q6ReLouBfS7S7G4dyedPpWXTo903O3Olk1OdmMQnKWdbECV3mVlpGC1zy76jHxZmhDSJX3Ajx_n-3TTcQnGeC0amRQIkFVFl4B51OEnhhlz1oop0O_3qDjyOkPcA8mWxCYz0txG"
-                    alt="Audi A3"
+                    id="carImage"
+                    src="https://via.placeholder.com/300x300?text=Car"
+                    alt="Car"
                     class="w-full h-full object-cover"
                   />
                 </div>
+
                 <div class="flex-1">
                   <div class="flex items-center gap-2 flex-wrap">
-                    <h2 class="font-headline text-xl font-bold">Audi A3</h2>
+                    <h2 id="carName" class="font-headline text-xl font-bold">Audi Car</h2>
                     <span
+                      id="carBadge"
                       class="bg-primary-fixed-dim text-on-primary-fixed-variant text-xs px-2 py-0.5"
-                      >S line 2025</span
                     >
+                      Model
+                    </span>
                   </div>
+
                   <div class="grid grid-cols-2 gap-x-4 gap-y-1 mt-3 text-sm">
                     <span class="text-on-surface-variant">Price</span>
-                    <span class="font-medium">$40,100</span>
-                    <span class="text-on-surface-variant"
-                      >Deposit required</span
-                    >
-                    <span class="font-medium">$2,500</span>
+                    <span id="carPrice" class="font-medium">$0</span>
+
+                    <span class="text-on-surface-variant">Deposit required</span>
+                    <span id="depositAmount" class="font-medium">$0</span>
+
                     <span class="text-on-surface-variant">Payment method</span>
-                    <span class="font-medium text-xs">Crypto (USDT/BTC)</span>
+                    <span class="font-medium text-xs">Crypto (USDT/BTC/ETH)</span>
                   </div>
+
                   <div class="flex items-center mt-2">
                     <span
                       class="bg-surface-container-high text-xs px-2 py-1 mr-2"
-                      >Status</span
                     >
+                      Status
+                    </span>
                     <span
                       class="text-sm flex items-center gap-1 text-on-surface-variant"
-                      ><span class="relative flex h-2 w-2"
-                        ><span
-                          class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"
-                        ></span
-                        ><span
-                          class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"
-                        ></span></span
-                      >Awaiting payment</span
                     >
+                      <span class="relative flex h-2 w-2">
+                        <span
+                          class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"
+                        ></span>
+                        <span
+                          class="relative inline-flex rounded-full h-2 w-2 bg-amber-500"
+                        ></span>
+                      </span>
+                      Awaiting payment
+                    </span>
                   </div>
                 </div>
               </div>
+
               <p
                 class="text-xs text-on-surface-variant border-t border-outline-variant/20 pt-3 mt-3"
               >
@@ -254,158 +253,144 @@
               </p>
             </div>
 
-            <!-- CRYPTO PAYMENT DETAILS CARD (primary) -->
             <div class="border border-outline-variant/20 p-6 bg-surface">
               <h3 class="font-headline text-lg font-bold mb-4">
                 Crypto payment details
               </h3>
-              <!-- supported coins -->
+
               <div class="flex gap-3 mb-5">
                 <span
                   class="bg-primary-container text-on-primary-fixed px-3 py-1 text-xs font-medium"
-                  >USDT (TRC20)</span
                 >
+                  USDT (TRC20)
+                </span>
                 <span
                   class="bg-surface-container-high text-on-surface-variant px-3 py-1 text-xs"
-                  >BTC</span
                 >
+                  BTC
+                </span>
                 <span
                   class="bg-surface-container-high text-on-surface-variant px-3 py-1 text-xs"
-                  >ETH</span
                 >
+                  ETH
+                </span>
               </div>
-              <!-- amount display -->
+
               <div
                 class="flex items-baseline justify-between border-b border-outline-variant/20 pb-4"
               >
-                <span class="text-on-surface-variant text-sm"
-                  >Amount to pay</span
-                >
+                <span class="text-on-surface-variant text-sm">Amount to pay</span>
                 <div class="text-right">
-                  <span class="font-headline text-3xl font-bold">$2,500</span>
-                  <span class="block text-sm text-on-surface-variant"
-                    >≈ 2,500 USDT</span
-                  >
+                  <span id="amountToPayText" class="font-headline text-3xl font-bold">$0</span>
+                  <span id="amountHint" class="block text-sm text-on-surface-variant">
+                    ≈ 0 USDT
+                  </span>
                 </div>
               </div>
-              <!-- wallet address + network -->
+
               <div class="mt-5 space-y-3">
                 <div class="flex justify-between items-center text-sm">
                   <span class="text-on-surface-variant">Network</span>
                   <span
                     class="font-medium bg-surface-container-high px-2 py-0.5 text-xs"
-                    >TRC20</span
                   >
+                    TRC20
+                  </span>
                 </div>
+
                 <div class="flex justify-between items-center text-sm">
                   <span class="text-on-surface-variant">Coin</span>
                   <span class="font-medium">USDT (TRC20)</span>
                 </div>
+
                 <div>
                   <div class="flex justify-between text-sm mb-1">
                     <span class="text-on-surface-variant">Wallet address</span>
-                    <span class="text-xs text-on-surface-variant"
-                      >TRC20 only</span
-                    >
+                    <span class="text-xs text-on-surface-variant">TRC20 only</span>
                   </div>
+
                   <div
-                    class="flex items-center justify-between border border-outline-variant/40 p-2 bg-surface-container-low"
+                    class="flex items-center justify-between border border-outline-variant/40 p-2 bg-surface-container-low gap-3"
                   >
                     <code
+                      id="walletAddressText"
                       class="text-xs truncate max-w-[180px] md:max-w-[240px]"
-                      >TX7x9qLmN8pQr2vW3yX4zB5c6dE7fG8hJ9kL</code
                     >
+                      TX7x9qLmN8pQr2vW3yX4zB5c6dE7fG8hJ9kL
+                    </code>
+
                     <button
+                      id="copyWalletBtn"
+                      type="button"
                       class="flex items-center gap-1 text-primary hover:bg-surface-container-high px-2 py-1 transition text-sm font-medium"
                     >
-                      <span class="material-symbols-outlined text-[18px]"
-                        >content_copy</span
-                      >
+                      <span class="material-symbols-outlined text-[18px]">content_copy</span>
                       Copy
                     </button>
                   </div>
                 </div>
+
                 <div
                   class="text-xs bg-error-container/20 text-on-error-container p-3 flex items-start gap-2"
                 >
-                  <span class="material-symbols-outlined text-[16px]"
-                    >warning</span
-                  >
-                  <span
-                    >Send only USDT on the TRC20 network to this address.</span
-                  >
+                  <span class="material-symbols-outlined text-[16px]">warning</span>
+                  <span>Send only USDT on the TRC20 network to this address.</span>
                 </div>
               </div>
-              <!-- countdown / reservation notice -->
+
               <div class="countdown-timer flex items-center gap-3 mt-5 text-sm">
                 <span class="material-symbols-outlined">timer</span>
                 <span class="font-medium">Wallet details valid for</span>
-                <span class="font-headline font-bold">30:00 min</span>
+                <span id="countdownText" class="font-headline font-bold">30:00 min</span>
               </div>
-              <!-- extra info row -->
+
               <div
                 class="grid grid-cols-2 gap-2 text-xs text-on-surface-variant mt-3"
               >
                 <span>Reference ID:</span>
-                <span class="font-mono">A3-9X7K-2410</span>
+                <span id="referenceId" class="font-mono">AUDI-PAY-0000</span>
               </div>
             </div>
 
-            <!-- PAYMENT INSTRUCTIONS CARD (elegant numbered) -->
             <div class="border border-outline-variant/20 p-6 bg-surface">
               <h3 class="font-headline text-lg font-bold mb-4">Instructions</h3>
               <div class="space-y-3">
                 <div class="flex items-center gap-3">
-                  <span
-                    class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold"
-                    >1</span
-                  >
+                  <span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold">1</span>
                   <span>Copy the wallet address</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <span
-                    class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold"
-                    >2</span
-                  >
+                  <span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold">2</span>
                   <span>Send the exact amount from your crypto wallet</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <span
-                    class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold"
-                    >3</span
-                  >
+                  <span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold">3</span>
                   <span>Take a screenshot of the completed transaction</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <span
-                    class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold"
-                    >4</span
-                  >
+                  <span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold">4</span>
                   <span>Upload the screenshot on this page</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <span
-                    class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold"
-                    >5</span
-                  >
+                  <span class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-xs font-bold">5</span>
                   <span>Submit for verification</span>
                 </div>
               </div>
             </div>
 
-            <!-- DISCLAIMER CARD (muted warning) -->
             <div
               class="bg-surface-container-low border border-outline-variant/20 p-5 text-sm space-y-1"
             >
               <p class="flex items-start gap-2">
                 <span
                   class="material-symbols-outlined text-[18px] text-on-surface-variant"
-                  >info</span
                 >
-                <span
-                  >Payments are manually verified. Use the correct network only.
-                  Underpayments may delay verification.</span
-                >
+                  info
+                </span>
+                <span>
+                  Payments are manually verified. Use the correct network only.
+                  Underpayments may delay verification.
+                </span>
               </p>
               <p class="flex items-start gap-2 pl-7">
                 <span>Do not refresh before uploading proof.</span>
@@ -416,145 +401,193 @@
             </div>
           </div>
 
-          <!-- RIGHT COLUMN: upload proof form + buyer details + submit -->
           <div class="space-y-6">
-            <!-- PROOF OF PAYMENT FORM CARD -->
-            <div class="border border-outline-variant/20 p-6 bg-surface">
-              <h3 class="font-headline text-lg font-bold mb-1">
-                Upload proof of payment
-              </h3>
-              <p class="text-sm text-on-surface-variant mb-4">
-                Drag & drop or browse your screenshot
-              </p>
-              <!-- DASHED UPLOAD ZONE -->
-              <div
-                class="upload-dashed bg-surface-container-low p-8 flex flex-col items-center justify-center text-center cursor-pointer transition"
-              >
-                <span
-                  class="material-symbols-outlined text-3xl text-on-surface-variant mb-2"
-                  >cloud_upload</span
+            <form id="paymentForm" class="space-y-6">
+              <div class="border border-outline-variant/20 p-6 bg-surface">
+                <h3 class="font-headline text-lg font-bold mb-1">
+                  Upload proof of payment
+                </h3>
+                <p class="text-sm text-on-surface-variant mb-4">
+                  Drag & drop or browse your screenshot
+                </p>
+
+                <label
+                  for="receiptInput"
+                  class="upload-dashed bg-surface-container-low p-8 flex flex-col items-center justify-center text-center cursor-pointer transition block"
                 >
-                <p class="text-sm font-medium">
-                  Drag and drop your payment screenshot here
-                </p>
-                <p class="text-xs text-on-surface-variant mt-1">
-                  or browse file
-                </p>
-                <p class="text-xs text-on-surface-variant mt-3">
-                  PNG, JPG, JPEG, PDF (max 10MB)
+                  <span
+                    class="material-symbols-outlined text-3xl text-on-surface-variant mb-2"
+                  >
+                    cloud_upload
+                  </span>
+                  <p class="text-sm font-medium">
+                    Drag and drop your payment screenshot here
+                  </p>
+                  <p class="text-xs text-on-surface-variant mt-1">
+                    or browse file
+                  </p>
+                  <p class="text-xs text-on-surface-variant mt-3">
+                    PNG, JPG, JPEG, WEBP
+                  </p>
+
+                  <input
+                    id="receiptInput"
+                    name="receipt"
+                    type="file"
+                    accept=".png,.jpg,.jpeg,.webp"
+                    class="hidden"
+                    required
+                  />
+                </label>
+
+                <p id="selectedFileName" class="text-sm text-on-surface-variant mt-3">
+                  No file selected
                 </p>
               </div>
-            </div>
 
-            <!-- BUYER DETAILS FIELDS -->
-            <div class="border border-outline-variant/20 p-6 bg-surface">
-              <h4 class="font-headline font-bold mb-4">Buyer details</h4>
-              <div class="space-y-4">
-                <input
-                  type="text"
-                  placeholder="Full name"
-                  class="input-premium w-full px-4 py-3 text-sm"
-                />
-                <input
-                  type="email"
-                  placeholder="Email address"
-                  class="input-premium w-full px-4 py-3 text-sm"
-                />
-                <input
-                  type="tel"
-                  placeholder="Phone number"
-                  class="input-premium w-full px-4 py-3 text-sm"
-                />
-                <input
-                  type="text"
-                  placeholder="WhatsApp number (with country code)"
-                  class="input-premium w-full px-4 py-3 text-sm"
-                />
-                <input
-                  type="text"
-                  placeholder="Transaction ID / Hash"
-                  class="input-premium w-full px-4 py-3 text-sm"
-                />
-                <textarea
-                  placeholder="Optional note to sales team"
-                  rows="2"
-                  class="input-premium w-full px-4 py-3 text-sm resize-none"
-                ></textarea>
+              <div class="border border-outline-variant/20 p-6 bg-surface">
+                <h4 class="font-headline font-bold mb-4">Buyer details</h4>
+
+                <div class="space-y-4">
+                  <input
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    placeholder="Full name"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Email address"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+
+                  <input
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="tel"
+                    placeholder="Phone number"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+
+                  <input
+                    id="whatsappNumber"
+                    name="whatsappNumber"
+                    type="text"
+                    placeholder="WhatsApp number (with country code)"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+
+                  <input
+                    id="transactionId"
+                    name="transactionId"
+                    type="text"
+                    placeholder="Transaction ID / Hash"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                    required
+                  />
+
+                  <input
+                    id="amountPaid"
+                    name="amountPaid"
+                    type="number"
+                    step="0.01"
+                    placeholder="Amount paid"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+
+                  <input
+                    id="currency"
+                    name="currency"
+                    type="text"
+                    placeholder="Currency e.g. USD or USDT"
+                    value="USD"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+
+                  <input
+                    id="walletAddress"
+                    name="walletAddress"
+                    type="text"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                    readonly
+                  />
+
+                  <textarea
+                    id="optionalNote"
+                    placeholder="Optional note to sales team"
+                    rows="2"
+                    class="input-premium w-full px-4 py-3 text-sm resize-none"
+                  ></textarea>
+                </div>
               </div>
-            </div>
 
-            <!-- CHECKBOX CONFIRMATION + SUBMIT BUTTON -->
-            <div class="border border-outline-variant/20 p-6 bg-surface">
-              <label class="flex items-start gap-3 text-sm">
-                <input
-                  type="checkbox"
-                  class="mt-0.5 rounded-none border-outline-variant"
-                />
-                <span
-                  >I confirm that I sent the payment to the correct wallet
-                  address and uploaded a valid proof of payment.</span
+              <div class="border border-outline-variant/20 p-6 bg-surface">
+                <label class="flex items-start gap-3 text-sm">
+                  <input
+                    id="confirmCheckbox"
+                    type="checkbox"
+                    class="mt-0.5 rounded-none border-outline-variant"
+                    required
+                  />
+                  <span>
+                    I confirm that I sent the payment to the correct wallet
+                    address and uploaded a valid proof of payment.
+                  </span>
+                </label>
+
+                <button
+                  id="submitBtn"
+                  type="submit"
+                  class="w-full bg-primary text-on-primary py-5 font-semibold text-sm tracking-widest hover:bg-primary-container transition flex items-center justify-center gap-3 mt-6"
                 >
-              </label>
+                  SUBMIT PAYMENT PROOF
+                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </button>
 
-              <button
-                class="w-full bg-primary text-on-primary py-5 font-semibold text-sm tracking-widest hover:bg-primary-container transition flex items-center justify-center gap-3 mt-6"
-              >
-                SUBMIT PAYMENT PROOF
-                <span class="material-symbols-outlined text-[18px]"
-                  >arrow_forward</span
+                <a
+                  id="agentBtn"
+                  href="https://wa.me/2348123456789?text=Payment%20help"
+                  target="_blank"
+                  class="w-full border border-outline-variant hover:border-primary text-on-surface py-4 font-semibold text-sm tracking-widest transition flex items-center justify-center gap-3 mt-4 bg-surface/50"
                 >
-              </button>
+                  <span class="material-symbols-outlined text-[18px]">chat</span>
+                  CHAT WITH AN AGENT
+                </a>
 
-              <a
-                href="https://wa.me/2348123456789?text=Payment%20help%20Audi%20A3"
-                target="_blank"
-                class="w-full border border-outline-variant hover:border-primary text-on-surface py-4 font-semibold text-sm tracking-widest transition flex items-center justify-center gap-3 mt-4 bg-surface/50"
-              >
-                <span class="material-symbols-outlined text-[18px]">chat</span>
-                CHAT WITH AN AGENT
-              </a>
-            </div>
+                <div id="formMessage" class="mt-4 text-sm hidden"></div>
+              </div>
+            </form>
           </div>
         </div>
       </section>
 
-      <!-- VERIFICATION TIMELINE SECTION -->
       <section class="container mx-auto px-6 mt-16">
         <div
           class="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-outline-variant/20 pt-10"
         >
           <div class="text-center">
-            <span
-              class="material-symbols-outlined text-2xl text-on-surface-variant"
-              >payments</span
-            >
+            <span class="material-symbols-outlined text-2xl text-on-surface-variant">payments</span>
             <p class="text-sm font-medium mt-2">1. Payment sent</p>
           </div>
           <div class="text-center">
-            <span
-              class="material-symbols-outlined text-2xl text-on-surface-variant"
-              >file_upload</span
-            >
+            <span class="material-symbols-outlined text-2xl text-on-surface-variant">file_upload</span>
             <p class="text-sm font-medium mt-2">2. Proof uploaded</p>
           </div>
           <div class="text-center">
-            <span
-              class="material-symbols-outlined text-2xl text-on-surface-variant"
-              >hourglass</span
-            >
+            <span class="material-symbols-outlined text-2xl text-on-surface-variant">hourglass</span>
             <p class="text-sm font-medium mt-2">3. Verification in progress</p>
           </div>
           <div class="text-center">
-            <span
-              class="material-symbols-outlined text-2xl text-on-surface-variant"
-              >check_circle</span
-            >
+            <span class="material-symbols-outlined text-2xl text-on-surface-variant">check_circle</span>
             <p class="text-sm font-medium mt-2">4. Confirmed by sales team</p>
           </div>
         </div>
       </section>
 
-      <!-- TRUST / SUPPORT SECTION -->
       <section
         class="bg-surface-container-low py-12 mt-12 border-y border-outline-variant/20"
       >
@@ -562,45 +595,29 @@
           class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-6 text-center"
         >
           <div>
-            <span class="material-symbols-outlined text-on-surface-variant mb-2"
-              >verified</span
-            >
-            <h5 class="font-headline font-bold text-sm">
-              Secure transaction review
-            </h5>
+            <span class="material-symbols-outlined text-on-surface-variant mb-2">verified</span>
+            <h5 class="font-headline font-bold text-sm">Secure transaction review</h5>
           </div>
           <div>
-            <span class="material-symbols-outlined text-on-surface-variant mb-2"
-              >support_agent</span
-            >
-            <h5 class="font-headline font-bold text-sm">
-              Dedicated Audi sales support
-            </h5>
+            <span class="material-symbols-outlined text-on-surface-variant mb-2">support_agent</span>
+            <h5 class="font-headline font-bold text-sm">Dedicated Audi sales support</h5>
           </div>
           <div>
-            <span class="material-symbols-outlined text-on-surface-variant mb-2"
-              >reserve</span
-            >
-            <h5 class="font-headline font-bold text-sm">
-              Reservation assistance
-            </h5>
+            <span class="material-symbols-outlined text-on-surface-variant mb-2">reserve</span>
+            <h5 class="font-headline font-bold text-sm">Reservation assistance</h5>
           </div>
           <div>
-            <span class="material-symbols-outlined text-on-surface-variant mb-2"
-              >schedule</span
-            >
-            <h5 class="font-headline font-bold text-sm">
-              Fast verification response
-            </h5>
+            <span class="material-symbols-outlined text-on-surface-variant mb-2">schedule</span>
+            <h5 class="font-headline font-bold text-sm">Fast verification response</h5>
           </div>
         </div>
       </section>
 
-      <!-- FAQ MINI SECTION (accordion-style) -->
       <section class="container mx-auto px-6 py-16">
         <h2 class="font-headline text-2xl font-bold tracking-tight mb-8">
           Frequently asked questions
         </h2>
+
         <div class="grid md:grid-cols-2 gap-x-12 gap-y-6">
           <div class="border-b border-outline-variant/20 pb-4">
             <p class="font-headline font-semibold mb-1">
@@ -610,6 +627,7 @@
               USDT (TRC20), BTC, and ETH. Default is USDT on TRC20 network.
             </p>
           </div>
+
           <div class="border-b border-outline-variant/20 pb-4">
             <p class="font-headline font-semibold mb-1">
               How long does verification take?
@@ -619,6 +637,7 @@
               an email confirmation.
             </p>
           </div>
+
           <div class="border-b border-outline-variant/20 pb-4">
             <p class="font-headline font-semibold mb-1">
               What happens after I upload proof?
@@ -628,6 +647,7 @@
               status. We may contact you if details are unclear.
             </p>
           </div>
+
           <div class="border-b border-outline-variant/20 pb-4">
             <p class="font-headline font-semibold mb-1">
               What if I sent on the wrong network?
@@ -638,6 +658,7 @@
             </p>
           </div>
         </div>
+
         <p class="text-xs text-on-surface-variant mt-8 text-center">
           Exchange rates may vary depending on the selected coin.
         </p>
@@ -651,5 +672,346 @@
         © 2000 Audi. All rights reserved.
       </div>
     </footer>
+
+    <script>
+      const BASE_URL = "http://localhost:8000";
+      const DEFAULT_WALLET_ADDRESS = "TX7x9qLmN8pQr2vW3yX4zB5c6dE7fG8hJ9kL";
+      const DEPOSIT_PERCENTAGE = 0.1;
+
+      const params = new URLSearchParams(window.location.search);
+      const carId = params.get("id");
+
+      let currentCar = null;
+      let userInfo = null;
+
+      function getUserInfo() {
+        try {
+          const storedUser = localStorage.getItem("userInfo");
+          if (!storedUser) return null;
+          return JSON.parse(storedUser);
+        } catch (error) {
+          return null;
+        }
+      }
+
+      function getToken() {
+        const info = getUserInfo();
+        return info?.token || null;
+      }
+
+      function formatPrice(price, currency = "USD") {
+        if (price === undefined || price === null || price === "" || Number.isNaN(Number(price))) {
+          return "Price on request";
+        }
+
+        try {
+          return new Intl.NumberFormat("en-US", {
+            style: "currency",
+            currency: currency || "USD",
+            maximumFractionDigits: 0,
+          }).format(Number(price));
+        } catch (error) {
+          return `$${Number(price).toLocaleString()}`;
+        }
+      }
+
+      function resolveImageUrl(path) {
+        if (!path) return "https://via.placeholder.com/600x400?text=No+Image";
+
+        const cleanPath = String(path).replace(/\\/g, "/");
+
+        if (cleanPath.startsWith("http://") || cleanPath.startsWith("https://")) {
+          return cleanPath;
+        }
+
+        if (cleanPath.startsWith("/")) {
+          return `${BASE_URL}${cleanPath}`;
+        }
+
+        return `${BASE_URL}/${cleanPath}`;
+      }
+
+      function getImages(car) {
+        if (Array.isArray(car?.pictures) && car.pictures.length > 0) {
+          return car.pictures.map(resolveImageUrl);
+        }
+        return ["https://via.placeholder.com/600x400?text=No+Image"];
+      }
+
+      function createReference(prefix = "AUDI") {
+        return `${prefix}-${Date.now().toString().slice(-6)}`;
+      }
+
+      function showMessage(message, type = "info") {
+        const formMessage = document.getElementById("formMessage");
+        formMessage.classList.remove("hidden", "text-red-600", "text-green-600", "text-on-surface");
+        formMessage.textContent = message;
+
+        if (type === "error") {
+          formMessage.classList.add("text-red-600");
+        } else if (type === "success") {
+          formMessage.classList.add("text-green-600");
+        } else {
+          formMessage.classList.add("text-on-surface");
+        }
+      }
+
+      function setLoading(isLoading) {
+        const submitBtn = document.getElementById("submitBtn");
+        if (!submitBtn) return;
+
+        submitBtn.disabled = isLoading;
+
+        if (isLoading) {
+          submitBtn.innerHTML = `
+            SUBMITTING...
+            <span class="material-symbols-outlined text-[18px]">progress_activity</span>
+          `;
+        } else {
+          submitBtn.innerHTML = `
+            SUBMIT PAYMENT PROOF
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          `;
+        }
+      }
+
+      function prefillUserDetails() {
+        userInfo = getUserInfo();
+
+        document.getElementById("walletAddress").value = DEFAULT_WALLET_ADDRESS;
+        document.getElementById("walletAddressText").textContent = DEFAULT_WALLET_ADDRESS;
+
+        if (!userInfo) return;
+
+        document.getElementById("fullName").value =
+          userInfo.name || userInfo.fullName || "";
+
+        document.getElementById("email").value =
+          userInfo.email || "";
+
+        document.getElementById("phoneNumber").value =
+          userInfo.phoneNumber || userInfo.phone || "";
+
+        document.getElementById("whatsappNumber").value =
+          userInfo.whatsappNumber || userInfo.phoneNumber || userInfo.phone || "";
+      }
+
+      function populateCar(car) {
+        currentCar = car;
+
+        const images = getImages(car);
+        const price = Number(car.price || 0);
+        const deposit = price > 0 ? Math.round(price * DEPOSIT_PERCENTAGE) : 0;
+        const currency = car.currency || "USD";
+        const ref = createReference("AUDI-PAY");
+        const reservationCode = createReference("R-AUDI");
+
+        document.title = `Audi | Payment - ${car.name || "Car"}`;
+
+        document.getElementById("heroCarName").textContent = car.name || "car";
+        document.getElementById("carName").textContent = car.name || "Audi Car";
+        document.getElementById("carBadge").textContent = `${car.year || ""} ${car.category || ""}`.trim() || "Model";
+        document.getElementById("carPrice").textContent = formatPrice(price, currency);
+        document.getElementById("depositAmount").textContent = deposit
+          ? formatPrice(deposit, currency)
+          : "Deposit on request";
+        document.getElementById("amountToPayText").textContent = deposit
+          ? formatPrice(deposit, currency)
+          : formatPrice(price, currency);
+        document.getElementById("amountHint").textContent = deposit
+          ? `≈ ${deposit.toLocaleString()} USDT`
+          : `≈ ${price.toLocaleString()} USDT`;
+
+        document.getElementById("carImage").src = images[0];
+        document.getElementById("carImage").onerror = function () {
+          this.src = "https://via.placeholder.com/600x400?text=No+Image";
+        };
+
+        document.getElementById("referenceId").textContent = ref;
+        document.getElementById("reservationCode").textContent = reservationCode;
+
+        const breadcrumbCarLink = document.getElementById("breadcrumbCarLink");
+        breadcrumbCarLink.href = `car-details.html?id=${car._id}`;
+        breadcrumbCarLink.textContent = car.name || "Car";
+
+        const agentMessage = `Hello, I need help with payment for ${car.name || "this car"}`;
+        document.getElementById("agentBtn").href =
+          `https://wa.me/2348123456789?text=${encodeURIComponent(agentMessage)}`;
+
+        document.getElementById("amountPaid").value = deposit || price || "";
+        document.getElementById("currency").value = currency || "USD";
+      }
+
+      async function fetchCar() {
+        if (!carId) {
+          showMessage("No car id found in the URL.", "error");
+          return;
+        }
+
+        try {
+          const response = await fetch(`${BASE_URL}/api/cars/${carId}`);
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Failed to fetch car details");
+          }
+
+          populateCar(data);
+        } catch (error) {
+          showMessage(error.message || "Unable to load car details", "error");
+        }
+      }
+
+      async function copyWalletAddress() {
+        const walletAddress = document.getElementById("walletAddress").value;
+
+        try {
+          await navigator.clipboard.writeText(walletAddress);
+          showMessage("Wallet address copied successfully.", "success");
+        } catch (error) {
+          showMessage("Unable to copy wallet address.", "error");
+        }
+      }
+
+      function validateForm() {
+        const receipt = document.getElementById("receiptInput").files[0];
+        const transactionId = document.getElementById("transactionId").value.trim();
+        const walletAddress = document.getElementById("walletAddress").value.trim();
+        const confirmCheckbox = document.getElementById("confirmCheckbox").checked;
+
+        if (!carId) {
+          showMessage("Car id is missing.", "error");
+          return false;
+        }
+
+        if (!getToken()) {
+          showMessage("Please login first before submitting payment.", "error");
+          return false;
+        }
+
+        if (!receipt) {
+          showMessage("Please upload your payment receipt.", "error");
+          return false;
+        }
+
+        if (!transactionId) {
+          showMessage("Transaction ID is required.", "error");
+          return false;
+        }
+
+        if (!walletAddress) {
+          showMessage("Wallet address is required.", "error");
+          return false;
+        }
+
+        if (!confirmCheckbox) {
+          showMessage("Please confirm the payment declaration.", "error");
+          return false;
+        }
+
+        return true;
+      }
+
+      async function submitPayment(event) {
+        event.preventDefault();
+
+        if (!validateForm()) return;
+
+        const receipt = document.getElementById("receiptInput").files[0];
+        const fullName = document.getElementById("fullName").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phoneNumber = document.getElementById("phoneNumber").value.trim();
+        const whatsappNumber = document.getElementById("whatsappNumber").value.trim();
+        const transactionId = document.getElementById("transactionId").value.trim();
+        const walletAddress = document.getElementById("walletAddress").value.trim();
+        const amountPaid = document.getElementById("amountPaid").value.trim();
+        const currency = document.getElementById("currency").value.trim();
+
+        const formData = new FormData();
+        formData.append("carId", carId);
+        formData.append("fullName", fullName);
+        formData.append("email", email);
+        formData.append("phoneNumber", phoneNumber);
+        formData.append("whatsappNumber", whatsappNumber);
+        formData.append("transactionId", transactionId);
+        formData.append("walletAddress", walletAddress);
+        formData.append("amountPaid", amountPaid);
+        formData.append("currency", currency);
+        formData.append("receipt", receipt);
+
+        try {
+          setLoading(true);
+          showMessage("Submitting payment proof...", "info");
+
+          const response = await fetch(`${BASE_URL}/api/payments`, {
+            method: "POST",
+            headers: {
+              Authorization: `Bearer ${getToken()}`
+            },
+            credentials: "include",
+            body: formData,
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Payment submission failed");
+          }
+
+          showMessage("Payment proof submitted successfully. Awaiting admin verification.", "success");
+          document.getElementById("paymentForm").reset();
+          document.getElementById("selectedFileName").textContent = "No file selected";
+
+          prefillUserDetails();
+
+          if (currentCar) {
+            const price = Number(currentCar.price || 0);
+            const deposit = price > 0 ? Math.round(price * DEPOSIT_PERCENTAGE) : 0;
+            document.getElementById("amountPaid").value = deposit || price || "";
+            document.getElementById("currency").value = currentCar.currency || "USD";
+          }
+        } catch (error) {
+          showMessage(error.message || "Something went wrong while submitting payment.", "error");
+        } finally {
+          setLoading(false);
+        }
+      }
+
+      function startCountdown(minutes = 30) {
+        const countdownText = document.getElementById("countdownText");
+        let totalSeconds = minutes * 60;
+
+        function updateCountdown() {
+          const mins = Math.floor(totalSeconds / 60);
+          const secs = totalSeconds % 60;
+          countdownText.textContent = `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")} min`;
+
+          if (totalSeconds > 0) {
+            totalSeconds--;
+          }
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
+
+      function setupFileInput() {
+        const receiptInput = document.getElementById("receiptInput");
+        const selectedFileName = document.getElementById("selectedFileName");
+
+        receiptInput.addEventListener("change", () => {
+          const file = receiptInput.files[0];
+          selectedFileName.textContent = file ? file.name : "No file selected";
+        });
+      }
+
+      document.getElementById("copyWalletBtn").addEventListener("click", copyWalletAddress);
+      document.getElementById("paymentForm").addEventListener("submit", submitPayment);
+
+      prefillUserDetails();
+      fetchCar();
+      setupFileInput();
+      startCountdown(30);
+    </script>
   </body>
 </html>

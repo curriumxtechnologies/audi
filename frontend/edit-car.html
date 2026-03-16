@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Audi | Admin - Upload Car</title>
+    <title>Audi | Admin - Edit Car</title>
 
     <script>
       let adminInfo = null;
@@ -90,22 +90,14 @@
         border-color: #000000;
         background: #f1f1f1;
       }
-
-      .preview-card img {
-        display: block;
-      }
     </style>
   </head>
 
   <body class="bg-background text-text-main">
     <div class="flex h-screen overflow-hidden">
-      <aside
-        class="admin-sidebar w-64 flex-shrink-0 hidden md:block overflow-y-auto relative"
-      >
+      <aside class="admin-sidebar w-64 flex-shrink-0 hidden md:block overflow-y-auto relative">
         <div class="p-6 pb-28">
-          <span
-            class="font-headline text-2xl font-extrabold tracking-tighter block mb-8"
-          >
+          <span class="font-headline text-2xl font-extrabold tracking-tighter block mb-8">
             Audi Admin
           </span>
 
@@ -128,7 +120,7 @@
 
             <a
               href="admin-cars.html"
-              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+              class="admin-nav-item active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
             >
               <span class="material-symbols-outlined">directions_car</span>
               All Cars
@@ -138,7 +130,7 @@
 
             <a
               href="admin-upload.html"
-              class="admin-nav-item active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
             >
               <span class="material-symbols-outlined">upload</span>
               Upload Car
@@ -154,25 +146,15 @@
           </nav>
         </div>
 
-        <div
-          class="absolute bottom-0 left-0 w-full p-6 border-t border-outline-soft bg-white"
-        >
+        <div class="absolute bottom-0 left-0 w-full p-6 border-t border-outline-soft bg-white">
           <div class="flex items-center gap-3">
-            <div
-              class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
-            >
-              <span class="material-symbols-outlined">
-                admin_panel_settings
-              </span>
+            <div class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center">
+              <span class="material-symbols-outlined">admin_panel_settings</span>
             </div>
 
             <div class="min-w-0">
-              <p id="sidebarAdminName" class="text-sm font-medium truncate">
-                Admin
-              </p>
-              <p id="sidebarAdminEmail" class="text-xs text-text-muted truncate">
-                admin@email.com
-              </p>
+              <p id="sidebarAdminName" class="text-sm font-medium truncate">Admin</p>
+              <p id="sidebarAdminEmail" class="text-xs text-text-muted truncate">admin@email.com</p>
             </div>
 
             <button
@@ -190,96 +172,78 @@
         <header class="bg-white border-b border-outline-soft sticky top-0 z-10">
           <div class="flex items-center justify-between px-6 py-4">
             <div>
-              <h1 class="font-headline text-2xl font-bold">Upload New Car</h1>
-              <p id="topWelcomeText" class="text-sm text-text-muted mt-1">
-                Welcome back
-              </p>
+              <h1 class="font-headline text-2xl font-bold">Edit Car</h1>
+              <p id="topWelcomeText" class="text-sm text-text-muted mt-1">Welcome back</p>
             </div>
 
             <button
-              form="carUploadForm"
+              form="carEditForm"
               type="submit"
               id="topSaveBtn"
               class="bg-primary text-white px-5 py-2 text-sm font-semibold hover:bg-neutral-800 transition-colors"
             >
-              SAVE CAR
+              UPDATE CAR
             </button>
           </div>
         </header>
 
         <div class="p-6">
           <p id="statusMessage" class="text-sm text-text-muted mb-6">
-            Fill the form and upload up to 5 car images.
+            Loading car details...
           </p>
 
-          <form id="carUploadForm" class="space-y-8">
+          <form id="carEditForm" class="space-y-8">
             <div class="bg-white p-6 border border-outline-soft">
-              <h3 class="font-headline font-bold text-lg mb-4">
-                Basic Information
-              </h3>
+              <h3 class="font-headline font-bold text-lg mb-4">Basic Information</h3>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Car Name
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Car Name</label>
                   <input
                     id="name"
                     type="text"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                    placeholder="e.g., Audi Q5 2025"
                     required
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Slug
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Slug</label>
                   <input
                     id="slug"
                     type="text"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                    placeholder="e.g., audi-q5-2025"
                     required
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Year
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Year</label>
                   <input
                     id="year"
                     type="number"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                    placeholder="2025"
                     required
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Price
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Price</label>
                   <input
                     id="price"
                     type="number"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                    placeholder="45000"
                     required
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Currency
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Currency</label>
                   <select
                     id="currency"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                   >
-                    <option value="USD" selected>USD</option>
+                    <option value="USD">USD</option>
                     <option value="EUR">EUR</option>
                     <option value="GBP">GBP</option>
                     <option value="NGN">NGN</option>
@@ -287,9 +251,7 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Category
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Category</label>
                   <select
                     id="category"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
@@ -306,9 +268,7 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Condition
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Condition</label>
                   <select
                     id="condition"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
@@ -320,9 +280,7 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Availability
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Availability</label>
                   <select
                     id="availability"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
@@ -335,113 +293,89 @@
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Stock
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Stock</label>
                   <input
                     id="stock"
                     type="number"
                     min="0"
-                    value="1"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Featured
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Featured</label>
                   <select
                     id="featured"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                   >
-                    <option value="false" selected>No</option>
+                    <option value="false">No</option>
                     <option value="true">Yes</option>
                   </select>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Published
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Published</label>
                   <select
                     id="isPublished"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                   >
-                    <option value="true" selected>Published</option>
+                    <option value="true">Published</option>
                     <option value="false">Draft</option>
                   </select>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Rating
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Rating</label>
                   <input
                     id="rating"
                     type="number"
                     step="0.1"
                     min="0"
                     max="5"
-                    value="0"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                   />
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Review Count
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Review Count</label>
                   <input
                     id="reviewCount"
                     type="number"
                     min="0"
-                    value="0"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
                   />
                 </div>
 
                 <div class="md:col-span-2">
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Warranty
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Warranty</label>
                   <input
                     id="warranty"
                     type="text"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                    placeholder="e.g., 4 years / 50,000 miles"
                   />
                 </div>
               </div>
             </div>
 
             <div class="bg-white p-6 border border-outline-soft">
-              <h3 class="font-headline font-bold text-lg mb-4">
-                Description
-              </h3>
+              <h3 class="font-headline font-bold text-lg mb-4">Description</h3>
 
               <div class="space-y-6">
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Short Description
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Short Description</label>
                   <textarea
                     id="shortDescription"
                     rows="2"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                    placeholder="Short summary of the car"
                   ></textarea>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Full Description
-                  </label>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Full Description</label>
                   <textarea
                     id="description"
                     rows="5"
                     class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"
-                    placeholder="Write full car description..."
                     required
                   ></textarea>
                 </div>
@@ -449,36 +383,14 @@
             </div>
 
             <div class="bg-white p-6 border border-outline-soft">
-              <h3 class="font-headline font-bold text-lg mb-4">
-                Specifications
-              </h3>
+              <h3 class="font-headline font-bold text-lg mb-4">Specifications</h3>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">Engine</label>
-                  <input id="engine" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">Horsepower</label>
-                  <input id="horsepower" type="number" min="0" class="w-full px-4 py-3 border border-outline-soft bg-white" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">Torque</label>
-                  <input id="torque" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">Transmission</label>
-                  <input id="transmission" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">Drivetrain</label>
-                  <input id="drivetrain" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" />
-                </div>
-
+                <div><label class="block text-sm font-medium text-text-muted mb-2">Engine</label><input id="engine" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
+                <div><label class="block text-sm font-medium text-text-muted mb-2">Horsepower</label><input id="horsepower" type="number" min="0" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
+                <div><label class="block text-sm font-medium text-text-muted mb-2">Torque</label><input id="torque" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
+                <div><label class="block text-sm font-medium text-text-muted mb-2">Transmission</label><input id="transmission" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
+                <div><label class="block text-sm font-medium text-text-muted mb-2">Drivetrain</label><input id="drivetrain" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
                 <div>
                   <label class="block text-sm font-medium text-text-muted mb-2">Fuel Type</label>
                   <select id="fuelType" class="w-full px-4 py-3 border border-outline-soft bg-white">
@@ -489,43 +401,17 @@
                     <option value="electric">Electric</option>
                   </select>
                 </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">Battery Range</label>
-                  <input id="batteryRange" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">Top Speed</label>
-                  <input id="topSpeed" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">Acceleration</label>
-                  <input id="acceleration" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">MPG</label>
-                  <input id="mpg" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">Seating Capacity</label>
-                  <input id="seatingCapacity" type="number" min="1" class="w-full px-4 py-3 border border-outline-soft bg-white" />
-                </div>
-
-                <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">Doors</label>
-                  <input id="doors" type="number" min="2" class="w-full px-4 py-3 border border-outline-soft bg-white" />
-                </div>
+                <div><label class="block text-sm font-medium text-text-muted mb-2">Battery Range</label><input id="batteryRange" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
+                <div><label class="block text-sm font-medium text-text-muted mb-2">Top Speed</label><input id="topSpeed" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
+                <div><label class="block text-sm font-medium text-text-muted mb-2">Acceleration</label><input id="acceleration" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
+                <div><label class="block text-sm font-medium text-text-muted mb-2">MPG</label><input id="mpg" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
+                <div><label class="block text-sm font-medium text-text-muted mb-2">Seating Capacity</label><input id="seatingCapacity" type="number" min="1" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
+                <div><label class="block text-sm font-medium text-text-muted mb-2">Doors</label><input id="doors" type="number" min="2" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
               </div>
             </div>
 
             <div class="bg-white p-6 border border-outline-soft">
-              <h3 class="font-headline font-bold text-lg mb-4">
-                Dimensions
-              </h3>
+              <h3 class="font-headline font-bold text-lg mb-4">Dimensions</h3>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div><label class="block text-sm font-medium text-text-muted mb-2">Length</label><input id="length" type="text" class="w-full px-4 py-3 border border-outline-soft bg-white" /></div>
@@ -538,70 +424,54 @@
             </div>
 
             <div class="bg-white p-6 border border-outline-soft">
-              <h3 class="font-headline font-bold text-lg mb-4">
-                Colors & Features
-              </h3>
+              <h3 class="font-headline font-bold text-lg mb-4">Colors & Features</h3>
 
               <div class="space-y-6">
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Exterior Colors (comma separated)
-                  </label>
-                  <textarea id="exteriorColors" rows="2" class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Black, White, Red"></textarea>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Exterior Colors (comma separated)</label>
+                  <textarea id="exteriorColors" rows="2" class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"></textarea>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Interior Colors (comma separated)
-                  </label>
-                  <textarea id="interiorColors" rows="2" class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Black, Brown, Cream"></textarea>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Interior Colors (comma separated)</label>
+                  <textarea id="interiorColors" rows="2" class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"></textarea>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Features (comma separated)
-                  </label>
-                  <textarea id="features" rows="3" class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="LED Matrix headlights, Panoramic sunroof"></textarea>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Features (comma separated)</label>
+                  <textarea id="features" rows="3" class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"></textarea>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Safety Features (comma separated)
-                  </label>
-                  <textarea id="safetyFeatures" rows="3" class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Airbags, Lane Assist, Parking Sensors"></textarea>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Safety Features (comma separated)</label>
+                  <textarea id="safetyFeatures" rows="3" class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"></textarea>
                 </div>
 
                 <div>
-                  <label class="block text-sm font-medium text-text-muted mb-2">
-                    Technology Features (comma separated)
-                  </label>
-                  <textarea id="technologyFeatures" rows="3" class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Virtual Cockpit, Apple CarPlay"></textarea>
+                  <label class="block text-sm font-medium text-text-muted mb-2">Technology Features (comma separated)</label>
+                  <textarea id="technologyFeatures" rows="3" class="w-full px-4 py-3 border border-outline-soft bg-white focus:border-primary focus:ring-1 focus:ring-primary outline-none"></textarea>
                 </div>
               </div>
             </div>
 
             <div class="bg-white p-6 border border-outline-soft">
+              <h3 class="font-headline font-bold text-lg mb-4">Current Images</h3>
+              <div id="existingImagesGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"></div>
+            </div>
+
+            <div class="bg-white p-6 border border-outline-soft">
               <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-4">
-                <h3 class="font-headline font-bold text-lg">
-                  Images
-                </h3>
-                <p class="text-sm text-text-muted">You can add up to 5 images total</p>
+                <h3 class="font-headline font-bold text-lg">Add New Images</h3>
+                <p class="text-sm text-text-muted">You can add up to 5 new images total</p>
               </div>
 
               <div class="space-y-4">
-                <label
-                  for="cars"
-                  class="upload-area p-8 text-center cursor-pointer block"
-                >
+                <label for="cars" class="upload-area p-8 text-center cursor-pointer block">
                   <span class="material-symbols-outlined text-4xl text-text-muted mb-2 block">
                     cloud_upload
                   </span>
-                  <p class="text-sm font-medium">
-                    Click to add car images
-                  </p>
-                  <p class="text-xs text-text-muted mt-1">
-                    Keep adding until it reaches 5
-                  </p>
+                  <p class="text-sm font-medium">Click to add car images</p>
+                  <p class="text-xs text-text-muted mt-1">You can keep adding until it reaches 5</p>
                 </label>
 
                 <input
@@ -615,10 +485,7 @@
 
                 <div id="fileList" class="text-sm text-text-muted"></div>
 
-                <div
-                  id="imagePreviewGrid"
-                  class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"
-                ></div>
+                <div id="imagePreviewGrid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4"></div>
               </div>
             </div>
 
@@ -637,7 +504,7 @@
                 class="px-6 py-3 bg-primary text-white hover:bg-neutral-800 text-sm font-semibold flex items-center gap-2"
               >
                 <span class="material-symbols-outlined text-[18px]">save</span>
-                <span id="submitBtnText">SAVE CAR</span>
+                <span id="submitBtnText">UPDATE CAR</span>
               </button>
             </div>
           </form>
@@ -648,6 +515,7 @@
     <script>
       const BACKEND_URL = "http://localhost:8000";
       const MAX_FILES = 5;
+      const carId = new URLSearchParams(window.location.search).get("id");
 
       const sidebarAdminName = document.getElementById("sidebarAdminName");
       const sidebarAdminEmail = document.getElementById("sidebarAdminEmail");
@@ -659,10 +527,11 @@
       const carsInput = document.getElementById("cars");
       const fileList = document.getElementById("fileList");
       const imagePreviewGrid = document.getElementById("imagePreviewGrid");
+      const existingImagesGrid = document.getElementById("existingImagesGrid");
       const submitBtn = document.getElementById("submitBtn");
       const topSaveBtn = document.getElementById("topSaveBtn");
       const submitBtnText = document.getElementById("submitBtnText");
-      const carUploadForm = document.getElementById("carUploadForm");
+      const carEditForm = document.getElementById("carEditForm");
       const previewBtn = document.getElementById("previewBtn");
 
       let selectedFiles = [];
@@ -691,13 +560,13 @@
         if (isLoading) {
           submitBtn.classList.add("opacity-70", "cursor-not-allowed");
           topSaveBtn.classList.add("opacity-70", "cursor-not-allowed");
-          submitBtnText.textContent = "SAVING...";
-          topSaveBtn.textContent = "SAVING...";
+          submitBtnText.textContent = "UPDATING...";
+          topSaveBtn.textContent = "UPDATING...";
         } else {
           submitBtn.classList.remove("opacity-70", "cursor-not-allowed");
           topSaveBtn.classList.remove("opacity-70", "cursor-not-allowed");
-          submitBtnText.textContent = "SAVE CAR";
-          topSaveBtn.textContent = "SAVE CAR";
+          submitBtnText.textContent = "UPDATE CAR";
+          topSaveBtn.textContent = "UPDATE CAR";
         }
       }
 
@@ -715,6 +584,17 @@
           .split(",")
           .map((item) => item.trim())
           .filter(Boolean);
+      }
+
+      function resolveImageUrl(path) {
+        if (!path) return "https://via.placeholder.com/400x300?text=No+Image";
+        if (String(path).startsWith("http://") || String(path).startsWith("https://")) {
+          return path;
+        }
+        if (String(path).startsWith("/")) {
+          return `${BACKEND_URL}${path}`;
+        }
+        return `${BACKEND_URL}/${path}`;
       }
 
       async function logoutAdmin() {
@@ -741,7 +621,7 @@
 
       function renderSelectedFilesText() {
         if (!selectedFiles.length) {
-          fileList.textContent = "No files selected.";
+          fileList.textContent = "No new files selected.";
           return;
         }
 
@@ -796,9 +676,9 @@
             renderSelectedPreviews();
 
             if (!selectedFiles.length) {
-              setStatus("No images selected.");
+              setStatus("No new images selected.");
             } else {
-              setStatus(`${selectedFiles.length} image${selectedFiles.length > 1 ? "s" : ""} ready.`);
+              setStatus(`${selectedFiles.length} new image${selectedFiles.length > 1 ? "s" : ""} ready.`);
             }
           });
         });
@@ -829,17 +709,131 @@
         renderSelectedFilesText();
         renderSelectedPreviews();
 
-        setStatus(`${selectedFiles.length} image${selectedFiles.length > 1 ? "s" : ""} selected.`);
+        setStatus(`${selectedFiles.length} new image${selectedFiles.length > 1 ? "s" : ""} selected.`);
 
         carsInput.value = "";
         updateFileInputFromSelectedFiles();
       }
 
-      function buildPayload() {
-        if (selectedFiles.length === 0) {
-          throw new Error("Please upload at least one image.");
+      function renderExistingImages(images = []) {
+        existingImagesGrid.innerHTML = "";
+
+        if (!images.length) {
+          existingImagesGrid.innerHTML = `
+            <div class="col-span-full text-sm text-text-muted">
+              No existing images found.
+            </div>
+          `;
+          return;
         }
 
+        images.forEach((image, index) => {
+          const card = document.createElement("div");
+          card.className = "border border-outline-soft bg-white overflow-hidden";
+
+          card.innerHTML = `
+            <div class="aspect-square bg-surface-soft">
+              <img
+                src="${resolveImageUrl(image)}"
+                alt="Current image ${index + 1}"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="p-2">
+              <p class="text-xs text-text-muted truncate">Current image ${index + 1}</p>
+            </div>
+          `;
+
+          existingImagesGrid.appendChild(card);
+        });
+      }
+
+      function fillForm(car) {
+        document.getElementById("name").value = car.name || "";
+        document.getElementById("slug").value = car.slug || "";
+        document.getElementById("year").value = car.year || "";
+        document.getElementById("price").value = car.price || "";
+        document.getElementById("currency").value = car.currency || "USD";
+        document.getElementById("category").value = car.category || "sedan";
+        document.getElementById("condition").value = car.condition || "new";
+        document.getElementById("availability").value = car.availability || "available";
+        document.getElementById("stock").value = car.stock ?? 1;
+        document.getElementById("featured").value = String(Boolean(car.featured));
+        document.getElementById("isPublished").value = String(Boolean(car.isPublished));
+        document.getElementById("rating").value = car.rating ?? 0;
+        document.getElementById("reviewCount").value = car.reviewCount ?? 0;
+        document.getElementById("warranty").value = car.warranty || "";
+        document.getElementById("shortDescription").value = car.shortDescription || "";
+        document.getElementById("description").value = car.description || "";
+
+        const specs = car.specifications || {};
+        document.getElementById("engine").value = specs.engine || "";
+        document.getElementById("horsepower").value = specs.horsepower ?? "";
+        document.getElementById("torque").value = specs.torque || "";
+        document.getElementById("transmission").value = specs.transmission || "";
+        document.getElementById("drivetrain").value = specs.drivetrain || "";
+        document.getElementById("fuelType").value = specs.fuelType || "";
+        document.getElementById("batteryRange").value = specs.batteryRange || "";
+        document.getElementById("topSpeed").value = specs.topSpeed || "";
+        document.getElementById("acceleration").value = specs.acceleration || "";
+        document.getElementById("mpg").value = specs.mpg || "";
+        document.getElementById("seatingCapacity").value = specs.seatingCapacity ?? "";
+        document.getElementById("doors").value = specs.doors ?? "";
+
+        const dimensions = car.dimensions || {};
+        document.getElementById("length").value = dimensions.length || "";
+        document.getElementById("width").value = dimensions.width || "";
+        document.getElementById("height").value = dimensions.height || "";
+        document.getElementById("wheelbase").value = dimensions.wheelbase || "";
+        document.getElementById("cargoSpace").value = dimensions.cargoSpace || "";
+        document.getElementById("curbWeight").value = dimensions.curbWeight || "";
+
+        const colors = car.colors || {};
+        document.getElementById("exteriorColors").value = Array.isArray(colors.exterior)
+          ? colors.exterior.join(", ")
+          : "";
+        document.getElementById("interiorColors").value = Array.isArray(colors.interior)
+          ? colors.interior.join(", ")
+          : "";
+
+        document.getElementById("features").value = Array.isArray(car.features)
+          ? car.features.join(", ")
+          : "";
+        document.getElementById("safetyFeatures").value = Array.isArray(car.safetyFeatures)
+          ? car.safetyFeatures.join(", ")
+          : "";
+        document.getElementById("technologyFeatures").value = Array.isArray(car.technologyFeatures)
+          ? car.technologyFeatures.join(", ")
+          : "";
+
+        renderExistingImages(car.pictures || []);
+      }
+
+      async function fetchCar() {
+        if (!carId) {
+          setStatus("No car ID found in URL.", true);
+          return;
+        }
+
+        try {
+          const response = await fetch(`${BACKEND_URL}/api/cars/${carId}`, {
+            method: "GET",
+          });
+
+          const data = await response.json();
+
+          if (!response.ok) {
+            throw new Error(data.message || "Failed to fetch car");
+          }
+
+          fillForm(data);
+          setStatus(`Now editing: ${data.name}`);
+        } catch (error) {
+          setStatus(error.message || "Failed to load car.", true);
+        }
+      }
+
+      function buildPayload() {
         if (selectedFiles.length > MAX_FILES) {
           throw new Error("You can upload maximum of 5 images.");
         }
@@ -893,14 +887,11 @@
 
         formData.append("name", name);
         formData.append("slug", slug);
-        formData.append("price", price);
+        formData.append("price", document.getElementById("price").value);
         formData.append("currency", document.getElementById("currency").value);
-        formData.append("year", year);
+        formData.append("year", document.getElementById("year").value);
         formData.append("description", description);
-        formData.append(
-          "shortDescription",
-          document.getElementById("shortDescription").value.trim()
-        );
+        formData.append("shortDescription", document.getElementById("shortDescription").value.trim());
         formData.append("category", document.getElementById("category").value);
         formData.append("condition", document.getElementById("condition").value);
         formData.append("availability", document.getElementById("availability").value);
@@ -934,9 +925,9 @@
         return formData;
       }
 
-      async function createCar(formData) {
-        const response = await fetch(`${BACKEND_URL}/api/cars`, {
-          method: "POST",
+      async function updateCar(formData) {
+        const response = await fetch(`${BACKEND_URL}/api/cars/${carId}`, {
+          method: "PUT",
           credentials: "include",
           headers: {
             ...getAuthHeaders(),
@@ -947,20 +938,18 @@
         const data = await response.json();
 
         if (!response.ok) {
-          throw new Error(data.message || "Failed to upload car");
+          throw new Error(data.message || "Failed to update car");
         }
 
         return data;
       }
 
-      function resetFormUI() {
-        carUploadForm.reset();
+      function resetNewImageSelection() {
         selectedFiles = [];
         carsInput.value = "";
         updateFileInputFromSelectedFiles();
         renderSelectedFilesText();
         renderSelectedPreviews();
-        slugInput.dataset.editedManually = "";
       }
 
       nameInput.addEventListener("input", function () {
@@ -978,30 +967,36 @@
       previewBtn.addEventListener("click", function () {
         try {
           buildPayload();
-          renderSelectedFilesText();
-          renderSelectedPreviews();
-          setStatus(`${selectedFiles.length} image${selectedFiles.length > 1 ? "s are" : " is"} ready for upload.`);
+
+          if (selectedFiles.length) {
+            renderSelectedFilesText();
+            renderSelectedPreviews();
+            setStatus(`${selectedFiles.length} new image${selectedFiles.length > 1 ? "s are" : " is"} ready for upload.`);
+          } else {
+            setStatus("Preview ready. Current images will remain unchanged.");
+          }
         } catch (error) {
           setStatus(error.message, true);
         }
       });
 
-      carUploadForm.addEventListener("submit", async function (e) {
+      carEditForm.addEventListener("submit", async function (e) {
         e.preventDefault();
 
         try {
           const formData = buildPayload();
 
           setLoading(true);
-          setStatus("Uploading car...");
+          setStatus("Updating car...");
 
-          const car = await createCar(formData);
+          const car = await updateCar(formData);
 
-          setStatus(`Car uploaded successfully: ${car.name}`);
-          resetFormUI();
+          renderExistingImages(car.pictures || []);
+          resetNewImageSelection();
+          setStatus(`Car updated successfully: ${car.name}`);
         } catch (error) {
-          console.error("Car upload error:", error);
-          setStatus(error.message || "Failed to upload car.", true);
+          console.error("Car update error:", error);
+          setStatus(error.message || "Failed to update car.", true);
         } finally {
           setLoading(false);
         }
@@ -1013,6 +1008,7 @@
       logoutBtn.addEventListener("click", logoutAdmin);
 
       renderSelectedFilesText();
+      fetchCar();
     </script>
   </body>
 </html>
