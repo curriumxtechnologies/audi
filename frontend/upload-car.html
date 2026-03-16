@@ -748,7 +748,8 @@
                   </span>
                   <p class="text-sm font-medium">Click to add car images</p>
                   <p class="text-xs text-text-muted mt-1">
-                    Keep adding until it reaches 5
+                    Accepted: JPG, PNG, WEBP, AVIF, HEIC, HEIF, GIF, BMP, TIF,
+                    TIFF
                   </p>
                 </label>
 
@@ -756,7 +757,7 @@
                   id="cars"
                   name="cars"
                   type="file"
-                  accept=".jpg,.jpeg,.png,.webp"
+                  accept=".jpg,.jpeg,.png,.webp,.avif,.heic,.heif,.gif,.bmp,.tif,.tiff"
                   multiple
                   class="hidden"
                 />
@@ -798,7 +799,21 @@
         window.location.hostname === "localhost"
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
+
       const MAX_FILES = 5;
+      const ALLOWED_EXTENSIONS = [
+        "jpg",
+        "jpeg",
+        "png",
+        "webp",
+        "avif",
+        "heic",
+        "heif",
+        "gif",
+        "bmp",
+        "tif",
+        "tiff",
+      ];
 
       const sidebarAdminName = document.getElementById("sidebarAdminName");
       const sidebarAdminEmail = document.getElementById("sidebarAdminEmail");
@@ -868,6 +883,10 @@
           .filter(Boolean);
       }
 
+      function getFileExtension(fileName) {
+        return fileName.split(".").pop()?.toLowerCase() || "";
+      }
+
       async function logoutAdmin() {
         try {
           await fetch(`${BACKEND_URL}/api/admin/logout`, {
@@ -914,7 +933,7 @@
 
           const card = document.createElement("div");
           card.className =
-            "border border-outline-soft bg-white overflow-hidden";
+            "preview-card border border-outline-soft bg-white overflow-hidden";
 
           card.innerHTML = `
             <div class="aspect-square bg-surface-soft">
@@ -962,6 +981,21 @@
         const incomingFiles = Array.from(carsInput.files || []);
 
         if (!incomingFiles.length) return;
+
+        const invalidFiles = incomingFiles.filter((file) => {
+          const ext = getFileExtension(file.name);
+          return !ALLOWED_EXTENSIONS.includes(ext);
+        });
+
+        if (invalidFiles.length) {
+          setStatus(
+            `These file types are not allowed: ${invalidFiles.map((file) => file.name).join(", ")}`,
+            true,
+          );
+          carsInput.value = "";
+          updateFileInputFromSelectedFiles();
+          return;
+        }
 
         const remainingSlots = MAX_FILES - selectedFiles.length;
 
@@ -1195,7 +1229,7 @@
 
           const car = await createCar(formData);
 
-          setStatus(`Car uploaded successfully: ${car.name}`);
+          setStatus(`Car uploaded successfully: ${car.name || "Car saved"}`);
           resetFormUI();
         } catch (error) {
           console.error("Car upload error:", error);
