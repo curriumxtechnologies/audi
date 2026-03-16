@@ -220,8 +220,8 @@
               My Profile
             </h1>
             <p class="text-on-surface-variant text-base md:text-lg max-w-2xl">
-              View your account details, manage your password, and access your
-              purchased cars and payment history.
+              View your account details, and access your purchased cars and
+              payment history.
             </p>
           </div>
         </div>
@@ -273,17 +273,6 @@
                     <p
                       class="text-xs uppercase tracking-widest text-on-surface-variant mb-2"
                     >
-                      Username
-                    </p>
-                    <p id="profileUsername" class="font-semibold text-lg">
-                      Not available
-                    </p>
-                  </div>
-
-                  <div class="bg-surface-container-low p-5">
-                    <p
-                      class="text-xs uppercase tracking-widest text-on-surface-variant mb-2"
-                    >
                       Email Address
                     </p>
                     <p
@@ -305,91 +294,6 @@
                     </p>
                   </div>
                 </div>
-              </div>
-
-              <div
-                class="bg-surface-container-lowest border border-outline-variant/20 p-8 md:p-10 detail-card"
-              >
-                <div class="flex items-center justify-between mb-6">
-                  <div>
-                    <p
-                      class="text-xs font-bold tracking-[0.18em] text-on-surface-variant mb-2"
-                    >
-                      SECURITY
-                    </p>
-
-                    <h2 class="font-headline text-2xl font-bold tracking-tight">
-                      Change Password
-                    </h2>
-                  </div>
-
-                  <button
-                    id="editPasswordBtn"
-                    class="w-12 h-12 flex items-center justify-center border border-outline-variant/30 hover:border-primary transition-colors"
-                  >
-                    <span class="material-symbols-outlined">edit</span>
-                  </button>
-                </div>
-
-                <!-- Hidden Password Form -->
-                <form id="changePasswordForm" class="hidden space-y-5 mt-6">
-                  <div>
-                    <label class="block text-sm font-semibold mb-2">
-                      Current Password
-                    </label>
-                    <input
-                      type="password"
-                      id="currentPassword"
-                      class="w-full border border-outline-variant/40 bg-surface-container-low px-4 py-4 focus:border-primary focus:ring-0"
-                      required
-                    />
-                  </div>
-
-                  <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-                    <div>
-                      <label class="block text-sm font-semibold mb-2">
-                        New Password
-                      </label>
-                      <input
-                        type="password"
-                        id="newPassword"
-                        class="w-full border border-outline-variant/40 bg-surface-container-low px-4 py-4 focus:border-primary focus:ring-0"
-                        required
-                      />
-                    </div>
-
-                    <div>
-                      <label class="block text-sm font-semibold mb-2">
-                        Confirm Password
-                      </label>
-                      <input
-                        type="password"
-                        id="confirmPassword"
-                        class="w-full border border-outline-variant/40 bg-surface-container-low px-4 py-4 focus:border-primary focus:ring-0"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div class="flex gap-4 items-center">
-                    <button
-                      type="submit"
-                      class="bg-primary text-on-primary px-6 py-3 font-semibold text-sm tracking-widest hover:bg-primary-container transition-all"
-                    >
-                      UPDATE PASSWORD
-                    </button>
-
-                    <button
-                      type="button"
-                      id="cancelPasswordBtn"
-                      class="text-sm font-semibold text-on-surface-variant hover:text-primary"
-                    >
-                      Cancel
-                    </button>
-                  </div>
-
-                  <p id="passwordMessage" class="text-sm font-medium"></p>
-                </form>
               </div>
             </div>
 
@@ -602,11 +506,6 @@
       const profileId = document.getElementById("profileId");
       const profileAddress = document.getElementById("profileAddress");
 
-      const editPasswordBtn = document.getElementById("editPasswordBtn");
-      const cancelPasswordBtn = document.getElementById("cancelPasswordBtn");
-      const changePasswordForm = document.getElementById("changePasswordForm");
-      const passwordMessage = document.getElementById("passwordMessage");
-
       function logoutUser() {
         localStorage.removeItem("userInfo");
         window.location.replace("index.html");
@@ -658,24 +557,6 @@
         );
       }
 
-      function openPasswordForm() {
-        if (changePasswordForm) {
-          changePasswordForm.classList.remove("hidden");
-        }
-      }
-
-      function closePasswordForm() {
-        if (changePasswordForm) {
-          changePasswordForm.classList.add("hidden");
-          changePasswordForm.reset();
-        }
-
-        if (passwordMessage) {
-          passwordMessage.textContent = "";
-          passwordMessage.className = "text-sm font-medium";
-        }
-      }
-
       renderProfile(userInfo);
 
       if (logoutBtn) {
@@ -684,104 +565,6 @@
 
       if (sideLogoutBtn) {
         sideLogoutBtn.addEventListener("click", logoutUser);
-      }
-
-      if (editPasswordBtn) {
-        editPasswordBtn.addEventListener("click", openPasswordForm);
-      }
-
-      if (cancelPasswordBtn) {
-        cancelPasswordBtn.addEventListener("click", closePasswordForm);
-      }
-
-      if (changePasswordForm) {
-        changePasswordForm.addEventListener("submit", async function (event) {
-          event.preventDefault();
-
-          const currentPassword = document
-            .getElementById("currentPassword")
-            ?.value.trim();
-          const newPassword = document
-            .getElementById("newPassword")
-            ?.value.trim();
-          const confirmPassword = document
-            .getElementById("confirmPassword")
-            ?.value.trim();
-
-          if (passwordMessage) {
-            passwordMessage.className =
-              "text-sm font-medium text-on-surface-variant";
-          }
-
-          if (!currentPassword || !newPassword || !confirmPassword) {
-            if (passwordMessage) {
-              passwordMessage.textContent =
-                "Please fill in all password fields.";
-            }
-            return;
-          }
-
-          if (newPassword.length < 6) {
-            if (passwordMessage) {
-              passwordMessage.textContent =
-                "New password must be at least 6 characters.";
-            }
-            return;
-          }
-
-          if (newPassword !== confirmPassword) {
-            if (passwordMessage) {
-              passwordMessage.textContent = "New passwords do not match.";
-            }
-            return;
-          }
-
-          try {
-            if (passwordMessage) {
-              passwordMessage.textContent = "Updating password...";
-            }
-
-            const token =
-              userInfo?.token || userInfo?.accessToken || userInfo?.authToken;
-
-            const response = await fetch(
-              `${BACKEND_URL}/api/users/change-password`,
-              {
-                method: "PUT",
-                headers: {
-                  "Content-Type": "application/json",
-                  ...(token ? { Authorization: `Bearer ${token}` } : {}),
-                },
-                body: JSON.stringify({
-                  currentPassword,
-                  newPassword,
-                }),
-              },
-            );
-
-            const data = await response.json();
-
-            if (!response.ok) {
-              throw new Error(data.message || "Failed to update password");
-            }
-
-            if (passwordMessage) {
-              passwordMessage.className = "text-sm font-medium text-green-600";
-              passwordMessage.textContent = "Password updated successfully.";
-            }
-
-            setTimeout(() => {
-              closePasswordForm();
-            }, 1200);
-          } catch (error) {
-            if (passwordMessage) {
-              passwordMessage.className = "text-sm font-medium text-red-600";
-              passwordMessage.textContent =
-                error.message ||
-                "Something went wrong while updating password.";
-            }
-          }
-        });
       }
     </script>
   </body>
