@@ -136,10 +136,38 @@
 
       #ordersFloatingBtn {
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+        transition:
+          transform 0.25s ease,
+          background-color 0.25s ease,
+          box-shadow 0.25s ease;
       }
 
       #ordersFloatingBtn:hover {
         transform: translateY(-2px);
+      }
+
+      .orders-bounce {
+        animation: ordersBounce 1.2s infinite;
+      }
+
+      @keyframes ordersBounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        30% {
+          transform: translateY(-8px);
+        }
+        50% {
+          transform: translateY(0);
+        }
+        70% {
+          transform: translateY(-4px);
+        }
+      }
+
+      .notification-dot {
+        box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.92);
       }
     </style>
   </head>
@@ -546,7 +574,7 @@
     <a
       id="ordersFloatingBtn"
       href="orders.html"
-      class="fixed bottom-6 right-6 z-50 bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg hover:bg-primary-container transition-all flex items-center justify-center"
+      class="fixed bottom-6 right-6 z-50 bg-primary text-on-primary w-14 h-14 rounded-full hover:bg-primary-container flex items-center justify-center"
       aria-label="My Orders"
       title="My Orders"
     >
@@ -554,10 +582,8 @@
 
       <span
         id="pendingOrdersBadge"
-        class="hidden absolute -top-2 -right-2 min-w-[24px] h-6 px-1 rounded-full bg-red-600 text-white text-xs font-bold flex items-center justify-center"
-      >
-        0
-      </span>
+        class="hidden absolute -top-1 -right-1 w-4 h-4 rounded-full bg-red-600 notification-dot"
+      ></span>
     </a>
 
     <script>
@@ -566,11 +592,12 @@
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
 
-          // const BACKEND_URL = 'http://localhost:8000'
+      // const BACKEND_URL = "http://localhost:8000";
 
       const welcomeUser = document.getElementById("welcomeUser");
       const logoutBtn = document.getElementById("logoutBtn");
       const carsGrid = document.getElementById("carsGrid");
+      const ordersFloatingBtn = document.getElementById("ordersFloatingBtn");
       const pendingOrdersBadge = document.getElementById("pendingOrdersBadge");
 
       function getDisplayName(user) {
@@ -578,7 +605,12 @@
       }
 
       function getToken() {
-        return userInfo?.token || userInfo?.accessToken || userInfo?.authToken || null;
+        return (
+          userInfo?.token ||
+          userInfo?.accessToken ||
+          userInfo?.authToken ||
+          null
+        );
       }
 
       function formatPrice(price, currency = "USD") {
@@ -701,44 +733,53 @@
         }
       }
 
-     async function fetchPendingOrdersCount() {
-  const token = getToken();
+      async function fetchPendingOrdersStatus() {
+        const token = getToken();
 
-  if (!token || !pendingOrdersBadge) return;
+        if (!token || !ordersFloatingBtn || !pendingOrdersBadge) return;
 
-  try {
-    const response = await fetch(`${BACKEND_URL}/api/payments/my-orders`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-      credentials: "include",
-    });
+        try {
+          const response = await fetch(`${BACKEND_URL}/api/payments/my-orders`, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+            credentials: "include",
+          });
 
-    const data = await response.json();
+          const data = await response.json();
 
-    if (!response.ok) {
-      throw new Error(data.message || "Failed to fetch orders");
-    }
+          if (!response.ok) {
+            throw new Error(data.message || "Failed to fetch orders");
+          }
 
-    const pendingCount = Array.isArray(data)
-      ? data.filter((order) => order.status === "pending_approval").length
-      : 0;
+          const pendingCount = Array.isArray(data)
+            ? data.filter((order) => order.status === "pending_approval").length
+            : 0;
 
-    if (pendingCount > 0) {
-      pendingOrdersBadge.textContent =
-        pendingCount > 99 ? "99+" : pendingCount;
-      pendingOrdersBadge.classList.remove("hidden");
-    } else {
-      pendingOrdersBadge.classList.add("hidden");
-    }
-  } catch (error) {
-    console.error("Pending orders count error:", error);
-    pendingOrdersBadge.classList.add("hidden");
-  }
-}
+          if (pendingCount > 0) {
+            pendingOrdersBadge.classList.remove("hidden");
+            ordersFloatingBtn.classList.add("orders-bounce");
+          } else {
+            pendingOrdersBadge.classList.add("hidden");
+            ordersFloatingBtn.classList.remove("orders-bounce");
+          }
+        } catch (error) {
+          console.error("Pending orders status error:", error);
+          pendingOrdersBadge.classList.add("hidden");
+          ordersFloatingBtn.classList.remove("orders-bounce");
+        }
+      }
 
-welcomeUser.textContent = `Welcome, ${getDisplayName(userInfo)}`;
+      welcomeUser.textContent = `Welcome, ${getDisplayName(userInfo)}`;
+
+      logoutBtn.addEventListener("click", function () {
+        localStorage.removeItem("userInfo");
+        window.location.replace("index.html");
+      });
+
+      fetchCars();
+      fetchPendingOrdersStatus();
     </script>
   </body>
 </html>
