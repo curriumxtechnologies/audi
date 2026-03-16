@@ -1,9 +1,7 @@
-import express from 'express';
-import User from '../models/userModel.js';
-import asyncHandler from 'express-async-handler';
-import generateToken from '../utils/generateToken.js';
-import { OAuth2Client } from 'google-auth-library'
-
+import User from "../models/userModel.js";
+import asyncHandler from "express-async-handler";
+import generateToken from "../utils/generateToken.js";
+import { OAuth2Client } from "google-auth-library";
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -19,22 +17,21 @@ const getUserInfoFromAccessToken = async (accessToken) => {
   return response.json();
 };
 
- const googleAuth = asyncHandler(async (req, res) => {
-  const { token: googleToken, phone } = req.body;
+const googleAuth = asyncHandler(async (req, res) => {
+  const { token: googleToken, phone, mode } = req.body;
 
   if (!googleToken) {
     res.status(400);
     throw new Error("Google token is required");
   }
 
-  if (!phone) {
+  if (!mode || !["signup", "login"].includes(mode)) {
     res.status(400);
-    throw new Error("Phone number is required");
+    throw new Error("Valid mode is required");
   }
 
   let googleId, email, name, picture;
 
-  // 1) Try as ID token
   try {
     const ticket = await googleClient.verifyIdToken({
       idToken: googleToken,
@@ -47,7 +44,6 @@ const getUserInfoFromAccessToken = async (accessToken) => {
     name = payload.name;
     picture = payload.picture;
   } catch (err) {
-    // 2) Otherwise treat as access token
     const userInfo = await getUserInfoFromAccessToken(googleToken);
     googleId = userInfo.sub || `google-${userInfo.email}`;
     email = userInfo.email;
@@ -55,10 +51,24 @@ const getUserInfoFromAccessToken = async (accessToken) => {
     picture = userInfo.picture;
   }
 
-  // Find existing user
+  if (!email) {
+    res.status(400);
+    throw new Error("Google account email is required");
+  }
+
   let user = await User.findOne({ $or: [{ googleId }, { email }] });
 
-  if (!user) {
+  if (mode === "signup") {
+    if (!phone) {
+      res.status(400);
+      throw new Error("Phone number is required");
+    }
+
+    if (user) {
+      res.status(400);
+      throw new Error("Account already exists. Please login instead.");
+    }
+
     const baseUsername = (email?.split("@")[0] || name || "user")
       .toLowerCase()
       .replace(/\s+/g, "");
@@ -75,25 +85,39 @@ const getUserInfoFromAccessToken = async (accessToken) => {
       name: name || "",
       username,
       email,
-      phone, // ✅ phone added here
+      phone,
       profile: picture || "",
       password: `google-auth-${googleId}`,
       isVerified: true,
       authMethod: "google",
     });
-  } 
-  else {
-    // If user exists but googleId not linked
+  }
+
+  if (mode === "login") {
+    if (!user) {
+      res.status(404);
+      throw new Error("No account found with this email. Please sign up first.");
+    }
+
+    if (!user.phone) {
+      res.status(400);
+      throw new Error("This account has no phone number. Please complete signup.");
+    }
+
     if (!user.googleId) {
       user.googleId = googleId;
-      user.isVerified = true;
     }
 
-    // Update phone if not present
-    if (!user.phone && phone) {
-      user.phone = phone;
+    if (!user.profile && picture) {
+      user.profile = picture;
     }
 
+    if (!user.name && name) {
+      user.name = name;
+    }
+
+    user.isVerified = true;
+    user.authMethod = "google";
     await user.save();
   }
 
@@ -115,7 +139,7 @@ const logoutUser = asyncHandler(async (req, res) => {
 
   res.cookie("jwt", "", {
     httpOnly: true,
-    expires: new Date(0), // immediately expire
+    expires: new Date(0),
     secure: isProd,
     sameSite: isProd ? "none" : "lax",
     path: "/",
@@ -124,7 +148,4 @@ const logoutUser = asyncHandler(async (req, res) => {
   res.status(200).json({ message: "Logged out successfully" });
 });
 
-export {
-    googleAuth,
-    logoutUser
-}
+export { googleAuth, logoutUser };

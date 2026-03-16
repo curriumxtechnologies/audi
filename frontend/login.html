@@ -172,10 +172,12 @@
             >
           </button>
 
-          <p
-            id="statusMessage"
-            class="text-sm text-center min-h-[20px] mb-2 text-on-surface-variant"
-          ></p>
+          <div id="statusMessageWrap" class="min-h-[24px] mb-2">
+            <p
+              id="statusMessage"
+              class="text-sm text-center text-on-surface-variant"
+            ></p>
+          </div>
 
           <div class="relative my-8">
             <div class="absolute inset-0 flex items-center">
@@ -211,6 +213,10 @@
         window.location.hostname === "localhost"
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
+
+          // const BACKEND_URL = 'http://localhost:8000';
+
+
       const GOOGLE_CLIENT_ID =
         "135801485768-ffaeoe93oe2c9v6prs2if93fme7nd6rp.apps.googleusercontent.com";
 
@@ -220,11 +226,16 @@
 
       let tokenClient = null;
 
-      function setStatus(message, isError = false) {
-        statusMessage.textContent = message;
+      function setStatus(message, isError = false, allowHtml = false) {
+        if (allowHtml) {
+          statusMessage.innerHTML = message;
+        } else {
+          statusMessage.textContent = message;
+        }
+
         statusMessage.className = isError
-          ? "text-sm text-center min-h-[20px] mb-2 text-error"
-          : "text-sm text-center min-h-[20px] mb-2 text-on-surface-variant";
+          ? "text-sm text-center text-error"
+          : "text-sm text-center text-on-surface-variant";
       }
 
       function setLoading(isLoading) {
@@ -239,7 +250,26 @@
         }
       }
 
-      async function sendGoogleTokenToBackend(token, phone) {
+      function redirectToSignupSoon() {
+        setTimeout(() => {
+          window.location.href = "register.html";
+        }, 1800);
+      }
+
+      function isAccountNotFoundMessage(message) {
+        const text = String(message || "").toLowerCase();
+
+        return (
+          text.includes("no account found") ||
+          text.includes("sign up first") ||
+          text.includes("user not found") ||
+          text.includes("account not found") ||
+          text.includes("email not found") ||
+          text.includes("not registered")
+        );
+      }
+
+      async function sendGoogleTokenToBackend(token) {
         const response = await fetch(`${BACKEND_URL}/api/user/google`, {
           method: "POST",
           headers: {
@@ -248,7 +278,7 @@
           credentials: "include",
           body: JSON.stringify({
             token,
-            phone,
+            mode: "login",
           }),
         });
 
@@ -258,7 +288,15 @@
         } catch (err) {}
 
         if (!response.ok) {
-          throw new Error(data.message || "Authentication failed");
+          const message = data.message || "Authentication failed";
+
+          if (response.status === 404 || isAccountNotFoundMessage(message)) {
+            const error = new Error("ACCOUNT_NOT_FOUND");
+            error.code = "ACCOUNT_NOT_FOUND";
+            throw error;
+          }
+
+          throw new Error(message);
         }
 
         return data;
@@ -279,10 +317,7 @@
           await checkBackend();
           setStatus("Backend connected. Click Google to continue.");
         } catch (error) {
-          setStatus(
-            "Cannot reach backend. Make sure server is running on localhost:8000",
-            true,
-          );
+          setStatus("Cannot reach backend. Make sure server is running.", true);
           return;
         }
 
@@ -305,17 +340,11 @@
                   throw new Error("No access token received from Google");
                 }
 
-                const phone = prompt("Enter your phone number:");
-                if (!phone || !phone.trim()) {
-                  throw new Error("Phone number is required");
-                }
-
                 setLoading(true);
                 setStatus("Signing you in...");
 
                 const userData = await sendGoogleTokenToBackend(
                   tokenResponse.access_token,
-                  phone.trim(),
                 );
 
                 localStorage.setItem("userInfo", JSON.stringify(userData));
@@ -326,7 +355,18 @@
                 }, 800);
               } catch (error) {
                 console.error("Login error:", error);
-                setStatus(error.message || "Login failed", true);
+
+                if (error.code === "ACCOUNT_NOT_FOUND") {
+                  setStatus(
+                    `No account was found with this email. Please <a href="register.html" class="font-semibold underline">go to the signup page</a> to create an account. Redirecting...`,
+                    true,
+                    true,
+                  );
+                  redirectToSignupSoon();
+                } else {
+                  setStatus(error.message || "Login failed", true);
+                }
+
                 setLoading(false);
               }
             },
