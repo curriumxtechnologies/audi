@@ -133,6 +133,14 @@
       .tertiary-underline:hover::after {
         width: 100%;
       }
+
+      #ordersFloatingBtn {
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+      }
+
+      #ordersFloatingBtn:hover {
+        transform: translateY(-2px);
+      }
     </style>
   </head>
 
@@ -535,17 +543,42 @@
       </div>
     </footer>
 
+    <a
+      id="ordersFloatingBtn"
+      href="orders.html"
+      class="fixed bottom-6 right-6 z-50 bg-primary text-on-primary w-14 h-14 rounded-full shadow-lg hover:bg-primary-container transition-all flex items-center justify-center"
+      aria-label="My Orders"
+      title="My Orders"
+    >
+      <span class="material-symbols-outlined text-[24px]">receipt_long</span>
+
+      <span
+        id="pendingOrdersBadge"
+        class="hidden absolute -top-2 -right-2 min-w-[24px] h-6 px-1 rounded-full bg-red-600 text-white text-xs font-bold flex items-center justify-center"
+      >
+        0
+      </span>
+    </a>
+
     <script>
       const BACKEND_URL =
         window.location.hostname === "localhost"
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
+
+          // const BACKEND_URL = 'http://localhost:8000'
+
       const welcomeUser = document.getElementById("welcomeUser");
       const logoutBtn = document.getElementById("logoutBtn");
       const carsGrid = document.getElementById("carsGrid");
+      const pendingOrdersBadge = document.getElementById("pendingOrdersBadge");
 
       function getDisplayName(user) {
         return user?.name || user?.username || user?.email || "User";
+      }
+
+      function getToken() {
+        return userInfo?.token || userInfo?.accessToken || userInfo?.authToken || null;
       }
 
       function formatPrice(price, currency = "USD") {
@@ -558,6 +591,25 @@
         } catch (error) {
           return `$${price || 0}`;
         }
+      }
+
+      function resolveImageUrl(path) {
+        if (!path) return "https://via.placeholder.com/1200x700?text=Audi";
+
+        const cleanPath = String(path).replace(/\\/g, "/");
+
+        if (
+          cleanPath.startsWith("http://") ||
+          cleanPath.startsWith("https://")
+        ) {
+          return cleanPath;
+        }
+
+        if (cleanPath.startsWith("/")) {
+          return `${BACKEND_URL}${cleanPath}`;
+        }
+
+        return `${BACKEND_URL}/${cleanPath}`;
       }
 
       function renderCars(cars) {
@@ -576,7 +628,7 @@
           .map((car) => {
             const image =
               car.pictures && car.pictures.length > 0
-                ? car.pictures[0]
+                ? resolveImageUrl(car.pictures[0])
                 : "https://via.placeholder.com/1200x700?text=Audi";
 
             const rating =
@@ -589,6 +641,7 @@
                     alt="${car.name}"
                     class="w-full h-full object-cover transition-transform duration-700"
                     src="${image}"
+                    onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x700?text=Audi';"
                   />
                 </div>
 
@@ -648,14 +701,44 @@
         }
       }
 
-      welcomeUser.textContent = `Welcome, ${getDisplayName(userInfo)}`;
+     async function fetchPendingOrdersCount() {
+  const token = getToken();
 
-      logoutBtn.addEventListener("click", function () {
-        localStorage.removeItem("userInfo");
-        window.location.replace("index.html");
-      });
+  if (!token || !pendingOrdersBadge) return;
 
-      fetchCars();
+  try {
+    const response = await fetch(`${BACKEND_URL}/api/payments/my-orders`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to fetch orders");
+    }
+
+    const pendingCount = Array.isArray(data)
+      ? data.filter((order) => order.status === "pending_approval").length
+      : 0;
+
+    if (pendingCount > 0) {
+      pendingOrdersBadge.textContent =
+        pendingCount > 99 ? "99+" : pendingCount;
+      pendingOrdersBadge.classList.remove("hidden");
+    } else {
+      pendingOrdersBadge.classList.add("hidden");
+    }
+  } catch (error) {
+    console.error("Pending orders count error:", error);
+    pendingOrdersBadge.classList.add("hidden");
+  }
+}
+
+welcomeUser.textContent = `Welcome, ${getDisplayName(userInfo)}`;
     </script>
   </body>
 </html>

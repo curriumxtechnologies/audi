@@ -72,7 +72,7 @@ const paymentModelSchema = new mongoose.Schema(
 
     status: {
       type: String,
-      enum: ["pending", "confirmed"],
+      enum: ["pending", "pending_approval", "confirmed"],
       default: "pending",
     },
 
