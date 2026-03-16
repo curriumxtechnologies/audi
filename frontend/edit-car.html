@@ -133,7 +133,7 @@
             <div class="border-t border-outline-soft my-4"></div>
 
             <a
-              href="admin-upload.html"
+              href="upload-car.html"
               class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
             >
               <span class="material-symbols-outlined">upload</span>
@@ -1099,10 +1099,10 @@
           car.availability || "available";
         document.getElementById("stock").value = car.stock ?? 1;
         document.getElementById("featured").value = String(
-          Boolean(car.featured)
+          Boolean(car.featured),
         );
         document.getElementById("isPublished").value = String(
-          Boolean(car.isPublished)
+          Boolean(car.isPublished),
         );
         document.getElementById("rating").value = car.rating ?? 0;
         document.getElementById("reviewCount").value = car.reviewCount ?? 0;
@@ -1141,12 +1141,12 @@
 
         const colors = car.colors || {};
         document.getElementById("exteriorColors").value = Array.isArray(
-          colors.exterior
+          colors.exterior,
         )
           ? colors.exterior.join(", ")
           : "";
         document.getElementById("interiorColors").value = Array.isArray(
-          colors.interior
+          colors.interior,
         )
           ? colors.interior.join(", ")
           : "";
@@ -1155,12 +1155,12 @@
           ? car.features.join(", ")
           : "";
         document.getElementById("safetyFeatures").value = Array.isArray(
-          car.safetyFeatures
+          car.safetyFeatures,
         )
           ? car.safetyFeatures.join(", ")
           : "";
         document.getElementById("technologyFeatures").value = Array.isArray(
-          car.technologyFeatures
+          car.technologyFeatures,
         )
           ? car.technologyFeatures.join(", ")
           : "";
@@ -1241,10 +1241,10 @@
 
         const colors = {
           exterior: parseCommaSeparated(
-            document.getElementById("exteriorColors").value
+            document.getElementById("exteriorColors").value,
           ),
           interior: parseCommaSeparated(
-            document.getElementById("interiorColors").value
+            document.getElementById("interiorColors").value,
           ),
         };
 
@@ -1258,34 +1258,34 @@
         formData.append("description", description);
         formData.append(
           "shortDescription",
-          document.getElementById("shortDescription").value.trim()
+          document.getElementById("shortDescription").value.trim(),
         );
         formData.append("category", document.getElementById("category").value);
         formData.append(
           "condition",
-          document.getElementById("condition").value
+          document.getElementById("condition").value,
         );
         formData.append(
           "availability",
-          document.getElementById("availability").value
+          document.getElementById("availability").value,
         );
         formData.append("stock", document.getElementById("stock").value || "1");
         formData.append("featured", document.getElementById("featured").value);
         formData.append(
           "warranty",
-          document.getElementById("warranty").value.trim()
+          document.getElementById("warranty").value.trim(),
         );
         formData.append(
           "rating",
-          document.getElementById("rating").value || "0"
+          document.getElementById("rating").value || "0",
         );
         formData.append(
           "reviewCount",
-          document.getElementById("reviewCount").value || "0"
+          document.getElementById("reviewCount").value || "0",
         );
         formData.append(
           "isPublished",
-          document.getElementById("isPublished").value
+          document.getElementById("isPublished").value,
         );
 
         formData.append("specifications", JSON.stringify(specifications));
@@ -1294,22 +1294,24 @@
         formData.append(
           "features",
           JSON.stringify(
-            parseCommaSeparated(document.getElementById("features").value)
-          )
+            parseCommaSeparated(document.getElementById("features").value),
+          ),
         );
         formData.append(
           "safetyFeatures",
           JSON.stringify(
-            parseCommaSeparated(document.getElementById("safetyFeatures").value)
-          )
+            parseCommaSeparated(
+              document.getElementById("safetyFeatures").value,
+            ),
+          ),
         );
         formData.append(
           "technologyFeatures",
           JSON.stringify(
             parseCommaSeparated(
-              document.getElementById("technologyFeatures").value
-            )
-          )
+              document.getElementById("technologyFeatures").value,
+            ),
+          ),
         );
 
         selectedFiles.forEach((file) => {
@@ -1366,7 +1368,7 @@
             renderSelectedFilesText();
             renderSelectedPreviews();
             setStatus(
-              `${selectedFiles.length} new image${selectedFiles.length > 1 ? "s are" : " is"} ready for upload.`
+              `${selectedFiles.length} new image${selectedFiles.length > 1 ? "s are" : " is"} ready for upload.`,
             );
           } else {
             setStatus("Preview ready. Current images will remain unchanged.");
