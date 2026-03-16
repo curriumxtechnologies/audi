@@ -27,7 +27,7 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "Audi_cars",
-    allowed_formats: ["jpg", "png", "jpeg", "webp"], // add webp if you want
+    allowed_formats: ["jpg", "png", "jpeg", "webp", "avif"], // add webp if you want
     // public_id: (req, file) => `receipt_${req.user._id}_${Date.now()}`,
   },
 });
