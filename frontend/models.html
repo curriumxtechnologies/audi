@@ -163,6 +163,12 @@
               >
                 Electric
               </a>
+              <a
+                class="text-sm font-medium tracking-tight hover:text-on-secondary-container transition-colors"
+                href="profile.html"
+              >
+                Profile
+              </a>
             </div>
           </div>
 
@@ -213,6 +219,12 @@
               href="electric.html"
             >
               Electric
+            </a>
+            <a
+              class="px-2 py-3 text-sm font-medium rounded-md hover:bg-surface-container-low transition-colors"
+              href="profile.html"
+            >
+              Profile
             </a>
           </div>
         </div>
@@ -394,9 +406,9 @@
 
     <script>
       const BASE_URL =
-  window.location.hostname === "localhost"
-    ? "http://localhost:8000"
-    : "https://audi-t4lu.onrender.com";
+        window.location.hostname === "localhost"
+          ? "http://localhost:8000"
+          : "https://audi-t4lu.onrender.com";
 
       const state = {
         cars: [],
@@ -560,7 +572,7 @@
         }
 
         const totalPages = Math.ceil(
-          state.filteredCars.length / state.itemsPerPage
+          state.filteredCars.length / state.itemsPerPage,
         );
         const startIndex = (state.currentPage - 1) * state.itemsPerPage;
         const endIndex = startIndex + state.itemsPerPage;
@@ -568,7 +580,7 @@
 
         resultsText.textContent = `Showing ${startIndex + 1}-${Math.min(
           endIndex,
-          state.filteredCars.length
+          state.filteredCars.length,
         )} of ${state.filteredCars.length} models`;
 
         carsToShow.forEach((car) => {

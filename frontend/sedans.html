@@ -160,6 +160,12 @@
               >
                 Electric
               </a>
+              <a
+                class="px-2 py-3 text-sm font-medium rounded-md hover:bg-surface-container-low transition-colors"
+                href="profile.html"
+              >
+                Profile
+              </a>
             </div>
           </div>
 
@@ -210,6 +216,12 @@
               href="electric.html"
             >
               Electric
+            </a>
+            <a
+              class="px-2 py-3 text-sm font-medium rounded-md hover:bg-surface-container-low transition-colors"
+              href="profile.html"
+            >
+              Profile
             </a>
           </div>
         </div>
@@ -304,7 +316,9 @@
                     class="material-symbols-outlined text-on-tertiary-container"
                     >check_circle</span
                   >
-                  <span>Quattro all-wheel drive available on select models</span>
+                  <span
+                    >Quattro all-wheel drive available on select models</span
+                  >
                 </li>
                 <li class="flex gap-3">
                   <span
@@ -447,9 +461,9 @@
 
     <script>
       const BASE_URL =
-  window.location.hostname === "localhost"
-    ? "http://localhost:8000"
-    : "https://audi-t4lu.onrender.com";
+        window.location.hostname === "localhost"
+          ? "http://localhost:8000"
+          : "https://audi-t4lu.onrender.com";
 
       const state = {
         cars: [],
@@ -521,7 +535,9 @@
 
       function filterSedans(cars) {
         return cars.filter((car) => {
-          const category = String(car.category || "").toLowerCase().trim();
+          const category = String(car.category || "")
+            .toLowerCase()
+            .trim();
           return category === "sedan" || category === "sedans";
         });
       }
@@ -625,7 +641,7 @@
         }
 
         const totalPages = Math.ceil(
-          state.filteredCars.length / state.itemsPerPage
+          state.filteredCars.length / state.itemsPerPage,
         );
         const startIndex = (state.currentPage - 1) * state.itemsPerPage;
         const endIndex = startIndex + state.itemsPerPage;
@@ -633,7 +649,7 @@
 
         resultsText.textContent = `Showing ${startIndex + 1}-${Math.min(
           endIndex,
-          state.filteredCars.length
+          state.filteredCars.length,
         )} of ${state.filteredCars.length} sedans`;
 
         carsToShow.forEach((car) => {
@@ -672,7 +688,7 @@
             <div class="flex gap-2 mb-3 flex-wrap">
               <span class="text-xs bg-surface-container px-2 py-1">Sedan</span>
               <span class="text-xs bg-surface-container px-2 py-1">${getFuelLabel(
-                car
+                car,
               )}</span>
               ${
                 car.featured
