@@ -17,7 +17,18 @@ const generateLink = asyncHandler(async (req, res) => {
     throw new Error("FRONTEND_URL is not set");
   }
 
-  const linkCode = crypto.randomBytes(12).toString("hex");
+  let counter = 1;
+  let linkCode = "";
+  let exists = true;
+
+  while (exists) {
+    linkCode = `audi-${String(counter).padStart(2, "0")}`;
+    exists = await Link.findOne({ linkCode });
+
+    if (exists) {
+      counter++;
+    }
+  }
 
   const link = await Link.create({
     linkCode,
@@ -29,7 +40,7 @@ const generateLink = asyncHandler(async (req, res) => {
   });
 
   const cleanFrontendUrl = frontendUrl.replace(/\/+$/, "");
-  const landingLink = `${cleanFrontendUrl}/index.html?linkCode=${link.linkCode}`;
+  const landingLink = `${cleanFrontendUrl}/index.html#${link.linkCode}`;
 
   res.status(201).json({
     message: "Landing link generated successfully",

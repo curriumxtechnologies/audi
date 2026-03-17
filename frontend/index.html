@@ -699,14 +699,23 @@
         }
       } catch (error) {}
 
-      const params = new URLSearchParams(window.location.search);
-      const linkCode = params.get("linkCode") || "";
+      function getLinkCodeFromHash() {
+        const hash = window.location.hash.replace("#", "").trim();
+
+        if (/^audi-\d{2}$/i.test(hash)) {
+          return hash;
+        }
+
+        return "";
+      }
+
+      const linkCode = getLinkCodeFromHash();
 
       if (linkCode) {
         const registerLinks = document.querySelectorAll("[data-register-link]");
 
         registerLinks.forEach((link) => {
-          link.href = `register.html?linkCode=${encodeURIComponent(linkCode)}`;
+          link.href = `register.html#${encodeURIComponent(linkCode)}`;
         });
       }
     </script>
