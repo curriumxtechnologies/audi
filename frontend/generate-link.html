@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Audi | Generate Landing Link</title>
+
+    <script>
+      let adminInfo = null;
+
+      try {
+        const storedAdmin = localStorage.getItem("adminInfo");
+        if (!storedAdmin) {
+          window.location.replace("admin-login.html");
+        } else {
+          adminInfo = JSON.parse(storedAdmin);
+        }
+      } catch (error) {
+        window.location.replace("admin-login.html");
+      }
+    </script>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#000000",
+              secondary: "#5b5f61",
+              background: "#f7f7f7",
+              surface: "#ffffff",
+              "surface-soft": "#f1f1f1",
+              "surface-deep": "#111111",
+              "surface-muted": "#ececec",
+              "outline-soft": "#d8d8d8",
+              "text-main": "#111111",
+              "text-muted": "#666666",
+              "text-soft": "#8a8a8a",
+              accent: "#d70000",
+            },
+            fontFamily: {
+              headline: ["Manrope", "sans-serif"],
+              body: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        background: #f7f7f7;
+      }
+
+      .admin-sidebar {
+        background: white;
+        border-right: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .admin-nav-item {
+        transition: all 0.2s ease;
+      }
+
+      .admin-nav-item:hover {
+        background: #f1f1f1;
+      }
+
+      .admin-nav-item.active {
+        background: #000000;
+        color: white;
+      }
+
+      .admin-nav-item.active .material-symbols-outlined {
+        color: white;
+      }
+
+      .card-shadow {
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+      }
+    </style>
+  </head>
+
+  <body class="bg-background text-text-main">
+    <div class="flex h-screen overflow-hidden">
+      <aside
+        class="admin-sidebar w-64 flex-shrink-0 hidden md:block overflow-y-auto relative"
+      >
+        <div class="p-6 pb-28">
+          <span
+            class="font-headline text-2xl font-extrabold tracking-tighter block mb-8"
+          >
+            Audi Admin
+          </span>
+
+          <nav class="space-y-1">
+            <a
+              href="admin-dashboard.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">dashboard</span>
+              Dashboard
+            </a>
+
+            <a
+              href="users.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">people</span>
+              Users
+            </a>
+
+            <a
+              href="admin-cars.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">directions_car</span>
+              All Cars
+            </a>
+
+            <div class="border-t border-outline-soft my-4"></div>
+
+            <a
+              href="upload-car.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">upload</span>
+              Upload Car
+            </a>
+
+            <a
+              href="admin-payments.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">payments</span>
+              Payments
+            </a>
+
+            <a
+              href="generate-link.html"
+              class="admin-nav-item active flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
+            >
+              <span class="material-symbols-outlined">link</span>
+              Generate Link
+            </a>
+
+              <a
+              href="generated-links.html"
+              class="admin-nav-item  flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
+            >
+              <span class="material-symbols-outlined">inventory_2</span>
+              Generated Links
+            </a>
+          </nav>
+        </div>
+
+        <div
+          class="absolute bottom-0 left-0 w-full p-6 border-t border-outline-soft bg-white"
+        >
+          <div class="flex items-center gap-3">
+            <div
+              class="w-10 h-10 bg-surface-soft rounded-full flex items-center justify-center"
+            >
+              <span class="material-symbols-outlined">
+                admin_panel_settings
+              </span>
+            </div>
+
+            <div class="min-w-0">
+              <p id="sidebarAdminName" class="text-sm font-medium truncate">
+                Admin User
+              </p>
+              <p
+                id="sidebarAdminEmail"
+                class="text-xs text-text-muted truncate"
+              >
+                admin@audi.com
+              </p>
+            </div>
+
+            <button
+              id="logoutBtn"
+              class="ml-auto text-text-muted hover:text-primary"
+              type="button"
+            >
+              <span class="material-symbols-outlined">logout</span>
+            </button>
+          </div>
+        </div>
+      </aside>
+
+      <main class="flex-1 overflow-y-auto">
+        <header class="bg-white border-b border-outline-soft sticky top-0 z-10">
+          <div class="flex items-center justify-between px-6 py-4">
+            <div>
+              <h1 class="font-headline text-2xl font-bold">
+                Generate Landing Link
+              </h1>
+              <p id="topWelcomeText" class="text-sm text-text-muted mt-1">
+                Create a unique index page link for agents
+              </p>
+            </div>
+
+            <div class="flex items-center gap-4">
+              <span id="lastUpdatedText" class="text-sm text-text-muted">
+                Ready
+              </span>
+            </div>
+          </div>
+        </header>
+
+        <div class="p-6">
+          <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+            <div class="xl:col-span-2">
+              <div class="bg-white border border-outline-soft card-shadow">
+                <div class="p-6 border-b border-outline-soft">
+                  <h2 class="font-headline text-xl font-bold">
+                    Create New Link
+                  </h2>
+                  <p class="text-sm text-text-muted mt-1">
+                    Enter the agent number and crypto payment details. The
+                    generated link will open the landing page and carry the
+                    signup details in the register buttons.
+                  </p>
+                </div>
+
+                <form id="generateLinkForm" class="p-6 space-y-6">
+                  <div>
+                    <label
+                      for="agentNumber"
+                      class="block text-sm font-medium text-text-main mb-2"
+                    >
+                      Agent Number
+                    </label>
+                    <input
+                      id="agentNumber"
+                      name="agentNumber"
+                      type="text"
+                      placeholder="Enter agent number"
+                      class="w-full rounded-lg border-outline-soft focus:border-primary focus:ring-primary"
+                      required
+                    />
+                  </div>
+
+                  <div>
+                    <label
+                      for="cryptoWallet"
+                      class="block text-sm font-medium text-text-main mb-2"
+                    >
+                      Crypto Wallet
+                    </label>
+                    <select
+                      id="cryptoWallet"
+                      name="cryptoWallet"
+                      class="w-full rounded-lg border-outline-soft focus:border-primary focus:ring-primary"
+                      required
+                    >
+                      <option value="">Select wallet</option>
+                      <option value="USDT TRC20">USDT TRC20</option>
+                      <option value="USDT ERC20">USDT ERC20</option>
+                      <option value="Bitcoin">Bitcoin</option>
+                      <option value="Ethereum">Ethereum</option>
+                      <option value="BNB Smart Chain">BNB Smart Chain</option>
+                    </select>
+                  </div>
+
+                  <div>
+                    <label
+                      for="walletAddress"
+                      class="block text-sm font-medium text-text-main mb-2"
+                    >
+                      Wallet Address
+                    </label>
+                    <textarea
+                      id="walletAddress"
+                      name="walletAddress"
+                      rows="4"
+                      placeholder="Enter wallet address"
+                      class="w-full rounded-lg border-outline-soft focus:border-primary focus:ring-primary resize-none"
+                      required
+                    ></textarea>
+                  </div>
+
+                  <div class="flex flex-col sm:flex-row gap-3">
+                    <button
+                      id="submitBtn"
+                      type="submit"
+                      class="inline-flex items-center justify-center gap-2 bg-primary text-white px-5 py-3 rounded-lg text-sm font-semibold hover:opacity-90 transition"
+                    >
+                      <span class="material-symbols-outlined text-[20px]"
+                        >add_link</span
+                      >
+                      Generate Link
+                    </button>
+
+                    <button
+                      id="resetBtn"
+                      type="button"
+                      class="inline-flex items-center justify-center gap-2 bg-surface-soft text-text-main px-5 py-3 rounded-lg text-sm font-semibold hover:bg-surface-muted transition"
+                    >
+                      <span class="material-symbols-outlined text-[20px]"
+                        >refresh</span
+                      >
+                      Reset
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="space-y-6">
+              <div class="bg-white border border-outline-soft card-shadow">
+                <div class="p-6 border-b border-outline-soft">
+                  <h3 class="font-headline text-lg font-bold">
+                    Generated Link
+                  </h3>
+                  <p class="text-sm text-text-muted mt-1">
+                    Your latest landing page link will appear here.
+                  </p>
+                </div>
+
+                <div class="p-6 space-y-4">
+                  <p id="statusMessage" class="text-sm text-text-muted">
+                    No link generated yet.
+                  </p>
+
+                  <div class="space-y-3">
+                    <div>
+                      <p
+                        class="text-xs uppercase tracking-wide text-text-soft mb-1"
+                      >
+                        Agent Number
+                      </p>
+                      <p
+                        id="resultAgentNumber"
+                        class="text-sm font-medium break-words"
+                      >
+                        --
+                      </p>
+                    </div>
+
+                    <div>
+                      <p
+                        class="text-xs uppercase tracking-wide text-text-soft mb-1"
+                      >
+                        Wallet
+                      </p>
+                      <p
+                        id="resultCryptoWallet"
+                        class="text-sm font-medium break-words"
+                      >
+                        --
+                      </p>
+                    </div>
+
+                    <div>
+                      <p
+                        class="text-xs uppercase tracking-wide text-text-soft mb-1"
+                      >
+                        Wallet Address
+                      </p>
+                      <p
+                        id="resultWalletAddress"
+                        class="text-sm text-text-muted break-all"
+                      >
+                        --
+                      </p>
+                    </div>
+
+                    <div>
+                      <p
+                        class="text-xs uppercase tracking-wide text-text-soft mb-1"
+                      >
+                        Landing Link
+                      </p>
+                      <div class="flex gap-2">
+                        <input
+                          id="generatedLink"
+                          type="text"
+                          readonly
+                          value=""
+                          placeholder="Generated landing link will show here"
+                          class="w-full rounded-lg border-outline-soft bg-surface-soft text-sm"
+                        />
+                        <button
+                          id="copyBtn"
+                          type="button"
+                          class="px-4 rounded-lg bg-primary text-white text-sm font-medium hover:opacity-90 transition"
+                        >
+                          Copy
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bg-white border border-outline-soft card-shadow p-6">
+                <h3 class="font-headline text-lg font-bold mb-2">
+                  How it works
+                </h3>
+                <div class="space-y-3 text-sm text-text-muted">
+                  <p>1. Fill in the agent number.</p>
+                  <p>2. Select the crypto wallet type.</p>
+                  <p>3. Paste the wallet address.</p>
+                  <p>4. Generate and share the landing page link.</p>
+                  <p>
+                    When the client opens that index page and clicks register,
+                    the signup details move along automatically.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script>
+      const BACKEND_URL =
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1"
+          ? "http://localhost:8000"
+          : "https://audi-t4lu.onrender.com";
+
+      const sidebarAdminName = document.getElementById("sidebarAdminName");
+      const sidebarAdminEmail = document.getElementById("sidebarAdminEmail");
+      const topWelcomeText = document.getElementById("topWelcomeText");
+      const lastUpdatedText = document.getElementById("lastUpdatedText");
+      const logoutBtn = document.getElementById("logoutBtn");
+
+      const generateLinkForm = document.getElementById("generateLinkForm");
+      const submitBtn = document.getElementById("submitBtn");
+      const resetBtn = document.getElementById("resetBtn");
+      const copyBtn = document.getElementById("copyBtn");
+
+      const statusMessage = document.getElementById("statusMessage");
+      const generatedLink = document.getElementById("generatedLink");
+      const resultAgentNumber = document.getElementById("resultAgentNumber");
+      const resultCryptoWallet = document.getElementById("resultCryptoWallet");
+      const resultWalletAddress = document.getElementById("resultWalletAddress");
+
+      const agentNumberInput = document.getElementById("agentNumber");
+      const cryptoWalletInput = document.getElementById("cryptoWallet");
+      const walletAddressInput = document.getElementById("walletAddress");
+
+      function getAdminDisplayName() {
+        return adminInfo?.name || adminInfo?.email || "Admin";
+      }
+
+      function getAuthHeaders() {
+        return {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${adminInfo?.token || ""}`,
+        };
+      }
+
+      function setStatus(message, isError = false) {
+        statusMessage.textContent = message;
+        statusMessage.className = isError
+          ? "text-sm text-red-600"
+          : "text-sm text-text-muted";
+      }
+
+      function updateLastUpdated() {
+        const now = new Date();
+        lastUpdatedText.textContent = `Last updated: ${now.toLocaleString()}`;
+      }
+
+      function resetForm() {
+        generateLinkForm.reset();
+        generatedLink.value = "";
+        resultAgentNumber.textContent = "--";
+        resultCryptoWallet.textContent = "--";
+        resultWalletAddress.textContent = "--";
+        setStatus("Form reset.");
+      }
+
+      async function logoutAdmin() {
+        try {
+          await fetch(`${BACKEND_URL}/api/admin/logout`, {
+            method: "POST",
+            credentials: "include",
+            headers: getAuthHeaders(),
+          });
+        } catch (error) {}
+
+        localStorage.removeItem("adminInfo");
+        window.location.replace("admin-login.html");
+      }
+
+      async function generateLandingLink(payload) {
+        const response = await fetch(`${BACKEND_URL}/api/links/generate`, {
+          method: "POST",
+          credentials: "include",
+          headers: getAuthHeaders(),
+          body: JSON.stringify(payload),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || "Failed to generate landing link");
+        }
+
+        return data;
+      }
+
+      async function handleGenerateLink(event) {
+        event.preventDefault();
+
+        const agentNumber = agentNumberInput.value.trim();
+        const cryptoWallet = cryptoWalletInput.value.trim();
+        const walletAddress = walletAddressInput.value.trim();
+
+        if (!agentNumber || !cryptoWallet || !walletAddress) {
+          setStatus("Please fill in all fields.", true);
+          return;
+        }
+
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `
+          <span class="material-symbols-outlined text-[20px] animate-spin">progress_activity</span>
+          Generating...
+        `;
+        setStatus("Generating landing link...");
+
+        try {
+          const data = await generateLandingLink({
+            agentNumber,
+            cryptoWallet,
+            walletAddress,
+          });
+
+          resultAgentNumber.textContent = data.agentNumber || "--";
+          resultCryptoWallet.textContent =
+            data.paymentMethod?.cryptoWallet || "--";
+          resultWalletAddress.textContent =
+            data.paymentMethod?.walletAddress || "--";
+          generatedLink.value = data.landingLink || "";
+
+          updateLastUpdated();
+          setStatus("Landing link generated successfully.");
+        } catch (error) {
+          console.error(error);
+          setStatus(error.message || "Failed to generate link.", true);
+
+          if (
+            error.message.toLowerCase().includes("unauthorized") ||
+            error.message.toLowerCase().includes("not authorized") ||
+            error.message.toLowerCase().includes("token")
+          ) {
+            localStorage.removeItem("adminInfo");
+            window.location.replace("admin-login.html");
+          }
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = `
+            <span class="material-symbols-outlined text-[20px]">add_link</span>
+            Generate Link
+          `;
+        }
+      }
+
+      async function copyGeneratedLink() {
+        const link = generatedLink.value.trim();
+
+        if (!link) {
+          setStatus("No generated link to copy yet.", true);
+          return;
+        }
+
+        try {
+          await navigator.clipboard.writeText(link);
+          setStatus("Landing link copied successfully.");
+        } catch (error) {
+          generatedLink.select();
+          generatedLink.setSelectionRange(0, 99999);
+          document.execCommand("copy");
+          setStatus("Landing link copied successfully.");
+        }
+      }
+
+      sidebarAdminName.textContent = getAdminDisplayName();
+      sidebarAdminEmail.textContent = adminInfo?.email || "No email";
+      topWelcomeText.textContent = `Welcome, ${getAdminDisplayName()}`;
+
+      generateLinkForm.addEventListener("submit", handleGenerateLink);
+      resetBtn.addEventListener("click", resetForm);
+      copyBtn.addEventListener("click", copyGeneratedLink);
+      logoutBtn.addEventListener("click", logoutAdmin);
+    </script>
+  </body>
+</html>

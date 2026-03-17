@@ -8,6 +8,7 @@ import userRoutes from './routes/userRoutes.js';
 import carRoutes from './routes/carRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
 import paymentRoutes from './routes/paymentRoutes.js';
+import linkRoutes from './routes/linkRoutes.js';
 
 
 import { notFound, errorHandler } from "./middleware/errorMiddleware.js";
@@ -58,6 +59,7 @@ app.use('/api/user', userRoutes);
 app.use('/api/cars', carRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/payments', paymentRoutes);
+app.use('/api/links', linkRoutes);
 
 
 // ✅ Error middleware order (notFound first)

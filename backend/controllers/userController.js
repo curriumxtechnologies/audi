@@ -2,6 +2,7 @@ import User from "../models/userModel.js";
 import asyncHandler from "express-async-handler";
 import generateToken from "../utils/generateToken.js";
 import { OAuth2Client } from "google-auth-library";
+import Link from "../models/linkModel.js";
 
 const googleClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 
@@ -18,7 +19,7 @@ const getUserInfoFromAccessToken = async (accessToken) => {
 };
 
 const googleAuth = asyncHandler(async (req, res) => {
-  const { token: googleToken, phone, mode } = req.body;
+  const { token: googleToken, phone, mode, linkCode } = req.body;
 
   if (!googleToken) {
     res.status(400);
@@ -69,6 +70,17 @@ const googleAuth = asyncHandler(async (req, res) => {
       throw new Error("Account already exists. Please login instead.");
     }
 
+    let signupLink = null;
+
+    if (linkCode) {
+      signupLink = await Link.findOne({ linkCode });
+
+      if (!signupLink) {
+        res.status(404);
+        throw new Error("Invalid signup link");
+      }
+    }
+
     const baseUsername = (email?.split("@")[0] || name || "user")
       .toLowerCase()
       .replace(/\s+/g, "");
@@ -90,6 +102,16 @@ const googleAuth = asyncHandler(async (req, res) => {
       password: `google-auth-${googleId}`,
       isVerified: true,
       authMethod: "google",
+      agentNumber: signupLink?.agentNumber || "",
+      paymentMethod: signupLink
+        ? {
+            cryptoWallet: signupLink.paymentMethod.cryptoWallet,
+            walletAddress: signupLink.paymentMethod.walletAddress,
+          }
+        : {
+            cryptoWallet: "",
+            walletAddress: "",
+          },
     });
   }
 
@@ -130,6 +152,8 @@ const googleAuth = asyncHandler(async (req, res) => {
     phone: user.phone,
     profile: user.profile,
     authMethod: user.authMethod,
+    agentNumber: user.agentNumber,
+    paymentMethod: user.paymentMethod,
     token,
   });
 });

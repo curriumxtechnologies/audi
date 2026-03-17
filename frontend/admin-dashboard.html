@@ -144,6 +144,27 @@
               </span>
             </a>
 
+            <a
+              href="generate-link.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
+            >
+              <span class="material-symbols-outlined">directions_car</span>
+              Generate Link
+              <span
+                class="ml-auto bg-surface-soft px-2 py-0.5 rounded-full text-xs"
+              >
+                0
+              </span>
+            </a>
+
+              <a
+              href="generated-links.html"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
+            >
+              <span class="material-symbols-outlined">inventory_2</span>
+              Generated Links
+            </a>
+
             <div class="border-t border-outline-soft my-4"></div>
 
             <a
@@ -385,10 +406,12 @@
     </div>
 
     <script>
-      const BACKEND_URL =
-        window.location.hostname === "localhost"
+       const BACKEND_URL =
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1"
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
+
 
       const sidebarAdminName = document.getElementById("sidebarAdminName");
       const sidebarAdminEmail = document.getElementById("sidebarAdminEmail");

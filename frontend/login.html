@@ -210,12 +210,10 @@
 
     <script>
       const BACKEND_URL =
-        window.location.hostname === "localhost"
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1"
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
-
-          // const BACKEND_URL = 'http://localhost:8000';
-
 
       const GOOGLE_CLIENT_ID =
         "135801485768-ffaeoe93oe2c9v6prs2if93fme7nd6rp.apps.googleusercontent.com";

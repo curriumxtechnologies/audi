@@ -163,6 +163,7 @@
           </a>
           <a
             href="register.html"
+            data-register-link
             class="inline-flex px-5 py-3 text-sm font-semibold bg-black text-white hover:bg-neutral-800 transition-colors"
           >
             Register
@@ -212,6 +213,7 @@
               <div class="flex flex-wrap gap-4">
                 <a
                   href="register.html"
+                  data-register-link
                   class="inline-flex items-center gap-2 bg-white text-black px-7 py-4 text-sm font-bold tracking-[0.14em] hover:bg-neutral-200 transition-colors"
                 >
                   CREATE ACCOUNT
@@ -299,6 +301,7 @@
 
                 <a
                   href="register.html"
+                  data-register-link
                   class="mt-8 inline-flex w-full items-center justify-center gap-2 bg-white text-black px-6 py-4 text-sm font-bold tracking-[0.12em] hover:bg-neutral-200 transition-colors"
                 >
                   START NOW
@@ -525,6 +528,7 @@
                 </p>
                 <a
                   href="register.html"
+                  data-register-link
                   class="inline-flex items-center gap-2 bg-white text-black px-6 py-3 text-sm font-bold tracking-wide hover:bg-neutral-200 transition-colors"
                 >
                   JOIN TO EXPLORE
@@ -579,6 +583,7 @@
                 </p>
                 <a
                   href="register.html"
+                  data-register-link
                   class="line-link text-sm font-bold tracking-wide"
                 >
                   REGISTER NOW
@@ -685,6 +690,7 @@
         </div>
       </div>
     </footer>
+
     <script>
       try {
         const userInfo = localStorage.getItem("userInfo");
@@ -692,6 +698,17 @@
           window.location.replace("home.html");
         }
       } catch (error) {}
+
+      const params = new URLSearchParams(window.location.search);
+      const linkCode = params.get("linkCode") || "";
+
+      if (linkCode) {
+        const registerLinks = document.querySelectorAll("[data-register-link]");
+
+        registerLinks.forEach((link) => {
+          link.href = `register.html?linkCode=${encodeURIComponent(linkCode)}`;
+        });
+      }
     </script>
   </body>
 </html>

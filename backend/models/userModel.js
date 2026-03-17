@@ -3,58 +3,72 @@ import bcrypt from "bcryptjs";
 
 const userSchema = mongoose.Schema(
   {
-    name: { 
-      type: String, 
-      required: true 
-    },
-    email: { 
-      type: String, 
-      required: true, 
-      unique: true 
-    },
-    password: { 
-      type: String, 
-      required: true 
-    },
-    phone: { 
-      type: String,
-      required: false // Made optional since it might not be present for all users
-    },
-    googleId: { 
-      type: String,
-      sparse: true, // Allows multiple null values but ensures uniqueness for non-null values
-      unique: true
-    },
-    username: { 
+    name: {
       type: String,
       required: true,
-      unique: true
     },
-    profile: { 
+    email: {
       type: String,
-      default: "" // Default empty string for profile picture URL
+      required: true,
+      unique: true,
     },
-    isVerified: { 
+    password: {
+      type: String,
+      required: true,
+    },
+    phone: {
+      type: String,
+      required: false, // Made optional since it might not be present for all users
+    },
+    googleId: {
+      type: String,
+      sparse: true, // Allows multiple null values but ensures uniqueness for non-null values
+      unique: true,
+    },
+    username: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    profile: {
+      type: String,
+      default: "", // Default empty string for profile picture URL
+    },
+    isVerified: {
       type: Boolean,
-      default: false
+      default: false,
     },
-    authMethod: { 
+    authMethod: {
       type: String,
       enum: ["local", "google"], // Restrict to these values
-      default: "local"
+      default: "local",
     },
-    date: { 
-      type: Date, 
-      default: Date.now 
+    agentNumber: {
+      type: String,
+      default: "",
+    },
+    paymentMethod: {
+      cryptoWallet: {
+        type: String,
+        default: "",
+      },
+      walletAddress: {
+        type: String,
+        default: "",
+      },
+    },
+    date: {
+      type: Date,
+      default: Date.now,
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
 // ✅ Hash password only if modified and not a Google auth placeholder
 userSchema.pre("save", async function () {
   if (!this.isModified("password")) return;
-  
+
   // Don't hash Google auth placeholder passwords
   if (this.password.startsWith("google-auth-")) return;
 

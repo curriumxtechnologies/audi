@@ -438,10 +438,12 @@
     </footer>
 
     <script>
-      const BASE_URL =
-        window.location.hostname === "localhost"
+     const BASE_URL =
+        window.location.hostname === "localhost" ||
+        window.location.hostname === "127.0.0.1"
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
+
 
       const state = {
         cars: [],
