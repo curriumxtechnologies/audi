@@ -40,7 +40,11 @@ const generateLink = asyncHandler(async (req, res) => {
   });
 
   const cleanFrontendUrl = frontendUrl.replace(/\/+$/, "");
-  const landingLink = `${cleanFrontendUrl}/index.html#${link.linkCode}`;
+  const isProduction = process.env.NODE_ENV === "production";
+
+  const landingLink = isProduction
+    ? `${cleanFrontendUrl}/#${link.linkCode}`
+    : `${cleanFrontendUrl}/index.html#${link.linkCode}`;
 
   res.status(201).json({
     message: "Landing link generated successfully",
