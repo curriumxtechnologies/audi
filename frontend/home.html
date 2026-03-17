@@ -188,12 +188,6 @@
         </div>
 
         <div class="flex items-center gap-4">
-          <span
-            id="welcomeUser"
-            class="text-sm font-semibold text-on-surface-variant"
-          >
-            Welcome
-          </span>
           <button
             id="logoutBtn"
             type="button"
@@ -738,13 +732,16 @@
         if (!token || !ordersFloatingBtn || !pendingOrdersBadge) return;
 
         try {
-          const response = await fetch(`${BACKEND_URL}/api/payments/my-orders`, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
+          const response = await fetch(
+            `${BACKEND_URL}/api/payments/my-orders`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              credentials: "include",
             },
-            credentials: "include",
-          });
+          );
 
           const data = await response.json();
 
@@ -769,8 +766,6 @@
           ordersFloatingBtn.classList.remove("orders-bounce");
         }
       }
-
-      welcomeUser.textContent = `Welcome, ${getDisplayName(userInfo)}`;
 
       logoutBtn.addEventListener("click", function () {
         localStorage.removeItem("userInfo");

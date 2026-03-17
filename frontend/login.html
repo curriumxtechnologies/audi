@@ -313,7 +313,7 @@
 
         try {
           await checkBackend();
-          setStatus("Backend connected. Click Google to continue.");
+          setStatus("Click Google to continue.");
         } catch (error) {
           setStatus("Cannot reach backend. Make sure server is running.", true);
           return;
@@ -380,7 +380,7 @@
             }
           });
 
-          setStatus("Backend connected. Click Google to continue.");
+          setStatus("Click Google to continue.");
         }
 
         startGoogleInit();

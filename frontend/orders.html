@@ -111,24 +111,52 @@
     </style>
   </head>
 
-  <body class="bg-surface text-on-surface font-body selection:bg-primary selection:text-white">
-    <header class="glass-header sticky top-0 z-50 border-b border-outline-variant/10">
-      <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+  <body
+    class="bg-surface text-on-surface font-body selection:bg-primary selection:text-white"
+  >
+    <header
+      class="glass-header sticky top-0 z-50 border-b border-outline-variant/10"
+    >
+      <nav
+        class="container mx-auto px-6 py-4 flex items-center justify-between"
+      >
         <div class="flex items-center gap-10">
-          <a href="home.html" class="font-headline text-2xl font-extrabold tracking-tighter">
+          <a
+            href="home.html"
+            class="font-headline text-2xl font-extrabold tracking-tighter"
+          >
             Audi
           </a>
 
           <div class="hidden md:flex items-center gap-8">
-            <a href="home.html" class="text-sm font-medium hover:text-primary transition-colors">Home</a>
-            <a href="models.html" class="text-sm font-medium hover:text-primary transition-colors">Models</a>
-            <a href="profile.html" class="text-sm font-medium hover:text-primary transition-colors">Profile</a>
-            <a href="orders.html" class="text-sm font-semibold text-primary border-b-2 border-primary pb-1">Orders</a>
+            <a
+              href="home.html"
+              class="text-sm font-medium hover:text-primary transition-colors"
+              >Home</a
+            >
+            <a
+              href="models.html"
+              class="text-sm font-medium hover:text-primary transition-colors"
+              >Models</a
+            >
+            <a
+              href="profile.html"
+              class="text-sm font-medium hover:text-primary transition-colors"
+              >Profile</a
+            >
+            <a
+              href="orders.html"
+              class="text-sm font-semibold text-primary border-b-2 border-primary pb-1"
+              >Orders</a
+            >
           </div>
         </div>
 
         <div class="flex items-center gap-3">
-          <span id="welcomeUser" class="hidden sm:inline-block text-sm font-semibold text-on-surface-variant">
+          <span
+            id="welcomeUser"
+            class="hidden sm:inline-block text-sm font-semibold text-on-surface-variant"
+          >
             Welcome
           </span>
 
@@ -147,7 +175,9 @@
       <section class="py-16 md:py-20 bg-surface-container-low">
         <div class="container mx-auto px-6">
           <div class="max-w-4xl">
-            <p class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4">
+            <p
+              class="text-xs font-bold tracking-[0.2em] text-on-surface-variant mb-4"
+            >
               PURCHASE HISTORY
             </p>
 
@@ -156,8 +186,8 @@
             </h1>
 
             <p class="text-on-surface-variant text-base md:text-lg max-w-2xl">
-              Track every payment you have made and see whether it is
-              awaiting approval or already confirmed by the admin team.
+              Track every payment you have made and see whether it is awaiting
+              approval or already confirmed by the admin team.
             </p>
           </div>
         </div>
@@ -167,7 +197,9 @@
         <div class="container mx-auto px-6">
           <div class="mb-8 flex flex-wrap gap-4 items-center justify-between">
             <div class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-on-surface-variant">receipt_long</span>
+              <span class="material-symbols-outlined text-on-surface-variant"
+                >receipt_long</span
+              >
               <p id="ordersSummary" class="text-sm text-on-surface-variant">
                 Loading your orders...
               </p>
@@ -178,12 +210,16 @@
               class="inline-flex items-center gap-2 border border-outline-variant/40 px-5 py-3 text-sm font-semibold hover:border-primary transition-colors"
             >
               Browse More Cars
-              <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+              <span class="material-symbols-outlined text-[18px]"
+                >arrow_forward</span
+              >
             </a>
           </div>
 
           <div id="ordersGrid" class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-            <div class="col-span-full bg-surface-container-low p-10 text-center">
+            <div
+              class="col-span-full bg-surface-container-low p-10 text-center"
+            >
               <p class="text-lg font-semibold mb-2">Loading orders...</p>
               <p class="text-sm text-on-surface-variant">
                 Please wait while we fetch your orders.
@@ -196,32 +232,79 @@
 
     <footer class="bg-surface-container py-20">
       <div class="container mx-auto px-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16"
+        >
           <div class="lg:col-span-2">
-            <span class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block">
+            <span
+              class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block"
+            >
               Audi
             </span>
 
-            <p class="text-on-surface-variant max-w-sm font-light leading-relaxed">
-              Follow your payment status from submission to final confirmation in one clean dashboard.
+            <p
+              class="text-on-surface-variant max-w-sm font-light leading-relaxed"
+            >
+              Follow your payment status from submission to final confirmation
+              in one clean dashboard.
             </p>
           </div>
 
           <div>
-            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">Navigation</h5>
+            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">
+              Navigation
+            </h5>
             <ul class="space-y-3">
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="home.html">Home</a></li>
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="models.html">Models</a></li>
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="profile.html">Profile</a></li>
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="orders.html">Orders</a></li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="home.html"
+                  >Home</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="models.html"
+                  >Models</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="profile.html"
+                  >Profile</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="orders.html"
+                  >Orders</a
+                >
+              </li>
             </ul>
           </div>
 
           <div>
-            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">Support</h5>
+            <h5 class="font-bold text-xs tracking-widest uppercase mb-6">
+              Support
+            </h5>
             <ul class="space-y-3">
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="contact.html">Contact</a></li>
-              <li><a class="text-sm text-on-surface-variant hover:text-primary transition-colors" href="about.html">About</a></li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="contact.html"
+                  >Contact</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-on-surface-variant hover:text-primary transition-colors"
+                  href="about.html"
+                  >About</a
+                >
+              </li>
             </ul>
           </div>
         </div>
@@ -253,11 +336,22 @@
       }
 
       function getDisplayName(user) {
-        return user?.name || user?.fullName || user?.username || user?.email || "User";
+        return (
+          user?.name ||
+          user?.fullName ||
+          user?.username ||
+          user?.email ||
+          "User"
+        );
       }
 
       function getToken() {
-        return userInfo?.token || userInfo?.accessToken || userInfo?.authToken || null;
+        return (
+          userInfo?.token ||
+          userInfo?.accessToken ||
+          userInfo?.authToken ||
+          null
+        );
       }
 
       function formatPrice(price, currency = "USD") {
@@ -293,7 +387,10 @@
 
         const cleanPath = String(path).replace(/\\/g, "/");
 
-        if (cleanPath.startsWith("http://") || cleanPath.startsWith("https://")) {
+        if (
+          cleanPath.startsWith("http://") ||
+          cleanPath.startsWith("https://")
+        ) {
           return cleanPath;
         }
 
@@ -305,7 +402,11 @@
       }
 
       function getImage(car) {
-        if (car?.pictures && Array.isArray(car.pictures) && car.pictures.length) {
+        if (
+          car?.pictures &&
+          Array.isArray(car.pictures) &&
+          car.pictures.length
+        ) {
           return resolveImageUrl(car.pictures[0]);
         }
 
@@ -326,7 +427,7 @@
             className: "status-confirmed",
             icon: "check_circle",
             label: "confirmed",
-            message: "Your payment has been approved by admin.",
+            message: "Your payment has been approved.",
           };
         }
 
@@ -335,7 +436,8 @@
             className: "status-awaiting",
             icon: "hourglass_top",
             label: "awaiting_approval",
-            message: "Your payment has been submitted and is awaiting admin approval.",
+            message:
+              "Your payment has been submitted and is awaiting admin approval.",
           };
         }
 
@@ -372,8 +474,12 @@
           return;
         }
 
-        const awaitingCount = orders.filter((item) => item.status === "pending_approval").length;
-        const confirmedCount = orders.filter((item) => item.status === "confirmed").length;
+        const awaitingCount = orders.filter(
+          (item) => item.status === "pending_approval",
+        ).length;
+        const confirmedCount = orders.filter(
+          (item) => item.status === "confirmed",
+        ).length;
 
         ordersSummary.textContent = `${orders.length} order${orders.length > 1 ? "s" : ""} • ${awaitingCount} awaiting approval • ${confirmedCount} confirmed`;
 
@@ -447,29 +553,6 @@
                     </div>
                   </div>
 
-                  <div class="space-y-4 border-t border-outline-variant/20 pt-6">
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                      <span class="text-sm text-on-surface-variant">Transaction ID</span>
-                      <span class="text-sm font-semibold break-all">${order.transactionId || "Not available"}</span>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                      <span class="text-sm text-on-surface-variant">Wallet Address</span>
-                      <span class="text-sm font-semibold break-all">${order.walletAddress || "Not available"}</span>
-                    </div>
-
-                    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                      <span class="text-sm text-on-surface-variant">Receipt</span>
-                      <a
-                        href="${order.paymentReceiptUrl || "#"}"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        class="text-sm font-semibold underline underline-offset-4"
-                      >
-                        View Receipt
-                      </a>
-                    </div>
-
                     ${
                       order.adminNote
                         ? `
@@ -505,16 +588,21 @@
           const token = getToken();
 
           if (!token) {
-            throw new Error("Authentication token not found. Please log in again.");
+            throw new Error(
+              "Authentication token not found. Please log in again.",
+            );
           }
 
-          const response = await fetch(`${BACKEND_URL}/api/payments/my-orders`, {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
+          const response = await fetch(
+            `${BACKEND_URL}/api/payments/my-orders`,
+            {
+              method: "GET",
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+              credentials: "include",
             },
-            credentials: "include",
-          });
+          );
 
           const data = await response.json();
 
