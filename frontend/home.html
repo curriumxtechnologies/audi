@@ -768,8 +768,6 @@
         }
       }
 
-      welcomeUser.textContent = `Welcome, ${getDisplayName(userInfo)}`;
-
       logoutBtn.addEventListener("click", function () {
         localStorage.removeItem("userInfo");
         window.location.replace("index.html");

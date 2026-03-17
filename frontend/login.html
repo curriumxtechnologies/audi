@@ -214,8 +214,7 @@
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
 
-          // const BACKEND_URL = 'http://localhost:8000';
-
+      // const BACKEND_URL = 'http://localhost:8000';
 
       const GOOGLE_CLIENT_ID =
         "135801485768-ffaeoe93oe2c9v6prs2if93fme7nd6rp.apps.googleusercontent.com";
@@ -315,7 +314,7 @@
 
         try {
           await checkBackend();
-          setStatus("Backend connected. Click Google to continue.");
+          setStatus("Click Google to continue.");
         } catch (error) {
           setStatus("Cannot reach backend. Make sure server is running.", true);
           return;
@@ -382,7 +381,7 @@
             }
           });
 
-          setStatus("Backend connected. Click Google to continue.");
+          setStatus("Click Google to continue.");
         }
 
         startGoogleInit();
