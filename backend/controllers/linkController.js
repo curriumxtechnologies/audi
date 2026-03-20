@@ -3,11 +3,31 @@ import crypto from "crypto";
 import Link from "../models/linkModel.js";
 
 const generateLink = asyncHandler(async (req, res) => {
-  const { agentNumber, cryptoWallet, walletAddress } = req.body;
+  const { agentNumber, paymentMethods } = req.body;
 
-  if (!agentNumber || !cryptoWallet || !walletAddress) {
+  if (!agentNumber) {
     res.status(400);
-    throw new Error("agentNumber, cryptoWallet and walletAddress are required");
+    throw new Error("agentNumber is required");
+  }
+
+  if (!Array.isArray(paymentMethods) || paymentMethods.length === 0) {
+    res.status(400);
+    throw new Error("paymentMethods must be a non-empty array");
+  }
+
+  const normalizedPaymentMethods = paymentMethods
+    .map((method) => ({
+      coin: method?.coin?.trim(),
+      network: method?.network?.trim(),
+      walletAddress: method?.walletAddress?.trim(),
+    }))
+    .filter(
+      (method) => method.coin && method.network && method.walletAddress
+    );
+
+  if (!normalizedPaymentMethods.length) {
+    res.status(400);
+    throw new Error("Each payment method must have coin, network and walletAddress");
   }
 
   const frontendUrl = process.env.FRONTEND_URL;
@@ -24,19 +44,13 @@ const generateLink = asyncHandler(async (req, res) => {
   while (exists) {
     linkCode = `audi-${String(counter).padStart(2, "0")}`;
     exists = await Link.findOne({ linkCode });
-
-    if (exists) {
-      counter++;
-    }
+    if (exists) counter++;
   }
 
   const link = await Link.create({
     linkCode,
-    agentNumber,
-    paymentMethod: {
-      cryptoWallet,
-      walletAddress,
-    },
+    agentNumber: agentNumber.trim(),
+    paymentMethods: normalizedPaymentMethods,
   });
 
   const cleanFrontendUrl = frontendUrl.replace(/\/+$/, "");
@@ -52,7 +66,7 @@ const generateLink = asyncHandler(async (req, res) => {
     linkCode: link.linkCode,
     landingLink,
     agentNumber: link.agentNumber,
-    paymentMethod: link.paymentMethod,
+    paymentMethods: link.paymentMethods,
   });
 });
 

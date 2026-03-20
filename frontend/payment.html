@@ -220,7 +220,7 @@
                     <span id="depositAmount" class="font-medium">$0</span>
 
                     <span class="text-on-surface-variant">Payment method</span>
-                    <span id="selectedPaymentSummary" class="font-medium text-xs">Crypto (USDT)</span>
+                    <span id="selectedPaymentSummary" class="font-medium text-xs">Unavailable</span>
                   </div>
 
                   <div class="mt-4">
@@ -245,31 +245,17 @@
             <div class="border border-outline-variant/20 p-6 bg-surface-container-lowest">
               <h3 class="font-headline text-lg font-bold mb-4">Crypto payment details</h3>
 
-              <div class="grid grid-cols-2 gap-3 mb-5">
-                <button
-                  type="button"
-                  class="payment-option active px-3 py-3 text-xs font-medium text-left transition"
-                  data-payment-key="usdt"
-                >
-                  <div class="font-semibold">USDT</div>
-                  <div class="text-[11px] opacity-80 mt-1">TRC20 network</div>
-                </button>
+              <div id="paymentOptionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5"></div>
 
-                <button
-                  type="button"
-                  class="payment-option px-3 py-3 text-xs font-medium text-left transition bg-surface-container-high text-on-surface-variant"
-                  data-payment-key="btc"
-                >
-                  <div class="font-semibold">Bitcoin (BTC)</div>
-                  <div class="text-[11px] opacity-80 mt-1">BTC network</div>
-                </button>
+              <div id="paymentOptionsEmptyState" class="hidden text-xs bg-error-container/30 text-on-error-container p-3 mb-5">
+                No supported payment option is available for this account yet. Please contact an agent.
               </div>
 
               <div class="flex items-baseline justify-between border-b border-outline-variant/20 pb-4">
                 <span class="text-on-surface-variant text-sm">Amount to pay</span>
                 <div class="text-right">
                   <span id="amountToPayText" class="font-headline text-3xl font-bold">$0</span>
-                  <span id="amountHint" class="block text-sm text-on-surface-variant">≈ 0 USDT</span>
+                  <span id="amountHint" class="block text-sm text-on-surface-variant">≈ 0</span>
                 </div>
               </div>
 
@@ -277,24 +263,24 @@
                 <div class="flex justify-between items-center text-sm">
                   <span class="text-on-surface-variant">Network</span>
                   <span id="networkBadge" class="font-medium bg-surface-container-high px-2 py-0.5 text-xs">
-                    TRC20
+                    --
                   </span>
                 </div>
 
                 <div class="flex justify-between items-center text-sm">
                   <span class="text-on-surface-variant">Coin</span>
-                  <span id="coinText" class="font-medium">USDT</span>
+                  <span id="coinText" class="font-medium">--</span>
                 </div>
 
                 <div>
                   <div class="flex justify-between text-sm mb-1">
                     <span class="text-on-surface-variant">Wallet address</span>
-                    <span id="walletHint" class="text-xs text-on-surface-variant">TRC20 only</span>
+                    <span id="walletHint" class="text-xs text-on-surface-variant">--</span>
                   </div>
 
                   <div class="flex items-center justify-between border border-outline-variant/40 p-2 bg-surface-container-low gap-3">
                     <code id="walletAddressText" class="text-xs truncate max-w-[180px] md:max-w-[240px]">
-                      TX7x9qLmN8pQr2vW3yX4zB5c6dE7fG8hJ9kL
+                      --
                     </code>
 
                     <button
@@ -310,7 +296,7 @@
 
                 <div id="networkWarning" class="text-xs bg-error-container/30 text-on-error-container p-3 flex items-start gap-2">
                   <span class="material-symbols-outlined text-[16px]">warning</span>
-                  <span>Send only USDT on the TRC20 network to this address.</span>
+                  <span>Select a payment option.</span>
                 </div>
               </div>
 
@@ -332,7 +318,7 @@
               <div class="space-y-3 text-sm">
                 <div class="flex items-center gap-3">
                   <span class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold">1</span>
-                  <span>Choose your preferred crypto payment option</span>
+                  <span>Choose your available crypto payment option</span>
                 </div>
                 <div class="flex items-center gap-3">
                   <span class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold">2</span>
@@ -340,7 +326,7 @@
                 </div>
                 <div class="flex items-center gap-3">
                   <span class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold">3</span>
-                  <span>Send the correct amount from your wallet</span>
+                  <span>Send the correct equivalent amount from your wallet</span>
                 </div>
                 <div class="flex items-center gap-3">
                   <span class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold">4</span>
@@ -410,10 +396,10 @@
                     class="input-premium w-full px-4 py-3 text-sm"
                   />
 
-                  <input id="currency" name="currency" type="text" value="USDT" readonly class="input-premium w-full px-4 py-3 text-sm" />
-                  <input id="paymentMethod" name="paymentMethod" type="text" value="USDT" readonly class="input-premium w-full px-4 py-3 text-sm" />
-                  <input id="paymentNetwork" name="paymentNetwork" type="text" value="TRC20" readonly class="input-premium w-full px-4 py-3 text-sm" />
-                  <input id="walletAddress" name="walletAddress" type="text" readonly class="input-premium w-full px-4 py-3 text-sm" />
+                  <input id="currency" name="currency" type="text" value="" readonly class="input-premium w-full px-4 py-3 text-sm" />
+                  <input id="paymentMethod" name="paymentMethod" type="text" value="" readonly class="input-premium w-full px-4 py-3 text-sm" />
+                  <input id="paymentNetwork" name="paymentNetwork" type="text" value="" readonly class="input-premium w-full px-4 py-3 text-sm" />
+                  <input id="walletAddress" name="walletAddress" type="text" value="" readonly class="input-premium w-full px-4 py-3 text-sm" />
 
                   <textarea
                     id="optionalNote"
@@ -467,45 +453,139 @@
     </footer>
 
     <script>
-    const BASE_URL =
+      const BASE_URL =
         window.location.hostname === "localhost" ||
         window.location.hostname === "127.0.0.1"
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
 
-
       const DEPOSIT_PERCENTAGE = 0.1;
+      const FALLBACK_AGENT_NUMBER = "2348123456789";
 
-      const PAYMENT_OPTIONS = {
-        usdt: {
-          key: "usdt",
-          label: "USDT",
-          displayName: "USDT",
-          network: "TRC20",
-          walletAddress: "TX7x9qLmN8pQr2vW3yX4zB5c6dE7fG8hJ9kL",
-          amountSuffix: "USDT",
-          warning: "Send only USDT on the TRC20 network to this address.",
-          hint: "TRC20 only",
-          summary: "Crypto (USDT)",
-        },
-        btc: {
-          key: "btc",
+      const COIN_CONFIG = {
+        BTC: {
+          symbol: "BTC",
           label: "Bitcoin (BTC)",
-          displayName: "BTC",
-          network: "BTC",
-          walletAddress: "bc1q8x7y6z5a4b3c2d1e9f8g7h6j5k4l3m2n1p0qrs",
-          amountSuffix: "BTC",
-          warning: "Send only BTC on the Bitcoin network to this address.",
-          hint: "BTC network only",
-          summary: "Crypto (BTC)",
+          coingeckoId: "bitcoin",
+          decimals: 8,
         },
+        BITCOIN: {
+          symbol: "BTC",
+          label: "Bitcoin (BTC)",
+          coingeckoId: "bitcoin",
+          decimals: 8,
+        },
+        USDT: {
+          symbol: "USDT",
+          label: "USDT",
+          coingeckoId: "tether",
+          decimals: 4,
+        },
+        ETH: {
+          symbol: "ETH",
+          label: "Ethereum (ETH)",
+          coingeckoId: "ethereum",
+          decimals: 8,
+        },
+        ETHEREUM: {
+          symbol: "ETH",
+          label: "Ethereum (ETH)",
+          coingeckoId: "ethereum",
+          decimals: 8,
+        },
+        BNB: {
+          symbol: "BNB",
+          label: "BNB",
+          coingeckoId: "binancecoin",
+          decimals: 8,
+        },
+        SOL: {
+          symbol: "SOL",
+          label: "Solana (SOL)",
+          coingeckoId: "solana",
+          decimals: 8,
+        },
+        SOLANA: {
+          symbol: "SOL",
+          label: "Solana (SOL)",
+          coingeckoId: "solana",
+          decimals: 8,
+        },
+        USDC: {
+          symbol: "USDC",
+          label: "USDC",
+          coingeckoId: "usd-coin",
+          decimals: 4,
+        },
+        XRP: {
+          symbol: "XRP",
+          label: "XRP",
+          coingeckoId: "ripple",
+          decimals: 6,
+        },
+        RIPPLE: {
+          symbol: "XRP",
+          label: "XRP",
+          coingeckoId: "ripple",
+          decimals: 6,
+        },
+        ADA: {
+          symbol: "ADA",
+          label: "Cardano (ADA)",
+          coingeckoId: "cardano",
+          decimals: 6,
+        },
+        CARDANO: {
+          symbol: "ADA",
+          label: "Cardano (ADA)",
+          coingeckoId: "cardano",
+          decimals: 6,
+        },
+        DOGE: {
+          symbol: "DOGE",
+          label: "Dogecoin (DOGE)",
+          coingeckoId: "dogecoin",
+          decimals: 6,
+        },
+        DOGECOIN: {
+          symbol: "DOGE",
+          label: "Dogecoin (DOGE)",
+          coingeckoId: "dogecoin",
+          decimals: 6,
+        },
+        TRX: {
+          symbol: "TRX",
+          label: "TRON (TRX)",
+          coingeckoId: "tron",
+          decimals: 6,
+        },
+        TRON: {
+          symbol: "TRX",
+          label: "TRON (TRX)",
+          coingeckoId: "tron",
+          decimals: 6,
+        },
+        LTC: {
+          symbol: "LTC",
+          label: "Litecoin (LTC)",
+          coingeckoId: "litecoin",
+          decimals: 8,
+        },
+        LITECOIN: {
+          symbol: "LTC",
+          label: "Litecoin (LTC)",
+          coingeckoId: "litecoin",
+          decimals: 8,
+        }
       };
 
       const params = new URLSearchParams(window.location.search);
       const carId = params.get("id");
 
       let currentCar = null;
-      let activePaymentKey = "usdt";
+      let activePaymentKey = "";
+      let PAYMENT_OPTIONS = {};
+      let LIVE_RATES = {};
 
       function getUserInfo() {
         try {
@@ -522,7 +602,12 @@
       }
 
       function formatPrice(price, currency = "USD") {
-        if (price === undefined || price === null || price === "" || Number.isNaN(Number(price))) {
+        if (
+          price === undefined ||
+          price === null ||
+          price === "" ||
+          Number.isNaN(Number(price))
+        ) {
           return "Price on request";
         }
 
@@ -535,6 +620,23 @@
         } catch {
           return `$${Number(price).toLocaleString()}`;
         }
+      }
+
+      function formatCoinAmount(value, decimals = 8) {
+        const num = Number(value);
+        if (!Number.isFinite(num)) return "0";
+        return num.toLocaleString(undefined, {
+          minimumFractionDigits: 0,
+          maximumFractionDigits: decimals,
+        });
+      }
+
+      function normalizeText(value) {
+        return String(value || "").trim().toUpperCase();
+      }
+
+      function getCoinMeta(coin) {
+        return COIN_CONFIG[normalizeText(coin)] || null;
       }
 
       function resolveImageUrl(path) {
@@ -589,8 +691,6 @@
 
       function setPaymentStatus(status) {
         const badge = document.getElementById("paymentStatusBadge");
-        const text = document.getElementById("paymentStatusText");
-
         badge.className = "status-pill";
 
         if (status === "pending_approval") {
@@ -618,19 +718,192 @@
         `;
       }
 
+      function buildPaymentOptionsFromBackend() {
+        const info = getUserInfo();
+        const paymentMethods = Array.isArray(info?.paymentMethods) ? info.paymentMethods : [];
+
+        const normalized = paymentMethods
+          .map((method, index) => {
+            const coinMeta = getCoinMeta(method?.coin);
+            const network = normalizeText(method?.network);
+            const walletAddress = String(method?.walletAddress || "").trim();
+
+            if (!coinMeta || !network || !walletAddress) return null;
+
+            return {
+              key: `${coinMeta.symbol.toLowerCase()}_${index + 1}`,
+              coinKey: coinMeta.symbol,
+              label: coinMeta.label,
+              displayName: coinMeta.symbol,
+              network,
+              walletAddress,
+              amountSuffix: coinMeta.symbol,
+              warning: `Send only ${coinMeta.symbol} on the ${network} network to this address.`,
+              hint: `${network} only`,
+              summary: `Crypto (${coinMeta.symbol})`,
+              coingeckoId: coinMeta.coingeckoId,
+              decimals: coinMeta.decimals,
+            };
+          })
+          .filter(Boolean);
+
+        PAYMENT_OPTIONS = normalized.reduce((acc, option) => {
+          acc[option.key] = option;
+          return acc;
+        }, {});
+
+        activePaymentKey = normalized.length ? normalized[0].key : "";
+      }
+
       function getSelectedPayment() {
-        return PAYMENT_OPTIONS[activePaymentKey];
+        return PAYMENT_OPTIONS[activePaymentKey] || null;
+      }
+
+      function getAmountBaseUSD() {
+        const price = Number(currentCar?.price || 0);
+        const deposit = price > 0 ? Math.round(price * DEPOSIT_PERCENTAGE) : 0;
+        return deposit || price || 0;
+      }
+
+      async function fetchLiveRates() {
+        const options = Object.values(PAYMENT_OPTIONS);
+
+        if (!options.length) {
+          LIVE_RATES = {};
+          return;
+        }
+
+        const ids = [...new Set(options.map((option) => option.coingeckoId))];
+        const query = new URLSearchParams({
+          ids: ids.join(","),
+          vs_currencies: "usd",
+          include_last_updated_at: "true",
+          precision: "full",
+        });
+
+        try {
+          const response = await fetch(
+            `https://api.coingecko.com/api/v3/simple/price?${query.toString()}`,
+            {
+              method: "GET",
+              headers: {
+                Accept: "application/json",
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch live exchange rates");
+          }
+
+          const data = await response.json();
+          LIVE_RATES = data || {};
+        } catch (error) {
+          console.error("Rate fetch error:", error);
+          LIVE_RATES = {};
+        }
+      }
+
+      function getUsdRateForOption(option) {
+        if (!option?.coingeckoId) return null;
+        const usd = Number(LIVE_RATES?.[option.coingeckoId]?.usd);
+        return Number.isFinite(usd) && usd > 0 ? usd : null;
+      }
+
+      function getCoinAmountFromUSD(usdAmount, option) {
+        const amount = Number(usdAmount);
+        const usdRate = getUsdRateForOption(option);
+
+        if (!Number.isFinite(amount) || amount <= 0) return 0;
+        if (!Number.isFinite(usdRate) || usdRate <= 0) return 0;
+
+        return amount / usdRate;
+      }
+
+      function renderPaymentButtons() {
+        const container = document.getElementById("paymentOptionsContainer");
+        const emptyState = document.getElementById("paymentOptionsEmptyState");
+        const options = Object.values(PAYMENT_OPTIONS);
+
+        if (!options.length) {
+          container.innerHTML = "";
+          emptyState.classList.remove("hidden");
+          return;
+        }
+
+        emptyState.classList.add("hidden");
+
+        container.className =
+          options.length === 1
+            ? "grid grid-cols-1 gap-3 mb-5"
+            : "grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5";
+
+        container.innerHTML = options
+          .map((payment) => {
+            const isActive = payment.key === activePaymentKey;
+
+            return `
+              <button
+                type="button"
+                class="payment-option ${
+                  isActive ? "active" : "bg-surface-container-high text-on-surface-variant"
+                } px-3 py-3 text-xs font-medium text-left transition"
+                data-payment-key="${payment.key}"
+              >
+                <div class="font-semibold">${payment.label}</div>
+                <div class="text-[11px] opacity-80 mt-1">${payment.network} network</div>
+              </button>
+            `;
+          })
+          .join("");
+      }
+
+      function setupPaymentOptions() {
+        document.querySelectorAll(".payment-option").forEach((button) => {
+          button.addEventListener("click", () => {
+            activePaymentKey = button.dataset.paymentKey;
+            renderPaymentButtons();
+            updatePaymentUI();
+
+            const selected = getSelectedPayment();
+            if (selected) {
+              showMessage(`${selected.label} selected for payment.`, "info");
+            }
+          });
+        });
+      }
+
+      function resetPaymentUIForNoOptions() {
+        document.getElementById("selectedPaymentSummary").textContent = "Unavailable";
+        document.getElementById("networkBadge").textContent = "--";
+        document.getElementById("coinText").textContent = "--";
+        document.getElementById("walletAddressText").textContent = "--";
+        document.getElementById("walletAddress").value = "";
+        document.getElementById("walletHint").textContent = "--";
+        document.getElementById("currency").value = "";
+        document.getElementById("paymentMethod").value = "";
+        document.getElementById("paymentNetwork").value = "";
+        document.getElementById("amountHint").textContent = "No available payment option";
+        document.getElementById("networkWarning").innerHTML = `
+          <span class="material-symbols-outlined text-[16px]">warning</span>
+          <span>No supported payment option is available for this account yet.</span>
+        `;
       }
 
       function updatePaymentUI() {
         const payment = getSelectedPayment();
-        const price = Number(currentCar?.price || 0);
-        const deposit = price > 0 ? Math.round(price * DEPOSIT_PERCENTAGE) : 0;
-        const amountBase = deposit || price || 0;
+
+        if (!payment) {
+          resetPaymentUIForNoOptions();
+          return;
+        }
+
+        const usdAmount = getAmountBaseUSD();
+        const usdRate = getUsdRateForOption(payment);
+        const coinAmount = getCoinAmountFromUSD(usdAmount, payment);
 
         document.getElementById("networkBadge").textContent = payment.network;
-        document.getElementById("coinText").textContent =
-          payment.network === "BTC" ? "Bitcoin (BTC)" : `${payment.displayName} (${payment.network})`;
+        document.getElementById("coinText").textContent = payment.label;
         document.getElementById("walletAddressText").textContent = payment.walletAddress;
         document.getElementById("walletAddress").value = payment.walletAddress;
         document.getElementById("walletHint").textContent = payment.hint;
@@ -638,24 +911,16 @@
         document.getElementById("currency").value = payment.displayName;
         document.getElementById("paymentMethod").value = payment.displayName;
         document.getElementById("paymentNetwork").value = payment.network;
+
         document.getElementById("amountHint").textContent =
-          amountBase > 0 ? `≈ ${amountBase.toLocaleString()} ${payment.amountSuffix}` : `≈ 0 ${payment.amountSuffix}`;
+          coinAmount > 0
+            ? `≈ ${formatCoinAmount(coinAmount, payment.decimals)} ${payment.amountSuffix}`
+            : `≈ ${payment.amountSuffix} rate unavailable`;
 
         document.getElementById("networkWarning").innerHTML = `
           <span class="material-symbols-outlined text-[16px]">warning</span>
-          <span>${payment.warning}</span>
+          <span>${payment.warning}${usdRate ? ` 1 ${payment.amountSuffix} ≈ ${formatPrice(usdRate, "USD")}.` : ""}</span>
         `;
-
-        document.querySelectorAll(".payment-option").forEach((button) => {
-          const isActive = button.dataset.paymentKey === activePaymentKey;
-          button.classList.toggle("active", isActive);
-
-          if (isActive) {
-            button.classList.remove("bg-surface-container-high", "text-on-surface-variant");
-          } else {
-            button.classList.add("bg-surface-container-high", "text-on-surface-variant");
-          }
-        });
       }
 
       function prefillUserDetails() {
@@ -702,12 +967,17 @@
         breadcrumbCarLink.href = `car-details.html?id=${car._id}`;
         breadcrumbCarLink.textContent = car.name || "Car";
 
+        const info = getUserInfo();
+        const agentNumber = info?.agentNumber || FALLBACK_AGENT_NUMBER;
         const agentMessage = `Hello, I need help with payment for ${car.name || "this car"}`;
+
         document.getElementById("agentBtn").href =
-          `https://wa.me/2348123456789?text=${encodeURIComponent(agentMessage)}`;
+          `https://wa.me/${agentNumber}?text=${encodeURIComponent(agentMessage)}`;
 
         document.getElementById("amountPaid").value = deposit || price || "";
 
+        renderPaymentButtons();
+        setupPaymentOptions();
         updatePaymentUI();
         setPaymentStatus("pending");
       }
@@ -735,6 +1005,11 @@
       async function copyWalletAddress() {
         const walletAddress = document.getElementById("walletAddress").value;
 
+        if (!walletAddress) {
+          showMessage("No wallet address available to copy.", "error");
+          return;
+        }
+
         try {
           await navigator.clipboard.writeText(walletAddress);
           showMessage("Wallet address copied successfully.", "success");
@@ -747,6 +1022,7 @@
         const receipt = document.getElementById("receiptInput").files[0];
         const transactionId = document.getElementById("transactionId").value.trim();
         const walletAddress = document.getElementById("walletAddress").value.trim();
+        const paymentMethod = document.getElementById("paymentMethod").value.trim();
         const confirmCheckbox = document.getElementById("confirmCheckbox").checked;
 
         if (!carId) {
@@ -756,6 +1032,11 @@
 
         if (!getToken()) {
           showMessage("Please login first before submitting payment.", "error");
+          return false;
+        }
+
+        if (!Object.keys(PAYMENT_OPTIONS).length) {
+          showMessage("No supported payment option is available for this account.", "error");
           return false;
         }
 
@@ -769,8 +1050,8 @@
           return false;
         }
 
-        if (!walletAddress) {
-          showMessage("Wallet address is required.", "error");
+        if (!paymentMethod || !walletAddress) {
+          showMessage("Please select an available payment option.", "error");
           return false;
         }
 
@@ -875,24 +1156,19 @@
         });
       }
 
-      function setupPaymentOptions() {
-        document.querySelectorAll(".payment-option").forEach((button) => {
-          button.addEventListener("click", () => {
-            activePaymentKey = button.dataset.paymentKey;
-            updatePaymentUI();
-            showMessage(`${getSelectedPayment().label} selected for payment.`, "info");
-          });
-        });
+      async function initPage() {
+        buildPaymentOptionsFromBackend();
+        await fetchLiveRates();
+        prefillUserDetails();
+        await fetchCar();
+        setupFileInput();
+        startCountdown(30);
       }
 
       document.getElementById("copyWalletBtn").addEventListener("click", copyWalletAddress);
       document.getElementById("paymentForm").addEventListener("submit", submitPayment);
 
-      prefillUserDetails();
-      fetchCar();
-      setupFileInput();
-      setupPaymentOptions();
-      startCountdown(30);
+      initPage();
     </script>
   </body>
 </html>

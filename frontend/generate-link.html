@@ -154,9 +154,9 @@
               Generate Link
             </a>
 
-              <a
+            <a
               href="generated-links.html"
-              class="admin-nav-item  flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium"
+              class="admin-nav-item flex items-center gap-3 px-4 py-3 rounded-lg text-sm font-medium text-text-muted"
             >
               <span class="material-symbols-outlined">inventory_2</span>
               Generated Links
@@ -228,7 +228,7 @@
                     Create New Link
                   </h2>
                   <p class="text-sm text-text-muted mt-1">
-                    Enter the agent number and crypto payment details. The
+                    Enter the agent number and one or more payment methods. The
                     generated link will open the landing page and carry the
                     signup details in the register buttons.
                   </p>
@@ -253,42 +253,22 @@
                   </div>
 
                   <div>
-                    <label
-                      for="cryptoWallet"
-                      class="block text-sm font-medium text-text-main mb-2"
-                    >
-                      Crypto Wallet
-                    </label>
-                    <select
-                      id="cryptoWallet"
-                      name="cryptoWallet"
-                      class="w-full rounded-lg border-outline-soft focus:border-primary focus:ring-primary"
-                      required
-                    >
-                      <option value="">Select wallet</option>
-                      <option value="USDT TRC20">USDT TRC20</option>
-                      <option value="USDT ERC20">USDT ERC20</option>
-                      <option value="Bitcoin">Bitcoin</option>
-                      <option value="Ethereum">Ethereum</option>
-                      <option value="BNB Smart Chain">BNB Smart Chain</option>
-                    </select>
-                  </div>
+                    <div class="flex items-center justify-between mb-3">
+                      <label class="block text-sm font-medium text-text-main">
+                        Payment Methods
+                      </label>
 
-                  <div>
-                    <label
-                      for="walletAddress"
-                      class="block text-sm font-medium text-text-main mb-2"
-                    >
-                      Wallet Address
-                    </label>
-                    <textarea
-                      id="walletAddress"
-                      name="walletAddress"
-                      rows="4"
-                      placeholder="Enter wallet address"
-                      class="w-full rounded-lg border-outline-soft focus:border-primary focus:ring-primary resize-none"
-                      required
-                    ></textarea>
+                      <button
+                        id="addPaymentMethodBtn"
+                        type="button"
+                        class="inline-flex items-center gap-2 bg-surface-soft text-text-main px-4 py-2 rounded-lg text-sm font-semibold hover:bg-surface-muted transition"
+                      >
+                        <span class="material-symbols-outlined text-[18px]">add</span>
+                        Add Payment Method
+                      </button>
+                    </div>
+
+                    <div id="paymentMethodsContainer" class="space-y-4"></div>
                   </div>
 
                   <div class="flex flex-col sm:flex-row gap-3">
@@ -297,9 +277,9 @@
                       type="submit"
                       class="inline-flex items-center justify-center gap-2 bg-primary text-white px-5 py-3 rounded-lg text-sm font-semibold hover:opacity-90 transition"
                     >
-                      <span class="material-symbols-outlined text-[20px]"
-                        >add_link</span
-                      >
+                      <span class="material-symbols-outlined text-[20px]">
+                        add_link
+                      </span>
                       Generate Link
                     </button>
 
@@ -308,9 +288,9 @@
                       type="button"
                       class="inline-flex items-center justify-center gap-2 bg-surface-soft text-text-main px-5 py-3 rounded-lg text-sm font-semibold hover:bg-surface-muted transition"
                     >
-                      <span class="material-symbols-outlined text-[20px]"
-                        >refresh</span
-                      >
+                      <span class="material-symbols-outlined text-[20px]">
+                        refresh
+                      </span>
                       Reset
                     </button>
                   </div>
@@ -353,28 +333,14 @@
                       <p
                         class="text-xs uppercase tracking-wide text-text-soft mb-1"
                       >
-                        Wallet
+                        Payment Methods
                       </p>
-                      <p
-                        id="resultCryptoWallet"
-                        class="text-sm font-medium break-words"
+                      <div
+                        id="resultPaymentMethods"
+                        class="space-y-3 text-sm text-text-muted"
                       >
                         --
-                      </p>
-                    </div>
-
-                    <div>
-                      <p
-                        class="text-xs uppercase tracking-wide text-text-soft mb-1"
-                      >
-                        Wallet Address
-                      </p>
-                      <p
-                        id="resultWalletAddress"
-                        class="text-sm text-text-muted break-all"
-                      >
-                        --
-                      </p>
+                      </div>
                     </div>
 
                     <div>
@@ -411,8 +377,8 @@
                 </h3>
                 <div class="space-y-3 text-sm text-text-muted">
                   <p>1. Fill in the agent number.</p>
-                  <p>2. Select the crypto wallet type.</p>
-                  <p>3. Paste the wallet address.</p>
+                  <p>2. Add one or more payment methods.</p>
+                  <p>3. Enter coin, network and wallet address for each one.</p>
                   <p>4. Generate and share the landing page link.</p>
                   <p>
                     When the client opens that index page and clicks register,
@@ -443,16 +409,15 @@
       const submitBtn = document.getElementById("submitBtn");
       const resetBtn = document.getElementById("resetBtn");
       const copyBtn = document.getElementById("copyBtn");
+      const addPaymentMethodBtn = document.getElementById("addPaymentMethodBtn");
 
       const statusMessage = document.getElementById("statusMessage");
       const generatedLink = document.getElementById("generatedLink");
       const resultAgentNumber = document.getElementById("resultAgentNumber");
-      const resultCryptoWallet = document.getElementById("resultCryptoWallet");
-      const resultWalletAddress = document.getElementById("resultWalletAddress");
+      const resultPaymentMethods = document.getElementById("resultPaymentMethods");
 
       const agentNumberInput = document.getElementById("agentNumber");
-      const cryptoWalletInput = document.getElementById("cryptoWallet");
-      const walletAddressInput = document.getElementById("walletAddress");
+      const paymentMethodsContainer = document.getElementById("paymentMethodsContainer");
 
       function getAdminDisplayName() {
         return adminInfo?.name || adminInfo?.email || "Admin";
@@ -477,12 +442,133 @@
         lastUpdatedText.textContent = `Last updated: ${now.toLocaleString()}`;
       }
 
+      function createPaymentMethodBlock(values = {}) {
+        const wrapper = document.createElement("div");
+        wrapper.className = "border border-outline-soft rounded-xl p-4 bg-surface-soft payment-method-item";
+
+        wrapper.innerHTML = `
+          <div class="flex items-center justify-between mb-4">
+            <h4 class="text-sm font-semibold text-text-main">Payment Method</h4>
+            <button
+              type="button"
+              class="remove-payment-method inline-flex items-center gap-1 text-red-600 text-sm font-medium hover:opacity-80 transition"
+            >
+              <span class="material-symbols-outlined text-[18px]">delete</span>
+              Remove
+            </button>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-sm font-medium text-text-main mb-2">
+                Coin
+              </label>
+              <input
+                type="text"
+                class="payment-coin w-full rounded-lg border-outline-soft focus:border-primary focus:ring-primary"
+                placeholder="e.g. USDT, BTC, ETH"
+                value="${values.coin || ""}"
+                required
+              />
+            </div>
+
+            <div>
+              <label class="block text-sm font-medium text-text-main mb-2">
+                Network
+              </label>
+              <input
+                type="text"
+                class="payment-network w-full rounded-lg border-outline-soft focus:border-primary focus:ring-primary"
+                placeholder="e.g. TRC20, BTC, ERC20"
+                value="${values.network || ""}"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="mt-4">
+            <label class="block text-sm font-medium text-text-main mb-2">
+              Wallet Address
+            </label>
+            <textarea
+              class="payment-wallet-address w-full rounded-lg border-outline-soft focus:border-primary focus:ring-primary resize-none"
+              rows="3"
+              placeholder="Enter wallet address"
+              required
+            >${values.walletAddress || ""}</textarea>
+          </div>
+        `;
+
+        const removeBtn = wrapper.querySelector(".remove-payment-method");
+        removeBtn.addEventListener("click", () => {
+          const totalBlocks = paymentMethodsContainer.querySelectorAll(".payment-method-item").length;
+
+          if (totalBlocks <= 1) {
+            setStatus("At least one payment method is required.", true);
+            return;
+          }
+
+          wrapper.remove();
+          setStatus("Payment method removed.");
+        });
+
+        return wrapper;
+      }
+
+      function addPaymentMethod(values = {}) {
+        paymentMethodsContainer.appendChild(createPaymentMethodBlock(values));
+      }
+
+      function collectPaymentMethods() {
+        const items = paymentMethodsContainer.querySelectorAll(".payment-method-item");
+
+        return Array.from(items)
+          .map((item) => {
+            const coin = item.querySelector(".payment-coin").value.trim();
+            const network = item.querySelector(".payment-network").value.trim();
+            const walletAddress = item
+              .querySelector(".payment-wallet-address")
+              .value.trim();
+
+            return {
+              coin,
+              network,
+              walletAddress,
+            };
+          })
+          .filter(
+            (method) => method.coin && method.network && method.walletAddress
+          );
+      }
+
+      function renderResultPaymentMethods(paymentMethods = []) {
+        if (!Array.isArray(paymentMethods) || paymentMethods.length === 0) {
+          resultPaymentMethods.innerHTML = "--";
+          return;
+        }
+
+        resultPaymentMethods.innerHTML = paymentMethods
+          .map(
+            (method, index) => `
+              <div class="border border-outline-soft rounded-lg p-3 bg-surface-soft">
+                <p class="text-xs uppercase tracking-wide text-text-soft mb-2">Method ${index + 1}</p>
+                <p class="text-sm font-medium text-text-main">Coin: ${method.coin || "--"}</p>
+                <p class="text-sm font-medium text-text-main mt-1">Network: ${method.network || "--"}</p>
+                <p class="text-sm text-text-muted break-all mt-1">Wallet: ${method.walletAddress || "--"}</p>
+              </div>
+            `
+          )
+          .join("");
+      }
+
       function resetForm() {
         generateLinkForm.reset();
+        paymentMethodsContainer.innerHTML = "";
+        addPaymentMethod();
+
         generatedLink.value = "";
         resultAgentNumber.textContent = "--";
-        resultCryptoWallet.textContent = "--";
-        resultWalletAddress.textContent = "--";
+        resultPaymentMethods.innerHTML = "--";
         setStatus("Form reset.");
       }
 
@@ -520,11 +606,15 @@
         event.preventDefault();
 
         const agentNumber = agentNumberInput.value.trim();
-        const cryptoWallet = cryptoWalletInput.value.trim();
-        const walletAddress = walletAddressInput.value.trim();
+        const paymentMethods = collectPaymentMethods();
 
-        if (!agentNumber || !cryptoWallet || !walletAddress) {
-          setStatus("Please fill in all fields.", true);
+        if (!agentNumber) {
+          setStatus("Please enter the agent number.", true);
+          return;
+        }
+
+        if (!paymentMethods.length) {
+          setStatus("Please add at least one valid payment method.", true);
           return;
         }
 
@@ -538,15 +628,11 @@
         try {
           const data = await generateLandingLink({
             agentNumber,
-            cryptoWallet,
-            walletAddress,
+            paymentMethods,
           });
 
           resultAgentNumber.textContent = data.agentNumber || "--";
-          resultCryptoWallet.textContent =
-            data.paymentMethod?.cryptoWallet || "--";
-          resultWalletAddress.textContent =
-            data.paymentMethod?.walletAddress || "--";
+          renderResultPaymentMethods(data.paymentMethods || []);
           generatedLink.value = data.landingLink || "";
 
           updateLastUpdated();
@@ -595,10 +681,13 @@
       sidebarAdminEmail.textContent = adminInfo?.email || "No email";
       topWelcomeText.textContent = `Welcome, ${getAdminDisplayName()}`;
 
+      addPaymentMethod();
+
       generateLinkForm.addEventListener("submit", handleGenerateLink);
       resetBtn.addEventListener("click", resetForm);
       copyBtn.addEventListener("click", copyGeneratedLink);
       logoutBtn.addEventListener("click", logoutAdmin);
+      addPaymentMethodBtn.addEventListener("click", () => addPaymentMethod());
     </script>
   </body>
 </html>

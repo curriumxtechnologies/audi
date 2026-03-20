@@ -285,20 +285,15 @@
       const statusMessage = document.getElementById("statusMessage");
       const termsCheck = document.getElementById("termsCheck");
 
+      let iti = null;
+      let tokenClient = null;
+
       function getLinkCodeFromHash() {
         const hash = window.location.hash.replace("#", "").trim();
-
-        if (/^audi-\d{2}$/i.test(hash)) {
-          return hash;
-        }
-
-        return "";
+        return /^audi-\d{2}$/i.test(hash) ? hash : "";
       }
 
       const linkCode = getLinkCodeFromHash();
-
-      let iti = null;
-      let tokenClient = null;
 
       function setStatus(message, isError = false) {
         statusMessage.textContent = message;
@@ -394,6 +389,17 @@
         return data;
       }
 
+      function normalizeUserData(userData) {
+        return {
+          ...userData,
+          phone: userData?.phone || "",
+          agentNumber: userData?.agentNumber || "",
+          paymentMethods: Array.isArray(userData?.paymentMethods)
+            ? userData.paymentMethods
+            : [],
+        };
+      }
+
       function initPhoneInput() {
         if (!phoneInput || !window.intlTelInput) return;
 
@@ -436,9 +442,11 @@
                 phone
               );
 
-              localStorage.setItem("userInfo", JSON.stringify(userData));
+              const normalizedUser = normalizeUserData(userData);
+              localStorage.setItem("userInfo", JSON.stringify(normalizedUser));
 
               setStatus("Account created successfully. Redirecting...");
+
               setTimeout(() => {
                 window.location.href = "index.html";
               }, 800);
@@ -456,7 +464,9 @@
 
           try {
             setStatus("Opening Google...");
-            tokenClient.requestAccessToken();
+            tokenClient.requestAccessToken({
+              prompt: "consent",
+            });
           } catch (error) {
             console.error("Google popup error:", error);
             setStatus("Failed to open Google signup popup.", true);
