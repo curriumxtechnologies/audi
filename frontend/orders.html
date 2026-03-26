@@ -317,13 +317,14 @@
       </div>
     </footer>
 
+    <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+
     <script>
       const BACKEND_URL =
         window.location.hostname === "localhost" ||
         window.location.hostname === "127.0.0.1"
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
-
 
       const welcomeUser = document.getElementById("welcomeUser");
       const logoutBtn = document.getElementById("logoutBtn");
@@ -371,15 +372,29 @@
       function formatDate(dateString) {
         if (!dateString) return "Not available";
 
-        try {
-          return new Date(dateString).toLocaleDateString("en-US", {
-            year: "numeric",
-            month: "short",
-            day: "numeric",
-          });
-        } catch {
-          return "Not available";
-        }
+        const date = new Date(dateString);
+        if (Number.isNaN(date.getTime())) return "Not available";
+
+        return date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+      }
+
+      function formatReceiptDate(dateValue) {
+        if (!dateValue) return "Not available";
+
+        const date = new Date(dateValue);
+        if (Number.isNaN(date.getTime())) return "Not available";
+
+        return date.toLocaleString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+        });
       }
 
       function resolveImageUrl(path) {
@@ -435,7 +450,7 @@
           return {
             className: "status-awaiting",
             icon: "hourglass_top",
-            label: "awaiting_approval",
+            label: "awaiting approval",
             message:
               "Your payment has been submitted and is awaiting admin approval.",
           };
@@ -449,34 +464,316 @@
         };
       }
 
+      function generateReceiptNumber(order) {
+        const baseId = order?._id || order?.id || Date.now();
+        return `AUD-REC-${String(baseId).slice(-6).toUpperCase()}`;
+      }
+
+      function downloadReceipt(order) {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+
+        const car = order.carId || {};
+        const currency = order.currency || car.currency || "USD";
+        const amountPaid = Number(order.amountPaid || 0);
+        const totalPrice = Number(car.price || 0);
+        const balance = Math.max(totalPrice - amountPaid, 0);
+
+        const receiptNumber =
+          order.receiptNumber || generateReceiptNumber(order);
+        const customerName = getDisplayName(userInfo);
+        const customerEmail = userInfo?.email || "Not available";
+        const customerPhone =
+          userInfo?.phone ||
+          userInfo?.phoneNumber ||
+          userInfo?.mobile ||
+          "Not available";
+        const vehicleName = car.name || "Audi Model";
+        const vehicleYear = car.year || "Not available";
+        const vehicleCategory = capitalizeWords(car.category || "other");
+        const orderDate = formatReceiptDate(order.createdAt);
+        const confirmedDate = formatReceiptDate(
+          order.updatedAt || order.createdAt,
+        );
+        const paymentStatus = capitalizeWords(order.status || "confirmed");
+
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
+
+        // Background
+        doc.setFillColor(248, 248, 248);
+        doc.rect(0, 0, pageWidth, pageHeight, "F");
+
+        // Top black header
+        doc.setFillColor(10, 10, 10);
+        doc.rect(0, 0, pageWidth, 36, "F");
+
+        // Audi title
+        doc.setTextColor(255, 255, 255);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(24);
+        doc.text("AUDI", 16, 16);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.text("Official Payment Receipt", 16, 24);
+
+        // Right header meta
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(10);
+        doc.text("Receipt No.", 145, 14);
+        doc.setFont("helvetica", "normal");
+        doc.text(String(receiptNumber), 145, 20);
+
+        doc.setFont("helvetica", "bold");
+        doc.text("Status", 145, 28);
+
+        // Status chip
+        doc.setFillColor(220, 252, 231);
+        doc.roundedRect(162, 22.5, 28, 8, 2, 2, "F");
+        doc.setTextColor(22, 101, 52);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(8);
+        doc.text("CONFIRMED", 165, 27.8);
+
+        // Reset text
+        doc.setTextColor(25, 28, 28);
+
+        // Dealership block
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(14, 44, 182, 28, 3, 3, "F");
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.text("Audi Dealership", 20, 54);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(9.5);
+        doc.setTextColor(76, 69, 70);
+        doc.text("Premium Vehicle Sales & Delivery", 20, 67);
+
+        // Receipt title section
+        doc.setTextColor(25, 28, 28);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(20);
+        doc.text("Payment Receipt", 14, 88);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.setTextColor(76, 69, 70);
+        doc.text(
+          "This document confirms that payment has been received and approved for the vehicle order below.",
+          14,
+          96,
+        );
+
+        // Summary cards
+        const cardY = 106;
+        const cardW = 56;
+        const gap = 7;
+
+        // Card 1
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(14, cardY, cardW, 24, 3, 3, "F");
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(8);
+        doc.setTextColor(76, 69, 70);
+        doc.text("AMOUNT PAID", 19, cardY + 8);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(15);
+        doc.setTextColor(15, 23, 42);
+        doc.text(formatPrice(amountPaid, currency), 19, cardY + 18);
+
+        // Card 2
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(14 + cardW + gap, cardY, cardW, 24, 3, 3, "F");
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(8);
+        doc.setTextColor(76, 69, 70);
+        doc.text("TOTAL PRICE", 19 + cardW + gap, cardY + 8);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(15);
+        doc.setTextColor(15, 23, 42);
+        doc.text(
+          formatPrice(totalPrice, currency),
+          19 + cardW + gap,
+          cardY + 18,
+        );
+
+        // Card 3
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(14 + (cardW + gap) * 2, cardY, cardW, 24, 3, 3, "F");
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(8);
+        doc.setTextColor(76, 69, 70);
+        doc.text("BALANCE", 19 + (cardW + gap) * 2, cardY + 8);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(15);
+        doc.setTextColor(
+          balance <= 0 ? 22 : 194,
+          balance <= 0 ? 101 : 65,
+          balance <= 0 ? 52 : 12,
+        );
+        doc.text(
+          formatPrice(balance, currency),
+          19 + (cardW + gap) * 2,
+          cardY + 18,
+        );
+
+        // Two-column info blocks
+        const leftX = 14;
+        const rightX = 108;
+        const blockY = 140;
+        const blockW = 88;
+        const lineGap = 10;
+
+        // Left block - Customer
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(leftX, blockY, blockW, 66, 3, 3, "F");
+        doc.setTextColor(25, 28, 28);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.text("Customer Information", leftX + 6, blockY + 10);
+
+        let y1 = blockY + 20;
+        const drawLine = (label, value, x, y) => {
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(8.5);
+          doc.setTextColor(76, 69, 70);
+          doc.text(label.toUpperCase(), x, y);
+
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(10);
+          doc.setTextColor(25, 28, 28);
+          const wrapped = doc.splitTextToSize(String(value), 75);
+          doc.text(wrapped, x, y + 5);
+          return y + 5 + wrapped.length * 4 + 3;
+        };
+
+        y1 = drawLine("Name", customerName, leftX + 6, y1);
+        y1 = drawLine("Email", customerEmail, leftX + 6, y1);
+        y1 = drawLine("Phone", customerPhone, leftX + 6, y1);
+
+        // Right block - Vehicle
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(rightX, blockY, blockW, 66, 3, 3, "F");
+        doc.setTextColor(25, 28, 28);
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.text("Vehicle Information", rightX + 6, blockY + 10);
+
+        let y2 = blockY + 20;
+        y2 = drawLine("Vehicle", vehicleName, rightX + 6, y2);
+        y2 = drawLine("Year", vehicleYear, rightX + 6, y2);
+        y2 = drawLine("Category", vehicleCategory, rightX + 6, y2);
+
+        // Full width order block
+        const orderBlockY = 214;
+        const orderBlockHeight = 60;
+
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(14, orderBlockY, 182, orderBlockHeight, 3, 3, "F");
+
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.setTextColor(25, 28, 28);
+        doc.text("Order & Payment Details", 20, orderBlockY + 10);
+
+        const leftMeta = [
+          ["Order ID", order._id || order.id || "Not available"],
+          ["Order Date", orderDate],
+          ["Confirmed Date", confirmedDate],
+        ];
+
+        const rightMeta = [
+          ["Payment Status", paymentStatus],
+          ["Receipt Number", receiptNumber],
+          ["Currency", currency],
+        ];
+
+        let metaYLeft = orderBlockY + 20;
+        leftMeta.forEach(([label, value]) => {
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(8);
+          doc.setTextColor(76, 69, 70);
+          doc.text(label.toUpperCase(), 20, metaYLeft);
+
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(9.5);
+          doc.setTextColor(25, 28, 28);
+
+          const wrappedValue = doc.splitTextToSize(String(value), 70);
+          doc.text(wrappedValue, 20, metaYLeft + 5);
+
+          metaYLeft += 15;
+        });
+
+        let metaYRight = orderBlockY + 20;
+        rightMeta.forEach(([label, value]) => {
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(8);
+          doc.setTextColor(76, 69, 70);
+          doc.text(label.toUpperCase(), 110, metaYRight);
+
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(9.5);
+          doc.setTextColor(25, 28, 28);
+
+          const wrappedValue = doc.splitTextToSize(String(value), 70);
+          doc.text(wrappedValue, 110, metaYRight + 5);
+
+          metaYRight += 15;
+        });
+
+        // Footer
+        doc.setDrawColor(220, 220, 220);
+        doc.line(14, 276, 196, 276);
+
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(9);
+        doc.setTextColor(100, 100, 100);
+        doc.text(
+          "Thank you for choosing Audi. Please keep this receipt for your records.",
+          14,
+          284,
+        );
+
+        doc.setFont("helvetica", "italic");
+        doc.text("Generated digitally from your Audi account.", 14, 289);
+
+        const fileName = `Audi-Receipt-${receiptNumber}.pdf`;
+        doc.save(fileName);
+      }
+
       function renderOrders(orders) {
         if (!Array.isArray(orders) || orders.length === 0) {
           ordersSummary.textContent = "0 orders found";
 
           ordersGrid.innerHTML = `
-            <div class="col-span-full bg-surface-container-low p-12 text-center">
-              <div class="w-16 h-16 mx-auto mb-5 bg-surface-container flex items-center justify-center">
-                <span class="material-symbols-outlined text-[30px]">shopping_bag</span>
-              </div>
-              <p class="text-xl font-semibold mb-3">No orders yet</p>
-              <p class="text-sm text-on-surface-variant mb-6">
-                You have not submitted any payment yet.
-              </p>
-              <a
-                href="models.html"
-                class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-4 text-sm font-semibold tracking-wide hover:bg-primary-container transition-colors"
-              >
-                Explore Cars
-                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-              </a>
-            </div>
-          `;
+        <div class="col-span-full bg-surface-container-low p-12 text-center">
+          <div class="w-16 h-16 mx-auto mb-5 bg-surface-container flex items-center justify-center">
+            <span class="material-symbols-outlined text-[30px]">shopping_bag</span>
+          </div>
+          <p class="text-xl font-semibold mb-3">No orders yet</p>
+          <p class="text-sm text-on-surface-variant mb-6">
+            You have not submitted any payment yet.
+          </p>
+          <a
+            href="models.html"
+            class="inline-flex items-center gap-2 bg-primary text-on-primary px-6 py-4 text-sm font-semibold tracking-wide hover:bg-primary-container transition-colors"
+          >
+            Explore Cars
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          </a>
+        </div>
+      `;
           return;
         }
 
         const awaitingCount = orders.filter(
           (item) => item.status === "pending_approval",
         ).length;
+
         const confirmedCount = orders.filter(
           (item) => item.status === "confirmed",
         ).length;
@@ -494,93 +791,128 @@
             const statusUI = getStatusUI(order.status);
 
             return `
-              <article class="bg-surface-container-lowest border border-outline-variant/20 overflow-hidden order-card">
-                <div class="aspect-[16/9] overflow-hidden bg-surface-container-low image-zoom">
-                  <img
-                    src="${image}"
-                    alt="${car.name || "Audi Car"}"
-                    class="w-full h-full object-cover transition-transform duration-700"
-                    onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x700?text=Audi';"
-                  />
+          <article class="bg-surface-container-lowest border border-outline-variant/20 overflow-hidden order-card">
+            <div class="aspect-[16/9] overflow-hidden bg-surface-container-low image-zoom">
+              <img
+                src="${image}"
+                alt="${car.name || "Audi Car"}"
+                class="w-full h-full object-cover transition-transform duration-700"
+                onerror="this.onerror=null; this.src='https://via.placeholder.com/1200x700?text=Audi';"
+              />
+            </div>
+
+            <div class="p-7 md:p-8">
+              <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
+                <div>
+                  <p class="text-xs font-bold tracking-[0.18em] text-on-surface-variant mb-2">
+                    ORDER DETAILS
+                  </p>
+                  <h2 class="font-headline text-3xl font-bold tracking-tight">
+                    ${car.name || "Audi Model"}
+                  </h2>
+                  <p class="text-sm text-on-surface-variant mt-2">
+                    ${car.year || "N/A"} • ${capitalizeWords(car.category || "other")}
+                  </p>
                 </div>
 
-                <div class="p-7 md:p-8">
-                  <div class="flex flex-wrap items-start justify-between gap-4 mb-5">
-                    <div>
-                      <p class="text-xs font-bold tracking-[0.18em] text-on-surface-variant mb-2">
-                        ORDER DETAILS
+                <span class="status-chip ${statusUI.className}">
+                  <span class="material-symbols-outlined text-[16px]">${statusUI.icon}</span>
+                  ${statusUI.label}
+                </span>
+              </div>
+
+              <div class="mb-6 p-4 bg-surface-container-low border border-outline-variant/20">
+                <div class="flex items-start gap-3">
+                  <span class="material-symbols-outlined text-on-surface-variant">info</span>
+                  <p class="text-sm text-on-surface-variant">${statusUI.message}</p>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+                <div class="bg-surface-container-low p-4">
+                  <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Total Price</p>
+                  <p class="text-lg font-semibold">${formatPrice(carPrice, currency)}</p>
+                </div>
+
+                <div class="bg-surface-container-low p-4">
+                  <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Amount Paid</p>
+                  <p class="text-lg font-semibold">${formatPrice(amountPaid, currency)}</p>
+                </div>
+
+                <div class="bg-surface-container-low p-4">
+                  <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Remaining Balance</p>
+                  <p class="text-lg font-semibold">${formatPrice(balance, currency)}</p>
+                </div>
+
+                <div class="bg-surface-container-low p-4">
+                  <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Order Date</p>
+                  <p class="text-lg font-semibold">${formatDate(order.createdAt)}</p>
+                </div>
+              </div>
+
+              ${
+                order.adminNote
+                  ? `
+                    <div class="bg-surface-container-low p-4 mt-2 mb-6">
+                      <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">
+                        Admin Note
                       </p>
-                      <h2 class="font-headline text-3xl font-bold tracking-tight">
-                        ${car.name || "Audi Model"}
-                      </h2>
-                      <p class="text-sm text-on-surface-variant mt-2">
-                        ${car.year || "N/A"} • ${capitalizeWords(car.category || "other")}
-                      </p>
+                      <p class="text-sm leading-7">${order.adminNote}</p>
                     </div>
+                  `
+                  : ""
+              }
 
-                    <span class="status-chip ${statusUI.className}">
-                      <span class="material-symbols-outlined text-[16px]">${statusUI.icon}</span>
-                      ${statusUI.label}
-                    </span>
-                  </div>
+              <div class="pt-2 flex flex-wrap gap-4">
+                <a
+                  href="car-details.html?id=${car._id || ""}"
+                  class="inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-3 text-sm font-semibold tracking-wide hover:bg-primary-container transition-colors"
+                >
+                  View Car
+                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                </a>
 
-                  <div class="mb-6 p-4 bg-surface-container-low border border-outline-variant/20">
-                    <div class="flex items-start gap-3">
-                      <span class="material-symbols-outlined text-on-surface-variant">info</span>
-                      <p class="text-sm text-on-surface-variant">${statusUI.message}</p>
-                    </div>
-                  </div>
-
-                  <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                    <div class="bg-surface-container-low p-4">
-                      <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Total Price</p>
-                      <p class="text-lg font-semibold">${formatPrice(carPrice, currency)}</p>
-                    </div>
-
-                    <div class="bg-surface-container-low p-4">
-                      <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Amount Paid</p>
-                      <p class="text-lg font-semibold">${formatPrice(amountPaid, currency)}</p>
-                    </div>
-
-                    <div class="bg-surface-container-low p-4">
-                      <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Remaining Balance</p>
-                      <p class="text-lg font-semibold">${formatPrice(balance, currency)}</p>
-                    </div>
-
-                    <div class="bg-surface-container-low p-4">
-                      <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Order Date</p>
-                      <p class="text-lg font-semibold">${formatDate(order.createdAt)}</p>
-                    </div>
-                  </div>
-
-                    ${
-                      order.adminNote
-                        ? `
-                          <div class="bg-surface-container-low p-4 mt-2">
-                            <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">
-                              Admin Note
-                            </p>
-                            <p class="text-sm leading-7">${order.adminNote}</p>
-                          </div>
-                        `
-                        : ""
-                    }
-
-                    <div class="pt-2 flex flex-wrap gap-4">
-                      <a
-                        href="car-details.html?id=${car._id || ""}"
-                        class="inline-flex items-center gap-2 bg-primary text-on-primary px-5 py-3 text-sm font-semibold tracking-wide hover:bg-primary-container transition-colors"
+                ${
+                  order.status === "confirmed"
+                    ? `
+                      <button
+                        type="button"
+                        class="inline-flex items-center gap-2 border border-outline-variant/40 px-5 py-3 text-sm font-semibold hover:border-primary hover:bg-surface-container transition-colors download-receipt-btn"
+                        data-order-id="${order._id || order.id || ""}"
                       >
-                        View Car
-                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </article>
-            `;
+                        <span class="material-symbols-outlined text-[18px]">download</span>
+                        Download Receipt
+                      </button>
+                    `
+                    : ""
+                }
+              </div>
+            </div>
+          </article>
+        `;
           })
           .join("");
+
+        const receiptButtons = document.querySelectorAll(
+          ".download-receipt-btn",
+        );
+
+        receiptButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const orderId = button.dataset.orderId;
+
+            const selectedOrder = orders.find(
+              (item) => String(item._id || item.id) === String(orderId),
+            );
+
+            if (!selectedOrder) {
+              alert("Receipt data not found for this order.");
+              return;
+            }
+
+            downloadReceipt(selectedOrder);
+          });
+        });
       }
 
       async function fetchOrders() {
@@ -615,19 +947,19 @@
           ordersSummary.textContent = "Unable to load orders";
 
           ordersGrid.innerHTML = `
-            <div class="col-span-full bg-red-50 border border-red-200 p-12 text-center">
-              <p class="text-lg font-semibold text-red-700 mb-3">Unable to load orders</p>
-              <p class="text-sm text-red-600 mb-6">
-                ${error.message || "Something went wrong while fetching your orders."}
-              </p>
-              <a
-                href="profile.html"
-                class="inline-flex items-center gap-2 border border-red-300 px-5 py-3 text-sm font-semibold text-red-700 hover:bg-red-100 transition-colors"
-              >
-                Back to Profile
-              </a>
-            </div>
-          `;
+        <div class="col-span-full bg-red-50 border border-red-200 p-12 text-center">
+          <p class="text-lg font-semibold text-red-700 mb-3">Unable to load orders</p>
+          <p class="text-sm text-red-600 mb-6">
+            ${error.message || "Something went wrong while fetching your orders."}
+          </p>
+          <a
+            href="profile.html"
+            class="inline-flex items-center gap-2 border border-red-300 px-5 py-3 text-sm font-semibold text-red-700 hover:bg-red-100 transition-colors"
+          >
+            Back to Profile
+          </a>
+        </div>
+      `;
         }
       }
 
