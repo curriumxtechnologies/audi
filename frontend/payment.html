@@ -146,18 +146,36 @@
   <body
     class="bg-surface text-on-surface font-body antialiased selection:bg-primary selection:text-white"
   >
-    <header class="glass-header sticky top-0 z-50 border-b border-outline-variant/20">
-      <nav class="container mx-auto px-6 py-4 flex items-center justify-between">
-        <a href="home.html" class="font-headline text-2xl font-extrabold tracking-tighter">
+    <header
+      class="glass-header sticky top-0 z-50 border-b border-outline-variant/20"
+    >
+      <nav
+        class="container mx-auto px-6 py-4 flex items-center justify-between"
+      >
+        <a
+          href="home.html"
+          class="font-headline text-2xl font-extrabold tracking-tighter"
+        >
           Audi
         </a>
 
-        <div class="hidden md:flex items-center text-xs font-medium text-on-surface-variant tracking-wide">
-          <a href="home.html" class="hover:text-primary transition-colors">Home</a>
+        <div
+          class="hidden md:flex items-center text-xs font-medium text-on-surface-variant tracking-wide"
+        >
+          <a href="home.html" class="hover:text-primary transition-colors"
+            >Home</a
+          >
           <span class="mx-2">/</span>
-          <a href="models.html" class="hover:text-primary transition-colors">Models</a>
+          <a href="models.html" class="hover:text-primary transition-colors"
+            >Models</a
+          >
           <span class="mx-2">/</span>
-          <a id="breadcrumbCarLink" href="#" class="hover:text-primary transition-colors">Car</a>
+          <a
+            id="breadcrumbCarLink"
+            href="#"
+            class="hover:text-primary transition-colors"
+            >Car</a
+          >
           <span class="mx-2">/</span>
           <span class="text-on-surface font-semibold">Payment</span>
         </div>
@@ -167,25 +185,37 @@
     <main class="pb-20">
       <section class="container mx-auto px-6 pt-10 pb-8">
         <div class="max-w-3xl">
-          <h1 class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight mb-3">
+          <h1
+            class="font-headline text-4xl md:text-5xl font-extrabold tracking-tight mb-3"
+          >
             Secure your <span id="heroCarName">car</span> reservation
           </h1>
 
           <p class="text-lg text-on-surface-variant max-w-2xl">
             Pay with crypto using the wallet details below, upload your receipt,
-            and we will move your order to awaiting approval immediately after submission.
+            and we will move your order to awaiting approval immediately after
+            submission.
           </p>
 
           <div class="flex items-center gap-2 mt-3">
-            <span class="material-symbols-outlined text-[18px] text-on-surface-variant">verified</span>
+            <span
+              class="material-symbols-outlined text-[18px] text-on-surface-variant"
+              >verified</span
+            >
             <span class="text-sm text-on-surface-variant">
               Payments are reviewed manually by our sales team.
             </span>
           </div>
 
-          <div class="inline-flex items-center gap-2 mt-4 text-xs border border-outline-variant/30 px-3 py-1.5">
+          <div
+            class="inline-flex items-center gap-2 mt-4 text-xs border border-outline-variant/30 px-3 py-1.5"
+          >
             <span class="text-on-surface-variant">reservation code</span>
-            <span id="reservationCode" class="font-mono font-medium reservation-ref">R-AUDI-0000</span>
+            <span
+              id="reservationCode"
+              class="font-mono font-medium reservation-ref"
+              >R-AUDI-0000</span
+            >
           </div>
         </div>
       </section>
@@ -193,9 +223,13 @@
       <section class="container mx-auto px-6">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
           <div class="space-y-6">
-            <div class="border border-outline-variant/20 p-6 bg-surface-container-lowest">
+            <div
+              class="border border-outline-variant/20 p-6 bg-surface-container-lowest"
+            >
               <div class="flex gap-4 items-start">
-                <div class="w-24 h-24 bg-surface-container-high overflow-hidden shrink-0">
+                <div
+                  class="w-24 h-24 bg-surface-container-high overflow-hidden shrink-0"
+                >
                   <img
                     id="carImage"
                     src="https://via.placeholder.com/300x300?text=Car"
@@ -206,8 +240,13 @@
 
                 <div class="flex-1">
                   <div class="flex items-center gap-2 flex-wrap">
-                    <h2 id="carName" class="font-headline text-xl font-bold">Audi Car</h2>
-                    <span id="carBadge" class="bg-surface-container-high text-xs px-2 py-0.5">
+                    <h2 id="carName" class="font-headline text-xl font-bold">
+                      Audi Car
+                    </h2>
+                    <span
+                      id="carBadge"
+                      class="bg-surface-container-high text-xs px-2 py-0.5"
+                    >
                       Model
                     </span>
                   </div>
@@ -216,53 +255,95 @@
                     <span class="text-on-surface-variant">Price</span>
                     <span id="carPrice" class="font-medium">$0</span>
 
-                    <span class="text-on-surface-variant">Deposit required</span>
+                    <span class="text-on-surface-variant"
+                      >Deposit required</span
+                    >
                     <span id="depositAmount" class="font-medium">$0</span>
 
                     <span class="text-on-surface-variant">Payment method</span>
-                    <span id="selectedPaymentSummary" class="font-medium text-xs">Unavailable</span>
+                    <span
+                      id="selectedPaymentSummary"
+                      class="font-medium text-xs"
+                      >Unavailable</span
+                    >
                   </div>
 
                   <div class="mt-4">
-                    <span class="text-xs uppercase tracking-widest text-on-surface-variant block mb-2">
+                    <span
+                      class="text-xs uppercase tracking-widest text-on-surface-variant block mb-2"
+                    >
                       Status
                     </span>
 
-                    <div id="paymentStatusBadge" class="status-pill status-pending">
-                      <span class="material-symbols-outlined text-[18px]">hourglass_empty</span>
+                    <div
+                      id="paymentStatusBadge"
+                      class="status-pill status-pending"
+                    >
+                      <span class="material-symbols-outlined text-[18px]"
+                        >hourglass_empty</span
+                      >
                       <span id="paymentStatusText">awaiting_payment</span>
                     </div>
                   </div>
                 </div>
               </div>
 
-              <p class="text-xs text-on-surface-variant border-t border-outline-variant/20 pt-3 mt-4">
-                Reservation becomes <strong>awaiting_approval</strong> once proof is submitted,
-                and changes to <strong>confirmed</strong> after admin verification.
+              <p
+                class="text-xs text-on-surface-variant border-t border-outline-variant/20 pt-3 mt-4"
+              >
+                Reservation becomes <strong>awaiting_approval</strong> once
+                proof is submitted, and changes to
+                <strong>confirmed</strong> after admin verification.
               </p>
             </div>
 
-            <div class="border border-outline-variant/20 p-6 bg-surface-container-lowest">
-              <h3 class="font-headline text-lg font-bold mb-4">Crypto payment details</h3>
+            <div
+              class="border border-outline-variant/20 p-6 bg-surface-container-lowest"
+            >
+              <h3 class="font-headline text-lg font-bold mb-4">
+                Crypto payment details
+              </h3>
 
-              <div id="paymentOptionsContainer" class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5"></div>
+              <div
+                id="paymentOptionsContainer"
+                class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5"
+              ></div>
 
-              <div id="paymentOptionsEmptyState" class="hidden text-xs bg-error-container/30 text-on-error-container p-3 mb-5">
-                No supported payment option is available for this account yet. Please contact an agent.
+              <div
+                id="paymentOptionsEmptyState"
+                class="hidden text-xs bg-error-container/30 text-on-error-container p-3 mb-5"
+              >
+                No supported payment option is available for this account yet.
+                Please contact an agent.
               </div>
 
-              <div class="flex items-baseline justify-between border-b border-outline-variant/20 pb-4">
-                <span class="text-on-surface-variant text-sm">Amount to pay</span>
+              <div
+                class="flex items-baseline justify-between border-b border-outline-variant/20 pb-4"
+              >
+                <span class="text-on-surface-variant text-sm"
+                  >Amount to pay</span
+                >
                 <div class="text-right">
-                  <span id="amountToPayText" class="font-headline text-3xl font-bold">$0</span>
-                  <span id="amountHint" class="block text-sm text-on-surface-variant">≈ 0</span>
+                  <span
+                    id="amountToPayText"
+                    class="font-headline text-3xl font-bold"
+                    >$0</span
+                  >
+                  <span
+                    id="amountHint"
+                    class="block text-sm text-on-surface-variant"
+                    >≈ 0</span
+                  >
                 </div>
               </div>
 
               <div class="mt-5 space-y-3">
                 <div class="flex justify-between items-center text-sm">
                   <span class="text-on-surface-variant">Network</span>
-                  <span id="networkBadge" class="font-medium bg-surface-container-high px-2 py-0.5 text-xs">
+                  <span
+                    id="networkBadge"
+                    class="font-medium bg-surface-container-high px-2 py-0.5 text-xs"
+                  >
                     --
                   </span>
                 </div>
@@ -275,11 +356,20 @@
                 <div>
                   <div class="flex justify-between text-sm mb-1">
                     <span class="text-on-surface-variant">Wallet address</span>
-                    <span id="walletHint" class="text-xs text-on-surface-variant">--</span>
+                    <span
+                      id="walletHint"
+                      class="text-xs text-on-surface-variant"
+                      >--</span
+                    >
                   </div>
 
-                  <div class="flex items-center justify-between border border-outline-variant/40 p-2 bg-surface-container-low gap-3">
-                    <code id="walletAddressText" class="text-xs truncate max-w-[180px] md:max-w-[240px]">
+                  <div
+                    class="flex items-center justify-between border border-outline-variant/40 p-2 bg-surface-container-low gap-3"
+                  >
+                    <code
+                      id="walletAddressText"
+                      class="text-xs truncate max-w-[180px] md:max-w-[240px]"
+                    >
                       --
                     </code>
 
@@ -288,14 +378,21 @@
                       type="button"
                       class="flex items-center gap-1 text-primary hover:bg-surface-container-high px-2 py-1 transition text-sm font-medium"
                     >
-                      <span class="material-symbols-outlined text-[18px]">content_copy</span>
+                      <span class="material-symbols-outlined text-[18px]"
+                        >content_copy</span
+                      >
                       Copy
                     </button>
                   </div>
                 </div>
 
-                <div id="networkWarning" class="text-xs bg-error-container/30 text-on-error-container p-3 flex items-start gap-2">
-                  <span class="material-symbols-outlined text-[16px]">warning</span>
+                <div
+                  id="networkWarning"
+                  class="text-xs bg-error-container/30 text-on-error-container p-3 flex items-start gap-2"
+                >
+                  <span class="material-symbols-outlined text-[16px]"
+                    >warning</span
+                  >
                   <span>Select a payment option.</span>
                 </div>
               </div>
@@ -303,37 +400,60 @@
               <div class="countdown-timer flex items-center gap-3 mt-5 text-sm">
                 <span class="material-symbols-outlined">timer</span>
                 <span class="font-medium">Wallet details valid for</span>
-                <span id="countdownText" class="font-headline font-bold">30:00 min</span>
+                <span id="countdownText" class="font-headline font-bold"
+                  >30:00 min</span
+                >
               </div>
 
-              <div class="grid grid-cols-2 gap-2 text-xs text-on-surface-variant mt-3">
+              <div
+                class="grid grid-cols-2 gap-2 text-xs text-on-surface-variant mt-3"
+              >
                 <span>Reference ID:</span>
                 <span id="referenceId" class="font-mono">AUDI-PAY-0000</span>
               </div>
             </div>
 
-            <div class="border border-outline-variant/20 p-6 bg-surface-container-lowest">
+            <div
+              class="border border-outline-variant/20 p-6 bg-surface-container-lowest"
+            >
               <h3 class="font-headline text-lg font-bold mb-4">Instructions</h3>
 
               <div class="space-y-3 text-sm">
                 <div class="flex items-center gap-3">
-                  <span class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold">1</span>
+                  <span
+                    class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold"
+                    >1</span
+                  >
                   <span>Choose your available crypto payment option</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <span class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold">2</span>
+                  <span
+                    class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold"
+                    >2</span
+                  >
                   <span>Copy the exact wallet address for that network</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <span class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold">3</span>
-                  <span>Send the correct equivalent amount from your wallet</span>
+                  <span
+                    class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold"
+                    >3</span
+                  >
+                  <span
+                    >Send the correct equivalent amount from your wallet</span
+                  >
                 </div>
                 <div class="flex items-center gap-3">
-                  <span class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold">4</span>
+                  <span
+                    class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold"
+                    >4</span
+                  >
                   <span>Take a screenshot of the transaction</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <span class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold">5</span>
+                  <span
+                    class="w-6 h-6 bg-surface-container-high flex items-center justify-center text-xs font-bold"
+                    >5</span
+                  >
                   <span>Upload the screenshot and submit payment proof</span>
                 </div>
               </div>
@@ -342,8 +462,12 @@
 
           <div class="space-y-6">
             <form id="paymentForm" class="space-y-6">
-              <div class="border border-outline-variant/20 p-6 bg-surface-container-lowest">
-                <h3 class="font-headline text-lg font-bold mb-1">Upload proof of payment</h3>
+              <div
+                class="border border-outline-variant/20 p-6 bg-surface-container-lowest"
+              >
+                <h3 class="font-headline text-lg font-bold mb-1">
+                  Upload proof of payment
+                </h3>
                 <p class="text-sm text-on-surface-variant mb-4">
                   Select your receipt screenshot and submit it for approval
                 </p>
@@ -352,9 +476,16 @@
                   for="receiptInput"
                   class="upload-dashed bg-surface-container-low p-8 flex flex-col items-center justify-center text-center cursor-pointer block"
                 >
-                  <span class="material-symbols-outlined text-3xl text-on-surface-variant mb-2">cloud_upload</span>
-                  <p class="text-sm font-medium">Click to upload your payment receipt</p>
-                  <p class="text-xs text-on-surface-variant mt-1">PNG, JPG, JPEG, WEBP, AVIF</p>
+                  <span
+                    class="material-symbols-outlined text-3xl text-on-surface-variant mb-2"
+                    >cloud_upload</span
+                  >
+                  <p class="text-sm font-medium">
+                    Click to upload your payment receipt
+                  </p>
+                  <p class="text-xs text-on-surface-variant mt-1">
+                    PNG, JPG, JPEG, WEBP, AVIF
+                  </p>
 
                   <input
                     id="receiptInput"
@@ -366,17 +497,48 @@
                   />
                 </label>
 
-                <p id="selectedFileName" class="text-sm text-on-surface-variant mt-3">No file selected</p>
+                <p
+                  id="selectedFileName"
+                  class="text-sm text-on-surface-variant mt-3"
+                >
+                  No file selected
+                </p>
               </div>
 
-              <div class="border border-outline-variant/20 p-6 bg-surface-container-lowest">
+              <div
+                class="border border-outline-variant/20 p-6 bg-surface-container-lowest"
+              >
                 <h4 class="font-headline font-bold mb-4">Buyer details</h4>
 
                 <div class="space-y-4">
-                  <input id="fullName" name="fullName" type="text" placeholder="Full name" class="input-premium w-full px-4 py-3 text-sm" />
-                  <input id="email" name="email" type="email" placeholder="Email address" class="input-premium w-full px-4 py-3 text-sm" />
-                  <input id="phoneNumber" name="phoneNumber" type="tel" placeholder="Phone number" class="input-premium w-full px-4 py-3 text-sm" />
-                  <input id="whatsappNumber" name="whatsappNumber" type="text" placeholder="WhatsApp number" class="input-premium w-full px-4 py-3 text-sm" />
+                  <input
+                    id="fullName"
+                    name="fullName"
+                    type="text"
+                    placeholder="Full name"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    placeholder="Email address"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+                  <input
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="tel"
+                    placeholder="Phone number"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+                  <input
+                    id="whatsappNumber"
+                    name="whatsappNumber"
+                    type="text"
+                    placeholder="WhatsApp number"
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
 
                   <input
                     id="transactionId"
@@ -396,10 +558,38 @@
                     class="input-premium w-full px-4 py-3 text-sm"
                   />
 
-                  <input id="currency" name="currency" type="text" value="" readonly class="input-premium w-full px-4 py-3 text-sm" />
-                  <input id="paymentMethod" name="paymentMethod" type="text" value="" readonly class="input-premium w-full px-4 py-3 text-sm" />
-                  <input id="paymentNetwork" name="paymentNetwork" type="text" value="" readonly class="input-premium w-full px-4 py-3 text-sm" />
-                  <input id="walletAddress" name="walletAddress" type="text" value="" readonly class="input-premium w-full px-4 py-3 text-sm" />
+                  <input
+                    id="currency"
+                    name="currency"
+                    type="text"
+                    value=""
+                    readonly
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+                  <input
+                    id="paymentMethod"
+                    name="paymentMethod"
+                    type="text"
+                    value=""
+                    readonly
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+                  <input
+                    id="paymentNetwork"
+                    name="paymentNetwork"
+                    type="text"
+                    value=""
+                    readonly
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
+                  <input
+                    id="walletAddress"
+                    name="walletAddress"
+                    type="text"
+                    value=""
+                    readonly
+                    class="input-premium w-full px-4 py-3 text-sm"
+                  />
 
                   <textarea
                     id="optionalNote"
@@ -411,11 +601,19 @@
                 </div>
               </div>
 
-              <div class="border border-outline-variant/20 p-6 bg-surface-container-lowest">
+              <div
+                class="border border-outline-variant/20 p-6 bg-surface-container-lowest"
+              >
                 <label class="flex items-start gap-3 text-sm">
-                  <input id="confirmCheckbox" type="checkbox" class="mt-0.5 rounded-none border-outline-variant" required />
+                  <input
+                    id="confirmCheckbox"
+                    type="checkbox"
+                    class="mt-0.5 rounded-none border-outline-variant"
+                    required
+                  />
                   <span>
-                    I confirm that I paid to the correct wallet address and uploaded a valid payment receipt.
+                    I confirm that I paid to the correct wallet address and
+                    uploaded a valid payment receipt.
                   </span>
                 </label>
 
@@ -425,7 +623,9 @@
                   class="w-full bg-primary text-on-primary py-5 font-semibold text-sm tracking-widest hover:bg-primary-container transition flex items-center justify-center gap-3 mt-6"
                 >
                   SUBMIT PAYMENT PROOF
-                  <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                  <span class="material-symbols-outlined text-[18px]"
+                    >arrow_forward</span
+                  >
                 </button>
 
                 <a
@@ -434,7 +634,9 @@
                   target="_blank"
                   class="w-full border border-outline-variant hover:border-primary text-on-surface py-4 font-semibold text-sm tracking-widest transition flex items-center justify-center gap-3 mt-4 bg-surface/50"
                 >
-                  <span class="material-symbols-outlined text-[18px]">chat</span>
+                  <span class="material-symbols-outlined text-[18px]"
+                    >chat</span
+                  >
                   CHAT WITH AN AGENT
                 </a>
 
@@ -447,7 +649,9 @@
     </main>
 
     <footer class="bg-surface-container py-8 mt-16">
-      <div class="container mx-auto px-6 text-center text-xs text-on-surface-variant">
+      <div
+        class="container mx-auto px-6 text-center text-xs text-on-surface-variant"
+      >
         © 2000 Audi. All rights reserved.
       </div>
     </footer>
@@ -576,7 +780,7 @@
           label: "Litecoin (LTC)",
           coingeckoId: "litecoin",
           decimals: 8,
-        }
+        },
       };
 
       const params = new URLSearchParams(window.location.search);
@@ -632,7 +836,9 @@
       }
 
       function normalizeText(value) {
-        return String(value || "").trim().toUpperCase();
+        return String(value || "")
+          .trim()
+          .toUpperCase();
       }
 
       function getCoinMeta(coin) {
@@ -644,7 +850,10 @@
 
         const cleanPath = String(path).replace(/\\/g, "/");
 
-        if (cleanPath.startsWith("http://") || cleanPath.startsWith("https://")) {
+        if (
+          cleanPath.startsWith("http://") ||
+          cleanPath.startsWith("https://")
+        ) {
           return cleanPath;
         }
 
@@ -718,9 +927,42 @@
         `;
       }
 
+      const DEFAULT_PAYMENT_OPTIONS = {
+        usdt_trc20: {
+          key: "usdt_trc20",
+          coinKey: "USDT",
+          label: "USDT (TRC20)",
+          displayName: "USDT",
+          network: "TRC20",
+          walletAddress: "TZ6Rdnpv11GEm5H1RFrPiQyafVZByXA3z9",
+          amountSuffix: "USDT",
+          warning: "Send only USDT on the TRC20 network to this address.",
+          hint: "TRC20 only",
+          summary: "Crypto (USDT)",
+          coingeckoId: "tether",
+          decimals: 4,
+        },
+        btc_btc: {
+          key: "btc_btc",
+          coinKey: "BTC",
+          label: "Bitcoin (BTC)",
+          displayName: "BTC",
+          network: "BTC",
+          walletAddress: "bc1qyz7l3ap0vn4a4npgj20vkqe7h2p3gl4c0ullku",
+          amountSuffix: "BTC",
+          warning: "Send only BTC on the Bitcoin network to this address.",
+          hint: "BTC only",
+          summary: "Crypto (BTC)",
+          coingeckoId: "bitcoin",
+          decimals: 8,
+        },
+      };
+
       function buildPaymentOptionsFromBackend() {
         const info = getUserInfo();
-        const paymentMethods = Array.isArray(info?.paymentMethods) ? info.paymentMethods : [];
+        const paymentMethods = Array.isArray(info?.paymentMethods)
+          ? info.paymentMethods
+          : [];
 
         const normalized = paymentMethods
           .map((method, index) => {
@@ -733,7 +975,10 @@
             return {
               key: `${coinMeta.symbol.toLowerCase()}_${index + 1}`,
               coinKey: coinMeta.symbol,
-              label: coinMeta.label,
+              label:
+                network && network !== coinMeta.symbol
+                  ? `${coinMeta.label} (${network})`
+                  : coinMeta.label,
               displayName: coinMeta.symbol,
               network,
               walletAddress,
@@ -747,12 +992,16 @@
           })
           .filter(Boolean);
 
-        PAYMENT_OPTIONS = normalized.reduce((acc, option) => {
-          acc[option.key] = option;
-          return acc;
-        }, {});
-
-        activePaymentKey = normalized.length ? normalized[0].key : "";
+        if (normalized.length) {
+          PAYMENT_OPTIONS = normalized.reduce((acc, option) => {
+            acc[option.key] = option;
+            return acc;
+          }, {});
+          activePaymentKey = normalized[0].key;
+        } else {
+          PAYMENT_OPTIONS = DEFAULT_PAYMENT_OPTIONS;
+          activePaymentKey = Object.keys(DEFAULT_PAYMENT_OPTIONS)[0] || "";
+        }
       }
 
       function getSelectedPayment() {
@@ -789,7 +1038,7 @@
               headers: {
                 Accept: "application/json",
               },
-            }
+            },
           );
 
           if (!response.ok) {
@@ -846,7 +1095,9 @@
               <button
                 type="button"
                 class="payment-option ${
-                  isActive ? "active" : "bg-surface-container-high text-on-surface-variant"
+                  isActive
+                    ? "active"
+                    : "bg-surface-container-high text-on-surface-variant"
                 } px-3 py-3 text-xs font-medium text-left transition"
                 data-payment-key="${payment.key}"
               >
@@ -859,22 +1110,26 @@
       }
 
       function setupPaymentOptions() {
-        document.querySelectorAll(".payment-option").forEach((button) => {
-          button.addEventListener("click", () => {
-            activePaymentKey = button.dataset.paymentKey;
-            renderPaymentButtons();
-            updatePaymentUI();
+        const container = document.getElementById("paymentOptionsContainer");
 
-            const selected = getSelectedPayment();
-            if (selected) {
-              showMessage(`${selected.label} selected for payment.`, "info");
-            }
-          });
+        container.addEventListener("click", (event) => {
+          const button = event.target.closest(".payment-option");
+          if (!button) return;
+
+          activePaymentKey = button.dataset.paymentKey;
+          renderPaymentButtons();
+          updatePaymentUI();
+
+          const selected = getSelectedPayment();
+          if (selected) {
+            showMessage(`${selected.label} selected for payment.`, "info");
+          }
         });
       }
 
       function resetPaymentUIForNoOptions() {
-        document.getElementById("selectedPaymentSummary").textContent = "Unavailable";
+        document.getElementById("selectedPaymentSummary").textContent =
+          "Unavailable";
         document.getElementById("networkBadge").textContent = "--";
         document.getElementById("coinText").textContent = "--";
         document.getElementById("walletAddressText").textContent = "--";
@@ -883,7 +1138,8 @@
         document.getElementById("currency").value = "";
         document.getElementById("paymentMethod").value = "";
         document.getElementById("paymentNetwork").value = "";
-        document.getElementById("amountHint").textContent = "No available payment option";
+        document.getElementById("amountHint").textContent =
+          "No available payment option";
         document.getElementById("networkWarning").innerHTML = `
           <span class="material-symbols-outlined text-[16px]">warning</span>
           <span>No supported payment option is available for this account yet.</span>
@@ -904,10 +1160,12 @@
 
         document.getElementById("networkBadge").textContent = payment.network;
         document.getElementById("coinText").textContent = payment.label;
-        document.getElementById("walletAddressText").textContent = payment.walletAddress;
+        document.getElementById("walletAddressText").textContent =
+          payment.walletAddress;
         document.getElementById("walletAddress").value = payment.walletAddress;
         document.getElementById("walletHint").textContent = payment.hint;
-        document.getElementById("selectedPaymentSummary").textContent = payment.summary;
+        document.getElementById("selectedPaymentSummary").textContent =
+          payment.summary;
         document.getElementById("currency").value = payment.displayName;
         document.getElementById("paymentMethod").value = payment.displayName;
         document.getElementById("paymentNetwork").value = payment.network;
@@ -927,9 +1185,11 @@
         const info = getUserInfo();
         if (!info) return;
 
-        document.getElementById("fullName").value = info.name || info.fullName || "";
+        document.getElementById("fullName").value =
+          info.name || info.fullName || "";
         document.getElementById("email").value = info.email || "";
-        document.getElementById("phoneNumber").value = info.phoneNumber || info.phone || "";
+        document.getElementById("phoneNumber").value =
+          info.phoneNumber || info.phone || "";
         document.getElementById("whatsappNumber").value =
           info.whatsappNumber || info.phoneNumber || info.phone || "";
       }
@@ -947,7 +1207,10 @@
         document.getElementById("carName").textContent = car.name || "Audi Car";
         document.getElementById("carBadge").textContent =
           `${car.year || ""} ${car.category || ""}`.trim() || "Model";
-        document.getElementById("carPrice").textContent = formatPrice(price, currency);
+        document.getElementById("carPrice").textContent = formatPrice(
+          price,
+          currency,
+        );
         document.getElementById("depositAmount").textContent = deposit
           ? formatPrice(deposit, currency)
           : "Deposit on request";
@@ -960,8 +1223,10 @@
           this.src = "https://via.placeholder.com/600x400?text=No+Image";
         };
 
-        document.getElementById("referenceId").textContent = createReference("AUDI-PAY");
-        document.getElementById("reservationCode").textContent = createReference("R-AUDI");
+        document.getElementById("referenceId").textContent =
+          createReference("AUDI-PAY");
+        document.getElementById("reservationCode").textContent =
+          createReference("R-AUDI");
 
         const breadcrumbCarLink = document.getElementById("breadcrumbCarLink");
         breadcrumbCarLink.href = `car-details.html?id=${car._id}`;
@@ -1020,10 +1285,17 @@
 
       function validateForm() {
         const receipt = document.getElementById("receiptInput").files[0];
-        const transactionId = document.getElementById("transactionId").value.trim();
-        const walletAddress = document.getElementById("walletAddress").value.trim();
-        const paymentMethod = document.getElementById("paymentMethod").value.trim();
-        const confirmCheckbox = document.getElementById("confirmCheckbox").checked;
+        const transactionId = document
+          .getElementById("transactionId")
+          .value.trim();
+        const walletAddress = document
+          .getElementById("walletAddress")
+          .value.trim();
+        const paymentMethod = document
+          .getElementById("paymentMethod")
+          .value.trim();
+        const confirmCheckbox =
+          document.getElementById("confirmCheckbox").checked;
 
         if (!carId) {
           showMessage("Car id is missing.", "error");
@@ -1036,7 +1308,10 @@
         }
 
         if (!Object.keys(PAYMENT_OPTIONS).length) {
-          showMessage("No supported payment option is available for this account.", "error");
+          showMessage(
+            "No supported payment option is available for this account.",
+            "error",
+          );
           return false;
         }
 
@@ -1072,14 +1347,26 @@
         const fullName = document.getElementById("fullName").value.trim();
         const email = document.getElementById("email").value.trim();
         const phoneNumber = document.getElementById("phoneNumber").value.trim();
-        const whatsappNumber = document.getElementById("whatsappNumber").value.trim();
-        const transactionId = document.getElementById("transactionId").value.trim();
-        const walletAddress = document.getElementById("walletAddress").value.trim();
+        const whatsappNumber = document
+          .getElementById("whatsappNumber")
+          .value.trim();
+        const transactionId = document
+          .getElementById("transactionId")
+          .value.trim();
+        const walletAddress = document
+          .getElementById("walletAddress")
+          .value.trim();
         const amountPaid = document.getElementById("amountPaid").value.trim();
         const currency = document.getElementById("currency").value.trim();
-        const paymentMethod = document.getElementById("paymentMethod").value.trim();
-        const paymentNetwork = document.getElementById("paymentNetwork").value.trim();
-        const optionalNote = document.getElementById("optionalNote").value.trim();
+        const paymentMethod = document
+          .getElementById("paymentMethod")
+          .value.trim();
+        const paymentNetwork = document
+          .getElementById("paymentNetwork")
+          .value.trim();
+        const optionalNote = document
+          .getElementById("optionalNote")
+          .value.trim();
 
         const formData = new FormData();
         formData.append("carId", carId);
@@ -1118,14 +1405,17 @@
           setPaymentStatus(data.status || "pending_approval");
           showMessage(
             "Payment proof submitted successfully. Status changed to awaiting_approval. Redirecting to your orders...",
-            "success"
+            "success",
           );
 
           setTimeout(() => {
             window.location.href = "orders.html";
           }, 1200);
         } catch (error) {
-          showMessage(error.message || "Something went wrong while submitting payment.", "error");
+          showMessage(
+            error.message || "Something went wrong while submitting payment.",
+            "error",
+          );
         } finally {
           setLoading(false);
         }
@@ -1165,8 +1455,12 @@
         startCountdown(30);
       }
 
-      document.getElementById("copyWalletBtn").addEventListener("click", copyWalletAddress);
-      document.getElementById("paymentForm").addEventListener("submit", submitPayment);
+      document
+        .getElementById("copyWalletBtn")
+        .addEventListener("click", copyWalletAddress);
+      document
+        .getElementById("paymentForm")
+        .addEventListener("submit", submitPayment);
 
       initPage();
     </script>
