@@ -255,7 +255,9 @@
                     <span class="text-on-surface-variant">Price</span>
                     <span id="carPrice" class="font-medium">$0</span>
 
-                    <span class="text-on-surface-variant"
+                    <span
+                      id="paymentAmountLabel"
+                      class="text-on-surface-variant"
                       >Deposit required</span
                     >
                     <span id="depositAmount" class="font-medium">$0</span>
@@ -284,6 +286,39 @@
                       >
                       <span id="paymentStatusText">awaiting_payment</span>
                     </div>
+                  </div>
+                  <div class="mt-5 border-t border-outline-variant/20 pt-4">
+                    <span
+                      class="text-xs uppercase tracking-widest text-on-surface-variant block mb-3"
+                    >
+                      Payment Type
+                    </span>
+
+                    <div class="grid grid-cols-2 gap-3">
+                      <button
+                        type="button"
+                        id="partPaymentBtn"
+                        class="payment-option active px-4 py-3 text-sm font-semibold transition"
+                      >
+                        Part Payment
+                      </button>
+
+                      <button
+                        type="button"
+                        id="fullPaymentBtn"
+                        class="payment-option bg-surface-container-high text-on-surface px-4 py-3 text-sm font-semibold transition"
+                      >
+                        Full Payment
+                      </button>
+                    </div>
+
+                    <p
+                      id="paymentTypeNote"
+                      class="text-xs text-on-surface-variant mt-3"
+                    >
+                      You are paying the required reservation deposit for this
+                      car.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -790,6 +825,9 @@
       let activePaymentKey = "";
       let PAYMENT_OPTIONS = {};
       let LIVE_RATES = {};
+      let selectedPaymentType = "part";
+      let fullCarPrice = 0;
+      let depositAmountValue = 0;
 
       function getUserInfo() {
         try {
@@ -1009,9 +1047,107 @@
       }
 
       function getAmountBaseUSD() {
-        const price = Number(currentCar?.price || 0);
-        const deposit = price > 0 ? Math.round(price * DEPOSIT_PERCENTAGE) : 0;
-        return deposit || price || 0;
+        return getCurrentPaymentAmount();
+      }
+
+      function getCurrentPaymentAmount() {
+        if (selectedPaymentType === "full") {
+          return fullCarPrice || 0;
+        }
+
+        return depositAmountValue || 0;
+      }
+
+      function updatePaymentTypeButtons() {
+        const partBtn = document.getElementById("partPaymentBtn");
+        const fullBtn = document.getElementById("fullPaymentBtn");
+        const note = document.getElementById("paymentTypeNote");
+
+        if (!partBtn || !fullBtn || !note) return;
+
+        if (selectedPaymentType === "full") {
+          fullBtn.classList.add("active");
+          fullBtn.classList.remove(
+            "bg-surface-container-high",
+            "text-on-surface",
+          );
+
+          partBtn.classList.remove("active");
+          partBtn.classList.add("bg-surface-container-high", "text-on-surface");
+
+          note.textContent =
+            "You are paying the full vehicle amount in one transaction.";
+        } else {
+          partBtn.classList.add("active");
+          partBtn.classList.remove(
+            "bg-surface-container-high",
+            "text-on-surface",
+          );
+
+          fullBtn.classList.remove("active");
+          fullBtn.classList.add("bg-surface-container-high", "text-on-surface");
+
+          note.textContent =
+            "You are paying the required reservation deposit for this car.";
+        }
+      }
+
+      function updateDisplayedAmounts() {
+        if (!currentCar) return;
+
+        const currency = currentCar.currency || "USD";
+        const selectedAmount = getCurrentPaymentAmount();
+
+        document.getElementById("amountToPayText").textContent = formatPrice(
+          selectedAmount,
+          currency,
+        );
+
+        document.getElementById("amountPaid").value = selectedAmount || "";
+
+        const depositAmountEl = document.getElementById("depositAmount");
+        if (depositAmountEl) {
+          depositAmountEl.textContent =
+            selectedPaymentType === "full"
+              ? "Full amount selected"
+              : depositAmountValue
+                ? formatPrice(depositAmountValue, currency)
+                : "Deposit on request";
+        }
+
+        const paymentAmountLabel =
+          document.getElementById("paymentAmountLabel");
+        if (paymentAmountLabel) {
+          paymentAmountLabel.textContent =
+            selectedPaymentType === "full"
+              ? "Full payment"
+              : "Deposit required";
+        }
+
+        updatePaymentUI();
+      }
+
+      function setupPaymentTypeToggle() {
+        const partBtn = document.getElementById("partPaymentBtn");
+        const fullBtn = document.getElementById("fullPaymentBtn");
+
+        if (partBtn) {
+          partBtn.addEventListener("click", () => {
+            selectedPaymentType = "part";
+            updatePaymentTypeButtons();
+            updateDisplayedAmounts();
+            showMessage("Part payment selected.", "info");
+          });
+        }
+
+        if (fullBtn) {
+          fullBtn.addEventListener("click", () => {
+            selectedPaymentType = "full";
+            updatePaymentTypeButtons();
+            updateDisplayedAmounts();
+            showMessage("Full payment selected.", "info");
+          });
+        }
       }
 
       async function fetchLiveRates() {
@@ -1202,6 +1338,9 @@
         const deposit = price > 0 ? Math.round(price * DEPOSIT_PERCENTAGE) : 0;
         const currency = car.currency || "USD";
 
+        fullCarPrice = price;
+        depositAmountValue = deposit || 0;
+
         document.title = `Audi | Payment - ${car.name || "Car"}`;
         document.getElementById("heroCarName").textContent = car.name || "car";
         document.getElementById("carName").textContent = car.name || "Audi Car";
@@ -1214,6 +1353,9 @@
         document.getElementById("depositAmount").textContent = deposit
           ? formatPrice(deposit, currency)
           : "Deposit on request";
+
+        selectedPaymentType = "part";
+
         document.getElementById("amountToPayText").textContent = deposit
           ? formatPrice(deposit, currency)
           : formatPrice(price, currency);
@@ -1240,6 +1382,9 @@
           `https://wa.me/${agentNumber}?text=${encodeURIComponent(agentMessage)}`;
 
         document.getElementById("amountPaid").value = deposit || price || "";
+
+        updatePaymentTypeButtons();
+        updateDisplayedAmounts();
 
         renderPaymentButtons();
         setupPaymentOptions();
@@ -1367,6 +1512,7 @@
         const optionalNote = document
           .getElementById("optionalNote")
           .value.trim();
+        const paymentType = selectedPaymentType;
 
         const formData = new FormData();
         formData.append("carId", carId);
@@ -1380,6 +1526,7 @@
         formData.append("currency", currency);
         formData.append("paymentMethod", paymentMethod);
         formData.append("paymentNetwork", paymentNetwork);
+        formData.append("paymentType", paymentType);
         formData.append("optionalNote", optionalNote);
         formData.append("receipt", receipt);
 
@@ -1450,6 +1597,7 @@
         buildPaymentOptionsFromBackend();
         await fetchLiveRates();
         prefillUserDetails();
+        setupPaymentTypeToggle();
         await fetchCar();
         setupFileInput();
         startCountdown(30);
