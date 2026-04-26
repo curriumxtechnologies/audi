@@ -54,6 +54,10 @@ app.get("/api/health", (req, res) => {
   res.json({ ok: true, message: "Backend is reachable" });
 });
 
+app.get("/", (req, res) => {
+  res.send("Teens Connect API is running 🚀");
+});
+
 // ✅ Routes
 app.use('/api/user', userRoutes);
 app.use('/api/cars', carRoutes);
