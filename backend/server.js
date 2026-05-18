@@ -27,27 +27,39 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // ✅ CORS FIRST (must be before routes)
-const allowedOrigins = process.env.NODE_ENV === 'production' 
-    ? ['http://127.0.0.1:5500', 'https://audi-dealership.vercel.app']
-    : ['http://127.0.0.1:5500', 'https://audi-dealership.vercel.app', 'https://www.xn--aud-pma.com', 'https://xn--aud-pma.com', 'https://audì.com', 'https://www.audì.com' ];
+// ✅ Safer CORS configuration
+const allowedOrigins = [
+    'http://127.0.0.1:5500',
+    'https://audi-dealership.vercel.app',
+    'https://www.xn--aud-pma.com',
+    'https://xn--aud-pma.com',
+    'https://www.audì.com',      // Unicode
+    'https://audì.com'           // Unicode
+];
 
 app.use(cors({
     origin: function(origin, callback) {
-        // allow requests with no origin (mobile apps, curl)
+        // Allow requests with no origin (mobile apps, curl, Postman)
         if (!origin) return callback(null, true);
-
-        if (allowedOrigins.includes(origin)) {
+        
+        // Check exact match OR punycode/unicode variants
+        const isAllowed = allowedOrigins.includes(origin) || 
+                          allowedOrigins.some(allowed => {
+                              // Handle punycode equivalence if needed
+                              return origin === allowed;
+                          });
+        
+        if (isAllowed) {
             callback(null, true);
         } else {
-            // Instead of throwing an error, just deny
-            callback(null, false);
+            console.log(`❌ CORS blocked origin: ${origin}`);  // Log for debugging
+            callback(new Error(`Origin ${origin} not allowed by CORS`), false);
         }
     },
     credentials: true,
     methods: ['GET','POST','PUT','DELETE','PATCH','OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
 }));
-
 
 // ✅ Health test endpoint
 app.get("/api/health", (req, res) => {
