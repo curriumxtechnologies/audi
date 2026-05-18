@@ -29,7 +29,7 @@ app.use(cookieParser());
 // ✅ CORS FIRST (must be before routes)
 const allowedOrigins = process.env.NODE_ENV === 'production' 
     ? ['http://127.0.0.1:5500', 'https://audi-dealership.vercel.app']
-    : ['http://127.0.0.1:5500', 'https://audi-dealership.vercel.app' ];
+    : ['http://127.0.0.1:5500', 'https://audi-dealership.vercel.app', 'https://www.xn--aud-pma.com', 'https://xn--aud-pma.com' ];
 
 app.use(cors({
     origin: function(origin, callback) {
