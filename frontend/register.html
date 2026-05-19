@@ -187,20 +187,37 @@
             </p>
           </div>
 
-          <div class="relative my-8">
-            <div class="absolute inset-0 flex items-center">
-              <div class="w-full border-t border-outline-variant/30"></div>
-            </div>
-            <div class="relative flex justify-center text-xs">
-              <span
-                class="bg-surface-container-lowest px-4 text-on-surface-variant"
-              >
-                Input phone number
-              </span>
-            </div>
-          </div>
-
           <form id="registerForm" class="space-y-5">
+            <div>
+              <label
+                for="name"
+                class="block text-xs font-bold tracking-widest uppercase mb-2"
+              >
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                class="w-full px-4 py-3 border border-outline-variant bg-transparent focus:border-primary focus:ring-0 transition-colors"
+                placeholder="Enter full name"
+              />
+            </div>
+
+            <div>
+              <label
+                for="email"
+                class="block text-xs font-bold tracking-widest uppercase mb-2"
+              >
+                Email
+              </label>
+              <input
+                type="email"
+                id="email"
+                class="w-full px-4 py-3 border border-outline-variant bg-transparent focus:border-primary focus:ring-0 transition-colors"
+                placeholder="Enter email address"
+              />
+            </div>
+
             <div>
               <label
                 for="phone"
@@ -211,61 +228,69 @@
               <input
                 type="tel"
                 id="phone"
-                class="w-full px-4 py-3 border border-outline-variant bg-transparent focus:border-primary focus:ring-0 transition-colors phone-input"
-                placeholder="+1 (555) 000-0000"
+                class="w-full px-4 py-3 border border-outline-variant bg-transparent focus:border-primary focus:ring-0 transition-colors"
+                placeholder="Enter phone number"
               />
             </div>
 
-            <button
-              id="googleRegisterBtn"
-              type="button"
-              class="w-full social-login-btn border border-outline-variant py-4 px-6 flex items-center justify-center gap-3 hover:border-primary transition-colors mb-4"
-            >
-              <svg class="w-5 h-5" viewBox="0 0 24 24">
-                <path
-                  fill="#4285F4"
-                  d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
+            <div>
+              <label
+                for="password"
+                class="block text-xs font-bold tracking-widest uppercase mb-2"
+              >
+                Password
+              </label>
+
+              <div class="relative">
+                <input
+                  type="password"
+                  id="password"
+                  class="w-full px-4 py-3 pr-12 border border-outline-variant bg-transparent focus:border-primary focus:ring-0 transition-colors"
+                  placeholder="Enter password"
                 />
-                <path
-                  fill="#34A853"
-                  d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"
+
+                <button
+                  type="button"
+                  class="password-toggle absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary"
+                  data-target="password"
+                  aria-label="Show password"
+                >
+                  <i data-lucide="eye" class="w-5 h-5"></i>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <label
+                for="confirmPassword"
+                class="block text-xs font-bold tracking-widest uppercase mb-2"
+              >
+                Confirm Password
+              </label>
+
+              <div class="relative">
+                <input
+                  type="password"
+                  id="confirmPassword"
+                  class="w-full px-4 py-3 pr-12 border border-outline-variant bg-transparent focus:border-primary focus:ring-0 transition-colors"
+                  placeholder="Confirm password"
                 />
-                <path
-                  fill="#FBBC05"
-                  d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"
-                />
-                <path
-                  fill="#EA4335"
-                  d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
-                />
-              </svg>
-              <span class="font-medium" id="googleBtnText">
-                Sign up with Google
-              </span>
-            </button>
+
+                <button
+                  type="button"
+                  class="password-toggle absolute right-4 top-1/2 -translate-y-1/2 text-on-surface-variant hover:text-primary"
+                  data-target="confirmPassword"
+                  aria-label="Show password"
+                >
+                  <i data-lucide="eye" class="w-5 h-5"></i>
+                </button>
+              </div>
+            </div>
 
             <p
               id="statusMessage"
               class="text-sm text-center min-h-[20px] mb-2 text-on-surface-variant"
             ></p>
-
-            <div class="flex items-start gap-2">
-              <input
-                id="termsCheck"
-                type="checkbox"
-                class="mt-1 rounded border-outline-variant text-primary focus:ring-0"
-              />
-              <span class="text-xs text-on-surface-variant">
-                I agree to the
-                <a href="#" class="font-bold text-primary hover:underline">
-                  Terms of Service
-                </a>
-                and
-                <a href="#" class="font-bold text-primary hover:underline">
-                  Privacy Policy
-                </a>
-              </span>
-            </div>
 
             <button
               id="createAccountBtn"
@@ -294,7 +319,7 @@
       </div>
     </footer>
 
-    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
 
     <script>
       const BACKEND_URL =
@@ -303,26 +328,9 @@
           ? "http://localhost:8000"
           : "https://audi-t4lu.onrender.com";
 
-      const GOOGLE_CLIENT_ID =
-        "135801485768-ffaeoe93oe2c9v6prs2if93fme7nd6rp.apps.googleusercontent.com";
-
-      const phoneInput = document.getElementById("phone");
       const registerForm = document.getElementById("registerForm");
-      const googleRegisterBtn = document.getElementById("googleRegisterBtn");
-      const googleBtnText = document.getElementById("googleBtnText");
       const createAccountBtn = document.getElementById("createAccountBtn");
       const statusMessage = document.getElementById("statusMessage");
-      const termsCheck = document.getElementById("termsCheck");
-
-      let iti = null;
-      let tokenClient = null;
-
-      function getLinkCodeFromHash() {
-        const hash = window.location.hash.replace("#", "").trim();
-        return /^audi-\d{2}$/i.test(hash) ? hash : "";
-      }
-
-      const linkCode = getLinkCodeFromHash();
 
       function setStatus(message, isError = false) {
         statusMessage.textContent = message;
@@ -332,201 +340,126 @@
       }
 
       function setLoading(isLoading) {
-        googleRegisterBtn.disabled = isLoading;
         createAccountBtn.disabled = isLoading;
+        createAccountBtn.textContent = isLoading
+          ? "PLEASE WAIT..."
+          : "CREATE ACCOUNT";
 
-        if (isLoading) {
-          googleRegisterBtn.classList.add("opacity-70", "cursor-not-allowed");
-          createAccountBtn.classList.add("opacity-70", "cursor-not-allowed");
-          googleBtnText.textContent = "Please wait...";
-        } else {
-          googleRegisterBtn.classList.remove(
-            "opacity-70",
-            "cursor-not-allowed",
-          );
-          createAccountBtn.classList.remove("opacity-70", "cursor-not-allowed");
-          googleBtnText.textContent = "Sign up with Google";
-        }
+        createAccountBtn.classList.toggle("opacity-70", isLoading);
+        createAccountBtn.classList.toggle("cursor-not-allowed", isLoading);
       }
 
-      function getPhoneNumber() {
-        if (!iti) {
-          return phoneInput.value.trim();
-        }
+      function initPasswordToggles() {
+        document.querySelectorAll(".password-toggle").forEach((button) => {
+          button.addEventListener("click", function () {
+            const targetId = button.getAttribute("data-target");
+            const input = document.getElementById(targetId);
 
-        const rawNumber = phoneInput.value.trim();
-        if (!rawNumber) return "";
+            if (!input) return;
 
-        try {
-          const fullNumber = iti.getNumber();
-          return fullNumber ? fullNumber.replace(/\s+/g, "") : rawNumber;
-        } catch (error) {
-          const countryData = iti.getSelectedCountryData();
-          const dialCode = countryData?.dialCode
-            ? `+${countryData.dialCode}`
-            : "";
-          return `${dialCode}${rawNumber}`.replace(/\s+/g, "");
-        }
-      }
+            const isHidden = input.type === "password";
 
-      function validateForm() {
-        const phone = getPhoneNumber();
+            input.type = isHidden ? "text" : "password";
 
-        if (!phoneInput.value.trim()) {
-          setStatus("Enter your phone number first.", true);
-          phoneInput.focus();
-          return null;
-        }
+            button.innerHTML = isHidden
+              ? `<i data-lucide="eye-off" class="w-5 h-5"></i>`
+              : `<i data-lucide="eye" class="w-5 h-5"></i>`;
 
-        if (!termsCheck.checked) {
-          setStatus("You must agree to the terms first.", true);
-          return null;
-        }
+            button.setAttribute(
+              "aria-label",
+              isHidden ? "Hide password" : "Show password",
+            );
 
-        return phone;
+            lucide.createIcons();
+          });
+        });
+
+        lucide.createIcons();
       }
 
       async function checkBackend() {
-        const response = await fetch(`${BACKEND_URL}/api/health`, {
-          method: "GET",
-        });
+        const response = await fetch(`${BACKEND_URL}/api/health`);
 
         if (!response.ok) {
           throw new Error("Backend is not reachable");
         }
       }
 
-      async function sendGoogleTokenToBackend(token, phone) {
-        const response = await fetch(`${BACKEND_URL}/api/user/google`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            token,
-            phone,
-            mode: "signup",
-            linkCode,
-          }),
-        });
+      registerForm.addEventListener("submit", async function (e) {
+        e.preventDefault();
 
-        let data = {};
-        try {
-          data = await response.json();
-        } catch (error) {}
+        const name = document.getElementById("name").value.trim();
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
 
-        if (!response.ok) {
-          throw new Error(data.message || "Registration failed");
-        }
-
-        return data;
-      }
-
-      function normalizeUserData(userData) {
-        return {
-          ...userData,
-          phone: userData?.phone || "",
-          agentNumber: userData?.agentNumber || "",
-          paymentMethods: Array.isArray(userData?.paymentMethods)
-            ? userData.paymentMethods
-            : [],
-        };
-      }
-
-      function initPhoneInput() {
-        if (!phoneInput || !window.intlTelInput) return;
-
-        iti = window.intlTelInput(phoneInput, {
-          utilsScript:
-            "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-          separateDialCode: true,
-          initialCountry: "us",
-          preferredCountries: ["us", "gb", "ca", "de", "ng"],
-        });
-      }
-
-      function initGoogle() {
-        if (!window.google || !google.accounts || !google.accounts.oauth2) {
-          setTimeout(initGoogle, 300);
+        if (!name || !email || !phone || !password || !confirmPassword) {
+          setStatus("Please fill in all fields.", true);
           return;
         }
 
-        tokenClient = google.accounts.oauth2.initTokenClient({
-          client_id: GOOGLE_CLIENT_ID,
-          scope: "openid email profile",
-          callback: async (tokenResponse) => {
-            const phone = validateForm();
-            if (!phone) return;
+        if (password.length < 6) {
+          setStatus("Password must be at least 6 characters.", true);
+          return;
+        }
 
-            try {
-              if (tokenResponse.error) {
-                throw new Error(tokenResponse.error);
-              }
+        if (password !== confirmPassword) {
+          setStatus("Passwords do not match.", true);
+          return;
+        }
 
-              if (!tokenResponse.access_token) {
-                throw new Error("No access token received from Google");
-              }
+        try {
+          setLoading(true);
+          setStatus("Creating account...");
 
-              setLoading(true);
-              setStatus("Creating your account...");
+          const response = await fetch(`${BACKEND_URL}/api/user/register`, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            credentials: "include",
+            body: JSON.stringify({
+              name,
+              email,
+              phone,
+              password,
+              confirmPassword,
+            }),
+          });
 
-              const userData = await sendGoogleTokenToBackend(
-                tokenResponse.access_token,
-                phone,
-              );
+          const data = await response.json();
 
-              const normalizedUser = normalizeUserData(userData);
-              localStorage.setItem("userInfo", JSON.stringify(normalizedUser));
-
-              setStatus("Account created successfully. Redirecting...");
-
-              setTimeout(() => {
-                window.location.href = "index.html";
-              }, 800);
-            } catch (error) {
-              console.error("Registration error:", error);
-              setStatus(error.message || "Registration failed", true);
-              setLoading(false);
-            }
-          },
-        });
-
-        googleRegisterBtn.addEventListener("click", function () {
-          const phone = validateForm();
-          if (!phone) return;
-
-          try {
-            setStatus("Opening Google...");
-            tokenClient.requestAccessToken({
-              prompt: "consent",
-            });
-          } catch (error) {
-            console.error("Google popup error:", error);
-            setStatus("Failed to open Google signup popup.", true);
+          if (!response.ok) {
+            throw new Error(data.message || "Registration failed");
           }
-        });
-      }
 
-      registerForm.addEventListener("submit", function (e) {
-        e.preventDefault();
-        setStatus("Use the Google signup button to create your account.");
+          localStorage.setItem("userInfo", JSON.stringify(data));
+
+          setStatus("Account created successfully. Redirecting...");
+
+          setTimeout(() => {
+            window.location.href = "index.html";
+          }, 800);
+        } catch (error) {
+          setStatus(error.message || "Registration failed", true);
+        } finally {
+          setLoading(false);
+        }
       });
 
-      window.onload = async function () {
-        initPhoneInput();
+      window.addEventListener("load", async function () {
+        initPasswordToggles();
         setStatus("Loading...");
 
         try {
           await checkBackend();
-          setStatus("Enter phone number, accept terms, then continue.");
+          setStatus("Fill the form to create your account.");
         } catch (error) {
           setStatus("Cannot reach backend. Make sure server is running.", true);
-          return;
         }
-
-        initGoogle();
-      };
+      });
     </script>
   </body>
 </html>
