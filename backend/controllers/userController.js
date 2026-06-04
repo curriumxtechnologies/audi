@@ -285,6 +285,7 @@ const login = asyncHandler(async (req, res) => {
     name: user.name,
     email: user.email,
     phone: user.phone,
+    username: user.username,
     profile: user.profile,
     authMethod: user.authMethod,
     agentNumber: user.agentNumber || "",
