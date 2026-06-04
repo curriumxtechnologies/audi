@@ -1,5 +1,4 @@
 import express from "express";
-<<<<<<< HEAD
 import { 
   register, 
   login, 
@@ -22,18 +21,6 @@ router.post("/verify-otp", verifyOTP);
 router.post("/forgot-password", forgotPassword);
 router.post("/reset-password", resetPassword);
 router.post("/change-password", protect, changePassword);
-=======
-import {
-  registerUser,
-  loginUser,
-  logoutUser,
-} from "../controllers/userController.js";
-
-const router = express.Router();
-
-router.post("/register", registerUser);
-router.post("/login", loginUser);
->>>>>>> 5578cc7efbe8363c7c92b44d68ed2f106f8cb082
 router.post("/logout", logoutUser);
 router.post("/verify-login-alert", verifyLoginAlert);
 
