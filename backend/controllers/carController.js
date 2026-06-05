@@ -1,5 +1,7 @@
 import asyncHandler from "express-async-handler";
 import CarModel from "../models/carModel.js";
+import User from "../models/userModel.js";
+import { sendCarViewEmail } from "../utils/sendCarEmail.js";
 
 // helper to safely parse JSON strings from form-data
 const parseJSONField = (field) => {
@@ -171,7 +173,7 @@ const getCars = asyncHandler(async (req, res) => {
   res.status(200).json(cars);
 });
 
-// @desc    Get single car by ID
+// @desc    Get single car by ID with email notification
 // @route   GET /api/cars/:id
 // @access  Public
 const getCarById = asyncHandler(async (req, res) => {
@@ -182,7 +184,63 @@ const getCarById = asyncHandler(async (req, res) => {
     throw new Error("Car not found");
   }
 
+  // Check if user is logged in and send email
+  if (req.user && req.user._id) {
+    try {
+      const user = await User.findById(req.user._id);
+      if (user && user.email) {
+        // Send email asynchronously - don't wait for it to complete
+        sendCarViewEmail(user.email, user.name, car).catch(error => {
+          console.error("Failed to send car view email:", error);
+        });
+      }
+    } catch (error) {
+      console.error("Error sending car view email:", error);
+      // Don't block the response if email fails
+    }
+  }
+
   res.status(200).json(car);
+});
+
+// @desc    Get single car by ID without sending email (for internal use)
+// @route   GET /api/cars/:id/view
+// @access  Public
+const getCarByIdNoEmail = asyncHandler(async (req, res) => {
+  const car = await CarModel.findById(req.params.id);
+
+  if (!car) {
+    res.status(404);
+    throw new Error("Car not found");
+  }
+
+  res.status(200).json(car);
+});
+
+// @desc    Get single car and send email to specified email
+// @route   POST /api/cars/:id/share
+// @access  Public
+const shareCarViaEmail = asyncHandler(async (req, res) => {
+  const { email, name } = req.body;
+  const car = await CarModel.findById(req.params.id);
+
+  if (!car) {
+    res.status(404);
+    throw new Error("Car not found");
+  }
+
+  if (!email) {
+    res.status(400);
+    throw new Error("Email is required");
+  }
+
+  // Send email to the provided email address
+  await sendCarViewEmail(email, name || "Valued Customer", car);
+
+  res.status(200).json({ 
+    success: true, 
+    message: "Car details sent to your email successfully!" 
+  });
 });
 
 // @desc    Delete car
@@ -206,5 +264,7 @@ export {
   editCarDetails,
   getCars,
   getCarById,
+  getCarByIdNoEmail,
+  shareCarViaEmail,
   deleteCar,
 };

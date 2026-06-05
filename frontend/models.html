@@ -12,32 +12,12 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
-    <!-- 1. The Ultimate Fallback (Placed first for old browsers) -->
+    <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-
-    <!-- 2. Modern Browsers & High-Res Screens -->
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="images/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="images/favicon-16x16.png"
-    />
-
-    <!-- 3. Apple Devices -->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="images/apple-touch-icon.png"
-    />
-
-    <!-- 4. PWA / Android / Windows -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
     <link rel="manifest" href="images/site.webmanifest" />
     <meta name="theme-color" content="#ffffff" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -155,7 +135,7 @@
           <div class="flex items-center gap-12">
             <a
               href="index.html"
-              class="font-headline text-2xl font-extrabold tracking-tighter"
+              class="font-headline text-2xl font-extrabold tracking-tighter text-black"
             >
               Audi
             </a>
@@ -335,7 +315,7 @@
         >
           <div class="lg:col-span-2">
             <span
-              class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block"
+              class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block text-black"
             >
               Audi
             </span>
@@ -426,7 +406,7 @@
 
         <div class="border-t border-outline-variant/30 pt-8 text-center">
           <p class="text-xs text-on-surface-variant font-medium tracking-wide">
-            © 2004 Audi. All rights reserved.
+            © 2025 Audi. All rights reserved.
           </p>
         </div>
       </div>
@@ -451,6 +431,20 @@
       const pagination = document.getElementById("pagination");
       const sortSelect = document.getElementById("sortSelect");
       const resultsText = document.getElementById("resultsText");
+
+      // Get auth token from localStorage
+      function getAuthToken() {
+        const userInfo = localStorage.getItem("userInfo");
+        if (userInfo) {
+          try {
+            const user = JSON.parse(userInfo);
+            return user.token;
+          } catch (e) {
+            return null;
+          }
+        }
+        return null;
+      }
 
       function formatPrice(price, currency = "USD") {
         if (price === undefined || price === null || price === "") {
@@ -585,6 +579,37 @@
         pagination.appendChild(nextBtn);
       }
 
+      async function getCarWithAuth(carId) {
+        const token = getAuthToken();
+        
+        if (!token) {
+          // If not logged in, just go to public view
+          window.location.href = `car-details.html?id=${carId}&public=true`;
+          return;
+        }
+
+        try {
+          // Try authenticated endpoint (sends email)
+          const response = await fetch(`${BASE_URL}/api/cars/${carId}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`
+            }
+          });
+          
+          if (response.ok) {
+            window.location.href = `car-details.html?id=${carId}`;
+          } else if (response.status === 401) {
+            // Token expired or invalid, go to public view
+            window.location.href = `car-details.html?id=${carId}&public=true`;
+          } else {
+            window.location.href = `car-details.html?id=${carId}&public=true`;
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          window.location.href = `car-details.html?id=${carId}&public=true`;
+        }
+      }
+
       function renderCars() {
         modelsGrid.innerHTML = "";
 
@@ -649,7 +674,7 @@
               <span class="text-xs bg-surface-container px-2 py-1">${fuelType}</span>
               ${
                 car.featured
-                  ? `<span class="text-xs bg-surface-container px-2 py-1">Featured</span>`
+                  ? `<span class="text-xs bg-surface-container px-2 py-1 bg-primary text-white">Featured</span>`
                   : ""
               }
             </div>
@@ -673,7 +698,7 @@
         document.querySelectorAll(".view-details-btn").forEach((button) => {
           button.addEventListener("click", () => {
             const id = button.dataset.id;
-            window.location.href = `car-details.html?id=${id}`;
+            getCarWithAuth(id);
           });
         });
 
@@ -719,6 +744,29 @@
 
       fetchCars();
     </script>
-    <script src="js/mobile-menu.js"></script>
+    <script>
+      // Mobile menu functionality
+      const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+      const mobileMenu = document.getElementById("mobileMenu");
+
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener("click", () => {
+          const expanded = mobileMenuBtn.getAttribute("aria-expanded") === "true";
+          mobileMenuBtn.setAttribute("aria-expanded", !expanded);
+          
+          if (!expanded) {
+            mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+            mobileMenu.style.opacity = "1";
+            mobileMenu.style.transform = "translateY(0)";
+            mobileMenu.style.pointerEvents = "auto";
+          } else {
+            mobileMenu.style.maxHeight = "0";
+            mobileMenu.style.opacity = "0";
+            mobileMenu.style.transform = "translateY(-8px)";
+            mobileMenu.style.pointerEvents = "none";
+          }
+        });
+      }
+    </script>
   </body>
 </html>

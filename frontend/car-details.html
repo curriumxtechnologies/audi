@@ -13,32 +13,12 @@
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
-    <!-- 1. The Ultimate Fallback (Placed first for old browsers) -->
+    <!-- Favicon -->
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
-
-    <!-- 2. Modern Browsers & High-Res Screens -->
     <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="32x32"
-      href="images/favicon-32x32.png"
-    />
-    <link
-      rel="icon"
-      type="image/png"
-      sizes="16x16"
-      href="images/favicon-16x16.png"
-    />
-
-    <!-- 3. Apple Devices -->
-    <link
-      rel="apple-touch-icon"
-      sizes="180x180"
-      href="images/apple-touch-icon.png"
-    />
-
-    <!-- 4. PWA / Android / Windows -->
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
     <link rel="manifest" href="images/site.webmanifest" />
     <meta name="theme-color" content="#ffffff" />
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
@@ -167,7 +147,7 @@
         <div class="flex items-center gap-12">
           <a
             href="home.html"
-            class="font-headline text-2xl font-extrabold tracking-tighter"
+            class="font-headline text-2xl font-extrabold tracking-tighter text-black"
           >
             Audi
           </a>
@@ -271,7 +251,7 @@
                 <div class="flex items-center gap-1 text-sm font-bold">
                   <span
                     class="material-symbols-outlined text-[20px] text-on-tertiary-container"
-                    style="font-variation-settings: &quot;FILL&quot; 1"
+                    style="font-variation-settings: 'FILL' 1"
                   >
                     star
                   </span>
@@ -327,8 +307,7 @@
                     ></span>
                   </span>
                   <span id="stockText" class="text-sm font-medium"
-                    >In stock · ready for delivery</span
-                  >
+                    >In stock · ready for delivery</span>
                 </div>
 
                 <div
@@ -788,7 +767,7 @@
         >
           <div class="lg:col-span-2">
             <span
-              class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block"
+              class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block text-black"
             >
               Audi
             </span>
@@ -869,11 +848,12 @@
 
         <div class="border-t border-outline-variant/30 pt-8 text-center">
           <p class="text-xs text-on-surface-variant font-medium tracking-wide">
-            © 2004 Audi. All rights reserved.
+            © 2025 Audi. All rights reserved.
           </p>
         </div>
       </div>
     </footer>
+    
     <script>
       const BASE_URL =
         window.location.hostname === "localhost" ||
@@ -883,11 +863,25 @@
 
       const params = new URLSearchParams(window.location.search);
       const carId = params.get("id");
+      const isPublic = params.get("public") === "true";
 
       const loadingState = document.getElementById("loadingState");
       const errorState = document.getElementById("errorState");
       const errorMessage = document.getElementById("errorMessage");
       const pageContent = document.getElementById("pageContent");
+
+      function getAuthToken() {
+        const userInfo = localStorage.getItem("userInfo");
+        if (userInfo) {
+          try {
+            const user = JSON.parse(userInfo);
+            return user.token;
+          } catch (e) {
+            return null;
+          }
+        }
+        return null;
+      }
 
       function showError(message) {
         loadingState.classList.add("hidden");
@@ -1001,13 +995,13 @@
               : "border-transparent hover:border-primary/20");
 
           wrapper.innerHTML = `
-        <img
-          src="${image}"
-          alt="Car image ${index + 1}"
-          class="w-full h-full object-cover"
-          onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300?text=No+Image';"
-        />
-      `;
+            <img
+              src="${image}"
+              alt="Car image ${index + 1}"
+              class="w-full h-full object-cover"
+              onerror="this.onerror=null; this.src='https://via.placeholder.com/300x300?text=No+Image';"
+            />
+          `;
 
           wrapper.addEventListener("click", () => {
             mainImage.src = image;
@@ -1054,14 +1048,14 @@
           const item = document.createElement("div");
           item.className = "flex flex-col items-center text-center";
           item.innerHTML = `
-        <span class="material-symbols-outlined text-4xl mb-4 text-on-surface-variant">
-          ${icons[index] || "star"}
-        </span>
-        <h4 class="font-headline font-bold text-lg mb-2">${feature}</h4>
-        <p class="text-sm text-on-surface-variant">
-          Crafted to improve comfort, safety and daily driving experience.
-        </p>
-      `;
+            <span class="material-symbols-outlined text-4xl mb-4 text-on-surface-variant">
+              ${icons[index] || "star"}
+            </span>
+            <h4 class="font-headline font-bold text-lg mb-2">${feature}</h4>
+            <p class="text-sm text-on-surface-variant">
+              Crafted to improve comfort, safety and daily driving experience.
+            </p>
+          `;
           featuresGrid.appendChild(item);
         });
       }
@@ -1085,10 +1079,10 @@
 
         if (!relatedCars.length) {
           relatedCarsGrid.innerHTML = `
-        <div class="col-span-full bg-surface-container-low p-8 text-center">
-          <p class="text-on-surface-variant">No related cars available right now.</p>
-        </div>
-      `;
+            <div class="col-span-full bg-surface-container-low p-8 text-center">
+              <p class="text-on-surface-variant">No related cars available right now.</p>
+            </div>
+          `;
           return;
         }
 
@@ -1102,23 +1096,23 @@
           card.className = "group cursor-pointer block";
 
           card.innerHTML = `
-        <div class="overflow-hidden mb-4 aspect-[16/9] bg-surface-container-low image-zoom">
-          <img
-            src="${image}"
-            class="w-full h-full object-cover transition-transform duration-700"
-            alt="${name}"
-            onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350?text=No+Image';"
-          />
-        </div>
-        <h3 class="font-headline text-xl font-bold">${name}</h3>
-        <p class="text-on-surface-variant text-sm">Starting ${price}</p>
-        <button
-          class="mt-3 text-xs font-bold tracking-widest border-b border-outline-variant pb-1 flex items-center gap-1 group-hover:border-primary transition"
-        >
-          VIEW DETAILS
-          <span class="material-symbols-outlined text-[16px]">arrow_right_alt</span>
-        </button>
-      `;
+            <div class="overflow-hidden mb-4 aspect-[16/9] bg-surface-container-low image-zoom">
+              <img
+                src="${image}"
+                class="w-full h-full object-cover transition-transform duration-700"
+                alt="${name}"
+                onerror="this.onerror=null; this.src='https://via.placeholder.com/600x350?text=No+Image';"
+              />
+            </div>
+            <h3 class="font-headline text-xl font-bold">${name}</h3>
+            <p class="text-on-surface-variant text-sm">Starting ${price}</p>
+            <button
+              class="mt-3 text-xs font-bold tracking-widest border-b border-outline-variant pb-1 flex items-center gap-1 group-hover:border-primary transition"
+            >
+              VIEW DETAILS
+              <span class="material-symbols-outlined text-[16px]">arrow_right_alt</span>
+            </button>
+          `;
 
           relatedCarsGrid.appendChild(card);
         });
@@ -1256,10 +1250,43 @@
         }
 
         try {
-          const response = await fetch(`${BASE_URL}/api/cars/${carId}`);
+          let url;
+          const headers = {};
+
+          // If not forced to public view, try authenticated request
+          if (!isPublic) {
+            const token = getAuthToken();
+            if (token) {
+              url = `${BASE_URL}/api/cars/${carId}`;
+              headers['Authorization'] = `Bearer ${token}`;
+            } else {
+              // No token, use public view
+              url = `${BASE_URL}/api/cars/${carId}/view`;
+            }
+          } else {
+            // Force public view
+            url = `${BASE_URL}/api/cars/${carId}/view`;
+          }
+
+          const response = await fetch(url, { headers });
           const data = await response.json();
 
           if (!response.ok) {
+            // If unauthorized and we tried authenticated, fallback to public
+            if (response.status === 401 && !isPublic) {
+              const publicResponse = await fetch(`${BASE_URL}/api/cars/${carId}/view`);
+              const publicData = await publicResponse.json();
+              
+              if (!publicResponse.ok) {
+                throw new Error(publicData.message || "Failed to fetch car details.");
+              }
+              
+              populateCar(publicData);
+              showPage();
+              fetchRelatedCars(publicData);
+              return;
+            }
+            
             throw new Error(data.message || "Failed to fetch car details.");
           }
 

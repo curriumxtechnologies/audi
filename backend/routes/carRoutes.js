@@ -4,16 +4,17 @@ import {
   editCarDetails,
   getCars,
   getCarById,
+  getCarByIdNoEmail,
+  shareCarViaEmail,
   deleteCar,
 } from "../controllers/carController.js";
-import { adminProtect } from "../middleware/authMiddleware.js";
+import { adminProtect, protect } from "../middleware/authMiddleware.js";
 
 import multer from "multer";
 import { v2 as cloudinary } from "cloudinary";
 import { CloudinaryStorage } from 'multer-storage-cloudinary'
 
 const router = express.Router();
-
 
 // Cloudinary config
 cloudinary.config({
@@ -51,7 +52,7 @@ const storage = new CloudinaryStorage({
       "raf",
       "orf",
     ],
-    // public_id: (req, file) => `receipt_${req.user._id}_${Date.now()}`,
+    // public_id: (req, file) => `car_${Date.now()}_${Math.random().toString(36).substring(7)}`,
   },
 });
 
@@ -63,11 +64,13 @@ cloudinary.api
   .then(() => console.log("✅ Cloudinary connected successfully"))
   .catch((err) => console.error("❌ Cloudinary not connected:", err.message));
 
-
-router.post("/", adminProtect, upload.array("cars", 5), addCars);
+// Car routes
+router.post("/", adminProtect, upload.array("pictures", 10), addCars);
 router.get("/", getCars);
-router.get("/:id", getCarById);
-router.put("/:id", adminProtect, upload.array("cars", 5), editCarDetails);
-router.delete("/:id", deleteCar);
+router.get("/:id/view", getCarByIdNoEmail); // Public view - no email sent
+router.post("/:id/share", shareCarViaEmail); // Share car via email to any address
+router.get("/:id", protect, getCarById); // Authenticated view - sends email
+router.put("/:id", adminProtect, upload.array("pictures", 10), editCarDetails);
+router.delete("/:id", adminProtect, deleteCar);
 
 export default router;

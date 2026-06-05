@@ -151,7 +151,7 @@
         <div class="flex items-center gap-10">
           <a
             href="home.html"
-            class="font-headline text-2xl font-extrabold tracking-tighter"
+            class="font-headline text-2xl font-extrabold tracking-tighter text-black"
           >
             Audi
           </a>
@@ -265,7 +265,7 @@
         >
           <div class="lg:col-span-2">
             <span
-              class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block"
+              class="font-headline text-3xl font-extrabold tracking-tighter mb-6 block text-black"
             >
               Audi
             </span>
@@ -339,7 +339,7 @@
 
         <div class="border-t border-outline-variant/30 pt-8 text-center">
           <p class="text-xs text-on-surface-variant font-medium tracking-wide">
-            © 2004 Audi. All rights reserved.
+            © 2025 Audi. All rights reserved.
           </p>
         </div>
       </div>
@@ -383,18 +383,32 @@
         );
       }
 
+      // Fixed formatPrice function - handles crypto currencies properly
       function formatPrice(price, currency = "USD") {
         const numericPrice = Number(price || 0);
-
+        
+        // List of valid ISO currency codes
+        const validCurrencies = ["USD", "EUR", "GBP", "JPY", "CAD", "AUD", "CHF", "CNY", "INR"];
+        
+        // Check if currency is a valid ISO code, otherwise default to USD
+        const displayCurrency = validCurrencies.includes(currency) ? currency : "USD";
+        
         try {
           return new Intl.NumberFormat("en-US", {
             style: "currency",
-            currency: currency || "USD",
-            maximumFractionDigits: 0,
+            currency: displayCurrency,
+            maximumFractionDigits: 2,
+            minimumFractionDigits: 2,
           }).format(numericPrice);
         } catch {
-          return `$${numericPrice}`;
+          return `$${numericPrice.toLocaleString()}`;
         }
+      }
+
+      // Format crypto amount separately
+      function formatCryptoAmount(amount, coin = "USDT") {
+        const numericAmount = Number(amount || 0);
+        return `${numericAmount.toLocaleString()} ${coin}`;
       }
 
       function formatDate(dateString) {
@@ -502,10 +516,12 @@
         const doc = new jsPDF();
 
         const car = order.carId || {};
-        const currency = order.currency || car.currency || "USD";
+        const currency = "USD"; // Always use USD for display
         const amountPaid = Number(order.amountPaid || 0);
         const totalPrice = Number(car.price || 0);
         const balance = Math.max(totalPrice - amountPaid, 0);
+        const cryptoMethod = order.paymentMethod || "USDT";
+        const cryptoNetwork = order.paymentNetwork || "TRC20";
 
         const receiptNumber =
           order.receiptNumber || generateReceiptNumber(order);
@@ -600,7 +616,7 @@
         const cardW = 56;
         const gap = 7;
 
-        // Card 1
+        // Card 1 - Amount Paid
         doc.setFillColor(255, 255, 255);
         doc.roundedRect(14, cardY, cardW, 24, 3, 3, "F");
         doc.setFont("helvetica", "bold");
@@ -608,11 +624,17 @@
         doc.setTextColor(76, 69, 70);
         doc.text("AMOUNT PAID", 19, cardY + 8);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(15);
+        doc.setFontSize(12);
         doc.setTextColor(15, 23, 42);
-        doc.text(formatPrice(amountPaid, currency), 19, cardY + 18);
+        doc.text(formatPrice(amountPaid), 19, cardY + 18);
+        
+        // Card 1b - Crypto amount
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(7);
+        doc.setTextColor(100, 100, 100);
+        doc.text(`≈ ${formatCryptoAmount(amountPaid, cryptoMethod)}`, 19, cardY + 22);
 
-        // Card 2
+        // Card 2 - Total Price
         doc.setFillColor(255, 255, 255);
         doc.roundedRect(14 + cardW + gap, cardY, cardW, 24, 3, 3, "F");
         doc.setFont("helvetica", "bold");
@@ -620,15 +642,15 @@
         doc.setTextColor(76, 69, 70);
         doc.text("TOTAL PRICE", 19 + cardW + gap, cardY + 8);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(15);
+        doc.setFontSize(12);
         doc.setTextColor(15, 23, 42);
         doc.text(
-          formatPrice(totalPrice, currency),
+          formatPrice(totalPrice),
           19 + cardW + gap,
           cardY + 18,
         );
 
-        // Card 3
+        // Card 3 - Balance
         doc.setFillColor(255, 255, 255);
         doc.roundedRect(14 + (cardW + gap) * 2, cardY, cardW, 24, 3, 3, "F");
         doc.setFont("helvetica", "bold");
@@ -636,14 +658,14 @@
         doc.setTextColor(76, 69, 70);
         doc.text("BALANCE", 19 + (cardW + gap) * 2, cardY + 8);
         doc.setFont("helvetica", "bold");
-        doc.setFontSize(15);
+        doc.setFontSize(12);
         doc.setTextColor(
           balance <= 0 ? 22 : 194,
           balance <= 0 ? 101 : 65,
           balance <= 0 ? 52 : 12,
         );
         doc.text(
-          formatPrice(balance, currency),
+          formatPrice(balance),
           19 + (cardW + gap) * 2,
           cardY + 18,
         );
@@ -653,7 +675,21 @@
         const rightX = 108;
         const blockY = 140;
         const blockW = 88;
-        const lineGap = 10;
+        let y1 = blockY + 20;
+        
+        const drawLine = (label, value, x, y) => {
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(8);
+          doc.setTextColor(76, 69, 70);
+          doc.text(label.toUpperCase(), x, y);
+
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(9.5);
+          doc.setTextColor(25, 28, 28);
+          const wrapped = doc.splitTextToSize(String(value), 75);
+          doc.text(wrapped, x, y + 5);
+          return y + 5 + wrapped.length * 4 + 3;
+        };
 
         // Left block - Customer
         doc.setFillColor(255, 255, 255);
@@ -662,21 +698,6 @@
         doc.setFont("helvetica", "bold");
         doc.setFontSize(11);
         doc.text("Customer Information", leftX + 6, blockY + 10);
-
-        let y1 = blockY + 20;
-        const drawLine = (label, value, x, y) => {
-          doc.setFont("helvetica", "bold");
-          doc.setFontSize(8.5);
-          doc.setTextColor(76, 69, 70);
-          doc.text(label.toUpperCase(), x, y);
-
-          doc.setFont("helvetica", "normal");
-          doc.setFontSize(10);
-          doc.setTextColor(25, 28, 28);
-          const wrapped = doc.splitTextToSize(String(value), 75);
-          doc.text(wrapped, x, y + 5);
-          return y + 5 + wrapped.length * 4 + 3;
-        };
 
         y1 = drawLine("Name", customerName, leftX + 6, y1);
         y1 = drawLine("Email", customerEmail, leftX + 6, y1);
@@ -695,8 +716,23 @@
         y2 = drawLine("Year", vehicleYear, rightX + 6, y2);
         y2 = drawLine("Category", vehicleCategory, rightX + 6, y2);
 
+        // Add Payment Method block
+        const paymentBlockY = blockY + 72;
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(leftX, paymentBlockY, 182, 28, 3, 3, "F");
+        
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(8);
+        doc.setTextColor(76, 69, 70);
+        doc.text("PAYMENT METHOD", leftX + 6, paymentBlockY + 10);
+        
+        doc.setFont("helvetica", "normal");
+        doc.setFontSize(10);
+        doc.setTextColor(25, 28, 28);
+        doc.text(`${cryptoMethod} (${cryptoNetwork})`, leftX + 6, paymentBlockY + 20);
+
         // Full width order block
-        const orderBlockY = 214;
+        const orderBlockY = paymentBlockY + 34;
         const orderBlockHeight = 60;
 
         doc.setFillColor(255, 255, 255);
@@ -716,7 +752,7 @@
         const rightMeta = [
           ["Payment Status", paymentStatus],
           ["Receipt Number", receiptNumber],
-          ["Currency", currency],
+          ["Transaction ID", order.transactionId || "Not available"],
         ];
 
         let metaYLeft = orderBlockY + 20;
@@ -727,13 +763,13 @@
           doc.text(label.toUpperCase(), 20, metaYLeft);
 
           doc.setFont("helvetica", "normal");
-          doc.setFontSize(9.5);
+          doc.setFontSize(9);
           doc.setTextColor(25, 28, 28);
 
           const wrappedValue = doc.splitTextToSize(String(value), 70);
           doc.text(wrappedValue, 20, metaYLeft + 5);
 
-          metaYLeft += 15;
+          metaYLeft += 14;
         });
 
         let metaYRight = orderBlockY + 20;
@@ -744,18 +780,18 @@
           doc.text(label.toUpperCase(), 110, metaYRight);
 
           doc.setFont("helvetica", "normal");
-          doc.setFontSize(9.5);
+          doc.setFontSize(9);
           doc.setTextColor(25, 28, 28);
 
           const wrappedValue = doc.splitTextToSize(String(value), 70);
           doc.text(wrappedValue, 110, metaYRight + 5);
 
-          metaYRight += 15;
+          metaYRight += 14;
         });
 
         // Footer
         doc.setDrawColor(220, 220, 220);
-        doc.line(14, 276, 196, 276);
+        doc.line(14, orderBlockY + orderBlockHeight + 10, 196, orderBlockY + orderBlockHeight + 10);
 
         doc.setFont("helvetica", "normal");
         doc.setFontSize(9);
@@ -763,11 +799,11 @@
         doc.text(
           "Thank you for choosing Audi. Please keep this receipt for your records.",
           14,
-          284,
+          orderBlockY + orderBlockHeight + 18,
         );
 
         doc.setFont("helvetica", "italic");
-        doc.text("Generated digitally from your Audi account.", 14, 289);
+        doc.text("Generated digitally from your Audi account.", 14, orderBlockY + orderBlockHeight + 24);
 
         const fileName = `Audi-Receipt-${receiptNumber}.pdf`;
         doc.save(fileName);
@@ -815,8 +851,8 @@
             const carPrice = Number(car.price || 0);
             const amountPaid = Number(order.amountPaid || 0);
             const balance = Math.max(carPrice - amountPaid, 0);
-            const currency = order.currency || car.currency || "USD";
             const statusUI = getStatusUI(order.status);
+            const cryptoMethod = order.paymentMethod || "USDT";
 
             return `
           <article class="bg-surface-container-lowest border border-outline-variant/20 overflow-hidden order-card">
@@ -859,23 +895,30 @@
               <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
                 <div class="bg-surface-container-low p-4">
                   <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Total Price</p>
-                  <p class="text-lg font-semibold">${formatPrice(carPrice, currency)}</p>
+                  <p class="text-lg font-semibold">${formatPrice(carPrice)}</p>
                 </div>
 
                 <div class="bg-surface-container-low p-4">
                   <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Amount Paid</p>
-                  <p class="text-lg font-semibold">${formatPrice(amountPaid, currency)}</p>
+                  <p class="text-lg font-semibold">${formatPrice(amountPaid)}</p>
+                  <p class="text-xs text-on-surface-variant mt-1">≈ ${formatCryptoAmount(amountPaid, cryptoMethod)}</p>
                 </div>
 
                 <div class="bg-surface-container-low p-4">
                   <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Remaining Balance</p>
-                  <p class="text-lg font-semibold">${formatPrice(balance, currency)}</p>
+                  <p class="text-lg font-semibold">${formatPrice(balance)}</p>
                 </div>
 
                 <div class="bg-surface-container-low p-4">
                   <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Order Date</p>
                   <p class="text-lg font-semibold">${formatDate(order.createdAt)}</p>
                 </div>
+              </div>
+
+              <div class="bg-surface-container-low p-4 mb-6">
+                <p class="text-xs uppercase tracking-widest text-on-surface-variant mb-2">Payment Method</p>
+                <p class="text-sm font-semibold">${order.paymentMethod || "USDT"} (${order.paymentNetwork || "TRC20"})</p>
+                <p class="text-xs text-on-surface-variant mt-1 break-all">Transaction ID: ${order.transactionId || "N/A"}</p>
               </div>
 
               ${
@@ -906,7 +949,7 @@
                       <button
                         type="button"
                         class="inline-flex items-center gap-2 border border-outline-variant/40 px-5 py-3 text-sm font-semibold hover:border-primary hover:bg-surface-container transition-colors download-receipt-btn"
-                        data-order-id="${order._id || order.id || ""}"
+                        data-order-id='${JSON.stringify(order)}'
                       >
                         <span class="material-symbols-outlined text-[18px]">download</span>
                         Download Receipt
@@ -927,18 +970,8 @@
 
         receiptButtons.forEach((button) => {
           button.addEventListener("click", () => {
-            const orderId = button.dataset.orderId;
-
-            const selectedOrder = orders.find(
-              (item) => String(item._id || item.id) === String(orderId),
-            );
-
-            if (!selectedOrder) {
-              alert("Receipt data not found for this order.");
-              return;
-            }
-
-            downloadReceipt(selectedOrder);
+            const orderData = JSON.parse(button.dataset.orderId);
+            downloadReceipt(orderData);
           });
         });
       }
