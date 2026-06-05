@@ -8,7 +8,8 @@ import {
   resetPassword, 
   changePassword,
   logoutUser,
-  verifyLoginAlert
+  verifyLoginAlert,
+  checkEmailExists
 } from "../controllers/userController.js";
 import { protect } from "../middleware/authMiddleware.js";
 
@@ -23,5 +24,6 @@ router.post("/reset-password", resetPassword);
 router.post("/change-password", protect, changePassword);
 router.post("/logout", logoutUser);
 router.post("/verify-login-alert", verifyLoginAlert);
+router.post("/check-email", checkEmailExists);
 
 export default router;

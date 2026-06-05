@@ -14,25 +14,6 @@ const generateRandomToken = () => {
          Date.now().toString(36);
 };
 
-// Helper: Verify reCAPTCHA
-const verifyRecaptcha = async (recaptchaToken) => {
-  if (!recaptchaToken) return false;
-  
-  try {
-    const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: `secret=${process.env.RECAPTCHA_SECRET_KEY}&response=${recaptchaToken}`,
-    });
-    
-    const data = await response.json();
-    return data.success && data.score >= 0.5;
-  } catch (error) {
-    console.error("reCAPTCHA verification error:", error);
-    return false;
-  }
-};
-
 // Helper: Generate OTP
 const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString();
@@ -49,21 +30,63 @@ const requiresOTP = (user) => {
   return timeSinceLastLogin > twoDaysInMs;
 };
 
+// Check if email exists
+const checkEmailExists = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  
+  if (!email) {
+    res.status(400);
+    throw new Error("Email is required");
+  }
+  
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    res.status(400);
+    throw new Error("Please enter a valid email address");
+  }
+  
+  const user = await User.findOne({ email });
+  
+  if (!user) {
+    res.status(404);
+    throw new Error("No account found with this email");
+  }
+  
+  res.status(200).json({
+    success: true,
+    message: "Email exists",
+    email: user.email
+  });
+});
+
 // Register User
 const register = asyncHandler(async (req, res) => {
-  const { name, email, phone, password, recaptchaToken } = req.body;
-
-  // Verify reCAPTCHA
-  const isRecaptchaValid = await verifyRecaptcha(recaptchaToken);
-  if (!isRecaptchaValid) {
-    res.status(400);
-    throw new Error("reCAPTCHA verification failed. Please try again.");
-  }
+  const { name, email, phone, password } = req.body;
 
   // Validate required fields
   if (!name || !email || !phone || !password) {
     res.status(400);
     throw new Error("All fields are required");
+  }
+
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    res.status(400);
+    throw new Error("Please enter a valid email address");
+  }
+
+  // Validate phone format (basic)
+  if (phone.length < 10) {
+    res.status(400);
+    throw new Error("Please enter a valid phone number");
+  }
+
+  // Validate password strength
+  if (password.length < 6) {
+    res.status(400);
+    throw new Error("Password must be at least 6 characters");
   }
 
   // Check if user exists
@@ -105,6 +128,7 @@ const register = asyncHandler(async (req, res) => {
   await sendOTPEmail(email, otp, "registration");
 
   res.status(201).json({
+    success: true,
     message: "Registration successful. Please verify your email with the OTP sent.",
     email,
   });
@@ -119,6 +143,13 @@ const sendOTP = asyncHandler(async (req, res) => {
     throw new Error("Email and purpose are required");
   }
 
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    res.status(400);
+    throw new Error("Please enter a valid email address");
+  }
+
   const user = await User.findOne({ email });
   
   if (purpose === "registration" && user && user.isVerified) {
@@ -131,6 +162,11 @@ const sendOTP = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
+  if (purpose === "password_reset" && !user) {
+    res.status(404);
+    throw new Error("No account found with this email");
+  }
+
   const otp = generateOTP();
   const expiresAt = Date.now() + 10 * 60 * 1000;
   
@@ -138,7 +174,10 @@ const sendOTP = asyncHandler(async (req, res) => {
   
   await sendOTPEmail(email, otp, purpose);
 
-  res.status(200).json({ message: `OTP sent to ${email}` });
+  res.status(200).json({ 
+    success: true,
+    message: `OTP sent to ${email}` 
+  });
 });
 
 // Verify OTP
@@ -185,11 +224,13 @@ const verifyOTP = asyncHandler(async (req, res) => {
       const token = generateToken(res, user._id);
       
       res.status(200).json({
+        success: true,
         message: "Email verified successfully",
         _id: user._id,
         name: user.name,
         email: user.email,
         phone: user.phone,
+        username: user.username,
         profile: user.profile,
         token,
       });
@@ -198,26 +239,51 @@ const verifyOTP = asyncHandler(async (req, res) => {
       throw new Error("User not found");
     }
   } else if (purpose === "login") {
+    // Complete login after OTP verification
+    const user = await User.findOne({ email });
+    if (user) {
+      user.lastLoginAt = new Date();
+      await user.save();
+      
+      const token = generateToken(res, user._id);
+      
+      res.status(200).json({ 
+        success: true,
+        message: "OTP verified successfully",
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+        username: user.username,
+        profile: user.profile,
+        authMethod: user.authMethod,
+        agentNumber: user.agentNumber || "",
+        paymentMethods: user.paymentMethods || [],
+        token,
+      });
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  } else if (purpose === "password_reset") {
+    // OTP verified successfully for password reset
     res.status(200).json({ 
-      message: "OTP verified successfully",
+      success: true,
+      message: "OTP verified successfully. You can now reset your password.",
       email,
       verified: true 
     });
   } else {
-    res.status(200).json({ message: "OTP verified successfully" });
+    res.status(200).json({ 
+      success: true,
+      message: "OTP verified successfully" 
+    });
   }
 });
 
 // Login
 const login = asyncHandler(async (req, res) => {
-  const { email, password, recaptchaToken } = req.body;
-
-  // Verify reCAPTCHA
-  const isRecaptchaValid = await verifyRecaptcha(recaptchaToken);
-  if (!isRecaptchaValid) {
-    res.status(400);
-    throw new Error("reCAPTCHA verification failed. Please try again.");
-  }
+  const { email, password } = req.body;
 
   if (!email || !password) {
     res.status(400);
@@ -233,7 +299,7 @@ const login = asyncHandler(async (req, res) => {
 
   if (!user.isVerified) {
     res.status(401);
-    throw new Error("Please verify your email first");
+    throw new Error("Please verify your email first. Check your inbox for the OTP.");
   }
 
   // Check password
@@ -267,6 +333,7 @@ const login = asyncHandler(async (req, res) => {
     await sendOTPEmail(email, otp, "login");
     
     res.status(200).json({
+      success: true,
       requiresOTP: true,
       message: "OTP sent to your email for verification",
       email,
@@ -281,6 +348,7 @@ const login = asyncHandler(async (req, res) => {
   const token = generateToken(res, user._id);
   
   res.status(200).json({
+    success: true,
     _id: user._id,
     name: user.name,
     email: user.email,
@@ -291,6 +359,103 @@ const login = asyncHandler(async (req, res) => {
     agentNumber: user.agentNumber || "",
     paymentMethods: user.paymentMethods || [],
     token,
+  });
+});
+
+// Forgot Password - First step: Check email and send OTP
+const forgotPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+  
+  if (!email) {
+    res.status(400);
+    throw new Error("Email is required");
+  }
+  
+  // Validate email format
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    res.status(400);
+    throw new Error("Please enter a valid email address");
+  }
+  
+  const user = await User.findOne({ email });
+  if (!user) {
+    res.status(404);
+    throw new Error("No account found with this email");
+  }
+  
+  // Generate OTP for password reset
+  const otp = generateOTP();
+  const expiresAt = Date.now() + 10 * 60 * 1000;
+  otpStore.set(email, { otp, expiresAt, purpose: "password_reset", userId: user._id });
+  
+  await sendOTPEmail(email, otp, "password_reset");
+  
+  res.status(200).json({
+    success: true,
+    message: "OTP sent to your email for password reset",
+    email,
+  });
+});
+
+// Reset Password - Final step after OTP verification
+const resetPassword = asyncHandler(async (req, res) => {
+  const { email, newPassword } = req.body;
+  
+  if (!email || !newPassword) {
+    res.status(400);
+    throw new Error("Email and new password are required");
+  }
+  
+  // Validate password strength
+  if (newPassword.length < 6) {
+    res.status(400);
+    throw new Error("Password must be at least 6 characters");
+  }
+  
+  const user = await User.findOne({ email });
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+  
+  user.password = newPassword;
+  await user.save();
+  
+  res.status(200).json({ 
+    success: true,
+    message: "Password reset successfully" 
+  });
+});
+
+// Change Password (authenticated)
+const changePassword = asyncHandler(async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  const user = await User.findById(req.user._id);
+  
+  if (!user) {
+    res.status(404);
+    throw new Error("User not found");
+  }
+  
+  // Validate new password strength
+  if (newPassword.length < 6) {
+    res.status(400);
+    throw new Error("New password must be at least 6 characters");
+  }
+  
+  const isPasswordMatch = await user.matchPassword(currentPassword);
+  if (!isPasswordMatch) {
+    res.status(401);
+    throw new Error("Current password is incorrect");
+  }
+  
+  user.password = newPassword;
+  await user.save();
+  
+  res.status(200).json({ 
+    success: true,
+    message: "Password changed successfully" 
   });
 });
 
@@ -317,110 +482,16 @@ const verifyLoginAlert = asyncHandler(async (req, res) => {
     await user.save();
     
     res.status(200).json({
+      success: true,
       message: "Password reset token generated",
       resetToken,
     });
   } else {
-    res.status(200).json({ message: "Alert acknowledged" });
+    res.status(200).json({ 
+      success: true,
+      message: "Alert acknowledged" 
+    });
   }
-});
-
-// Forgot Password
-const forgotPassword = asyncHandler(async (req, res) => {
-  const { email, recaptchaToken } = req.body;
-  
-  // Verify reCAPTCHA
-  const isRecaptchaValid = await verifyRecaptcha(recaptchaToken);
-  if (!isRecaptchaValid) {
-    res.status(400);
-    throw new Error("reCAPTCHA verification failed. Please try again.");
-  }
-  
-  if (!email) {
-    res.status(400);
-    throw new Error("Email is required");
-  }
-  
-  const user = await User.findOne({ email });
-  if (!user) {
-    res.status(404);
-    throw new Error("User not found");
-  }
-  
-  // Generate OTP for password reset
-  const otp = generateOTP();
-  const expiresAt = Date.now() + 10 * 60 * 1000;
-  otpStore.set(email, { otp, expiresAt, purpose: "password_reset", userId: user._id });
-  
-  await sendOTPEmail(email, otp, "password_reset");
-  
-  res.status(200).json({
-    message: "OTP sent to your email for password reset",
-    email,
-  });
-});
-
-// Reset Password (with OTP)
-const resetPassword = asyncHandler(async (req, res) => {
-  const { email, otp, newPassword } = req.body;
-  
-  if (!email || !otp || !newPassword) {
-    res.status(400);
-    throw new Error("Email, OTP, and new password are required");
-  }
-  
-  const storedData = otpStore.get(email);
-  
-  if (!storedData || storedData.purpose !== "password_reset") {
-    res.status(400);
-    throw new Error("Invalid or expired OTP");
-  }
-  
-  if (storedData.expiresAt < Date.now()) {
-    otpStore.delete(email);
-    res.status(400);
-    throw new Error("OTP has expired");
-  }
-  
-  if (storedData.otp !== otp) {
-    res.status(400);
-    throw new Error("Invalid OTP");
-  }
-  
-  const user = await User.findOne({ email });
-  if (!user) {
-    res.status(404);
-    throw new Error("User not found");
-  }
-  
-  user.password = newPassword;
-  await user.save();
-  
-  otpStore.delete(email);
-  
-  res.status(200).json({ message: "Password reset successfully" });
-});
-
-// Change Password (authenticated)
-const changePassword = asyncHandler(async (req, res) => {
-  const { currentPassword, newPassword } = req.body;
-  const user = await User.findById(req.user._id);
-  
-  if (!user) {
-    res.status(404);
-    throw new Error("User not found");
-  }
-  
-  const isPasswordMatch = await user.matchPassword(currentPassword);
-  if (!isPasswordMatch) {
-    res.status(401);
-    throw new Error("Current password is incorrect");
-  }
-  
-  user.password = newPassword;
-  await user.save();
-  
-  res.status(200).json({ message: "Password changed successfully" });
 });
 
 // Logout
@@ -435,7 +506,10 @@ const logoutUser = asyncHandler(async (req, res) => {
     path: "/",
   });
   
-  res.status(200).json({ message: "Logged out successfully" });
+  res.status(200).json({ 
+    success: true,
+    message: "Logged out successfully" 
+  });
 });
 
 export { 
@@ -447,5 +521,6 @@ export {
   resetPassword, 
   changePassword,
   logoutUser,
-  verifyLoginAlert
+  verifyLoginAlert,
+  checkEmailExists
 };
