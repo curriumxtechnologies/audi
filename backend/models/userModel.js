@@ -68,7 +68,7 @@ const userSchema = mongoose.Schema(
     },
     authMethod: {
       type: String,
-      enum: ["local", "google"],
+      enum: ["local", "google", "email"],
       default: "local",
     },
     agentNumber: {
