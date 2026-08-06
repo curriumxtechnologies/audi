@@ -386,13 +386,13 @@
       // Fixed formatPrice function - handles crypto currencies properly
       function formatPrice(price, currency = "USD") {
         const numericPrice = Number(price || 0);
-        
+
         // List of valid ISO currency codes
         const validCurrencies = ["USD", "EUR", "GBP", "JPY", "CAD", "AUD", "CHF", "CNY", "INR"];
-        
+
         // Check if currency is a valid ISO code, otherwise default to USD
         const displayCurrency = validCurrencies.includes(currency) ? currency : "USD";
-        
+
         try {
           return new Intl.NumberFormat("en-US", {
             style: "currency",
@@ -511,12 +511,17 @@
         return `AUD-REC-${String(baseId).slice(-6).toUpperCase()}`;
       }
 
+      // ---------------------------------------------------------------
+      // Receipt PDF generator
+      // Rebuilt to flow content with a running Y cursor and to
+      // automatically start a new page whenever the next block would
+      // not fit, instead of overflowing off the bottom of a single page.
+      // ---------------------------------------------------------------
       function downloadReceipt(order) {
         const { jsPDF } = window.jspdf;
         const doc = new jsPDF();
 
         const car = order.carId || {};
-        const currency = "USD"; // Always use USD for display
         const amountPaid = Number(order.amountPaid || 0);
         const totalPrice = Number(car.price || 0);
         const balance = Math.max(totalPrice - amountPaid, 0);
@@ -543,267 +548,345 @@
 
         const pageWidth = doc.internal.pageSize.getWidth();
         const pageHeight = doc.internal.pageSize.getHeight();
+        const marginX = 14;
+        const contentWidth = pageWidth - marginX * 2;
+        const bottomLimit = pageHeight - 24; // keep room for the footer
+        let pageNumber = 1;
 
-        // Background
-        doc.setFillColor(248, 248, 248);
-        doc.rect(0, 0, pageWidth, pageHeight, "F");
+        function paintBackground() {
+          doc.setFillColor(248, 248, 248);
+          doc.rect(0, 0, pageWidth, pageHeight, "F");
+        }
 
-        // Top black header
-        doc.setFillColor(10, 10, 10);
-        doc.rect(0, 0, pageWidth, 36, "F");
+        function drawMainHeader() {
+          doc.setFillColor(10, 10, 10);
+          doc.rect(0, 0, pageWidth, 36, "F");
 
-        // Audi title
-        doc.setTextColor(255, 255, 255);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(24);
-        doc.text("AUDI", 16, 16);
+          doc.setTextColor(255, 255, 255);
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(24);
+          doc.text("AUDI", 16, 16);
 
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(10);
-        doc.text("Official Payment Receipt", 16, 24);
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(10);
+          doc.text("Official Payment Receipt", 16, 24);
 
-        // Right header meta
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(10);
-        doc.text("Receipt No.", 145, 14);
-        doc.setFont("helvetica", "normal");
-        doc.text(String(receiptNumber), 145, 20);
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(10);
+          doc.text("Receipt No.", 145, 14);
+          doc.setFont("helvetica", "normal");
+          doc.text(String(receiptNumber), 145, 20);
 
-        doc.setFont("helvetica", "bold");
-        doc.text("Status", 145, 28);
+          doc.setFont("helvetica", "bold");
+          doc.text("Status", 145, 28);
 
-        // Status chip
-        doc.setFillColor(220, 252, 231);
-        doc.roundedRect(162, 22.5, 28, 8, 2, 2, "F");
-        doc.setTextColor(22, 101, 52);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(8);
-        doc.text("CONFIRMED", 165, 27.8);
+          doc.setFillColor(220, 252, 231);
+          doc.roundedRect(162, 22.5, 28, 8, 2, 2, "F");
+          doc.setTextColor(22, 101, 52);
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(8);
+          doc.text("CONFIRMED", 165, 27.8);
 
-        // Reset text
-        doc.setTextColor(25, 28, 28);
+          doc.setTextColor(25, 28, 28);
+        }
+
+        function drawContinuationHeader() {
+          doc.setFillColor(10, 10, 10);
+          doc.rect(0, 0, pageWidth, 20, "F");
+          doc.setTextColor(255, 255, 255);
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(13);
+          doc.text("AUDI", 16, 13);
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(9);
+          doc.text(
+            `Payment Receipt (continued) - ${receiptNumber}`,
+            40,
+            13,
+          );
+          doc.setTextColor(25, 28, 28);
+        }
+
+        function addPageFooter() {
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(8);
+          doc.setTextColor(150, 150, 150);
+          doc.text(`Page ${pageNumber}`, pageWidth - marginX, pageHeight - 10, {
+            align: "right",
+          });
+          doc.text(
+            "Audi Dealership - Premium Vehicle Sales & Delivery",
+            marginX,
+            pageHeight - 10,
+          );
+        }
+
+        function startNewPage() {
+          addPageFooter();
+          doc.addPage();
+          pageNumber += 1;
+          paintBackground();
+          drawContinuationHeader();
+          return 30;
+        }
+
+        // Ensures the next block (of neededHeight) fits before the
+        // bottom margin. If not, starts a new page and returns the
+        // fresh Y cursor for that page.
+        function ensureSpace(currentY, neededHeight) {
+          if (currentY + neededHeight > bottomLimit) {
+            return startNewPage();
+          }
+          return currentY;
+        }
+
+        // ---- Page 1 header ----
+        paintBackground();
+        drawMainHeader();
+
+        let y = 44;
 
         // Dealership block
+        y = ensureSpace(y, 28);
         doc.setFillColor(255, 255, 255);
-        doc.roundedRect(14, 44, 182, 28, 3, 3, "F");
-
+        doc.roundedRect(marginX, y, contentWidth, 28, 3, 3, "F");
         doc.setFont("helvetica", "bold");
         doc.setFontSize(11);
-        doc.text("Audi Dealership", 20, 54);
-
+        doc.setTextColor(25, 28, 28);
+        doc.text("Audi Dealership", marginX + 6, y + 10);
         doc.setFont("helvetica", "normal");
         doc.setFontSize(9.5);
         doc.setTextColor(76, 69, 70);
-        doc.text("Premium Vehicle Sales & Delivery", 20, 67);
+        doc.text("Premium Vehicle Sales & Delivery", marginX + 6, y + 23);
+        y += 28 + 12;
 
-        // Receipt title section
+        // Title + intro
+        y = ensureSpace(y, 22);
         doc.setTextColor(25, 28, 28);
         doc.setFont("helvetica", "bold");
         doc.setFontSize(20);
-        doc.text("Payment Receipt", 14, 88);
+        doc.text("Payment Receipt", marginX, y);
+        y += 8;
 
         doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
         doc.setTextColor(76, 69, 70);
-        doc.text(
+        const introLines = doc.splitTextToSize(
           "This document confirms that payment has been received and approved for the vehicle order below.",
-          14,
-          96,
+          contentWidth,
         );
+        doc.text(introLines, marginX, y);
+        y += introLines.length * 5 + 8;
 
-        // Summary cards
-        const cardY = 106;
-        const cardW = 56;
-        const gap = 7;
+        // Summary cards (Amount Paid / Total Price / Balance)
+        const cardH = 26;
+        y = ensureSpace(y, cardH);
+        const cardGap = 7;
+        const cardW = (contentWidth - cardGap * 2) / 3;
 
-        // Card 1 - Amount Paid
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(14, cardY, cardW, 24, 3, 3, "F");
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(8);
-        doc.setTextColor(76, 69, 70);
-        doc.text("AMOUNT PAID", 19, cardY + 8);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(12);
-        doc.setTextColor(15, 23, 42);
-        doc.text(formatPrice(amountPaid), 19, cardY + 18);
-        
-        // Card 1b - Crypto amount
-        doc.setFont("helvetica", "normal");
-        doc.setFontSize(7);
-        doc.setTextColor(100, 100, 100);
-        doc.text(`≈ ${formatCryptoAmount(amountPaid, cryptoMethod)}`, 19, cardY + 22);
-
-        // Card 2 - Total Price
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(14 + cardW + gap, cardY, cardW, 24, 3, 3, "F");
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(8);
-        doc.setTextColor(76, 69, 70);
-        doc.text("TOTAL PRICE", 19 + cardW + gap, cardY + 8);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(12);
-        doc.setTextColor(15, 23, 42);
-        doc.text(
-          formatPrice(totalPrice),
-          19 + cardW + gap,
-          cardY + 18,
-        );
-
-        // Card 3 - Balance
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(14 + (cardW + gap) * 2, cardY, cardW, 24, 3, 3, "F");
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(8);
-        doc.setTextColor(76, 69, 70);
-        doc.text("BALANCE", 19 + (cardW + gap) * 2, cardY + 8);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(12);
-        doc.setTextColor(
-          balance <= 0 ? 22 : 194,
-          balance <= 0 ? 101 : 65,
-          balance <= 0 ? 52 : 12,
-        );
-        doc.text(
-          formatPrice(balance),
-          19 + (cardW + gap) * 2,
-          cardY + 18,
-        );
-
-        // Two-column info blocks
-        const leftX = 14;
-        const rightX = 108;
-        const blockY = 140;
-        const blockW = 88;
-        let y1 = blockY + 20;
-        
-        const drawLine = (label, value, x, y) => {
+        function drawSummaryCard(x, label, value, subValue, valueColor) {
+          doc.setFillColor(255, 255, 255);
+          doc.roundedRect(x, y, cardW, cardH, 3, 3, "F");
           doc.setFont("helvetica", "bold");
           doc.setFontSize(8);
           doc.setTextColor(76, 69, 70);
-          doc.text(label.toUpperCase(), x, y);
+          doc.text(label, x + 5, y + 8);
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(12);
+          doc.setTextColor(valueColor[0], valueColor[1], valueColor[2]);
+          doc.text(value, x + 5, y + 18);
+          if (subValue) {
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(7);
+            doc.setTextColor(100, 100, 100);
+            doc.text(subValue, x + 5, y + 23);
+          }
+        }
 
-          doc.setFont("helvetica", "normal");
-          doc.setFontSize(9.5);
+        drawSummaryCard(
+          marginX,
+          "AMOUNT PAID",
+          formatPrice(amountPaid),
+          `≈ ${formatCryptoAmount(amountPaid, cryptoMethod)}`,
+          [15, 23, 42],
+        );
+        drawSummaryCard(
+          marginX + cardW + cardGap,
+          "TOTAL PRICE",
+          formatPrice(totalPrice),
+          null,
+          [15, 23, 42],
+        );
+        const balanceColor =
+          balance <= 0 ? [22, 101, 52] : [194, 65, 12];
+        drawSummaryCard(
+          marginX + (cardW + cardGap) * 2,
+          "BALANCE",
+          formatPrice(balance),
+          null,
+          balanceColor,
+        );
+
+        y += cardH + 12;
+
+        // Customer & Vehicle info (two columns)
+        const colGap = 10;
+        const colW = (contentWidth - colGap) / 2;
+        const infoBoxH = 62;
+        y = ensureSpace(y, infoBoxH);
+
+        function drawInfoBox(x, title, rows) {
+          doc.setFillColor(255, 255, 255);
+          doc.roundedRect(x, y, colW, infoBoxH, 3, 3, "F");
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(11);
           doc.setTextColor(25, 28, 28);
-          const wrapped = doc.splitTextToSize(String(value), 75);
-          doc.text(wrapped, x, y + 5);
-          return y + 5 + wrapped.length * 4 + 3;
-        };
+          doc.text(title, x + 6, y + 10);
 
-        // Left block - Customer
+          let ry = y + 20;
+          rows.forEach(([label, value]) => {
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(8);
+            doc.setTextColor(76, 69, 70);
+            doc.text(label.toUpperCase(), x + 6, ry);
+
+            doc.setFont("helvetica", "normal");
+            doc.setFontSize(9.5);
+            doc.setTextColor(25, 28, 28);
+            const wrapped = doc.splitTextToSize(String(value), colW - 12);
+            doc.text(wrapped, x + 6, ry + 5);
+            ry += 5 + wrapped.length * 4 + 4;
+          });
+        }
+
+        drawInfoBox(marginX, "Customer Information", [
+          ["Name", customerName],
+          ["Email", customerEmail],
+          ["Phone", customerPhone],
+        ]);
+
+        drawInfoBox(marginX + colW + colGap, "Vehicle Information", [
+          ["Vehicle", vehicleName],
+          ["Year", vehicleYear],
+          ["Category", vehicleCategory],
+        ]);
+
+        y += infoBoxH + 10;
+
+        // Payment method block
+        const paymentBoxH = 28;
+        y = ensureSpace(y, paymentBoxH);
         doc.setFillColor(255, 255, 255);
-        doc.roundedRect(leftX, blockY, blockW, 66, 3, 3, "F");
-        doc.setTextColor(25, 28, 28);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(11);
-        doc.text("Customer Information", leftX + 6, blockY + 10);
-
-        y1 = drawLine("Name", customerName, leftX + 6, y1);
-        y1 = drawLine("Email", customerEmail, leftX + 6, y1);
-        y1 = drawLine("Phone", customerPhone, leftX + 6, y1);
-
-        // Right block - Vehicle
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(rightX, blockY, blockW, 66, 3, 3, "F");
-        doc.setTextColor(25, 28, 28);
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(11);
-        doc.text("Vehicle Information", rightX + 6, blockY + 10);
-
-        let y2 = blockY + 20;
-        y2 = drawLine("Vehicle", vehicleName, rightX + 6, y2);
-        y2 = drawLine("Year", vehicleYear, rightX + 6, y2);
-        y2 = drawLine("Category", vehicleCategory, rightX + 6, y2);
-
-        // Add Payment Method block
-        const paymentBlockY = blockY + 72;
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(leftX, paymentBlockY, 182, 28, 3, 3, "F");
-        
+        doc.roundedRect(marginX, y, contentWidth, paymentBoxH, 3, 3, "F");
         doc.setFont("helvetica", "bold");
         doc.setFontSize(8);
         doc.setTextColor(76, 69, 70);
-        doc.text("PAYMENT METHOD", leftX + 6, paymentBlockY + 10);
-        
+        doc.text("PAYMENT METHOD", marginX + 6, y + 10);
         doc.setFont("helvetica", "normal");
         doc.setFontSize(10);
         doc.setTextColor(25, 28, 28);
-        doc.text(`${cryptoMethod} (${cryptoNetwork})`, leftX + 6, paymentBlockY + 20);
+        doc.text(`${cryptoMethod} (${cryptoNetwork})`, marginX + 6, y + 20);
+        y += paymentBoxH + 10;
 
-        // Full width order block
-        const orderBlockY = paymentBlockY + 34;
-        const orderBlockHeight = 60;
-
-        doc.setFillColor(255, 255, 255);
-        doc.roundedRect(14, orderBlockY, 182, orderBlockHeight, 3, 3, "F");
-
-        doc.setFont("helvetica", "bold");
-        doc.setFontSize(11);
-        doc.setTextColor(25, 28, 28);
-        doc.text("Order & Payment Details", 20, orderBlockY + 10);
-
+        // Order & Payment Details block
         const leftMeta = [
           ["Order ID", order._id || order.id || "Not available"],
           ["Order Date", orderDate],
           ["Confirmed Date", confirmedDate],
         ];
-
         const rightMeta = [
           ["Payment Status", paymentStatus],
           ["Receipt Number", receiptNumber],
           ["Transaction ID", order.transactionId || "Not available"],
         ];
 
-        let metaYLeft = orderBlockY + 20;
+        const orderBoxH = 66;
+        y = ensureSpace(y, orderBoxH);
+
+        doc.setFillColor(255, 255, 255);
+        doc.roundedRect(marginX, y, contentWidth, orderBoxH, 3, 3, "F");
+        doc.setFont("helvetica", "bold");
+        doc.setFontSize(11);
+        doc.setTextColor(25, 28, 28);
+        doc.text("Order & Payment Details", marginX + 6, y + 10);
+
+        const metaColW = contentWidth / 2 - 16;
+
+        let metaYLeft = y + 20;
         leftMeta.forEach(([label, value]) => {
           doc.setFont("helvetica", "bold");
           doc.setFontSize(8);
           doc.setTextColor(76, 69, 70);
-          doc.text(label.toUpperCase(), 20, metaYLeft);
+          doc.text(label.toUpperCase(), marginX + 6, metaYLeft);
 
           doc.setFont("helvetica", "normal");
           doc.setFontSize(9);
           doc.setTextColor(25, 28, 28);
-
-          const wrappedValue = doc.splitTextToSize(String(value), 70);
-          doc.text(wrappedValue, 20, metaYLeft + 5);
-
-          metaYLeft += 14;
+          const wrapped = doc.splitTextToSize(String(value), metaColW);
+          doc.text(wrapped, marginX + 6, metaYLeft + 5);
+          metaYLeft += 5 + wrapped.length * 4 + 6;
         });
 
-        let metaYRight = orderBlockY + 20;
+        let metaYRight = y + 20;
         rightMeta.forEach(([label, value]) => {
+          const x = marginX + contentWidth / 2 + 6;
           doc.setFont("helvetica", "bold");
           doc.setFontSize(8);
           doc.setTextColor(76, 69, 70);
-          doc.text(label.toUpperCase(), 110, metaYRight);
+          doc.text(label.toUpperCase(), x, metaYRight);
 
           doc.setFont("helvetica", "normal");
           doc.setFontSize(9);
           doc.setTextColor(25, 28, 28);
-
-          const wrappedValue = doc.splitTextToSize(String(value), 70);
-          doc.text(wrappedValue, 110, metaYRight + 5);
-
-          metaYRight += 14;
+          const wrapped = doc.splitTextToSize(String(value), metaColW);
+          doc.text(wrapped, x, metaYRight + 5);
+          metaYRight += 5 + wrapped.length * 4 + 6;
         });
 
-        // Footer
-        doc.setDrawColor(220, 220, 220);
-        doc.line(14, orderBlockY + orderBlockHeight + 10, 196, orderBlockY + orderBlockHeight + 10);
+        y += orderBoxH + 12;
 
+        // Admin note (only if present) - grows to fit its own text
+        if (order.adminNote) {
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(9);
+          const noteLines = doc.splitTextToSize(
+            String(order.adminNote),
+            contentWidth - 12,
+          );
+          const noteBoxH = 16 + noteLines.length * 4.5;
+          y = ensureSpace(y, noteBoxH);
+
+          doc.setFillColor(255, 255, 255);
+          doc.roundedRect(marginX, y, contentWidth, noteBoxH, 3, 3, "F");
+          doc.setFont("helvetica", "bold");
+          doc.setFontSize(8);
+          doc.setTextColor(76, 69, 70);
+          doc.text("ADMIN NOTE", marginX + 6, y + 9);
+          doc.setFont("helvetica", "normal");
+          doc.setFontSize(9);
+          doc.setTextColor(25, 28, 28);
+          doc.text(noteLines, marginX + 6, y + 16);
+          y += noteBoxH + 12;
+        }
+
+        // Closing note
+        y = ensureSpace(y, 22);
+        doc.setDrawColor(220, 220, 220);
+        doc.line(marginX, y, pageWidth - marginX, y);
+        y += 8;
         doc.setFont("helvetica", "normal");
         doc.setFontSize(9);
         doc.setTextColor(100, 100, 100);
         doc.text(
           "Thank you for choosing Audi. Please keep this receipt for your records.",
-          14,
-          orderBlockY + orderBlockHeight + 18,
+          marginX,
+          y,
         );
-
+        y += 6;
         doc.setFont("helvetica", "italic");
-        doc.text("Generated digitally from your Audi account.", 14, orderBlockY + orderBlockHeight + 24);
+        doc.text("Generated digitally from your Audi account.", marginX, y);
+
+        addPageFooter();
 
         const fileName = `Audi-Receipt-${receiptNumber}.pdf`;
         doc.save(fileName);
